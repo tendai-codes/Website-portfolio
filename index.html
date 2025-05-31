@@ -11,6 +11,85 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+		<style>
+			/* Filter button styles */
+			#project-filters {
+				margin-bottom: 2rem;
+				text-align: center;
+			}
+			
+			.filter-button {
+				background: #333;
+				color: #fff;
+				border: 1px solid #555;
+				padding: 0.5rem 1rem;
+				margin: 0.25rem;
+				cursor: pointer;
+				border-radius: 4px;
+				transition: all 0.3s ease;
+			}
+			
+			.filter-button:hover {
+				background: #555;
+			}
+			
+			.filter-button.active {
+				background: #04a9f5;
+				border-color: #04a9f5;
+			}
+			
+			/* Project items - hidden by default */
+			.project-item {
+				display: none;
+				margin-bottom: 2rem;
+				padding: 1.5rem;
+				border: 1px solid #333;
+				border-radius: 8px;
+			}
+			
+			.project-item.show {
+				display: block;
+			}
+			
+			/* Project content styling */
+			.project-item h3 {
+				margin-bottom: 1rem;
+				color: #04a9f5;
+			}
+			
+			.project-item h4 {
+				margin-top: 1.5rem;
+				margin-bottom: 0.5rem;
+				color: #fff;
+			}
+			
+			.project-item ul {
+				margin-left: 1rem;
+			}
+			
+			.project-item code {
+				background: #222;
+				padding: 0.2rem 0.4rem;
+				border-radius: 3px;
+				color: #04a9f5;
+			}
+			
+			.button.small {
+				display: inline-block;
+				margin-top: 1rem;
+				padding: 0.5rem 1rem;
+				background: #04a9f5;
+				color: #fff;
+				text-decoration: none;
+				border-radius: 4px;
+				transition: background 0.3s ease;
+			}
+			
+			.button.small:hover {
+				background: #0390d4;
+			}
+		</style>	
+	
 	</head>
 	<body class="is-preload">
 
@@ -53,6 +132,19 @@
 						<!-- Projects -->
 							<article id="projects">
 								<h2 class="major">Work</h2>
+								
+								<div id="project-filters">
+									<button data-tag="all" class="filter-button active">All</button>
+									<button data-tag="R" class="filter-button">R</button>
+									<button data-tag="Python" class="filter-button">Python</button>
+									<button data-tag="Data Analysis" class="filter-button">Data Analysis</button>
+									<button data-tag="Machine Learning" class="filter-button">Machine Learning</button>
+									<button data-tag="Deep Learning" class="filter-button">Deep Learning</button>
+                				</div>
+
+								<div id="projects-container">
+
+									
 								<span class="image main"><img src="images/pic02.jpg" alt="" /></span>
 								<p>Adipiscing magna sed dolor elit. Praesent eleifend dignissim arcu, at eleifend sapien imperdiet ac. Aliquam erat volutpat. Praesent urna nisi, fringila lorem et vehicula lacinia quam. Integer sollicitudin mauris nec lorem luctus ultrices.</p>
 								<p>Nullam et orci eu lorem consequat tincidunt vivamus et sagittis libero. Mauris aliquet magna magna sed nunc rhoncus pharetra. Pellentesque condimentum sem. In efficitur ligula tate urna. Maecenas laoreet massa vel lacinia pellentesque lorem ipsum dolor. Nullam et orci eu lorem consequat tincidunt. Vivamus et sagittis libero. Mauris aliquet magna magna sed nunc rhoncus amet feugiat tempus.</p>
@@ -61,485 +153,502 @@
 							<article id="projects">
 								<h2 class="major">Projects</h2>
 
-								<div id="project-filters">
-									<button data-tag="all" class="filter-button">All</button>
-									<button data-tag="R" class="filter-button">R</button>
-									<button data-tag="Python" class="filter-button">Python</button>
-									<button data-tag="Data Analysis" class="filter-button">Data Analysis</button>
-									<button data-tag="Machine Learning" class="filter-button">Machine Learning</button>
-									<button data-tag="Deep Learning" class="filter-button">Deep Learning</button>
-								</div>
 								
-							</article>
+								
+							
 
-								<section class="project-item" data-tags="R Data Analysis">
-									<h3>📽️ <strong>Box Office Data Analysis </strong></h3>
-									<p>
-										This project explored publicly available data on top-grossing US films to identify patterns across genres, studios, and release schedules. I used <strong>R</strong> and <strong>ggplot2</strong> for data exploration and visualisation.
-									</p>
+									<section class="project-item" data-tags="R,Data Analysis">
+										<h3>📽️ <strong>Box Office Data Analysis </strong></h3>
+										<p>
+											This project explored publicly available data on top-grossing US films to identify patterns across genres, studios, and release schedules. I used <strong>R</strong> and <strong>ggplot2</strong> for data exploration and visualisation.
+										</p>
 
-									<h4>💻 <strong>Tech Stack:</strong></h4>
-									<ul>
-										<li><strong>R</strong> for data manipulation and visualisation</li>
-										<li><strong>ggplot2</strong> for creating custom, layered visual insights</li>
-									</ul>
+										<h4>💻 <strong>Tech Stack:</strong></h4>
+										<ul>
+											<li><strong>R</strong> for data manipulation and visualisation</li>
+											<li><strong>ggplot2</strong> for creating custom, layered visual insights</li>
+										</ul>
 
-									<h4>🧪 <strong>Data Pipeline:</strong></h4>
-									<ul>
-										<li><strong>Import & inspect data:</strong> Used <code>read.csv()</code>, <code>summary()</code>, and <code>str()</code></li>
-										<li><strong>Initial exploration:</strong> Identified no Monday releases using a bar plot of <code>Day.of.Week</code></li>
-										<li><strong>Filtering for significance:</strong> Narrowed to key genres and major studios</li>
-										<li><strong>Visualisation:</strong> Created jitter + box plots comparing domestic gross</li>
-										<li><strong>Aesthetics:</strong> Tuned themes for clarity and presentation</li>
-									</ul>
+										<h4>🧪 <strong>Data Pipeline:</strong></h4>
+										<ul>
+											<li><strong>Import & inspect data:</strong> Used <code>read.csv()</code>, <code>summary()</code>, and <code>str()</code></li>
+											<li><strong>Initial exploration:</strong> Identified no Monday releases using a bar plot of <code>Day.of.Week</code></li>
+											<li><strong>Filtering for significance:</strong> Narrowed to key genres and major studios</li>
+											<li><strong>Visualisation:</strong> Created jitter + box plots comparing domestic gross</li>
+											<li><strong>Aesthetics:</strong> Tuned themes for clarity and presentation</li>
+										</ul>
 
-									<h4>🌟 <strong>Key Insight:</strong></h4>
-									<p>
-										Profitable genres are concentrated among a few studios. Monday releases are avoided — possibly a scheduling strategy.
-									</p>
+										<h4>🌟 <strong>Key Insights:</strong></h4>
+										<p>
+											Profitable genres are concentrated among a few studios. Monday releases are avoided — possibly a scheduling strategy.
+										</p>
 
-									<h4>🧗🏾 <strong>Challenge Faced:</strong></h4>
-									<p>
-										Overlapping outliers and jitter points in ggplot2 caused clutter. I resolved this with <code>outlier.colour = NA</code> and <code>alpha</code> blending.
-									</p>
-									<p><a href="https://github.com/tendai-codes/population-data-analysis" class="button small">View on GitHub</a></p>
-								</section>
+										<h4>🧗🏾 <strong>Challenge Faced:</strong></h4>
+										<p>
+											Overlapping outliers and jitter points in ggplot2 caused clutter. I resolved this with <code>outlier.colour = NA</code> and <code>alpha</code> blending.
+										</p>
+										<p><a href="https://github.com/tendai-codes/population-data-analysis" class="button small">View on GitHub</a></p>
+									</section>
 
-								<section class="project-item" data-tags="R Data Analysis">
-									<h3>📽️ <strong>Financial Statement Analysis </strong></h3>
-									<p>
-										This project analysed five years of company financial data (2018–2022), including Balance Sheet, Income Statement, and Cash Flow Statement. I used Python and pandas to calculate key financial ratios, identify operational trends, and visualise multi-year performance.
-									</p>
+									<section class="project-item" data-tags="R,Data Analysis">
+										<h3>📽️ <strong>Financial Statement Analysis </strong></h3>
+										<p>
+											This project analysed five years of company financial data (2018–2022), including Balance Sheet, Income Statement, and Cash Flow Statement. I used Python and pandas to calculate key financial ratios, identify operational trends, and visualise multi-year performance.
+										</p>
 
-									<h4>💻 <strong>Tech Stack:</strong></h4>
-									<ul>
-										<li><strong>R</strong> for data manipulation and analysis</li>
-										<li><strong>Pandas</strong> for computations</li>
-										<li><strong>Matplotlib</strong> for plotting financial visualisations</li>
-									</ul>
+										<h4>💻 <strong>Tech Stack:</strong></h4>
+										<ul>
+											<li><strong>R</strong> for data manipulation and analysis</li>
+											<li><strong>Pandas</strong> for computations</li>
+											<li><strong>Matplotlib</strong> for plotting financial visualisations</li>
+										</ul>
 
-									<h4>🧪 <strong>Data Pipeline:</strong></h4>
-									<ul>
-										<li><strong>Load & inspect data:</strong> Imported multi-statement CSV into pandas. Extracted relevant sections for Balance Sheet, Income Statement, and Cash Flow Statement using <code>loc[]</code>. </li>
-										<li><strong>Trend Analysis:</strong> Transposed time-series data <code>(.T)</code> and plotted major components (e.g. assets, equity) using <code>.plot()</code> to visualise financial stability over time. </li>
-										<li><strong>Ratio Calculations:</strong> Computed solvency and profitability ratios: Return on Equity (ROE), Return on Assets (ROA), Debt-to-Equity. Built <code>DataFrame</code> to summarise and visualise using grouped bar plots.</li>
-										<li><strong>Custom Metrics:</strong> Created Operating Cash Flow to Total Debt ratio from cash flow and balance sheet sections to assess short-term liquidity strength.</li>
+										<h4>🧪 <strong>Data Pipeline:</strong></h4>
+										<ul>
+											<li><strong>Load & inspect data:</strong> Imported multi-statement CSV into pandas. Extracted relevant sections for Balance Sheet, Income Statement, and Cash Flow Statement using <code>loc[]</code>. </li>
+											<li><strong>Trend Analysis:</strong> Transposed time-series data <code>(.T)</code> and plotted major components (e.g. assets, equity) using <code>.plot()</code> to visualise financial stability over time. </li>
+											<li><strong>Ratio Calculations:</strong> Computed solvency and profitability ratios: Return on Equity (ROE), Return on Assets (ROA), Debt-to-Equity. Built <code>DataFrame</code> to summarise and visualise using grouped bar plots.</li>
+											<li><strong>Custom Metrics:</strong> Created Operating Cash Flow to Total Debt ratio from cash flow and balance sheet sections to assess short-term liquidity strength.</li>
+											
+										</ul>
+
+										<h4>🌟 <strong>Key Insights:</strong></h4>
+										<p>
+											The company showed stable asset growth and rising equity, but the Debt-to-Equity ratio increased post-2020, signalling higher leverage risk.
+											Operating cash flow was consistently positive, suggesting sufficient liquidity to meet short-term obligations — a green flag for operational health.
+										</p>
+
+										<h4>🧗🏾 <strong>Challenge Faced:</strong></h4>
+										<p>
+											Initially, aligning the financial statements by year was inconsistent due to mixed string/index formats across categories. I overcame this by explicitly extracting year-based columns and standardising label references. This made ratio computations and cross-statement comparisons reliable and reproducible.
+										</p>
+										<p><a href="https://github.com/tendai-codes/population-data-analysis" class="button small">View on GitHub</a></p>
+									</section>
+
+								<section class="project-item" data-tags="Python,Data Analysis">
+										<h3>📽️ <strong>Global Population Trends Exploration </strong></h3>
+										<p>
+											This project used World Bank development indicators to explore trends in population growth, urbanisation, and fertility rates across continents and income groups. The objective was to uncover insights about global development patterns over time using Python.
+										</p>
+
+										<h4>💻 <strong>Tech Stack:</strong></h4>
+										<ul>
+											<li><strong>Python</strong> for data handling and exploration</li>
+											<li><strong>Pandas</strong> for data manipulation</li>
+											<li><strong>Matplotlib</strong> for visualisations</li>
+										</ul>
+
+										<h4>🧪 <strong>Data Pipeline:</strong></h4>
+										<ul>
+											<li><strong>Load & inspect data:</strong> Loaded the dataset using <code>pd.read_csv()</code> and inspected structure with <code>.info()</code> and <code>.head()</code> to understand column types and missing data. </li>
+											<li><strong>Cleaning:</strong> Renamed columns, removed irrelevant rows, and addressed missing values for smoother analysis. </li>
+											<li><strong>Initial Exploaration:</strong> Examined fertility rates, population growth, and urban population across income levels and continents.</li>
+											<li><strong>Grouping & Summarisation:</strong> Used <code>groupby()</code> and <code>mean()</code> to aggregate indicators by continent and income level.</li>
+											<li><strong>Visualisation:</strong> Created scatter plots, line plots, and box plots to reveal relationships between population metrics and economic status.</li>
+											
+										</ul>
+
+										<h4>🌟 <strong>Key Insight:</strong></h4>
+										<ul>
+											<li>Countries with lower income levels showed higher fertility rates and population growth.</li>
+											<li>Urban population tends to correlate with income level, especially in developed regions.</li>
+											<li>Africa stands out with higher fertility rates and population growth compared to other continents.</li>
 										
-									</ul>
+										</ul>
 
-									<h4>🌟 <strong>Key Insight:</strong></h4>
-									<p>
+										<h4>🧗🏾 <strong>Challenge Faced:</strong></h4>
+										<p>
+											Filtering and reshaping the dataset for multi-variable analysis was complex due to inconsistent column names and missing data. I solved this by methodically renaming columns and using <code>.dropna()</code> to exclude incomplete records while maintaining dataset integrity.
+										</p>
+										<p><a href="https://github.com/tendai-codes/population-data-analysis" class="button small">View on GitHub</a></p>
+									</section>
+
+
+									<section class="project-item" data-tags="Python,Data Analysis">
+										<h3>📽️ <strong> Stock Market Analysis </strong></h3>
+										<p>
+											This project analyzed historical stock price data for major companies and the S&P 500 index to understand price movements, correlations, and daily return patterns. I built an interactive dashboard using Python's data science stack to visualize both raw and normalized stock performance alongside risk metrics.
+										</p>
+
+										<h4>💻 <strong>Tech Stack:</strong></h4>
+										<ul>
+											<li><strong>Python</strong> for data manipulation and analysis</li>
+											<li><strong>Pandas</strong> for computations</li>
+											<li><strong>Matplotlib & Seaborn</strong> for static visualisations</li>
+											<li><strong>Plotly</strong> for interactive charts and dashboards</li>
+											<li><strong>NumPy & SciPy</strong> for statistical computations</li>
+										</ul>
+
+										<h4>🧪 <strong>Data Pipeline:</strong></h4>
+										<ul>
+											<li><strong>Explore data:</strong> Loaded stock price data using <code>pd.read_csv()</code> and explored the dataset structure with <code>.info()</code>, <code>.describe()</code>, and <code>.head()</code> to understand the time series format and identify key stocks. Checked for missing values using <code>.isnull().sum()</code> and calculated basic statistics like mean returns and standard deviation to assess data completeness and variability.</li>
+											<li><strong>Price Normalisation:</strong> Created a custom <code>normalize()</code> function to standardize all stock prices to their starting values, enabling fair comparison of relative performance across different price ranges. </li>
+											<li><strong>Daily Returns Calculations:</strong> Built a <code>daily_return()</code> function using nested loops to compute percentage daily returns: <code>((current_price - previous_price) / previous_price) * 100</code> for each stock.</li>
+											<li><strong>Visualisation:</strong> Developed reusable plotting functions(<code>show_plot()</code> and <code>interactive_plot()</code>) to create both static matplotlib charts and interactive Plotly visualizations for raw prices, normalized prices, and daily returns.</li>
+											<li><strong>Correlation Analysis:</strong> Generated a correlation matrix using <code>.corr()</code> and visualized it with a Seaborn heatmap to identify relationships between stock movements.</li>
+											<li><strong>Distribution Analysis:</strong> Created histograms and compiled distribution plots using Plotly's <code>create_distplot()</code> to analyze the statistical properties of daily returns.</li>
+										</ul>
+
+										<h4>🌟 <strong>Key Insights:</strong></h4>
+										<ul>
+											<li>Amazon (AMZN) showed the highest maximum price during the 2012-2020 period</li>
+											<li>The S&P 500 provided a solid benchmark for market performance comparison</li>
+											<li>Stock correlations revealed clusters of related companies that move together</li>
+											<li>Daily return distributions showed varying levels of volatility across different stocks</li>
+										</ul>
+
+
+										<h4>🧗🏾 <strong>Challenge Faced:</strong></h4>
+										<p>
+											The daily returns calculation initially produced incorrect values for the first row of each stock. After debugging, the issue was that there's no previous day to calculate a return from for the first entry. This was solved by explicitly setting the first day's return to 0 using <code>df_daily_return[i][0] = 0</code> after the loop calculation, ensuring accurate percentage calculations for all subsequent days.
+										</p>
+										<p><a href="https://github.com/tendai-codes/population-data-analysis" class="button small">View on GitHub</a></p>
+									</section>
+
+									<section class="project-item" data-tags="Python,Data Analysis">
+										<h3>📽️ <strong>Portfolio Optimization & Risk Analysis </strong></h3>
+										<p>
+											This project built a comprehensive portfolio management system that simulates random asset allocation across major stocks and calculates key financial metrics including returns, volatility, and risk-adjusted performance. I developed a complete portfolio analytics framework using Python to evaluate investment strategies and portfolio performance over time.
+										</p>
+
+										<h4>💻 <strong>Tech Stack:</strong></h4>
+										<ul>
+											<li><strong>Python</strong> for financial calculations and portfolio modeling</li>
+											<li><strong>Pandas</strong> for time series data manipulation and financial computations</li>
+											<li><strong>NumPy</strong> for random weight generation and mathematical operations</li>
+											<li><strong>Plotly & SciPy</strong> for interactive portfolio performance visualisation, statistical analysis and risk metrics </li>
+										</ul>
+
+										<h4>🧪 <strong>Data Pipeline:</strong></h4>
+										<ul>
+											<li><strong>Data Preparation:</strong> Loaded and sorted stock data chronologically using <code>sort_values()</code> by Date to ensure proper time series analysis for portfolio calculations. </li>
+											<li><strong>Random Portfolio Generation:</strong> Used <code>np.random.seed()</code> and <code>np.random.seed(9)</code> to create randomized asset allocation weights, then normalized them using <code>weights / np.sum(weights)</code> to ensure they sum to 100%. </li>
+											<li><strong>Portfolio Normalisation:</strong> Applied a custom normalize() function to standardize all stock prices to their initial values, creating a baseline for relative performance comparison across different price ranges.</li>
+											<li><strong>Portfolio function development:</strong> Built a reusable <code>portfolio_allocation()</code> function that encapsulates the entire workflow for testing different weight combinations and portfolio strategies.</li>
+											<li><strong>Risk metrics calculation:</strong> Computed cumulative return, standard deviation (volatility), average daily return, and Sharpe ratio using <code>np.sqrt(252)</code> for annualization.</li>
+										
+										</ul>
+
+										<h4>🌟 <strong>Key Insights:</strong></h4>
+										<ul>
+											<li>The random portfolio allocation provided a baseline for comparing systematic investment strategies</li>
+											<li>Sharpe ratio calculation revealed the risk-adjusted return efficiency of the portfolio</li>
+											<li>Daily return volatility patterns showed the importance of diversification across different stocks</li>
+											<li>Cumulative returns demonstrated the compound effect of daily performance over the investment period</li>
+										</ul>
+
+										<h4>🧗🏾 <strong>Challenge Faced:</strong></h4>
+										<p>
+											I initially encountered an indexing error when calculating portfolio daily returns because I was trying to access the previous day's value for the first row, which doesn't exist. The calculation <code>df_portfolio['portfolio daily % return'][i-1]</code> failed on the first iteration. I solved this by explicitly setting the first day's return to 0 using <code>df_portfolio['portfolio daily % return'][0] = 0</code> after the loop, and ensuring the loop started from index 1 rather than 0. This approach properly handled the edge case while maintaining accurate percentage calculations for all subsequent trading days.
+										</p>
+										<p><a href="https://github.com/tendai-codes/population-data-analysis" class="button small">View on GitHub</a></p>
+									</section>
+
+
+									<section class="project-item" data-tags="Python,Data Analysis">
+										<h3>📽️ <strong>Stock Beta & Alpha Analysis (CAPM Model) </strong></h3>
+										<p>
+											This project implemented the Capital Asset Pricing Model (CAPM) to analyze individual stock performance relative to the S&P 500 market benchmark. I calculated beta (market sensitivity) and alpha (excess returns) for each stock using linear regression, creating comprehensive risk-return profiles for portfolio decision-making.
+										</p>
+
+										<h4>💻 <strong>Tech Stack:</strong></h4>
+										<ul>
+											<li><strong>Python</strong> for financial calculations and statistical analysis</li>
+											<li><strong>Pandas</strong> for time series data manipulation and daily returns calculations </li>
+											<li><strong>NumPy</strong> for linear regression and polynomial fitting</li>
+											<li><strong>Seaborn</strong> for enhanced statistical plotting capabilities</li>
+											<li><strong>Plotly Express</strong> for interactive CAPM analysis charts</li>
+											<li><strong>Matplotlib</strong> for static scatter plots and regression line visualisation</li>
+										</ul>
+
+										<h4>🧪 <strong>Data Pipeline:</strong></h4>
+										<ul>
+											<li><strong>Market benchmark analysis:</strong> Used S&P 500 as the market proxy and calculated average daily returns using <code>.drop('Date', axis=1).mean()</code> to establish baseline market performance. </li>
+											<li><strong>Beta & Alpha computation:</strong> Applied np.polyfit() with order=1 to perform linear regression between individual stock returns and S&P 500 returns, extracting beta (slope) and alpha (intercept) coefficients. </li>
+											<li><strong>Batch analysis automation:</strong> Developed loops to iterate through all stocks (excluding S&P 500 and Date columns) using conditional statements <code>if i != 'sp500'</code> and <code>i != 'Date'</code> to calculate beta and alpha for each stock systematically.</li>
+											<li><strong>Interactive dashboard creation:</strong> Built Plotly Express scatter plots with <code>px.scatter()</code> and added regression lines using <code>fig.add_scatter()</code> to create interactive CAPM analysis charts for each stock.</li>
+											<li><strong>Risk metrics storage:</strong> Used Python dictionaries <code>beta = {}</code> and <code>alpha = {}</code> to store calculated coefficients for each stock, enabling easy comparison and further analysis. </li>
+										</ul>
+
+										<h4>🌟 <strong>Key Insights:</strong></h4>
+										<ul>
+											<li>Beta values revealed which stocks were more volatile than the market (beta > 1) versus defensive stocks (beta < 1)</li>
+											<li>Alpha coefficients identified stocks generating excess returns above what CAPM predicted</li>
+											<li>The regression analysis showed how closely each stock's movements correlated with overall market trends</li>
+											<li>Visual scatter plots revealed the strength of linear relationships between individual stocks and market performance</li>
+										</ul>
+
+										<h4>🧗🏾 <strong>Challenge Faced:</strong></h4>
+										<p>
+											I initially struggled with the loop logic for batch processing all stocks because I was accidentally including the S&P 500 index in the analysis against itself, which created perfect correlation (beta = 1, alpha = 0) and distorted my results. After debugging, I realized I needed to exclude both 'sp500' and 'Date' columns using compound conditional statements <code>if i != 'sp500'</code> and <code>i != 'Date'</code>. This solution ensured I only analyzed actual stocks against the market benchmark, providing meaningful beta and alpha calculations for investment decision-making.
+										</p>
+										<p><a href="https://github.com/tendai-codes/population-data-analysis" class="button small">View on GitHub</a></p>
+									</section>
+
+									<section class="project-item" data-tags="Python,Machine Learning">
+										<h3>📽️ <strong>Startup Revenue Prediction Model  </strong></h3>
+										<p>
+											This project built a multiple linear regression model to predict startup profitability based on their R&D spending, administration costs, marketing expenditure, and location. I implemented a complete machine learning pipeline using scikit-learn to analyze which factors most strongly influence startup success and revenue generation.
+
+										</p>
+
+										<h4>💻 <strong>Tech Stack:</strong></h4>
+										<ul>
+											<li><strong>Python</strong> for machine learning model development</li>
+											<li><strong>Scikit-learn</strong> for preprocessing, model training, and evaluation</li>
+											<li><strong>Pandas</strong> for dataset loading and initial data exploration</li>
+											<li><strong>Matplotlib</strong> for data visualisations</li>
+											<li><strong>NumPy</strong> for numerical array operations and precision control</li>
+											
+										</ul>
+
+										<h4>🧪 <strong>Data Pipeline:</strong></h4>
+										<ul>
+											<li><strong>Data import & separation:</strong> Loaded the 50 Startups dataset using <code>pd.read_csv()</code> and strategically separated features (X) from the target variable (y) using <code>.iloc[:, -1]</code> for all columns except the last, and <code>.iloc[:, -1]</code> for the dependent variable (profit). </li>
+											<li><strong>Categorical Encoding:</strong> Applied One-Hot Encoding using <code>ColumnTransformer</code> and <code>OneHotEncoder()</code> to convert the categorical 'State' variable (column index [3]) into numerical dummy variables, while keeping other numerical features intact using <code>remainder='passthrough'</code>. </li>
+											<li><strong>Data transformation, model training & prediction:</strong> Used <code>np.array(ct.fit_transform(X))</code> to convert the transformed data back into a NumPy array format suitable for machine learning algorithms. Implemented <code>train_test_split()</code> with an 80-20 split <code>(test_size=0.2)</code> and fixed random state <code>(random_state=0)</code> to ensure reproducible results and proper model validation. Instantiated and trained a <code>LinearRegression()</code> model using <code>.fit(X_train, y_train)</code> to learn the relationships between startup characteristics and profitability. Generated predictions on the test set using <code>regressor.predict(X_test)</code> to evaluate model performance on unseen data.</li>
+											<li><strong>Results Visualisation:</strong> Used <code>np.set_printoptions(precision=2)</code> for clean output formatting and <code>np.concatenate()</code> with <code>reshape()</code> to create side-by-side comparison of predicted vs. actual values for easy performance assessment.</li>
+											
+										</ul>
+
+										<h4>🌟 <strong>Key Insights:</strong></h4>
+										<ul>
+											<li>The model successfully learned to predict startup profitability based on spending patterns across R&D, administration, and marketing</li>
+											<li>One-hot encoding effectively handled the categorical state variable, allowing the model to capture location-based effects on startup success</li>
+											<li>The side-by-side prediction comparison revealed the model's accuracy in forecasting startup revenue</li>
+											<li>Multiple linear regression proved effective for understanding the linear relationships between various business expenditures and profitability</li>
+										</ul>
+
+										<h4>🧗🏾 <strong>Challenge Faced:</strong></h4>
+										<p>
+											The array reshaping and concatenation for results display presented a significant hurdle because the predicted and actual values were 1D arrays that couldn't be directly concatenated horizontally. The error occurred when trying to use <code>np.concatenate()</code> without proper dimensionality. This was solved by using <code>reshape(len(y_pred),1)</code> to convert both arrays into column vectors (2D arrays with one column), then applying horizontal concatenation with the parameter 1 to stack them side-by-side. This approach created a clean comparison matrix showing predicted values next to actual values, making model performance evaluation much more intuitive.
+										</p>
+										<p><a href="https://github.com/tendai-codes/population-data-analysis" class="button small">View on GitHub</a></p>
+									</section>
+
+									<section class="project-item" data-tags="Python,Machine Learning">
+										<h3>📽️ <strong>HR Salary Prediction: Model Comparison </strong></h3>
+										<p>
+											This project implemented and compared five different regression algorithms to predict employee salaries based on position levels within an organization. I built a comprehensive machine learning pipeline comparing linear regression, polynomial regression, support vector regression (SVR), decision tree regression, and random forest regression to identify the optimal model for HR compensation analysis.
+										</p>
+
+										<h4>💻 <strong>Tech Stack:</strong></h4>
+										<ul>
+											<li><strong>Python</strong> for machine learning model development and comparison</li>
+											<li><strong>Scikit-learn</strong> for multiple regression algorithms, feature scaling, and model training</li>
+											<li><strong>Pandas</strong> for dataset loading and initial data exploration</li>
+											<li><strong>Matplotlib</strong> for data visualisations</li>
+											<li><strong>NumPy</strong> for numerical operations and grid generation</li>
+										</ul>
+
+										<h4>🧪 <strong>Data Pipeline:</strong></h4>
+										<ul>
+											<li><strong>Data Preparation:</strong> Loaded position-salary dataset using <code>pd.read_csv()</code> and extracted features using <code>iloc[:, 1:-1]</code> (position levels) and target variable using <code>iloc[:, -1]</code>  (salaries), strategically excluding the first column containing position titles. </li>
+											<li><strong>Linear regresion baseline:</strong> Implemented a standard<code>LinearRegression()</code>  model using <code>.fit(X, y)</code> to establish a baseline for salary prediction based on position level with a straight-line relationship. </li>
+											<li><strong>Polynomial feature engineering: </strong> Applied <code>PolynomialFeatures(degree=4)</code>  to transform the single position level feature into polynomial terms (x, x², x³, x⁴), creating a richer feature space to capture non-linear salary progression patterns.</li>
+											<li><strong>Support Vector Regression: </strong> Implemented feature scaling using <code>StandardScaler()</code>for both X and y variables, then trained an SVR model with <code>RBF kernel</code> to handle non-linear relationships while managing the different scales between position levels and salary amounts.</li>
+											<li><strong>Decision Tree : </strong> Built a <code>DecisionTreeRegressor()</code> model that creates hierarchical decision rules to predict salaries, capturing complex non-linear patterns without requiring feature scaling.</li>
+											<li><strong>Random Forest Regression: </strong> Implemented <code>RandomForestRegressor()</code> with multiple decision trees to reduce overfitting and improve prediction stability through ensemble learning.</li>
+											<li><strong>Polynomial feature engineering: </strong> Applied <code>PolynomialFeatures(degree=4)</code>  to transform the single position level feature into polynomial terms (x, x², x³, x⁴), creating a richer feature space to capture non-linear salary progression patterns.</li>
+											<li><strong>Random Forest Regression: </strong> Implemented <code>RandomForestRegressor()</code> with multiple decision trees to reduce overfitting and improve prediction stability through ensemble learning.</li>
+											<li><strong>SVR Inverse scaling: </strong> Applied <code>sc_X.inverse_transform()</code> and <code>sc_y.inverse_transform()</code> to convert scaled predictions back to original salary units, with proper reshaping using <code>.reshape(-1, 1)</code> for visualization.</li>
+										
+											<li><strong>Model Visualisations:</strong> Created scatter plots with <code>plt.scatter()</code> for actual data points and <code>plt.plot()</code> for the linear regression line, showing the limitation of straight-line salary prediction. Generated similar visualizations for the polynomial model using <code>lin_reg_2.predict(poly_reg.fit_transform(X))</code> to display the curved relationship between position levels and salaries.</li>
+											<li><strong>Model comparison:</strong> Made direct salary predictions for position level 6.5 using both <code>lin_reg.predict([[6.5]])</code> and <code>lin_reg_2.predict(poly_reg.fit_transform([[6.5]]))</code> to compare model outputs for intermediate position levels.</li>
+										</ul>
+
+										<h4>🌟 <strong>Key Insights:</strong></h4>
+										<ul>
+											<li>Linear regression showed limitations in capturing the exponential nature of executive compensation at higher position levels</li>
+											<li>Polynomial regression successfully modeled smooth non-linear salary curves typical in corporate hierarchies</li>
+											<li>SVR with proper scaling handled the high salary variance effectively while maintaining smooth predictions</li>
+											<li>Decision tree regression captured salary jumps at specific position levels but risked overfitting</li>
+											<li>Random forest regression provided stable predictions by averaging multiple decision trees, reducing variance</li>
+										</ul>
+
+										<h4>🧗🏾 <strong>Challenge Faced:</strong></h4>
+										<p>
+											
+	The SVR model visualization presented scaling complications because support vector regression requires feature scaling for optimal performance, but the visualization needed to display results in original salary units. The challenge was handling the forward and inverse transformations correctly. This was resolved by implementing a multi-step process: using  <code>sc_X.transform(X_grid)</code> to scale the grid for SVR prediction, then applying <code>sc_y.inverse_transform()</code>  to convert predictions back to actual salary values, with careful attention to array reshaping using <code>.reshape(-1, 1)</code> to maintain proper dimensionality throughout the scaling pipeline. This approach ensured accurate model performance while maintaining interpretable visualizations in original salary units.
+										</p>
+										<p><a href="https://github.com/tendai-codes/population-data-analysis" class="button small">View on GitHub</a></p>
+									</section>
+
+									<section class="project-item" data-tags="Python,Machine Learning">
+										<h3>📽️ <strong>Breast Cancer Prognosis Model </strong></h3>
+										<p>
+											This project explored publicly available data on top-grossing US films to identify patterns across genres, studios, and release schedules. I used <strong>R</strong> and <strong>ggplot2</strong> for data exploration and visualisation.
+										</p>
+
+										<h4>💻 <strong>Tech Stack:</strong></h4>
+										<ul>
+											<li><strong>Python</strong> for machine learning model development and comparison</li>
+											<li><strong>Scikit-learn</strong> for multiple classification algorithms, preprocessing, and evaluation metrics</li>
+											<li><strong>Pandas</strong> for dataset loading and initial data exploration</li>
+											<li><strong>Matplotlib</strong> for data visualisationsand model performance analysis</li>
+											<li><strong>NumPy</strong> for numerical operations and grid generation</li>
+										</ul>
+
+										<h4>🧪 <strong>Data Pipeline:</strong></h4>
+										<ul>
+											<li><strong>Load & inspect data:</strong> Loaded breast cancer dataset using <code>pd.read_csv()</code> and separated cellular features (X) from diagnosis labels (y) using <code>iloc[:, :-1]</code> and <code>iloc[:, -1]</code> respectively, ensuring proper handling of medical diagnostic data. </li>
+											<li><strong>Train-test stratification:</strong> Applied <code>train_test_split()</code> with 75-25 split (<code>test_size=0.25</code>) and fixed random state for reproducible medical model evaluation, crucial for healthcare applications. </li>
+											<li><strong>Feature standardization:</strong> Implemented <code>StandardScaler()</code> using <code>fit_transform()</code> on training data and <code>transform()</code> on test data to normalize cellular measurements across different scales without data leakage.</li>
+											<li><strong>Logistic Regression: </strong> Built a <code>LogisticRegression(random_state=0)</code> model as the statistical baseline for binary medical classification, providing interpretable probability outputs for clinical decision-making.</li>
+											<li><strong>Support Vector Machine (Linear):</strong> Implemented <code>SVC(kernel='linear')</code> to find optimal linear decision boundaries for separating malignant from benign cases using maximum margin principles.</li>
+											<li><strong>Decision Tree Classification: </strong> Applied <code>DecisionTreeClassifier(criterion='entropy')</code> to create interpretable rule-based diagnostic pathways that clinicians can follow and understand.</li>
+											<li><strong>K-Nearest Neighbors:</strong> Used <code>KNeighborsClassifier(n_neighbors=5, metric='minkowski', p=2)</code> to classify cases based on similarity to neighboring data points, leveraging local patterns in cellular characteristics.</li>
+											<li><strong>Support Vector Machine (RBF):</strong> Implemented <code>SVC(kernel='rbf')</code> with radial basis function kernel to capture complex non-linear relationships in cellular feature space.</li>
+											<li><strong>Naive Bayes: </strong> Applied <code>GaussianNB()</code> assuming feature independence to provide probabilistic classification based on Bayesian statistics, suitable for medical diagnostic scenarios.</li>
+											<li><strong>Performance evaluation: </strong> Generated predictions using <code>classifier.predict(X_test)</code> and evaluated each model using <code>confusion_matrix()</code> and <code>accuracy_score()</code> to assess diagnostic accuracy and error patterns.</li>
+											<li><strong>Medical model validation: </strong> Created confusion matrices to analyze true positives, false positives, true negatives, and false negatives - critical metrics for medical diagnostic applications where false negatives (missed cancers) are particularly concerning..</li>
+
+										</ul>
+
+										<h4>🌟 <strong>Key Insights:</strong></h4>
+										<ul>
+											<li>Multiple algorithms provided different approaches to cancer classification, each with unique strengths for medical diagnosis</li>
+											<li>Feature standardization proved crucial for distance-based algorithms (SVM, KNN) due to varying scales of cellular measurements</li>
+											<li>Confusion matrix analysis revealed the trade-offs between sensitivity (detecting cancer) and specificity (avoiding false alarms)</li>
+											<li>Model comparison enabled selection of the most reliable algorithm for medical diagnostic support</li>
+										</ul>
+
+										<h4>🧗🏾 <strong>Challenge Faced:</strong></h4>
+										<p>
+											Working with medical diagnostic data presented a critical class imbalance consideration that required careful attention to evaluation metrics beyond simple accuracy. While accuracy score provides an overall performance measure, it can be misleading in medical contexts where false negatives (missing actual cancer cases) have far more severe consequences than false positives (flagging benign cases as suspicious). The challenge was ensuring that model evaluation properly weighted the clinical importance of sensitivity (recall) versus specificity, as a model with 95% accuracy might still miss 20% of actual cancer cases if the dataset is imbalanced. This was addressed by implementing confusion matrix analysis to examine true positives, false positives, true negatives, and false negatives separately, enabling assessment of each model's ability to minimize the most clinically dangerous errors while maintaining overall diagnostic reliability.
+										</p>
+										<p><a href="https://github.com/tendai-codes/population-data-analysis" class="button small">View on GitHub</a></p>
+									</section>
+
+									<section class="project-item" data-tags="Python,Machine Learning">
+										<h3>📽️ <strong>Breast Cancer Classification: Multi-Algorithm Comparison </strong></h3>
+										<p>
+											This project implemented and compared six different machine learning classification algorithms to predict breast cancer diagnosis (malignant vs benign) based on cellular characteristics. I built a comprehensive medical classification pipeline using multiple algorithms to identify the most effective approach for cancer detection and diagnosis support.
+										</p>
+
+										<h4>💻 <strong>Tech Stack:</strong></h4>
+										<ul>
+											<li><strong>Python</strong> for data manipulation and analysis</li>
+											<li><strong>Pandas</strong> for computations</li>
+											<li><strong>Matplotlib</strong> for plotting financial visualisations</li>
+										</ul>
+
+										<h4>🧪 <strong>Data Pipeline:</strong></h4>
+										<ul>
+											<li><strong>Load & inspect data:</strong> Imported multi-statement CSV into pandas. Extracted relevant sections for Balance Sheet, Income Statement, and Cash Flow Statement using <code>loc[]</code>. </li>
+											<li><strong>Trend Analysis:</strong> Transposed time-series data <code>(.T)</code> and plotted major components (e.g. assets, equity) using <code>.plot()</code> to visualise financial stability over time. </li>
+											<li><strong>Ratio Calculations:</strong> Computed solvency and profitability ratios: Return on Equity (ROE), Return on Assets (ROA), Debt-to-Equity. Built <code>DataFrame</code> to summarise and visualise using grouped bar plots.</li>
+											<li><strong>Custom Metrics:</strong> Created Operating Cash Flow to Total Debt ratio from cash flow and balance sheet sections to assess short-term liquidity strength.</li>
+											
+										</ul>
+
+										<h4>🌟 <strong>Key Insights:</strong></h4>
+										<p>
+											The company showed stable asset growth and rising equity, but the Debt-to-Equity ratio increased post-2020, signalling higher leverage risk.
+											Operating cash flow was consistently positive, suggesting sufficient liquidity to meet short-term obligations — a green flag for operational health.
+										</p>
+
+										<h4>🧗🏾 <strong>Challenge Faced:</strong></h4>
+										<p>
+											Initially, aligning the financial statements by year was inconsistent due to mixed string/index formats across categories. I overcame this by explicitly extracting year-based columns and standardising label references. This made ratio computations and cross-statement comparisons reliable and reproducible.
+										</p>
+										<p><a href="https://github.com/tendai-codes/population-data-analysis" class="button small">View on GitHub</a></p>
+									</section>
+
+									<section class="project-item" data-tags="Python,Machine Learning">
+										<h3>📽️ <strong>Financial Statement Analysis </strong></h3>
+										<p>
+											This project explored publicly available data on top-grossing US films to identify patterns across genres, studios, and release schedules. I used <strong>R</strong> and <strong>ggplot2</strong> for data exploration and visualisation.
+										</p>
+
+										<h4>💻 <strong>Tech Stack:</strong></h4>
+										<ul>
+											<li><strong>Python</strong> for data manipulation and analysis</li>
+											<li><strong>Pandas</strong> for computations</li>
+											<li><strong>Matplotlib</strong> for plotting financial visualisations</li>
+										</ul>
+
+										<h4>🧪 <strong>Data Pipeline:</strong></h4>
+										<ul>
+											<li><strong>Load & inspect data:</strong> Imported multi-statement CSV into pandas. Extracted relevant sections for Balance Sheet, Income Statement, and Cash Flow Statement using <code>loc[]</code>. </li>
+											<li><strong>Trend Analysis:</strong> Transposed time-series data <code>(.T)</code> and plotted major components (e.g. assets, equity) using <code>.plot()</code> to visualise financial stability over time. </li>
+											<li><strong>Ratio Calculations:</strong> Computed solvency and profitability ratios: Return on Equity (ROE), Return on Assets (ROA), Debt-to-Equity. Built <code>DataFrame</code> to summarise and visualise using grouped bar plots.</li>
+											<li><strong>Custom Metrics:</strong> Created Operating Cash Flow to Total Debt ratio from cash flow and balance sheet sections to assess short-term liquidity strength.</li>
+											
+										</ul>
+
+										<h4>🌟 <strong>Key Insights:</strong></h4>
+										<p>
 										The company showed stable asset growth and rising equity, but the Debt-to-Equity ratio increased post-2020, signalling higher leverage risk.
 										Operating cash flow was consistently positive, suggesting sufficient liquidity to meet short-term obligations — a green flag for operational health.
-									</p>
+										</p>
 
-									<h4>🧗🏾 <strong>Challenge Faced:</strong></h4>
-									<p>
-										Initially, aligning the financial statements by year was inconsistent due to mixed string/index formats across categories. I overcame this by explicitly extracting year-based columns and standardising label references. This made ratio computations and cross-statement comparisons reliable and reproducible.
-									</p>
-									<p><a href="https://github.com/tendai-codes/population-data-analysis" class="button small">View on GitHub</a></p>
-								</section>
+										<h4>🧗🏾 <strong>Challenge Faced:</strong></h4>
+										<p>
+											Initially, aligning the financial statements by year was inconsistent due to mixed string/index formats across categories. I overcame this by explicitly extracting year-based columns and standardising label references. This made ratio computations and cross-statement comparisons reliable and reproducible.
+										</p>
+										<p><a href="https://github.com/tendai-codes/population-data-analysis" class="button small">View on GitHub</a></p>
+									</section>
 
-								<section class="project-item" data-tags="Python Data Analysis">
-									<h3>📽️ <strong>Global Population Trends Exploration </strong></h3>
-									<p>
-										This project used World Bank development indicators to explore trends in population growth, urbanisation, and fertility rates across continents and income groups. The objective was to uncover insights about global development patterns over time using Python.
-									</p>
+									<section class="project-item" data-tags="Python Machine Learning">
+										<h3>📽️ <strong>Financial Statement Analysis </strong></h3>
+										<p>
+											This project explored publicly available data on top-grossing US films to identify patterns across genres, studios, and release schedules. I used <strong>R</strong> and <strong>ggplot2</strong> for data exploration and visualisation.
+										</p>
 
-									<h4>💻 <strong>Tech Stack:</strong></h4>
-									<ul>
-										<li><strong>Python</strong> for data handling and exploration</li>
-										<li><strong>Pandas</strong> for data manipulation</li>
-										<li><strong>Matplotlib</strong> for visualisations</li>
-									</ul>
+										<h4>💻 <strong>Tech Stack:</strong></h4>
+										<ul>
+											<li><strong>Python</strong> for data manipulation and analysis</li>
+											<li><strong>Pandas</strong> for computations</li>
+											<li><strong>Matplotlib</strong> for plotting financial visualisations</li>
+										</ul>
 
-									<h4>🧪 <strong>Data Pipeline:</strong></h4>
-									<ul>
-										<li><strong>Load & inspect data:</strong> Loaded the dataset using <code>pd.read_csv()</code> and inspected structure with <code>.info()</code> and <code>.head()</code> to understand column types and missing data. </li>
-										<li><strong>Cleaning:</strong> Renamed columns, removed irrelevant rows, and addressed missing values for smoother analysis. </li>
-										<li><strong>Initial Exploaration:</strong> Examined fertility rates, population growth, and urban population across income levels and continents.</li>
-										<li><strong>Grouping & Summarisation:</strong> Used <code>groupby()</code> and <code>mean()</code> to aggregate indicators by continent and income level.</li>
-										<li><strong>Visualisation:</strong> Created scatter plots, line plots, and box plots to reveal relationships between population metrics and economic status.</li>
-										
-									</ul>
+										<h4>🧪 <strong>Data Pipeline:</strong></h4>
+										<ul>
+											<li><strong>Load & inspect data:</strong> Imported multi-statement CSV into pandas. Extracted relevant sections for Balance Sheet, Income Statement, and Cash Flow Statement using <code>loc[]</code>. </li>
+											<li><strong>Trend Analysis:</strong> Transposed time-series data <code>(.T)</code> and plotted major components (e.g. assets, equity) using <code>.plot()</code> to visualise financial stability over time. </li>
+											<li><strong>Ratio Calculations:</strong> Computed solvency and profitability ratios: Return on Equity (ROE), Return on Assets (ROA), Debt-to-Equity. Built <code>DataFrame</code> to summarise and visualise using grouped bar plots.</li>
+											<li><strong>Custom Metrics:</strong> Created Operating Cash Flow to Total Debt ratio from cash flow and balance sheet sections to assess short-term liquidity strength.</li>
+											
+										</ul>
 
-									<h4>🌟 <strong>Key Insight:</strong></h4>
-									<ul>
-										<li>Countries with lower income levels showed higher fertility rates and population growth.</li>
-										<li>Urban population tends to correlate with income level, especially in developed regions.</li>
-										<li>Africa stands out with higher fertility rates and population growth compared to other continents.</li>
-									
-									</ul>
+										<h4>🌟 <strong>Key Insights:</strong></h4>
+										<p>
+											The company showed stable asset growth and rising equity, but the Debt-to-Equity ratio increased post-2020, signalling higher leverage risk.
+											Operating cash flow was consistently positive, suggesting sufficient liquidity to meet short-term obligations — a green flag for operational health.
+										</p>
 
-									<h4>🧗🏾 <strong>Challenge Faced:</strong></h4>
-									<p>
-										Filtering and reshaping the dataset for multi-variable analysis was complex due to inconsistent column names and missing data. I solved this by methodically renaming columns and using <code>.dropna()</code> to exclude incomplete records while maintaining dataset integrity.
-									</p>
-									<p><a href="https://github.com/tendai-codes/population-data-analysis" class="button small">View on GitHub</a></p>
-								</section>
+										<h4>🧗🏾 <strong>Challenge Faced:</strong></h4>
+										<p>
+											Initially, aligning the financial statements by year was inconsistent due to mixed string/index formats across categories. I overcame this by explicitly extracting year-based columns and standardising label references. This made ratio computations and cross-statement comparisons reliable and reproducible.
+										</p>
+										<p><a href="https://github.com/tendai-codes/population-data-analysis" class="button small">View on GitHub</a></p>
+									</section>
 
+									<section class="project-item" data-tags="R Data Analysis">
+										<h3>📽️ <strong>Financial Statement Analysis </strong></h3>
+										<p>
+											This project explored publicly available data on top-grossing US films to identify patterns across genres, studios, and release schedules. I used <strong>R</strong> and <strong>ggplot2</strong> for data exploration and visualisation.
+										</p>
 
-								<section class="project-item" data-tags="Python Data Analysis">
-									<h3>📽️ <strong> Stock Market Analysis </strong></h3>
-									<p>
-										This project analyzed historical stock price data for major companies and the S&P 500 index to understand price movements, correlations, and daily return patterns. I built an interactive dashboard using Python's data science stack to visualize both raw and normalized stock performance alongside risk metrics.
-									</p>
+										<h4>💻 <strong>Tech Stack:</strong></h4>
+										<ul>
+											<li><strong>Python</strong> for data manipulation and analysis</li>
+											<li><strong>Pandas</strong> for computations</li>
+											<li><strong>Matplotlib</strong> for plotting financial visualisations</li>
+										</ul>
 
-									<h4>💻 <strong>Tech Stack:</strong></h4>
-									<ul>
-										<li><strong>Python</strong> for data manipulation and analysis</li>
-										<li><strong>Pandas</strong> for computations</li>
-										<li><strong>Matplotlib & Seaborn</strong> for static visualisations</li>
-										<li><strong>Plotly</strong> for interactive charts and dashboards</li>
-										<li><strong>NumPy & SciPy</strong> for statistical computations</li>
-									</ul>
+										<h4>🧪 <strong>Data Pipeline:</strong></h4>
+										<ul>
+											<li><strong>Load & inspect data:</strong> Imported multi-statement CSV into pandas. Extracted relevant sections for Balance Sheet, Income Statement, and Cash Flow Statement using <code>loc[]</code>. </li>
+											<li><strong>Trend Analysis:</strong> Transposed time-series data <code>(.T)</code> and plotted major components (e.g. assets, equity) using <code>.plot()</code> to visualise financial stability over time. </li>
+											<li><strong>Ratio Calculations:</strong> Computed solvency and profitability ratios: Return on Equity (ROE), Return on Assets (ROA), Debt-to-Equity. Built <code>DataFrame</code> to summarise and visualise using grouped bar plots.</li>
+											<li><strong>Custom Metrics:</strong> Created Operating Cash Flow to Total Debt ratio from cash flow and balance sheet sections to assess short-term liquidity strength.</li>
+											
+										</ul>
 
-									<h4>🧪 <strong>Data Pipeline:</strong></h4>
-									<ul>
-										<li><strong>Explore data:</strong> Loaded stock price data using <code>pd.read_csv()</code> and explored the dataset structure with <code>.info()</code>, <code>.describe()</code>, and <code>.head()</code> to understand the time series format and identify key stocks. Checked for missing values using <code>.isnull().sum()</code> and calculated basic statistics like mean returns and standard deviation to assess data completeness and variability.</li>
-										<li><strong>Price Normalisation:</strong> Created a custom <code>normalize()</code> function to standardize all stock prices to their starting values, enabling fair comparison of relative performance across different price ranges. </li>
-										<li><strong>Daily Returns Calculations:</strong> Built a <code>daily_return()</code> function using nested loops to compute percentage daily returns: <code>((current_price - previous_price) / previous_price) * 100</code> for each stock.</li>
-										<li><strong>Visualisation:</strong> Developed reusable plotting functions(<code>show_plot()</code> and <code>interactive_plot()</code>) to create both static matplotlib charts and interactive Plotly visualizations for raw prices, normalized prices, and daily returns.</li>
-										<li><strong>Correlation Analysis:</strong> Generated a correlation matrix using <code>.corr()</code> and visualized it with a Seaborn heatmap to identify relationships between stock movements.</li>
-										<li><strong>Distribution Analysis:</strong> Created histograms and compiled distribution plots using Plotly's <code>create_distplot()</code> to analyze the statistical properties of daily returns.</li>
-									</ul>
-
-									<h4>🌟 <strong>Key Insight:</strong></h4>
-									<ul>
-										<li>Amazon (AMZN) showed the highest maximum price during the 2012-2020 period</li>
-										<li>The S&P 500 provided a solid benchmark for market performance comparison</li>
-										<li>Stock correlations revealed clusters of related companies that move together</li>
-										<li>Daily return distributions showed varying levels of volatility across different stocks</li>
-									</ul>
-
-
-									<h4>🧗🏾 <strong>Challenge Faced:</strong></h4>
-									<p>
-										I initially struggled with the daily returns calculation because I was getting incorrect values for the first row of each stock. After debugging, I realized I needed to handle the initial value separately since there's no previous day to calculate a return from. I solved this by explicitly setting the first day's return to 0 using <code>df_daily_return[i][0] = 0</code> after the loop calculation, ensuring accurate percentage calculations for all subsequent days.
-									</p>
-									<p><a href="https://github.com/tendai-codes/population-data-analysis" class="button small">View on GitHub</a></p>
-								</section>
-
-								<section class="project-item" data-tags="R Data Analysis">
-									<h3>📽️ <strong>Portfolio Optimization & Risk Analysis </strong></h3>
-									<p>
-										This project built a comprehensive portfolio management system that simulates random asset allocation across major stocks and calculates key financial metrics including returns, volatility, and risk-adjusted performance. I developed a complete portfolio analytics framework using Python to evaluate investment strategies and portfolio performance over time.
-									</p>
-
-									<h4>💻 <strong>Tech Stack:</strong></h4>
-									<ul>
-										<li><strong>Python</strong> for financial calculations and portfolio modeling</li>
-										<li><strong>Pandas</strong> for time series data manipulation and financial computations</li>
-										<li><strong>NumPy</strong> for random weight generation and mathematical operations</li>
-										<li><strong>Plotly & SciPy</strong> for interactive portfolio performance visualisation, statistical analysis and risk metrics </li>
-									</ul>
-
-									<h4>🧪 <strong>Data Pipeline:</strong></h4>
-									<ul>
-										<li><strong>Data Preparation:</strong> Loaded and sorted stock data chronologically using <code>sort_values()</code> by Date to ensure proper time series analysis for portfolio calculations. </li>
-										<li><strong>Random Portfolio Generation:</strong> Used <code>np.random.seed()</code> and <code>np.random.seed(9)</code> to create randomized asset allocation weights, then normalized them using <code>weights / np.sum(weights)</code> to ensure they sum to 100%. </li>
-										<li><strong>Portfolio Normalisation:</strong> Applied a custom normalize() function to standardize all stock prices to their initial values, creating a baseline for relative performance comparison across different price ranges.</li>
-										<li><strong>Portfolio function development:</strong> Built a reusable <code>portfolio_allocation()</code> function that encapsulates the entire workflow for testing different weight combinations and portfolio strategies.</li>
-										<li><strong>Risk metrics calculation:</strong> Computed cumulative return, standard deviation (volatility), average daily return, and Sharpe ratio using <code>np.sqrt(252)</code> for annualization.</li>
-									
-									</ul>
-
-									<h4>🌟 <strong>Key Insight:</strong></h4>
-									<ul>
-										<li>The random portfolio allocation provided a baseline for comparing systematic investment strategies</li>
-										<li>Sharpe ratio calculation revealed the risk-adjusted return efficiency of the portfolio</li>
-										<li>Daily return volatility patterns showed the importance of diversification across different stocks</li>
-										<li>Cumulative returns demonstrated the compound effect of daily performance over the investment period</li>
-									</ul>
-
-									<h4>🧗🏾 <strong>Challenge Faced:</strong></h4>
-									<p>
-										I initially encountered an indexing error when calculating portfolio daily returns because I was trying to access the previous day's value for the first row, which doesn't exist. The calculation <code>df_portfolio['portfolio daily % return'][i-1]</code> failed on the first iteration. I solved this by explicitly setting the first day's return to 0 using <code>df_portfolio['portfolio daily % return'][0] = 0</code> after the loop, and ensuring the loop started from index 1 rather than 0. This approach properly handled the edge case while maintaining accurate percentage calculations for all subsequent trading days.
-									</p>
-									<p><a href="https://github.com/tendai-codes/population-data-analysis" class="button small">View on GitHub</a></p>
-								</section>
-
-
-								<section class="project-item" data-tags="R Data Analysis">
-									<h3>📽️ <strong>Stock Beta & Alpha Analysis (CAPM Model) </strong></h3>
-									<p>
-										This project implemented the Capital Asset Pricing Model (CAPM) to analyze individual stock performance relative to the S&P 500 market benchmark. I calculated beta (market sensitivity) and alpha (excess returns) for each stock using linear regression, creating comprehensive risk-return profiles for portfolio decision-making.
-									</p>
-
-									<h4>💻 <strong>Tech Stack:</strong></h4>
-									<ul>
-										<li><strong>Python</strong> for financial calculations and statistical analysis</li>
-										<li><strong>Pandas</strong> for time series data manipulation and daily returns calculations </li>
-										<li><strong>NumPy</strong> for linear regression and polynomial fitting</li>
-										<li><strong>Seaborn</strong> for enhanced statistical plotting capabilities</li>
-										<li><strong>Plotly Express</strong> for interactive CAPM analysis charts</li>
-										<li><strong>Matplotlib</strong> for static scatter plots and regression line visualisation</li>
-									</ul>
-
-									<h4>🧪 <strong>Data Pipeline:</strong></h4>
-									<ul>
-										<li><strong>Market benchmark analysis:</strong> Used S&P 500 as the market proxy and calculated average daily returns using <code>.drop('Date', axis=1).mean()</code> to establish baseline market performance. </li>
-										<li><strong>Beta & Alpha computation:</strong> Applied np.polyfit() with order=1 to perform linear regression between individual stock returns and S&P 500 returns, extracting beta (slope) and alpha (intercept) coefficients. </li>
-										<li><strong>Batch analysis automation:</strong> Developed loops to iterate through all stocks (excluding S&P 500 and Date columns) using conditional statements <code>if i != 'sp500'</code> and <code>i != 'Date'</code> to calculate beta and alpha for each stock systematically.</li>
-										<li><strong>Interactive dashboard creation:</strong> Built Plotly Express scatter plots with <code>px.scatter()</code> and added regression lines using <code>fig.add_scatter()</code> to create interactive CAPM analysis charts for each stock.</li>
-										<li><strong>Risk metrics storage:</strong> Used Python dictionaries <code>beta = {}</code> and <code>alpha = {}</code> to store calculated coefficients for each stock, enabling easy comparison and further analysis. </li>
-									</ul>
-
-									<h4>🌟 <strong>Key Insight:</strong></h4>
-									<ul>
-										<li>Beta values revealed which stocks were more volatile than the market (beta > 1) versus defensive stocks (beta < 1)</li>
-										<li>Alpha coefficients identified stocks generating excess returns above what CAPM predicted</li>
-										<li>The regression analysis showed how closely each stock's movements correlated with overall market trends</li>
-										<li>Visual scatter plots revealed the strength of linear relationships between individual stocks and market performance</li>
-									</ul>
-
-									<h4>🧗🏾 <strong>Challenge Faced:</strong></h4>
-									<p>
-										I initially struggled with the loop logic for batch processing all stocks because I was accidentally including the S&P 500 index in the analysis against itself, which created perfect correlation (beta = 1, alpha = 0) and distorted my results. After debugging, I realized I needed to exclude both 'sp500' and 'Date' columns using compound conditional statements <code>if i != 'sp500'</code> and <code>i != 'Date'</code>. This solution ensured I only analyzed actual stocks against the market benchmark, providing meaningful beta and alpha calculations for investment decision-making.
-									</p>
-									<p><a href="https://github.com/tendai-codes/population-data-analysis" class="button small">View on GitHub</a></p>
-								</section>
-
-								<section class="project-item" data-tags="R Data Analysis">
-									<h3>📽️ <strong>Startup Revenue Prediction Model  </strong></h3>
-									<p>
-										This project built a multiple linear regression model to predict startup profitability based on their R&D spending, administration costs, marketing expenditure, and location. I implemented a complete machine learning pipeline using scikit-learn to analyze which factors most strongly influence startup success and revenue generation.
-
-									</p>
-
-									<h4>💻 <strong>Tech Stack:</strong></h4>
-									<ul>
-										<li><strong>Python</strong> for machine learning model development</li>
-										<li><strong>Scikit-learn</strong> for preprocessing, model training, and evaluation</li>
-										<li><strong>Pandas</strong> for dataset loading and initial data exploration</li>
-										<li><strong>Matplotlib</strong> for data visualisations</li>
-										<li><strong>NumPy</strong> for numerical array operations and precision control</li>
-										
-									</ul>
-
-									<h4>🧪 <strong>Data Pipeline:</strong></h4>
-									<ul>
-										<li><strong>Data import & separation:</strong> Loaded the 50 Startups dataset using <code>pd.read_csv()</code> and strategically separated features (X) from the target variable (y) using <code>.iloc[:, -1]</code> for all columns except the last, and <code>.iloc[:, -1]</code> for the dependent variable (profit). </li>
-										<li><strong>Categorical Encoding:</strong> Applied One-Hot Encoding using <code>ColumnTransformer</code> and <code>OneHotEncoder()</code> to convert the categorical 'State' variable (column index [3]) into numerical dummy variables, while keeping other numerical features intact using <code>remainder='passthrough'</code>. </li>
-										<li><strong>Data transformation, model training & prediction:</strong> Used <code>np.array(ct.fit_transform(X))</code> to convert the transformed data back into a NumPy array format suitable for machine learning algorithms. Implemented <code>train_test_split()</code> with an 80-20 split <code>(test_size=0.2)</code> and fixed random state <code>(random_state=0)</code> to ensure reproducible results and proper model validation. Instantiated and trained a <code>LinearRegression()</code> model using <code>.fit(X_train, y_train)</code> to learn the relationships between startup characteristics and profitability. Generated predictions on the test set using <code>regressor.predict(X_test)</code> to evaluate model performance on unseen data.</li>
-										<li><strong>Results Visualisation:</strong> Used <code>np.set_printoptions(precision=2)</code> for clean output formatting and <code>np.concatenate()</code> with <code>reshape()</code> to create side-by-side comparison of predicted vs. actual values for easy performance assessment.</li>
-										
-									</ul>
-
-									<h4>🌟 <strong>Key Insight:</strong></h4>
-									<ul>
-										<li>The model successfully learned to predict startup profitability based on spending patterns across R&D, administration, and marketing</li>
-										<li>One-hot encoding effectively handled the categorical state variable, allowing the model to capture location-based effects on startup success</li>
-										<li>The side-by-side prediction comparison revealed the model's accuracy in forecasting startup revenue</li>
-										<li>Multiple linear regression proved effective for understanding the linear relationships between various business expenditures and profitability</li>
-									</ul>
-
-									<h4>🧗🏾 <strong>Challenge Faced:</strong></h4>
-									<p>
-										The array reshaping and concatenation for results display presented a significant hurdle because the predicted and actual values were 1D arrays that couldn't be directly concatenated horizontally. The error occurred when trying to use <code>np.concatenate()</code> without proper dimensionality. This was solved by using <code>reshape(len(y_pred),1)</code> to convert both arrays into column vectors (2D arrays with one column), then applying horizontal concatenation with the parameter 1 to stack them side-by-side. This approach created a clean comparison matrix showing predicted values next to actual values, making model performance evaluation much more intuitive.
-									</p>
-									<p><a href="https://github.com/tendai-codes/population-data-analysis" class="button small">View on GitHub</a></p>
-								</section>
-
-								<section class="project-item" data-tags="R Data Analysis">
-									<h3>📽️ <strong>Financial Statement Analysis </strong></h3>
-									<p>
-										This project explored publicly available data on top-grossing US films to identify patterns across genres, studios, and release schedules. I used <strong>R</strong> and <strong>ggplot2</strong> for data exploration and visualisation.
-									</p>
-
-									<h4>💻 <strong>Tech Stack:</strong></h4>
-									<ul>
-										<li><strong>Python</strong> for data manipulation and analysis</li>
-										<li><strong>Pandas</strong> for computations</li>
-										<li><strong>Matplotlib</strong> for plotting financial visualisations</li>
-									</ul>
-
-									<h4>🧪 <strong>Data Pipeline:</strong></h4>
-									<ul>
-										<li><strong>Load & inspect data:</strong> Imported multi-statement CSV into pandas. Extracted relevant sections for Balance Sheet, Income Statement, and Cash Flow Statement using <code>loc[]</code>. </li>
-										<li><strong>Trend Analysis:</strong> Transposed time-series data <code>(.T)</code> and plotted major components (e.g. assets, equity) using <code>.plot()</code> to visualise financial stability over time. </li>
-										<li><strong>Ratio Calculations:</strong> Computed solvency and profitability ratios: Return on Equity (ROE), Return on Assets (ROA), Debt-to-Equity. Built <code>DataFrame</code> to summarise and visualise using grouped bar plots.</li>
-										<li><strong>Custom Metrics:</strong> Created Operating Cash Flow to Total Debt ratio from cash flow and balance sheet sections to assess short-term liquidity strength.</li>
-										
-									</ul>
-
-									<h4>🌟 <strong>Key Insight:</strong></h4>
-									<p>
-										The company showed stable asset growth and rising equity, but the Debt-to-Equity ratio increased post-2020, signalling higher leverage risk.
-										Operating cash flow was consistently positive, suggesting sufficient liquidity to meet short-term obligations — a green flag for operational health.
-									</p>
-
-									<h4>🧗🏾 <strong>Challenge Faced:</strong></h4>
-									<p>
-										Initially, aligning the financial statements by year was inconsistent due to mixed string/index formats across categories. I overcame this by explicitly extracting year-based columns and standardising label references. This made ratio computations and cross-statement comparisons reliable and reproducible.
-									</p>
-									<p><a href="https://github.com/tendai-codes/population-data-analysis" class="button small">View on GitHub</a></p>
-								</section>
-
-								<section class="project-item" data-tags="R Data Analysis">
-									<h3>📽️ <strong>Financial Statement Analysis </strong></h3>
-									<p>
-										This project explored publicly available data on top-grossing US films to identify patterns across genres, studios, and release schedules. I used <strong>R</strong> and <strong>ggplot2</strong> for data exploration and visualisation.
-									</p>
-
-									<h4>💻 <strong>Tech Stack:</strong></h4>
-									<ul>
-										<li><strong>Python</strong> for data manipulation and analysis</li>
-										<li><strong>Pandas</strong> for computations</li>
-										<li><strong>Matplotlib</strong> for plotting financial visualisations</li>
-									</ul>
-
-									<h4>🧪 <strong>Data Pipeline:</strong></h4>
-									<ul>
-										<li><strong>Load & inspect data:</strong> Imported multi-statement CSV into pandas. Extracted relevant sections for Balance Sheet, Income Statement, and Cash Flow Statement using <code>loc[]</code>. </li>
-										<li><strong>Trend Analysis:</strong> Transposed time-series data <code>(.T)</code> and plotted major components (e.g. assets, equity) using <code>.plot()</code> to visualise financial stability over time. </li>
-										<li><strong>Ratio Calculations:</strong> Computed solvency and profitability ratios: Return on Equity (ROE), Return on Assets (ROA), Debt-to-Equity. Built <code>DataFrame</code> to summarise and visualise using grouped bar plots.</li>
-										<li><strong>Custom Metrics:</strong> Created Operating Cash Flow to Total Debt ratio from cash flow and balance sheet sections to assess short-term liquidity strength.</li>
-										
-									</ul>
-
-									<h4>🌟 <strong>Key Insight:</strong></h4>
-									<p>
-										The company showed stable asset growth and rising equity, but the Debt-to-Equity ratio increased post-2020, signalling higher leverage risk.
-										Operating cash flow was consistently positive, suggesting sufficient liquidity to meet short-term obligations — a green flag for operational health.
-									</p>
-
-									<h4>🧗🏾 <strong>Challenge Faced:</strong></h4>
-									<p>
-										Initially, aligning the financial statements by year was inconsistent due to mixed string/index formats across categories. I overcame this by explicitly extracting year-based columns and standardising label references. This made ratio computations and cross-statement comparisons reliable and reproducible.
-									</p>
-									<p><a href="https://github.com/tendai-codes/population-data-analysis" class="button small">View on GitHub</a></p>
-								</section>
-
-								<section class="project-item" data-tags="R Data Analysis">
-									<h3>📽️ <strong>Financial Statement Analysis </strong></h3>
-									<p>
-										This project explored publicly available data on top-grossing US films to identify patterns across genres, studios, and release schedules. I used <strong>R</strong> and <strong>ggplot2</strong> for data exploration and visualisation.
-									</p>
-
-									<h4>💻 <strong>Tech Stack:</strong></h4>
-									<ul>
-										<li><strong>Python</strong> for data manipulation and analysis</li>
-										<li><strong>Pandas</strong> for computations</li>
-										<li><strong>Matplotlib</strong> for plotting financial visualisations</li>
-									</ul>
-
-									<h4>🧪 <strong>Data Pipeline:</strong></h4>
-									<ul>
-										<li><strong>Load & inspect data:</strong> Imported multi-statement CSV into pandas. Extracted relevant sections for Balance Sheet, Income Statement, and Cash Flow Statement using <code>loc[]</code>. </li>
-										<li><strong>Trend Analysis:</strong> Transposed time-series data <code>(.T)</code> and plotted major components (e.g. assets, equity) using <code>.plot()</code> to visualise financial stability over time. </li>
-										<li><strong>Ratio Calculations:</strong> Computed solvency and profitability ratios: Return on Equity (ROE), Return on Assets (ROA), Debt-to-Equity. Built <code>DataFrame</code> to summarise and visualise using grouped bar plots.</li>
-										<li><strong>Custom Metrics:</strong> Created Operating Cash Flow to Total Debt ratio from cash flow and balance sheet sections to assess short-term liquidity strength.</li>
-										
-									</ul>
-
-									<h4>🌟 <strong>Key Insight:</strong></h4>
-									<p>
-										The company showed stable asset growth and rising equity, but the Debt-to-Equity ratio increased post-2020, signalling higher leverage risk.
-										Operating cash flow was consistently positive, suggesting sufficient liquidity to meet short-term obligations — a green flag for operational health.
-									</p>
-
-									<h4>🧗🏾 <strong>Challenge Faced:</strong></h4>
-									<p>
-										Initially, aligning the financial statements by year was inconsistent due to mixed string/index formats across categories. I overcame this by explicitly extracting year-based columns and standardising label references. This made ratio computations and cross-statement comparisons reliable and reproducible.
-									</p>
-									<p><a href="https://github.com/tendai-codes/population-data-analysis" class="button small">View on GitHub</a></p>
-								</section>
-
-								<section class="project-item" data-tags="R Data Analysis">
-									<h3>📽️ <strong>Financial Statement Analysis </strong></h3>
-									<p>
-										This project explored publicly available data on top-grossing US films to identify patterns across genres, studios, and release schedules. I used <strong>R</strong> and <strong>ggplot2</strong> for data exploration and visualisation.
-									</p>
-
-									<h4>💻 <strong>Tech Stack:</strong></h4>
-									<ul>
-										<li><strong>Python</strong> for data manipulation and analysis</li>
-										<li><strong>Pandas</strong> for computations</li>
-										<li><strong>Matplotlib</strong> for plotting financial visualisations</li>
-									</ul>
-
-									<h4>🧪 <strong>Data Pipeline:</strong></h4>
-									<ul>
-										<li><strong>Load & inspect data:</strong> Imported multi-statement CSV into pandas. Extracted relevant sections for Balance Sheet, Income Statement, and Cash Flow Statement using <code>loc[]</code>. </li>
-										<li><strong>Trend Analysis:</strong> Transposed time-series data <code>(.T)</code> and plotted major components (e.g. assets, equity) using <code>.plot()</code> to visualise financial stability over time. </li>
-										<li><strong>Ratio Calculations:</strong> Computed solvency and profitability ratios: Return on Equity (ROE), Return on Assets (ROA), Debt-to-Equity. Built <code>DataFrame</code> to summarise and visualise using grouped bar plots.</li>
-										<li><strong>Custom Metrics:</strong> Created Operating Cash Flow to Total Debt ratio from cash flow and balance sheet sections to assess short-term liquidity strength.</li>
-										
-									</ul>
-
-									<h4>🌟 <strong>Key Insight:</strong></h4>
-									<p>
-										The company showed stable asset growth and rising equity, but the Debt-to-Equity ratio increased post-2020, signalling higher leverage risk.
-										Operating cash flow was consistently positive, suggesting sufficient liquidity to meet short-term obligations — a green flag for operational health.
-									</p>
-
-									<h4>🧗🏾 <strong>Challenge Faced:</strong></h4>
-									<p>
-										Initially, aligning the financial statements by year was inconsistent due to mixed string/index formats across categories. I overcame this by explicitly extracting year-based columns and standardising label references. This made ratio computations and cross-statement comparisons reliable and reproducible.
-									</p>
-									<p><a href="https://github.com/tendai-codes/population-data-analysis" class="button small">View on GitHub</a></p>
-								</section>
-
-								<section class="project-item" data-tags="R Data Analysis">
-									<h3>📽️ <strong>Financial Statement Analysis </strong></h3>
-									<p>
-										This project explored publicly available data on top-grossing US films to identify patterns across genres, studios, and release schedules. I used <strong>R</strong> and <strong>ggplot2</strong> for data exploration and visualisation.
-									</p>
-
-									<h4>💻 <strong>Tech Stack:</strong></h4>
-									<ul>
-										<li><strong>Python</strong> for data manipulation and analysis</li>
-										<li><strong>Pandas</strong> for computations</li>
-										<li><strong>Matplotlib</strong> for plotting financial visualisations</li>
-									</ul>
-
-									<h4>🧪 <strong>Data Pipeline:</strong></h4>
-									<ul>
-										<li><strong>Load & inspect data:</strong> Imported multi-statement CSV into pandas. Extracted relevant sections for Balance Sheet, Income Statement, and Cash Flow Statement using <code>loc[]</code>. </li>
-										<li><strong>Trend Analysis:</strong> Transposed time-series data <code>(.T)</code> and plotted major components (e.g. assets, equity) using <code>.plot()</code> to visualise financial stability over time. </li>
-										<li><strong>Ratio Calculations:</strong> Computed solvency and profitability ratios: Return on Equity (ROE), Return on Assets (ROA), Debt-to-Equity. Built <code>DataFrame</code> to summarise and visualise using grouped bar plots.</li>
-										<li><strong>Custom Metrics:</strong> Created Operating Cash Flow to Total Debt ratio from cash flow and balance sheet sections to assess short-term liquidity strength.</li>
-										
-									</ul>
-
-									<h4>🌟 <strong>Key Insight:</strong></h4>
-									<p>
-										The company showed stable asset growth and rising equity, but the Debt-to-Equity ratio increased post-2020, signalling higher leverage risk.
-										Operating cash flow was consistently positive, suggesting sufficient liquidity to meet short-term obligations — a green flag for operational health.
-									</p>
-
-									<h4>🧗🏾 <strong>Challenge Faced:</strong></h4>
-									<p>
-										Initially, aligning the financial statements by year was inconsistent due to mixed string/index formats across categories. I overcame this by explicitly extracting year-based columns and standardising label references. This made ratio computations and cross-statement comparisons reliable and reproducible.
-									</p>
-									<p><a href="https://github.com/tendai-codes/population-data-analysis" class="button small">View on GitHub</a></p>
-								</section>
-
-								<section class="project-item" data-tags="R Data Analysis">
-									<h3>📽️ <strong>Financial Statement Analysis </strong></h3>
-									<p>
-										This project explored publicly available data on top-grossing US films to identify patterns across genres, studios, and release schedules. I used <strong>R</strong> and <strong>ggplot2</strong> for data exploration and visualisation.
-									</p>
-
-									<h4>💻 <strong>Tech Stack:</strong></h4>
-									<ul>
-										<li><strong>Python</strong> for data manipulation and analysis</li>
-										<li><strong>Pandas</strong> for computations</li>
-										<li><strong>Matplotlib</strong> for plotting financial visualisations</li>
-									</ul>
-
-									<h4>🧪 <strong>Data Pipeline:</strong></h4>
-									<ul>
-										<li><strong>Load & inspect data:</strong> Imported multi-statement CSV into pandas. Extracted relevant sections for Balance Sheet, Income Statement, and Cash Flow Statement using <code>loc[]</code>. </li>
-										<li><strong>Trend Analysis:</strong> Transposed time-series data <code>(.T)</code> and plotted major components (e.g. assets, equity) using <code>.plot()</code> to visualise financial stability over time. </li>
-										<li><strong>Ratio Calculations:</strong> Computed solvency and profitability ratios: Return on Equity (ROE), Return on Assets (ROA), Debt-to-Equity. Built <code>DataFrame</code> to summarise and visualise using grouped bar plots.</li>
-										<li><strong>Custom Metrics:</strong> Created Operating Cash Flow to Total Debt ratio from cash flow and balance sheet sections to assess short-term liquidity strength.</li>
-										
-									</ul>
-
-									<h4>🌟 <strong>Key Insight:</strong></h4>
-									<p>
+										<h4>🌟 <strong>Key Insights:</strong></h4>
+										<p>
 										The company showed stable asset growth and rising equity, but the Debt-to-Equity ratio increased post-2020, signalling higher leverage risk.
 										Operating cash flow was consistently positive, suggesting sufficient liquidity to meet short-term obligations — a green flag for operational health.
 									</p>
@@ -934,28 +1043,44 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
 
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  const buttons = document.querySelectorAll("#project-filters .filter-button");
-  const projects = document.querySelectorAll(".project-item");
-
-  buttons.forEach(button => {
-    button.addEventListener("click", () => {
-      const selectedTag = button.getAttribute("data-tag");
-
-      projects.forEach(project => {
-        const tags = project.getAttribute("data-tags").split(" ");
-        const show = selectedTag === "all" || tags.includes(selectedTag);
-        project.style.display = show ? "block" : "none";
-      });
-
-      // Optional: highlight active button
-      buttons.forEach(btn => btn.classList.remove("active"));
-      button.classList.add("active");
-    });
-  });
-});
-</script>
+		<script>
+        // Project filtering functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterButtons = document.querySelectorAll('.filter-button');
+            const projectItems = document.querySelectorAll('.project-item');
+            
+            // Function to show/hide projects based on selected tag
+            function filterProjects(selectedTag) {
+                projectItems.forEach(item => {
+                    const itemTags = item.getAttribute('data-tags').split(',');
+                    
+                    if (selectedTag === 'all' || itemTags.includes(selectedTag)) {
+                        item.classList.add('show');
+                    } else {
+                        item.classList.remove('show');
+                    }
+                });
+            }
+            
+            // Add click event listeners to filter buttons
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    // Get selected tag and filter projects
+                    const selectedTag = this.getAttribute('data-tag');
+                    filterProjects(selectedTag);
+                });
+            });
+            
+            // Initialize with 'All' filter active
+            filterProjects('all');
+        });
+    	</script>
 
 	</body>
 </html>

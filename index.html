@@ -69,8 +69,6 @@
 								<button data-tag="Machine Learning" class="filter-button">Machine Learning</button>
 								<button data-tag="Deep Learning" class="filter-button">Deep Learning</button>
 								</div>
-
-								<
 								
 							</article>
 
@@ -427,6 +425,27 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 			<script src="assets/js/breakpoints.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+	const buttons = document.querySelectorAll(".filter-button");
+	const projects = document.querySelectorAll(".project-item");
+
+	buttons.forEach(button => {
+		button.addEventListener("click", () => {
+			const selectedTag = button.getAttribute("data-tag");
+
+			projects.forEach(project => {
+				const tags = project.getAttribute("data-tags").split(" ");
+				if (selectedTag === "all" || tags.includes(selectedTag)) {
+					project.style.display = "block";
+				} else {
+					project.style.display = "none";
+				}
+			});
+		});
+	});
+});
+</script>
 
 	</body>
 </html>

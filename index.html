@@ -60,6 +60,14 @@
 						
 							<article id="projects">
 								<h2 class="major">Projects</h2>
+
+								<div id="project-filters">
+								<button data-tag="all" class="filter-button">All</button>
+								<button data-tag="R" class="filter-button">R</button>
+								<button data-tag="Python" class="filter-button">Python</button>
+								<button data-tag="Machine Learning" class="filter-button">Machine Learning</button>
+								</div>
+
 								<span class="image main"><img src="images/pic_projects.jpg" alt="" /></span>
 								<p>Explore my work across different domains of data and AI. Select a category below to view related portfolio items.</p>
 								<ul class="actions">
@@ -75,15 +83,48 @@
 								<p>This section showcases projects where I analysed data to uncover trends, support decision-making, and build reports or dashboards.</p>
 								<!-- Add portfolio items here -->
 
-								<!-- Project 1: World Bank Population Analysis -->
+								<!-- Project 1: Box Office Data Analysis -->
+
 								<section class="project-item">
-									<h3>📊 Global Population Trends (World Bank Data)</h3>
-									<p>Analysed global population growth trends using World Bank data in Python. The project involved cleaning and visualising multi-year, multi-country demographic data using <code>pandas</code>, <code>matplotlib</code>, and <code>seaborn</code>.</p>
+								<h3>🎬 Box Office Data Analysis - Highest-Grossing Movies in the US (R)</h3>
+								<p><strong>Tech Stack:</strong> R, ggplot2</p>
+								<p><strong>🧪 Data Pipeline:</strong> Imported box office CSV, cleaned inconsistencies, engineered features (e.g. profit), visualised trends using ggplot2.</p>
+								<p>This project started as an exploration of publicly available US box office data. I aimed to understand what made certain films top-grossing and whether genre, studio, or release timing had consistent impact.</p>
+								<p>One challenge I faced was categorising genres that had overlapping or inconsistent naming. I resolved this by normalising the genre column using regex and manually reviewing edge cases.</p>
+								<p>Insights revealed that action and adventure genres consistently outperformed others, with peak revenues concentrated in Q4 releases. Disney and Universal dominated the top-performing slots, especially in summer and holiday seasons.</p>
+								<p>This project deepened my understanding of storytelling with data and the importance of feature engineering for business intelligence.</p>
+								</article>
+
+								<section class="project-item">
+									<h3>📽️ <strong>Box Office Data Analysis – Expanded Description</strong></h3>
+									<p>
+										This project explored publicly available data on top-grossing US films to identify patterns across genres, studios, and release schedules. I used <strong>R</strong> and <strong>ggplot2</strong> for data exploration and visualisation.
+									</p>
+
+									<h4>💻 <strong>Tech Stack:</strong></h4>
 									<ul>
-										<li>🛠️ Built time series plots for top 10 most populous countries</li>
-										<li>📈 Uncovered demographic shifts across regions (e.g., sub-Saharan Africa's rapid growth)</li>
-										<li>🗂️ Exported clean, analysis-ready datasets for further use</li>
+										<li><strong>R</strong> for data manipulation and visualisation</li>
+										<li><strong>ggplot2</strong> for creating custom, layered visual insights</li>
 									</ul>
+
+									<h4>🧪 <strong>Data Pipeline:</strong></h4>
+									<ul>
+										<li><strong>Import & inspect data:</strong> Used <code>read.csv()</code>, <code>summary()</code>, and <code>str()</code></li>
+										<li><strong>Initial exploration:</strong> Identified no Monday releases using a bar plot of <code>Day.of.Week</code></li>
+										<li><strong>Filtering for significance:</strong> Narrowed to key genres and major studios</li>
+										<li><strong>Visualisation:</strong> Created jitter + box plots comparing domestic gross</li>
+										<li><strong>Aesthetics:</strong> Tuned themes for clarity and presentation</li>
+									</ul>
+
+									<h4>🌟 <strong>Key Insight:</strong></h4>
+									<p>
+										Profitable genres are concentrated among a few studios. Monday releases are avoided — possibly a scheduling strategy.
+									</p>
+
+									<h4>🧗🏾 <strong>Challenge Faced:</strong></h4>
+									<p>
+										Overlapping outliers and jitter points in ggplot2 caused clutter. I resolved this with <code>outlier.colour = NA</code> and <code>alpha</code> blending.
+									</p>
 									<p><a href="https://github.com/tendai-codes/population-data-analysis" class="button small">View on GitHub</a></p>
 								</section>
 							</article>

@@ -62,26 +62,17 @@
 								<h2 class="major">Projects</h2>
 
 								<div id="project-filters">
-								<button data-tag="all" class="filter-button">All</button>
-								<button data-tag="R" class="filter-button">R</button>
-								<button data-tag="Python" class="filter-button">Python</button>
-								<button data-tag="Data Analysis" class="filter-button">Data Analysis</button>
-								<button data-tag="Machine Learning" class="filter-button">Machine Learning</button>
-								<button data-tag="Deep Learning" class="filter-button">Deep Learning</button>
+									<button data-tag="all" class="filter-button">All</button>
+									<button data-tag="R" class="filter-button">R</button>
+									<button data-tag="Python" class="filter-button">Python</button>
+									<button data-tag="Data Analysis" class="filter-button">Data Analysis</button>
+									<button data-tag="Machine Learning" class="filter-button">Machine Learning</button>
+									<button data-tag="Deep Learning" class="filter-button">Deep Learning</button>
 								</div>
 								
 							</article>
 
-							<article id="data-analytics">
-								<h2 class="major">Data Analytics</h2>
-								<span class="image main"><img src="images/data_analytics.jpg" alt="" /></span>
-								
-								<!-- Add portfolio items here -->
-
-								<!-- Project 1: Box Office Data Analysis -->
-
-
-								<section class="project-item" data-tags="R">
+								<section class="project-item" data-tags="R Data Analysis">
 									<h3>📽️ <strong>Box Office Data Analysis – Expanded Description</strong></h3>
 									<p>
 										This project explored publicly available data on top-grossing US films to identify patterns across genres, studios, and release schedules. I used <strong>R</strong> and <strong>ggplot2</strong> for data exploration and visualisation.
@@ -425,25 +416,27 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 			<script src="assets/js/breakpoints.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
+
 <script>
 document.addEventListener("DOMContentLoaded", () => {
-	const buttons = document.querySelectorAll(".filter-button");
-	const projects = document.querySelectorAll(".project-item");
+  const buttons = document.querySelectorAll("#project-filters .filter-button");
+  const projects = document.querySelectorAll(".project-item");
 
-	buttons.forEach(button => {
-		button.addEventListener("click", () => {
-			const selectedTag = button.getAttribute("data-tag");
+  buttons.forEach(button => {
+    button.addEventListener("click", () => {
+      const selectedTag = button.getAttribute("data-tag");
 
-			projects.forEach(project => {
-				const tags = project.getAttribute("data-tags").split(" ");
-				if (selectedTag === "all" || tags.includes(selectedTag)) {
-					project.style.display = "block";
-				} else {
-					project.style.display = "none";
-				}
-			});
-		});
-	});
+      projects.forEach(project => {
+        const tags = project.getAttribute("data-tags").split(" ");
+        const show = selectedTag === "all" || tags.includes(selectedTag);
+        project.style.display = show ? "block" : "none";
+      });
+
+      // Optional: highlight active button
+      buttons.forEach(btn => btn.classList.remove("active"));
+      button.classList.add("active");
+    });
+  });
 });
 </script>
 

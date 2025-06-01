@@ -91,6 +91,26 @@
 			.button.small:hover {
 				background: #0390d4;
 			}
+			.github-button {
+				background-color: #24292e;
+				color: #ffffff;
+				padding: 0.5rem 1rem;
+				font-size: 0.95rem;
+				text-align: center;
+				border-radius: 6px;
+				border: none;
+				display: inline-block;
+				margin-top: 1rem;
+				transition: background 0.3s ease;
+				text-decoration: none;
+			}
+
+			.github-button:hover {
+				background-color: #444c56;
+			}
+
+
+
 		</style>	
 	
 	</head>
@@ -154,16 +174,6 @@
 
 								<div id="projects-container">
 
-									
-								
-							
-						
-							
-
-								
-								
-							
-
 									<section class="project-item" data-tags="R,Data Analysis">
 										<h3>📽️ <strong>Box Office Data Analysis </strong></h3>
 										<p>
@@ -194,7 +204,8 @@
 										<p>
 											Overlapping outliers and jitter points in ggplot2 caused clutter. I resolved this with <code>outlier.colour = NA</code> and <code>alpha</code> blending.
 										</p>
-										<p><a href="https://github.com/tendai-codes/population-data-analysis" class="button small">View on GitHub</a></p>
+										<p><a href="https://github.com/tendai-codes/your-project" class="github-button" target="_blank">View on GitHub</a></p>
+</p>
 									</section>
 
 									<section class="project-item" data-tags="R,Data Analysis">
@@ -229,7 +240,7 @@
 										<p>
 											Initially, aligning the financial statements by year was inconsistent due to mixed string/index formats across categories. I overcame this by explicitly extracting year-based columns and standardising label references. This made ratio computations and cross-statement comparisons reliable and reproducible.
 										</p>
-										<p><a href="https://github.com/tendai-codes/population-data-analysis" class="button small">View on GitHub</a></p>
+										<p><a href="https://github.com/tendai-codes/your-project" class="github-button" target="_blank">View on GitHub</a></p>
 									</section>
 
 									<section class="project-item" data-tags="Python,Data Analysis">
@@ -255,7 +266,7 @@
 											
 										</ul>
 
-										<h4>🌟 <strong>Key Insight:</strong></h4>
+										<h4>🌟 <strong>Key Insights:</strong></h4>
 										<ul>
 											<li>Countries with lower income levels showed higher fertility rates and population growth.</li>
 											<li>Urban population tends to correlate with income level, especially in developed regions.</li>
@@ -267,7 +278,7 @@
 										<p>
 											Filtering and reshaping the dataset for multi-variable analysis was complex due to inconsistent column names and missing data. I solved this by methodically renaming columns and using <code>.dropna()</code> to exclude incomplete records while maintaining dataset integrity.
 										</p>
-										<p><a href="https://github.com/tendai-codes/population-data-analysis" class="button small">View on GitHub</a></p>
+										<p><a href="https://github.com/tendai-codes/your-project" class="github-button" target="_blank">View on GitHub</a></p>
 									</section>
 
 
@@ -309,7 +320,7 @@
 										<p>
 											The daily returns calculation initially produced incorrect values for the first row of each stock. After debugging, the issue was that there's no previous day to calculate a return from for the first entry. This was solved by explicitly setting the first day's return to 0 using <code>df_daily_return[i][0] = 0</code> after the loop calculation, ensuring accurate percentage calculations for all subsequent days.
 										</p>
-										<p><a href="https://github.com/tendai-codes/population-data-analysis" class="button small">View on GitHub</a></p>
+										<p><a href="https://github.com/tendai-codes/your-project" class="github-button" target="_blank">View on GitHub</a></p>
 									</section>
 
 									<section class="project-item" data-tags="Python,Data Analysis">
@@ -348,7 +359,7 @@
 										<p>
 											I initially encountered an indexing error when calculating portfolio daily returns because I was trying to access the previous day's value for the first row, which doesn't exist. The calculation <code>df_portfolio['portfolio daily % return'][i-1]</code> failed on the first iteration. I solved this by explicitly setting the first day's return to 0 using <code>df_portfolio['portfolio daily % return'][0] = 0</code> after the loop, and ensuring the loop started from index 1 rather than 0. This approach properly handled the edge case while maintaining accurate percentage calculations for all subsequent trading days.
 										</p>
-										<p><a href="https://github.com/tendai-codes/population-data-analysis" class="button small">View on GitHub</a></p>
+										<p><a href="https://github.com/tendai-codes/your-project" class="github-button" target="_blank">View on GitHub</a></p>
 									</section>
 
 
@@ -389,7 +400,7 @@
 										<p>
 											I initially struggled with the loop logic for batch processing all stocks because I was accidentally including the S&P 500 index in the analysis against itself, which created perfect correlation (beta = 1, alpha = 0) and distorted my results. After debugging, I realized I needed to exclude both 'sp500' and 'Date' columns using compound conditional statements <code>if i != 'sp500'</code> and <code>i != 'Date'</code>. This solution ensured I only analyzed actual stocks against the market benchmark, providing meaningful beta and alpha calculations for investment decision-making.
 										</p>
-										<p><a href="https://github.com/tendai-codes/population-data-analysis" class="button small">View on GitHub</a></p>
+										<p><a href="https://github.com/tendai-codes/your-project" class="github-button" target="_blank">View on GitHub</a></p>
 									</section>
 
 									<section class="project-item" data-tags="Python,Machine Learning">
@@ -430,7 +441,7 @@
 										<p>
 											The array reshaping and concatenation for results display presented a significant hurdle because the predicted and actual values were 1D arrays that couldn't be directly concatenated horizontally. The error occurred when trying to use <code>np.concatenate()</code> without proper dimensionality. This was solved by using <code>reshape(len(y_pred),1)</code> to convert both arrays into column vectors (2D arrays with one column), then applying horizontal concatenation with the parameter 1 to stack them side-by-side. This approach created a clean comparison matrix showing predicted values next to actual values, making model performance evaluation much more intuitive.
 										</p>
-										<p><a href="https://github.com/tendai-codes/population-data-analysis" class="button small">View on GitHub</a></p>
+										<p><a href="https://github.com/tendai-codes/your-project" class="github-button" target="_blank">View on GitHub</a></p>
 									</section>
 
 									<section class="project-item" data-tags="Python,Machine Learning">
@@ -478,7 +489,7 @@
 											
 											The SVR model visualization presented scaling complications because support vector regression requires feature scaling for optimal performance, but the visualization needed to display results in original salary units. The challenge was handling the forward and inverse transformations correctly. This was resolved by implementing a multi-step process: using  <code>sc_X.transform(X_grid)</code> to scale the grid for SVR prediction, then applying <code>sc_y.inverse_transform()</code>  to convert predictions back to actual salary values, with careful attention to array reshaping using <code>.reshape(-1, 1)</code> to maintain proper dimensionality throughout the scaling pipeline. This approach ensured accurate model performance while maintaining interpretable visualizations in original salary units.
 										</p>
-										<p><a href="https://github.com/tendai-codes/population-data-analysis" class="button small">View on GitHub</a></p>
+										<p><a href="https://github.com/tendai-codes/your-project" class="github-button" target="_blank">View on GitHub</a></p>
 									</section>
 
 									<section class="project-item" data-tags="Python,Machine Learning">
@@ -524,7 +535,7 @@
 										<p>
 											Working with medical diagnostic data presented a critical class imbalance consideration that required careful attention to evaluation metrics beyond simple accuracy. While accuracy score provides an overall performance measure, it can be misleading in medical contexts where false negatives (missing actual cancer cases) have far more severe consequences than false positives (flagging benign cases as suspicious). The challenge was ensuring that model evaluation properly weighted the clinical importance of sensitivity (recall) versus specificity, as a model with 95% accuracy might still miss 20% of actual cancer cases if the dataset is imbalanced. This was addressed by implementing confusion matrix analysis to examine true positives, false positives, true negatives, and false negatives separately, enabling assessment of each model's ability to minimize the most clinically dangerous errors while maintaining overall diagnostic reliability.
 										</p>
-										<p><a href="https://github.com/tendai-codes/population-data-analysis" class="button small">View on GitHub</a></p>
+										<p><a href="https://github.com/tendai-codes/your-project" class="github-button" target="_blank">View on GitHub</a></p>
 									</section>
 
 									<section class="project-item" data-tags="Python,Machine Learning">
@@ -563,7 +574,7 @@
 										<p>
 											Initially, aligning the financial statements by year was inconsistent due to mixed string/index formats across categories. I overcame this by explicitly extracting year-based columns and standardising label references. This made ratio computations and cross-statement comparisons reliable and reproducible.
 										</p>
-										<p><a href="https://github.com/tendai-codes/population-data-analysis" class="button small">View on GitHub</a></p>
+										<p><a href="https://github.com/tendai-codes/your-project" class="github-button" target="_blank">View on GitHub</a></p>
 									</section>
 
 									<section class="project-item" data-tags="Python,Machine Learning">
@@ -602,7 +613,7 @@
 										<p>
 											Initially, aligning the financial statements by year was inconsistent due to mixed string/index formats across categories. I overcame this by explicitly extracting year-based columns and standardising label references. This made ratio computations and cross-statement comparisons reliable and reproducible.
 										</p>
-										<p><a href="https://github.com/tendai-codes/population-data-analysis" class="button small">View on GitHub</a></p>
+										<p><a href="https://github.com/tendai-codes/your-project" class="github-button" target="_blank">View on GitHub</a></p>
 									</section>
 
 									<section class="project-item" data-tags="Python Machine Learning">
@@ -641,7 +652,7 @@
 										<p>
 											Initially, aligning the financial statements by year was inconsistent due to mixed string/index formats across categories. I overcame this by explicitly extracting year-based columns and standardising label references. This made ratio computations and cross-statement comparisons reliable and reproducible.
 										</p>
-										<p><a href="https://github.com/tendai-codes/population-data-analysis" class="button small">View on GitHub</a></p>
+										<p><a href="https://github.com/tendai-codes/your-project" class="github-button" target="_blank">View on GitHub</a></p>
 									</section>
 
 									<section class="project-item" data-tags="R Data Analysis">
@@ -680,7 +691,7 @@
 										<p>
 											Initially, aligning the financial statements by year was inconsistent due to mixed string/index formats across categories. I overcame this by explicitly extracting year-based columns and standardising label references. This made ratio computations and cross-statement comparisons reliable and reproducible.
 										</p>
-										<p><a href="https://github.com/tendai-codes/population-data-analysis" class="button small">View on GitHub</a></p>
+										<p><a href="https://github.com/tendai-codes/your-project" class="github-button" target="_blank">View on GitHub</a></p>
 									</section>
 
 									<section class="project-item" data-tags="R Data Analysis">
@@ -719,7 +730,7 @@
 										<p>
 											Initially, aligning the financial statements by year was inconsistent due to mixed string/index formats across categories. I overcame this by explicitly extracting year-based columns and standardising label references. This made ratio computations and cross-statement comparisons reliable and reproducible.
 										</p>
-										<p><a href="https://github.com/tendai-codes/population-data-analysis" class="button small">View on GitHub</a></p>
+										<p><a href="https://github.com/tendai-codes/your-project" class="github-button" target="_blank">View on GitHub</a></p>
 									</section>
 
 									<section class="project-item" data-tags="R Data Analysis">
@@ -756,7 +767,7 @@
 										<p>
 											Initially, aligning the financial statements by year was inconsistent due to mixed string/index formats across categories. I overcame this by explicitly extracting year-based columns and standardising label references. This made ratio computations and cross-statement comparisons reliable and reproducible.
 										</p>
-										<p><a href="https://github.com/tendai-codes/population-data-analysis" class="button small">View on GitHub</a></p>
+										<p><a href="https://github.com/tendai-codes/your-project" class="github-button" target="_blank">View on GitHub</a></p>
 									</section>
 
 

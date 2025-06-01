@@ -22,11 +22,14 @@
 				background: #333;
 				color: #fff;
 				border: 1px solid #555;
-				padding: 0.5rem 1rem;
+				padding: 0.3rem 0.6rem;
+				font-size: 0.85rem;
 				margin: 0.25rem;
 				cursor: pointer;
 				border-radius: 4px;
 				transition: all 0.3s ease;
+				display: inline-block;
+				text-align: cemter;
 			}
 			
 			.filter-button:hover {
@@ -153,7 +156,7 @@
 
 									
 								
-							</article>
+							
 						
 							
 
@@ -229,7 +232,7 @@
 										<p><a href="https://github.com/tendai-codes/population-data-analysis" class="button small">View on GitHub</a></p>
 									</section>
 
-								<section class="project-item" data-tags="Python,Data Analysis">
+									<section class="project-item" data-tags="Python,Data Analysis">
 										<h3>📽️ <strong>Global Population Trends Exploration </strong></h3>
 										<p>
 											This project used World Bank development indicators to explore trends in population growth, urbanisation, and fertility rates across continents and income groups. The objective was to uncover insights about global development patterns over time using Python.
@@ -473,15 +476,15 @@
 										<h4>🧗🏾 <strong>Challenge Faced:</strong></h4>
 										<p>
 											
-	The SVR model visualization presented scaling complications because support vector regression requires feature scaling for optimal performance, but the visualization needed to display results in original salary units. The challenge was handling the forward and inverse transformations correctly. This was resolved by implementing a multi-step process: using  <code>sc_X.transform(X_grid)</code> to scale the grid for SVR prediction, then applying <code>sc_y.inverse_transform()</code>  to convert predictions back to actual salary values, with careful attention to array reshaping using <code>.reshape(-1, 1)</code> to maintain proper dimensionality throughout the scaling pipeline. This approach ensured accurate model performance while maintaining interpretable visualizations in original salary units.
+											The SVR model visualization presented scaling complications because support vector regression requires feature scaling for optimal performance, but the visualization needed to display results in original salary units. The challenge was handling the forward and inverse transformations correctly. This was resolved by implementing a multi-step process: using  <code>sc_X.transform(X_grid)</code> to scale the grid for SVR prediction, then applying <code>sc_y.inverse_transform()</code>  to convert predictions back to actual salary values, with careful attention to array reshaping using <code>.reshape(-1, 1)</code> to maintain proper dimensionality throughout the scaling pipeline. This approach ensured accurate model performance while maintaining interpretable visualizations in original salary units.
 										</p>
 										<p><a href="https://github.com/tendai-codes/population-data-analysis" class="button small">View on GitHub</a></p>
 									</section>
 
 									<section class="project-item" data-tags="Python,Machine Learning">
-										<h3>📽️ <strong>Breast Cancer Prognosis Model </strong></h3>
+										<h3>📽️ <strong>Breast Cancer Classification: Multi-Algorithm Comparison </strong></h3>
 										<p>
-											This project explored publicly available data on top-grossing US films to identify patterns across genres, studios, and release schedules. I used <strong>R</strong> and <strong>ggplot2</strong> for data exploration and visualisation.
+											This project implemented and compared six different machine learning classification algorithms to predict breast cancer diagnosis (malignant vs benign) based on cellular characteristics. I built a comprehensive medical classification pipeline using multiple algorithms to identify the most effective approach for cancer detection and diagnosis support.
 										</p>
 
 										<h4>💻 <strong>Tech Stack:</strong></h4>
@@ -525,16 +528,18 @@
 									</section>
 
 									<section class="project-item" data-tags="Python,Machine Learning">
-										<h3>📽️ <strong>Breast Cancer Classification: Multi-Algorithm Comparison </strong></h3>
+										<h3>📽️ <strong> New project </strong></h3>
 										<p>
-											This project implemented and compared six different machine learning classification algorithms to predict breast cancer diagnosis (malignant vs benign) based on cellular characteristics. I built a comprehensive medical classification pipeline using multiple algorithms to identify the most effective approach for cancer detection and diagnosis support.
+											
 										</p>
 
 										<h4>💻 <strong>Tech Stack:</strong></h4>
 										<ul>
-											<li><strong>Python</strong> for data manipulation and analysis</li>
-											<li><strong>Pandas</strong> for computations</li>
-											<li><strong>Matplotlib</strong> for plotting financial visualisations</li>
+											<li><strong>Python</strong> for machine learning model development and comparison</li>
+											<li><strong>Scikit-learn</strong> for multiple classification algorithms, preprocessing, and evaluation metrics</li>
+											<li><strong>Pandas</strong> for dataset loading and initial data exploration</li>
+											<li><strong>Matplotlib</strong> for data visualisationsand model performance analysis</li>
+											<li><strong>NumPy</strong> for numerical operations and grid generation</li>
 										</ul>
 
 										<h4>🧪 <strong>Data Pipeline:</strong></h4>
@@ -547,10 +552,12 @@
 										</ul>
 
 										<h4>🌟 <strong>Key Insights:</strong></h4>
-										<p>
-											The company showed stable asset growth and rising equity, but the Debt-to-Equity ratio increased post-2020, signalling higher leverage risk.
-											Operating cash flow was consistently positive, suggesting sufficient liquidity to meet short-term obligations — a green flag for operational health.
-										</p>
+										<ul>
+											<li>Multiple algorithms provided different approaches to cancer classification, each with unique strengths for medical diagnosis</li>
+											<li>Feature standardization proved crucial for distance-based algorithms (SVM, KNN) due to varying scales of cellular measurements</li>
+											<li>Confusion matrix analysis revealed the trade-offs between sensitivity (detecting cancer) and specificity (avoiding false alarms)</li>
+											<li>Model comparison enabled selection of the most reliable algorithm for medical diagnostic support</li>
+										</ul>
 
 										<h4>🧗🏾 <strong>Challenge Faced:</strong></h4>
 										<p>
@@ -560,16 +567,18 @@
 									</section>
 
 									<section class="project-item" data-tags="Python,Machine Learning">
-										<h3>📽️ <strong>Financial Statement Analysis </strong></h3>
+										<h3>📽️ <strong>New project </strong></h3>
 										<p>
 											This project explored publicly available data on top-grossing US films to identify patterns across genres, studios, and release schedules. I used <strong>R</strong> and <strong>ggplot2</strong> for data exploration and visualisation.
 										</p>
 
 										<h4>💻 <strong>Tech Stack:</strong></h4>
 										<ul>
-											<li><strong>Python</strong> for data manipulation and analysis</li>
-											<li><strong>Pandas</strong> for computations</li>
-											<li><strong>Matplotlib</strong> for plotting financial visualisations</li>
+											<li><strong>Python</strong> for machine learning model development and comparison</li>
+											<li><strong>Scikit-learn</strong> for multiple classification algorithms, preprocessing, and evaluation metrics</li>
+											<li><strong>Pandas</strong> for dataset loading and initial data exploration</li>
+											<li><strong>Matplotlib</strong> for data visualisationsand model performance analysis</li>
+											<li><strong>NumPy</strong> for numerical operations and grid generation</li>
 										</ul>
 
 										<h4>🧪 <strong>Data Pipeline:</strong></h4>
@@ -582,10 +591,12 @@
 										</ul>
 
 										<h4>🌟 <strong>Key Insights:</strong></h4>
-										<p>
-										The company showed stable asset growth and rising equity, but the Debt-to-Equity ratio increased post-2020, signalling higher leverage risk.
-										Operating cash flow was consistently positive, suggesting sufficient liquidity to meet short-term obligations — a green flag for operational health.
-										</p>
+										<ul>
+											<li>Multiple algorithms provided different approaches to cancer classification, each with unique strengths for medical diagnosis</li>
+											<li>Feature standardization proved crucial for distance-based algorithms (SVM, KNN) due to varying scales of cellular measurements</li>
+											<li>Confusion matrix analysis revealed the trade-offs between sensitivity (detecting cancer) and specificity (avoiding false alarms)</li>
+											<li>Model comparison enabled selection of the most reliable algorithm for medical diagnostic support</li>
+										</ul>
 
 										<h4>🧗🏾 <strong>Challenge Faced:</strong></h4>
 										<p>
@@ -595,16 +606,135 @@
 									</section>
 
 									<section class="project-item" data-tags="Python Machine Learning">
-										<h3>📽️ <strong>Financial Statement Analysis </strong></h3>
+										<h3>📽️ <strong> New Project </strong></h3>
 										<p>
 											This project explored publicly available data on top-grossing US films to identify patterns across genres, studios, and release schedules. I used <strong>R</strong> and <strong>ggplot2</strong> for data exploration and visualisation.
 										</p>
 
 										<h4>💻 <strong>Tech Stack:</strong></h4>
 										<ul>
-											<li><strong>Python</strong> for data manipulation and analysis</li>
-											<li><strong>Pandas</strong> for computations</li>
-											<li><strong>Matplotlib</strong> for plotting financial visualisations</li>
+											<li><strong>Python</strong> for machine learning model development and comparison</li>
+											<li><strong>Scikit-learn</strong> for multiple classification algorithms, preprocessing, and evaluation metrics</li>
+											<li><strong>Pandas</strong> for dataset loading and initial data exploration</li>
+											<li><strong>Matplotlib</strong> for data visualisationsand model performance analysis</li>
+											<li><strong>NumPy</strong> for numerical operations and grid generation</li>
+										</ul>
+
+										<h4>🧪 <strong>Data Pipeline:</strong></h4>
+										<ul>
+											<li><strong>Load & inspect data:</strong> Imported multi-statement CSV into pandas. Extracted relevant sections for Balance Sheet, Income Statement, and Cash Flow Statement using <code>loc[]</code>. </li>
+											<li><strong>Trend Analysis:</strong> Transposed time-series data <code>(.T)</code> and plotted major components (e.g. assets, equity) using <code>.plot()</code> to visualise financial stability over time. </li>
+											<li><strong>Ratio Calculations:</strong> Computed solvency and profitability ratios: Return on Equity (ROE), Return on Assets (ROA), Debt-to-Equity. Built <code>DataFrame</code> to summarise and visualise using grouped bar plots.</li>
+											<li><strong>Custom Metrics:</strong> Created Operating Cash Flow to Total Debt ratio from cash flow and balance sheet sections to assess short-term liquidity strength.</li>
+											
+										</ul>
+
+										<h4>🌟 <strong>Key Insights:</strong></h4>
+										<ul>
+											<li>Multiple algorithms provided different approaches to cancer classification, each with unique strengths for medical diagnosis</li>
+											<li>Feature standardization proved crucial for distance-based algorithms (SVM, KNN) due to varying scales of cellular measurements</li>
+											<li>Confusion matrix analysis revealed the trade-offs between sensitivity (detecting cancer) and specificity (avoiding false alarms)</li>
+											<li>Model comparison enabled selection of the most reliable algorithm for medical diagnostic support</li>
+										</ul>
+
+										<h4>🧗🏾 <strong>Challenge Faced:</strong></h4>
+										<p>
+											Initially, aligning the financial statements by year was inconsistent due to mixed string/index formats across categories. I overcame this by explicitly extracting year-based columns and standardising label references. This made ratio computations and cross-statement comparisons reliable and reproducible.
+										</p>
+										<p><a href="https://github.com/tendai-codes/population-data-analysis" class="button small">View on GitHub</a></p>
+									</section>
+
+									<section class="project-item" data-tags="R Data Analysis">
+										<h3>📽️ <strong>New Project </strong></h3>
+										<p>
+											This project explored publicly available data on top-grossing US films to identify patterns across genres, studios, and release schedules. I used <strong>R</strong> and <strong>ggplot2</strong> for data exploration and visualisation.
+										</p>
+
+										<h4>💻 <strong>Tech Stack:</strong></h4>
+										<ul>
+											<li><strong>Python</strong> for machine learning model development and comparison</li>
+											<li><strong>Scikit-learn</strong> for multiple classification algorithms, preprocessing, and evaluation metrics</li>
+											<li><strong>Pandas</strong> for dataset loading and initial data exploration</li>
+											<li><strong>Matplotlib</strong> for data visualisationsand model performance analysis</li>
+											<li><strong>NumPy</strong> for numerical operations and grid generation</li>
+										</ul>
+
+										<h4>🧪 <strong>Data Pipeline:</strong></h4>
+										<ul>
+											<li><strong>Load & inspect data:</strong> Imported multi-statement CSV into pandas. Extracted relevant sections for Balance Sheet, Income Statement, and Cash Flow Statement using <code>loc[]</code>. </li>
+											<li><strong>Trend Analysis:</strong> Transposed time-series data <code>(.T)</code> and plotted major components (e.g. assets, equity) using <code>.plot()</code> to visualise financial stability over time. </li>
+											<li><strong>Ratio Calculations:</strong> Computed solvency and profitability ratios: Return on Equity (ROE), Return on Assets (ROA), Debt-to-Equity. Built <code>DataFrame</code> to summarise and visualise using grouped bar plots.</li>
+											<li><strong>Custom Metrics:</strong> Created Operating Cash Flow to Total Debt ratio from cash flow and balance sheet sections to assess short-term liquidity strength.</li>
+											
+										</ul>
+
+										<h4>🌟 <strong>Key Insights:</strong></h4>
+										<ul>
+											<li>Multiple algorithms provided different approaches to cancer classification, each with unique strengths for medical diagnosis</li>
+											<li>Feature standardization proved crucial for distance-based algorithms (SVM, KNN) due to varying scales of cellular measurements</li>
+											<li>Confusion matrix analysis revealed the trade-offs between sensitivity (detecting cancer) and specificity (avoiding false alarms)</li>
+											<li>Model comparison enabled selection of the most reliable algorithm for medical diagnostic support</li>
+										</ul>
+
+										<h4>🧗🏾 <strong>Challenge Faced:</strong></h4>
+										<p>
+											Initially, aligning the financial statements by year was inconsistent due to mixed string/index formats across categories. I overcame this by explicitly extracting year-based columns and standardising label references. This made ratio computations and cross-statement comparisons reliable and reproducible.
+										</p>
+										<p><a href="https://github.com/tendai-codes/population-data-analysis" class="button small">View on GitHub</a></p>
+									</section>
+
+									<section class="project-item" data-tags="R Data Analysis">
+										<h3>📽️ <strong>New Project </strong></h3>
+										<p>
+											This project explored publicly available data on top-grossing US films to identify patterns across genres, studios, and release schedules. I used <strong>R</strong> and <strong>ggplot2</strong> for data exploration and visualisation.
+										</p>
+
+										<h4>💻 <strong>Tech Stack:</strong></h4>
+										<ul>
+											<li><strong>Python</strong> for machine learning model development and comparison</li>
+											<li><strong>Scikit-learn</strong> for multiple classification algorithms, preprocessing, and evaluation metrics</li>
+											<li><strong>Pandas</strong> for dataset loading and initial data exploration</li>
+											<li><strong>Matplotlib</strong> for data visualisationsand model performance analysis</li>
+											<li><strong>NumPy</strong> for numerical operations and grid generation</li>
+										</ul>
+
+										<h4>🧪 <strong>Data Pipeline:</strong></h4>
+										<ul>
+											<li><strong>Load & inspect data:</strong> Imported multi-statement CSV into pandas. Extracted relevant sections for Balance Sheet, Income Statement, and Cash Flow Statement using <code>loc[]</code>. </li>
+											<li><strong>Trend Analysis:</strong> Transposed time-series data <code>(.T)</code> and plotted major components (e.g. assets, equity) using <code>.plot()</code> to visualise financial stability over time. </li>
+											<li><strong>Ratio Calculations:</strong> Computed solvency and profitability ratios: Return on Equity (ROE), Return on Assets (ROA), Debt-to-Equity. Built <code>DataFrame</code> to summarise and visualise using grouped bar plots.</li>
+											<li><strong>Custom Metrics:</strong> Created Operating Cash Flow to Total Debt ratio from cash flow and balance sheet sections to assess short-term liquidity strength.</li>
+											
+										</ul>
+
+										<h4>🌟 <strong>Key Insights:</strong></h4>
+										<ul>
+											<li>Multiple algorithms provided different approaches to cancer classification, each with unique strengths for medical diagnosis</li>
+											<li>Feature standardization proved crucial for distance-based algorithms (SVM, KNN) due to varying scales of cellular measurements</li>
+											<li>Confusion matrix analysis revealed the trade-offs between sensitivity (detecting cancer) and specificity (avoiding false alarms)</li>
+											<li>Model comparison enabled selection of the most reliable algorithm for medical diagnostic support</li>
+										</ul>
+
+										<h4>🧗🏾 <strong>Challenge Faced:</strong></h4>
+										<p>
+											Initially, aligning the financial statements by year was inconsistent due to mixed string/index formats across categories. I overcame this by explicitly extracting year-based columns and standardising label references. This made ratio computations and cross-statement comparisons reliable and reproducible.
+										</p>
+										<p><a href="https://github.com/tendai-codes/population-data-analysis" class="button small">View on GitHub</a></p>
+									</section>
+
+									<section class="project-item" data-tags="R Data Analysis">
+										<h3>📽️ <strong>New Project </strong></h3>
+										<p>
+											This project explored publicly available data on top-grossing US films to identify patterns across genres, studios, and release schedules. I used <strong>R</strong> and <strong>ggplot2</strong> for data exploration and visualisation.
+										</p>
+
+										<h4>💻 <strong>Tech Stack:</strong></h4>
+										<ul>
+											<li><strong>Python</strong> for machine learning model development and comparison</li>
+											<li><strong>Scikit-learn</strong> for multiple classification algorithms, preprocessing, and evaluation metrics</li>
+											<li><strong>Pandas</strong> for dataset loading and initial data exploration</li>
+											<li><strong>Matplotlib</strong> for data visualisationsand model performance analysis</li>
+											<li><strong>NumPy</strong> for numerical operations and grid generation</li>
 										</ul>
 
 										<h4>🧪 <strong>Data Pipeline:</strong></h4>
@@ -629,126 +759,11 @@
 										<p><a href="https://github.com/tendai-codes/population-data-analysis" class="button small">View on GitHub</a></p>
 									</section>
 
-									<section class="project-item" data-tags="R Data Analysis">
-										<h3>📽️ <strong>Financial Statement Analysis </strong></h3>
-										<p>
-											This project explored publicly available data on top-grossing US films to identify patterns across genres, studios, and release schedules. I used <strong>R</strong> and <strong>ggplot2</strong> for data exploration and visualisation.
-										</p>
 
-										<h4>💻 <strong>Tech Stack:</strong></h4>
-										<ul>
-											<li><strong>Python</strong> for data manipulation and analysis</li>
-											<li><strong>Pandas</strong> for computations</li>
-											<li><strong>Matplotlib</strong> for plotting financial visualisations</li>
-										</ul>
-
-										<h4>🧪 <strong>Data Pipeline:</strong></h4>
-										<ul>
-											<li><strong>Load & inspect data:</strong> Imported multi-statement CSV into pandas. Extracted relevant sections for Balance Sheet, Income Statement, and Cash Flow Statement using <code>loc[]</code>. </li>
-											<li><strong>Trend Analysis:</strong> Transposed time-series data <code>(.T)</code> and plotted major components (e.g. assets, equity) using <code>.plot()</code> to visualise financial stability over time. </li>
-											<li><strong>Ratio Calculations:</strong> Computed solvency and profitability ratios: Return on Equity (ROE), Return on Assets (ROA), Debt-to-Equity. Built <code>DataFrame</code> to summarise and visualise using grouped bar plots.</li>
-											<li><strong>Custom Metrics:</strong> Created Operating Cash Flow to Total Debt ratio from cash flow and balance sheet sections to assess short-term liquidity strength.</li>
-											
-										</ul>
-
-										<h4>🌟 <strong>Key Insights:</strong></h4>
-										<p>
-										The company showed stable asset growth and rising equity, but the Debt-to-Equity ratio increased post-2020, signalling higher leverage risk.
-										Operating cash flow was consistently positive, suggesting sufficient liquidity to meet short-term obligations — a green flag for operational health.
-									</p>
-
-									<h4>🧗🏾 <strong>Challenge Faced:</strong></h4>
-									<p>
-										Initially, aligning the financial statements by year was inconsistent due to mixed string/index formats across categories. I overcame this by explicitly extracting year-based columns and standardising label references. This made ratio computations and cross-statement comparisons reliable and reproducible.
-									</p>
-									<p><a href="https://github.com/tendai-codes/population-data-analysis" class="button small">View on GitHub</a></p>
-								</section>
-
-								<section class="project-item" data-tags="R Data Analysis">
-									<h3>📽️ <strong>Financial Statement Analysis </strong></h3>
-									<p>
-										This project explored publicly available data on top-grossing US films to identify patterns across genres, studios, and release schedules. I used <strong>R</strong> and <strong>ggplot2</strong> for data exploration and visualisation.
-									</p>
-
-									<h4>💻 <strong>Tech Stack:</strong></h4>
-									<ul>
-										<li><strong>Python</strong> for data manipulation and analysis</li>
-										<li><strong>Pandas</strong> for computations</li>
-										<li><strong>Matplotlib</strong> for plotting financial visualisations</li>
-									</ul>
-
-									<h4>🧪 <strong>Data Pipeline:</strong></h4>
-									<ul>
-										<li><strong>Load & inspect data:</strong> Imported multi-statement CSV into pandas. Extracted relevant sections for Balance Sheet, Income Statement, and Cash Flow Statement using <code>loc[]</code>. </li>
-										<li><strong>Trend Analysis:</strong> Transposed time-series data <code>(.T)</code> and plotted major components (e.g. assets, equity) using <code>.plot()</code> to visualise financial stability over time. </li>
-										<li><strong>Ratio Calculations:</strong> Computed solvency and profitability ratios: Return on Equity (ROE), Return on Assets (ROA), Debt-to-Equity. Built <code>DataFrame</code> to summarise and visualise using grouped bar plots.</li>
-										<li><strong>Custom Metrics:</strong> Created Operating Cash Flow to Total Debt ratio from cash flow and balance sheet sections to assess short-term liquidity strength.</li>
-										
-									</ul>
-
-									<h4>🌟 <strong>Key Insight:</strong></h4>
-									<p>
-										The company showed stable asset growth and rising equity, but the Debt-to-Equity ratio increased post-2020, signalling higher leverage risk.
-										Operating cash flow was consistently positive, suggesting sufficient liquidity to meet short-term obligations — a green flag for operational health.
-									</p>
-
-									<h4>🧗🏾 <strong>Challenge Faced:</strong></h4>
-									<p>
-										Initially, aligning the financial statements by year was inconsistent due to mixed string/index formats across categories. I overcame this by explicitly extracting year-based columns and standardising label references. This made ratio computations and cross-statement comparisons reliable and reproducible.
-									</p>
-									<p><a href="https://github.com/tendai-codes/population-data-analysis" class="button small">View on GitHub</a></p>
-								</section>
-
-								<section class="project-item" data-tags="R Data Analysis">
-									<h3>📽️ <strong>Financial Statement Analysis </strong></h3>
-									<p>
-										This project explored publicly available data on top-grossing US films to identify patterns across genres, studios, and release schedules. I used <strong>R</strong> and <strong>ggplot2</strong> for data exploration and visualisation.
-									</p>
-
-									<h4>💻 <strong>Tech Stack:</strong></h4>
-									<ul>
-										<li><strong>Python</strong> for data manipulation and analysis</li>
-										<li><strong>Pandas</strong> for computations</li>
-										<li><strong>Matplotlib</strong> for plotting financial visualisations</li>
-									</ul>
-
-									<h4>🧪 <strong>Data Pipeline:</strong></h4>
-									<ul>
-										<li><strong>Load & inspect data:</strong> Imported multi-statement CSV into pandas. Extracted relevant sections for Balance Sheet, Income Statement, and Cash Flow Statement using <code>loc[]</code>. </li>
-										<li><strong>Trend Analysis:</strong> Transposed time-series data <code>(.T)</code> and plotted major components (e.g. assets, equity) using <code>.plot()</code> to visualise financial stability over time. </li>
-										<li><strong>Ratio Calculations:</strong> Computed solvency and profitability ratios: Return on Equity (ROE), Return on Assets (ROA), Debt-to-Equity. Built <code>DataFrame</code> to summarise and visualise using grouped bar plots.</li>
-										<li><strong>Custom Metrics:</strong> Created Operating Cash Flow to Total Debt ratio from cash flow and balance sheet sections to assess short-term liquidity strength.</li>
-										
-									</ul>
-
-									<h4>🌟 <strong>Key Insight:</strong></h4>
-									<p>
-										The company showed stable asset growth and rising equity, but the Debt-to-Equity ratio increased post-2020, signalling higher leverage risk.
-										Operating cash flow was consistently positive, suggesting sufficient liquidity to meet short-term obligations — a green flag for operational health.
-									</p>
-
-									<h4>🧗🏾 <strong>Challenge Faced:</strong></h4>
-									<p>
-										Initially, aligning the financial statements by year was inconsistent due to mixed string/index formats across categories. I overcame this by explicitly extracting year-based columns and standardising label references. This made ratio computations and cross-statement comparisons reliable and reproducible.
-									</p>
-									<p><a href="https://github.com/tendai-codes/population-data-analysis" class="button small">View on GitHub</a></p>
-								</section>
-
+								</div>
 							</article>
 
-							<article id="machine-learning">
-								<h2 class="major">Machine Learning</h2>
-								<span class="image main"><img src="images/machine_learning.jpg" alt="" /></span>
-								<p>This section includes projects where I applied machine learning algorithms for prediction, classification, and clustering tasks.</p>
-								<!-- Add portfolio items here -->
-							</article>
-
-							<article id="deep-learning">
-								<h2 class="major">Deep Learning</h2>
-								<span class="image main"><img src="images/deep_learning.jpg" alt="" /></span>
-								<p>Explore deep learning work including computer vision, neural networks, and natural language processing.</p>
-								<!-- Add portfolio items here -->
-							</article>
+							
 
 						<!-- About Me -->
 							<article id="about">

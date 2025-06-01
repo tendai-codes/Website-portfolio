@@ -176,7 +176,7 @@
 						</div>
 						<div class="content">
 							<div class="inner">
-								<h1>Tendai N Sibanda | Portfolio</h1>
+								<h1>Tendai N Sibanda | Data Science Portfolio</h1>
 								<p>Making sense of complexity through data. Leveraging AI to empower people and decisions.</p>
 							</div>
 						</div>
@@ -184,7 +184,7 @@
 							<ul>
 								<li><a href="#intro">Intro</a></li>
 								<li><a href="#projects">Projects</a></li>
-								<li><a href="#about">About</a></li>
+								<li><a href="#about">About Me</a></li>
 								<li><a href="#contact">Contact</a></li>
 								<!--<li><a href="#elements">Elements</a></li>-->
 							</ul>
@@ -1133,20 +1133,30 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 				project.style.display = "none";
 			});
 
-			//  Show only matching ones on button click
-			buttons.forEach(btn => {
-				btn.addEventListener("click", () => {
-					const tag = btn.getAttribute("data-tag");
+			// Add event listener to all buttons
+			buttons.forEach(button => {
+				button.addEventListener("click", () => {
+					// Get selected tag from button
+					const tag = button.getAttribute("data-tag");
+					activeTag = tag;
 
+					// Highlight the active button
+					buttons.forEach(btn => btn.classList.remove("active"));
+					button.classList.add("active");
+
+					// Filter projects
 					projects.forEach(project => {
-						const tags = project.getAttribute("data-tags").split(",");
-						const match = tag === "all" || tags.includes(tag);
-
-						project.style.display = match ? "block" : "none";
+						const tags = project.getAttribute("data-tags").split(" ");
+						if (tag === "all" || tags.includes(tag)) {
+							project.style.display = "block";
+						} else {
+							project.style.display = "none";
+						}
 					});
-    			});
-  			});
+				});
+			});
 		});
+	
     	</script>
 
 	</body>

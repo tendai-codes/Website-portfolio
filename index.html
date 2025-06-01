@@ -1146,7 +1146,7 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 
 					// Filter projects
 					projects.forEach(project => {
-						const tags = project.getAttribute("data-tags").split(" ");
+						const tags = project.getAttribute("data-tags").split(",").map(tag => tag.trim());
 						if (tag === "all" || tags.includes(tag)) {
 							project.style.display = "block";
 						} else {

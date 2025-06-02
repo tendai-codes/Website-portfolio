@@ -15,7 +15,9 @@
 		<!-- Highlight.js core CSS (choose your theme) -->
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
 
-	
+		<!-- Lightbox CSS -->
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/css/lightbox.min.css" rel="stylesheet" />
+
 
 	
 		<style>
@@ -144,6 +146,14 @@
 			object-fit: contain;
 			}
 
+			.image-gallery-1 {
+			display: grid;
+			grid-template-columns: repeat(1, 1fr); /* 2 equal columns */
+			grid-template-rows: 1fr;
+			gap: 10px;
+			max-width: 100%;
+			}
+
 			figure {
 				margin: 0;
 			}
@@ -155,21 +165,7 @@
 				text-align: center;
 			}
 
-			.image-gallery-3x3 {
-			display: grid;
-			grid-template-columns: repeat(3, 1fr); /* 2 equal columns */
-			grid-template-rows: 1fr;
-			gap: 10px;
-			max-width: 100%;
-			}
-
-	.image-gallery-1 {
-			display: grid;
-			grid-template-columns: repeat(1, 1fr); /* 2 equal columns */
-			grid-template-rows: 1fr;
-			gap: 10px;
-			max-width: 100%;
-			}
+			
 
 			pre {
 			background: #f6f8fa;
@@ -183,6 +179,20 @@
 			line-height: 1.4em;
 			white-space: pre-wrap;       /* Wrap code lines */
   			word-break: break-word;      /* Break long words if needed */
+			}
+
+			/* lightbox image size */
+			.lb-image {
+			width: 70vw !important;
+			height: auto !important;
+			max-height: 70vh !important;
+			object-fit: contain !important;
+			}
+
+			.lb-outerContainer {
+			max-width: 70vw !important;
+			max-height: 70vh !important;
+			margin: auto;
 			}
 
 
@@ -317,14 +327,20 @@
 
 										
 										<!-- Visualisations -->
+
 										<div class="image-gallery">
 										<figure>
-											<img src="images/box_office.png" alt="Figure 2">
-											<figcaption><strong>Figure 1:</strong> No releases on Mondays </figcaption>
+											<a href="images/box_office.png" data-lightbox="box-analysis" data-title="Figure 1: No releases on Mondays">
+											<img src="images/box_office.png" alt="Figure 1: No releases on Mondays">
+											</a>
+											<figcaption><strong>Figure 1:</strong> No releases on Mondays</figcaption>
 										</figure>
+
 										<figure>
-											<img src="images/box_genre.png" alt="Figure 1">
-											<figcaption><strong>Figure 2:</strong> Domestic gross by genre </figcaption>
+											<a href="images/box_genre.png" data-lightbox="box-analysis" data-title="Figure 2: Domestic gross by genre">
+											<img src="images/box_genre.png" alt="Figure 2: Domestic gross by genre">
+											</a>
+											<figcaption><strong>Figure 2:</strong> Domestic gross by genre</figcaption>
 										</figure>
 										</div>
 
@@ -416,17 +432,22 @@
 
 										
 										<!-- Visualisations -->
+
 										<div class="image-gallery">
 										<figure>
-											<img src="images/Financial_statement_b.png" alt="Figure 1">
-											<figcaption><strong>Figure 1:</strong> Profit After Tax </figcaption>
+											<a href="images/Financial_statement_b.png" data-lightbox="finance-state" data-title="Figure 1: Profit After Tax">
+											<img src="images/Financial_statement_b.png" alt="Figure 1: Profit After Tax">
+											</a>
+											<figcaption><strong>Figure 1:</strong> Profit After Tax</figcaption>
 										</figure>
+
 										<figure>
-											<img src="images/Financial_statement_O.png" alt="Figure 2">
-											<figcaption><strong>Figure 2:</strong> Profit Margin </figcaption>
+											<a href="images/Financial_statement_O.png" data-lightbox="finance-state" data-title="Figure 2: Profit Margin">
+											<img src="images/Financial_statement_O.png" alt="Figure 2: Profit Margin">
+											</a>
+											<figcaption><strong>Figure 2:</strong>Profit Margin</figcaption>
 										</figure>
 										</div>
-
 
 										<h4>🌟 <strong>Key Insights:</strong></h4>
 										<p>
@@ -464,10 +485,12 @@
 											
 										</ul>
 
-<!-- Code Snippet -->
+										
+										<h4>📊 <strong>Code Snippets & Visualisations:</strong></h4>
 
-										<pre><code class="language-python">
-										# Plot the BirthRate versus Internet Users categorised by Income Group (Figure 1)
+										<!-- Code Snippet -->
+
+										<pre><code class="language-python"># Plot the BirthRate versus Internet Users categorised by Income Group (Figure 1)
 										vis1 = sns.lmplot( data = data, x = 'BirthRate', y = 'InternetUsers', fit_reg = False, hue = 'IncomeGroup', height = 10 )
 
 										# Create the dataframe
@@ -514,21 +537,22 @@
 										
 										<!-- Visualisations -->
 										<div class="image-gallery">
-										<figure>
-											<img src="images/world_birthintIG.png" alt="Figure 1">
-											<figcaption><strong>Figure 1:</strong> BirthRate versus Internet Users categorised by Income Group </figcaption>
-										</figure>
-										<figure>
-											<img src="images/world_birthintCR.png" alt="Figure 2">
-											<figcaption><strong>Figure 2:</strong> BirthRate versus Internet Users categorised by Country Region </figcaption>
-										</figure>
-										<img src="images/world_life1960.png" alt="Figure 3">
-											<figcaption><strong>Figure 3:</strong> BirthRate versus LifeExpectancy in 1960 </figcaption>
-										</figure>
-										<figure>
-											<img src="images/world_life2013.png" alt="Figure 4">
-											<figcaption><strong>Figure 4:</strong> BirthRate versus LifeExpectancy in 2013 </figcaption>
-										</figure>
+											<figure>
+												<img src="images/world_birthintIG.png" alt="Figure 1">
+												<figcaption><strong>Figure 1:</strong> BirthRate versus Internet Users categorised by Income Group </figcaption>
+											</figure>
+											<figure>
+												<img src="images/world_birthintCR.png" alt="Figure 2">
+												<figcaption><strong>Figure 2:</strong> BirthRate versus Internet Users categorised by Country Region </figcaption>
+											</figure>
+											</figure>
+												<img src="images/world_life1960.png" alt="Figure 3">
+												<figcaption><strong>Figure 3:</strong> BirthRate versus LifeExpectancy in 1960 </figcaption>
+											</figure>
+											<figure>
+												<img src="images/world_life2013.png" alt="Figure 4">
+												<figcaption><strong>Figure 4:</strong> BirthRate versus LifeExpectancy in 2013 </figcaption>
+											</figure>
 										</div>
 
 										<h4>🌟 <strong>Key Insights:</strong></h4>
@@ -572,6 +596,139 @@
 											<li><strong>Distribution Analysis:</strong> Created histograms and compiled distribution plots using Plotly's <code>create_distplot()</code> to analyze the statistical properties of daily returns.</li>
 										</ul>
 
+										<h4>📊 <strong>Code Snippets & Visualisations:</strong></h4>
+
+										<!-- Code Snippet -->
+
+										<pre><code class="language-python"># Visualize Stocks data
+										def show_plot(df, title):
+										df.plot(x = 'Date', figsize=(12, 8), linewidth = 3, title=title)
+										plt.xlabel('Date')
+										plt.ylabel('Price')
+										plt.grid()
+										plt.show()
+
+										# Plot the data (Figure 1)
+										show_plot(stocks_df, 'STOCKS DATA')
+										
+										# Normalized Stock Data (Figure 2)
+										def normalize(df):
+											x = df.copy()
+											for i in x.columns[1:]:
+												x[i] = x[i]/x[i][0]
+											return x
+
+										normalize(stocks_df)
+
+										# Create Interactive chart of Stock Data (Figure 3)
+
+										def interactive_plot(df, title):
+										fig = px.line(title=title)
+
+										for i in df.columns[1:]:
+											fig.add_scatter(x=df['Date'], y=df[i], name=i)
+											fig.update_layout(
+											xaxis_title = "Date",
+											yaxis_title = "Price"
+										)
+										fig.show()
+										interactive_plot(stocks_df, 'STOCKS DATA')
+										
+										# Create Interactive chart of Normalized Stock Data (Figure 4)
+										interactive_plot(normalize(stocks_df), 'STOCKS DATA')
+
+										#Calculate stocks daily returns
+
+										def daily_return(df):
+										df_daily_return = df.copy()
+										#loop for columns
+										for i in df.columns[1:]:
+										#loop for rows
+											for j in range(1, len(df)):
+											df_daily_return[i][j] = ((df[i][j] - df[i][j-1]) / (df[i][j-1]))*100
+
+											df_daily_return[i][0] = 0
+
+										return df_daily_return
+
+
+										# Get the daily returns (Figure 5)
+										stocks_daily_return = daily_return(stocks_df)
+										stocks_daily_return
+
+										interactive_plot(stocks_daily_return, 'Stocks Daily returns')
+
+
+										# Daily Return Correlation
+										cm = stocks_daily_return.drop(columns = ['Date']).corr()
+										cm
+										# heatmap showing correlations (Figure 6)
+										plt.figure(figsize=(10, 8))
+										sns.heatmap(cm, annot=True, cmap='RdYlGn') #true give you the values on the heatmap
+										plt.show()
+
+										# Histogram of daily returns (Figure 7)
+										stocks_daily_return.hist(bins=50, figsize=(20, 10))
+										plt.show();
+
+										</code></pre>
+
+										
+										<!-- Visualisations -->
+
+										<div class="image-gallery">
+										<figure>
+											<a href="images/stocks_1.png" data-lightbox="stock-data" data-title="Figure 1: stocks_1">
+											<img src="images/stocks_1.png" alt="Figure 1: stocks_1">
+											</a>
+											<figcaption><strong>Figure 1</strong></figcaption>
+										</figure>
+
+										<figure>
+											<a href="images/stocknormal1.png" data-lightbox="stock-data" data-title="Figure 2: stocknormal1">
+											<img src="images/stocknormal1.png" alt="Figure 2: stocknormal1">
+											</a>
+											<figcaption><strong>Figure 2</strong></figcaption>
+										</figure>
+
+										<figure>
+											<a href="images/stocksdata.png" data-lightbox="stock-data" data-title="Figure 3: stocksdata">
+											<img src="images/stocksdata.png" alt="Figure 3: stocksdata">
+											</a>
+											<figcaption><strong>Figure 3</strong></figcaption>
+										</figure>
+
+										<figure>
+											<a href="images/stockdatan.png" data-lightbox="stock-data" data-title="Figure 4: stocks data normal">
+											<img src="images/stockdatan.png" alt="Figure 4: stocks data normal">
+											</a>
+											<figcaption><strong>Figure 4</strong></figcaption>
+										</figure>
+										
+										<figure>
+											<a href="images/stockdailyr.png" data-lightbox="stock-data" data-title="Figure 5: stockdailyr">
+											<img src="images/stockdailyr.png" alt="Figure 5: stockdailyr">
+											</a>
+											<figcaption><strong>Figure 5</strong></figcaption>
+										</figure>
+
+										<figure>
+											<a href="images/stockdataheat.png" data-lightbox="stock-data" data-title="Figure 6: stockdataheat">
+											<img src="images/stockdataheat.png" alt="Figure 2: stockdataheat">
+											</a>
+											<figcaption><strong>Figure 6</strong></figcaption>
+										</figure>
+										
+										<figure>
+											<a href="images/stockdatahist.png" data-lightbox="stock-data" data-title="Figure 7: stockdatahist">
+											<img src="images/stockdatahist.png" alt="Figure 2: stockdatahist">
+											</a>
+											<figcaption><strong>Figure 7</strong></figcaption>
+										</figure>
+										</div>
+
+
+
 										<h4>🌟 <strong>Key Insights:</strong></h4>
 										<ul>
 											<li>Amazon (AMZN) showed the highest maximum price during the 2012-2020 period</li>
@@ -611,6 +768,106 @@
 											<li><strong>Risk metrics calculation:</strong> Computed cumulative return, standard deviation (volatility), average daily return, and Sharpe ratio using <code>np.sqrt(252)</code> for annualization.</li>
 										
 										</ul>
+
+										<h4>📊 <strong>Code Snippets & Visualisations:</strong></h4>
+
+										<!-- Code Snippet -->
+
+										<pre><code class="language-python">#Create random portfolio weights
+										np.random.seed()
+
+										# Create random weights for the stocks
+										weights = np.array(np.random.random(9))
+
+										# Random Asset Allocation & Calculate Portfolio Daily Return
+										weights = weights / np.sum(weights)
+										print(weights)
+
+										# Define Normalization function
+										def normalize(df):
+										x = df.copy()
+										for i in x.columns[1:]:
+											x[i] = x[i]/x[i][0]
+										return x
+
+										# Enumerate returns the value and a counter as well
+										for counter, stock in enumerate(df_portfolio.columns[1:]):
+										df_portfolio[stock] = df_portfolio[stock] * weights[counter]
+										df_portfolio[stock] = df_portfolio[stock] * 1000000
+										df_portfolio
+
+										# Calculate the portfolio daily return
+
+										df_portfolio['portfolio daily % return'] = 0.0000
+
+										for i in range(1, len(stocks_df)):
+										# Calculate the percentage of change from the previous day
+										df_portfolio['portfolio daily % return'][i] = ( (df_portfolio['portfolio daily worth/$'][i] - df_portfolio['portfolio daily worth/$'][i-1]) / df_portfolio['portfolio daily worth/$'][i-1]) * 100
+
+										df_portfolio
+
+
+										# Create a function for stock portfolio allocation
+										# Assume $1000000 is total amount for portfolio
+
+										def portfolio_allocation(df, weights):
+
+										df_portfolio = df.copy()
+
+										# Normalize the stock avalues
+										df_portfolio = normalize(df_portfolio)
+
+										for counter, stock in enumerate(df_portfolio.columns[1:]):
+											df_portfolio[stock] = df_portfolio[stock] * weights[counter]
+											df_portfolio[stock] = df_portfolio[stock] * 1000000
+
+										df_portfolio['portfolio daily worth in $'] = df_portfolio[df_portfolio != 'Date'].sum(axis = 1)
+
+										df_portfolio['portfolio daily % return'] = 0.0000
+
+										for i in range(1, len(stocks_df)):
+
+										# Calculate the percentage of change from the previous day
+											df_portfolio['portfolio daily % return'][i] = ( (df_portfolio['portfolio daily worth in $'][i] - df_portfolio['portfolio daily worth in $'][i-1]) / df_portfolio['portfolio daily worth in $'][i-1]) * 100
+
+										# Set the value of first row to zero, as previous value is not available
+										df_portfolio['portfolio daily % return'][0] = 0
+										return df_portfolio
+
+										# Plot the portfolio daily return (Figure 1)
+										fig = px.line(x = df_portfolio.Date, y = df_portfolio['portfolio daily % return'], title = 'Portfolio Daily % Return',
+													labels = {
+															"x": "Date",
+															"y": "Daily Percentage Return"
+														})
+										fig.show()
+
+										# Cummulative return of the portfolio
+										cummulative_return = ((df_portfolio['portfolio daily worth/$'][-1:] - df_portfolio['portfolio daily worth/$'][0])/ df_portfolio['portfolio daily worth/$'][0]) * 100
+										print('Cummulative return of the portfolio is {} %'.format(cummulative_return.values[0]))
+
+										# Calculate the average daily return
+										print('Average daily return of the portfolio is {} %'.format(df_portfolio['portfolio daily % return'].mean() ))
+
+										# Portfolio sharpe ratio
+										sharpe_ratio = df_portfolio['portfolio daily % return'].mean() / df_portfolio['portfolio daily % return'].std() * np.sqrt(252)
+										print('Sharpe ratio of the portfolio is {}'.format(sharpe_ratio))
+
+										</code></pre>
+
+										
+										<!-- Visualisations -->
+
+										<div class="image-gallery">
+										
+										<figure>
+											<a href="images/portfoliodaily.png" data-lightbox="portfolio-assets" data-title="Figure 1: portfoliodaily">
+											<img src="images/portfoliodaily.png" alt="Figure 1: portfoliodaily">
+											</a>
+											<figcaption><strong>Figure 1</strong></figcaption>
+										</figure>
+										</div>
+
 
 										<h4>🌟 <strong>Key Insights:</strong></h4>
 										<ul>
@@ -653,6 +910,108 @@
 											<li><strong>Risk metrics storage:</strong> Used Python dictionaries <code>beta = {}</code> and <code>alpha = {}</code> to store calculated coefficients for each stock, enabling easy comparison and further analysis. </li>
 										</ul>
 
+										<h4>📊 <strong>Code Snippets & Visualisations:</strong></h4>
+
+										<!-- Code Snippet -->
+
+										<pre><code class="language-python"># Function to calculate the daily returns
+										def daily_returns(df):
+										df_daily_return = df.copy()
+										for i in df.columns[1:]:
+											for j in range(1, len(df)):
+											df_daily_return[i][j] = ((df[i][j] - df[i][j-1])/df[i][j-1])*100
+
+											df_daily_return[i][0] = 0
+										return df_daily_return
+
+										# Plot a scatter plot between the selected stock and the S&P500 (Market) (Figure 1)
+										plt.scatter(stocks_daily_return['sp500'], stocks_daily_return['AAPL'])
+										plt.xlabel('sp500')
+										plt.ylabel('AAPL')
+										plt.grid()
+
+										#Add beta & alpha to plot
+										beta, alpha = np.polyfit(stocks_daily_return['sp500'], stocks_daily_return['AAPL'], 1)
+
+										#add regression line (beta) - y = beta [stockvsmkt- stock volatility] * rm [stock daily return] + alpha [excess return on top of mkt return]
+										plt.plot(stocks_daily_return['sp500'], beta * stocks_daily_return['sp500'] + alpha, '-', color = 'r')
+										plt.show()
+
+										# Let's calculate the annualized rate of return for S&P500
+										#Assume 252 working days per year
+
+										rm = stocks_daily_return['sp500'].mean() * 252
+										rm
+
+										# Assume risk free rate is zero
+										# Also you can use the yield of a 10-years U.S. Government bond as a risk free rate
+										rf = 0
+
+										# Calculate return for any security (APPL) using CAPM
+										Exp_return_AAPL = rf + (beta * (rm - rf))
+										Exp_return_AAPL
+
+										# Create a placeholder for all betas and alphas
+										beta = {}
+										alpha = {}
+
+										for i in stocks_daily_return.columns[1:]:
+										if i != 'sp500'and i != 'Date':
+
+											stocks_daily_return.plot(kind = 'scatter', x = 'sp500', y = i, title = i)
+											plt.scatter(stocks_daily_return['sp500'], stocks_daily_return[i])
+											plt.xlabel('sp500')
+											plt.ylabel(i)
+											beta[i], alpha[i] = np.polyfit(stocks_daily_return['sp500'], stocks_daily_return[i], 1)
+											plt.plot(stocks_daily_return['sp500'], beta[i] * stocks_daily_return['sp500'] + alpha[i], '-', color = 'r')
+
+											plt.grid()
+											plt.show()
+
+											
+										print('Beta for {} stock is {} & alpha is = {}'.format('AAPL', beta, alpha))
+
+
+										# APPLY CAPM FORMULA TO CALCULATE THE RETURN FOR THE PORTFOLIO
+										# Obtain a list of all stock names
+										stock_names = list(beta.keys())
+										stock_names
+
+										# Define the expected return dictionary
+										ER = {}
+
+										rf = 0
+										rm = stocks_daily_return['sp500'].mean() * 252
+										for i in stock_names:
+										ER[i] = rf + (beta[i] * (rm - rf))
+										ER
+
+										for i in stock_names:
+										print('Expected return for {} is {}%'.format(i, ER[i]))
+
+										Portfolio_weights = 1/8 * np.ones(8)
+
+										# Assume equal weights in the portfolio, calculate returns
+										ER_portfolio = sum(list(ER.values()) * Portfolio_weights)
+										ER_portfolio
+
+
+										</code></pre>
+
+										
+										<!-- Visualisations -->
+
+										<div class="image-gallery">
+										
+										<figure>
+											<a href="images/CAPM.png" data-lightbox="CAPM" data-title="Figure 1: Stock Daily Returns">
+											<img src="images/CAPM.png" alt="Figure 1: Stock Daily Returns">
+											</a>
+											<figcaption><strong>Figure 1</strong></figcaption>
+										</figure>
+										</div>
+
+
 										<h4>🌟 <strong>Key Insights:</strong></h4>
 										<ul>
 											<li>Beta values revealed which stocks were more volatile than the market (beta > 1) versus defensive stocks (beta < 1)</li>
@@ -693,6 +1052,36 @@
 											<li><strong>Results Visualisation:</strong> Used <code>np.set_printoptions(precision=2)</code> for clean output formatting and <code>np.concatenate()</code> with <code>reshape()</code> to create side-by-side comparison of predicted vs. actual values for easy performance assessment.</li>
 											
 										</ul>
+
+										<h4>📊 <strong>Code Snippets & Visualisations:</strong></h4>
+
+										<!-- Code Snippet -->
+
+										<pre><code class="language-python"># Encoding categorical data 
+
+										from sklearn.compose import ColumnTransformer
+										from sklearn.preprocessing import OneHotEncoder
+
+										# OneHotEncoder(), [3]) - the 3 is the column you want to encode
+										ct = ColumnTransformer(transformers=[('encoder', OneHotEncoder(), [3])], remainder='passthrough')
+										X = np.array(ct.fit_transform(X))
+
+										# Splitting Train ad Test set
+										from sklearn.model_selection import train_test_split
+										X_train, X_test, y_train, y_test = train_test_split(X, y, test_sise = 0.2, random_state = 0)
+
+										from sklearn.linear_model import LinearRegression
+										regressor = LinearRegression()
+										regressor.fit(X_train, y_train)
+
+										# Predicting Results
+										y_pred = regressor.predict(X_test)
+										np.set_printoptions(precision=2)
+										print(np.concatenate((y_pred.reshape(len(y_pred),1), y_test.reshape(len(y_test),1)),1))
+
+										</code></pre>
+
+
 
 										<h4>🌟 <strong>Key Insights:</strong></h4>
 										<ul>
@@ -739,6 +1128,86 @@
 											<li><strong>Model Visualisations:</strong> Created scatter plots with <code>plt.scatter()</code> for actual data points and <code>plt.plot()</code> for the linear regression line, showing the limitation of straight-line salary prediction. Generated similar visualizations for the polynomial model using <code>lin_reg_2.predict(poly_reg.fit_transform(X))</code> to display the curved relationship between position levels and salaries.</li>
 											<li><strong>Model comparison:</strong> Made direct salary predictions for position level 6.5 using both <code>lin_reg.predict([[6.5]])</code> and <code>lin_reg_2.predict(poly_reg.fit_transform([[6.5]]))</code> to compare model outputs for intermediate position levels.</li>
 										</ul>
+
+										<h4>📊 <strong>Code Snippets & Visualisations:</strong></h4>
+
+										<!-- Code Snippet -->
+
+										<pre><code class="language-python"># Training the Decision Tree Regression
+										from sklearn.tree import DecisionTreeRegressor
+										regressor = DecisionTreeRegressor(random_state = 0)
+										regressor.fit(X, y)
+
+
+										# Visualising Results (Figure 1)
+
+										X_grid = np.arange(min(X), max(X), 0.01)
+										# 0.01 was adjusted from 0.1 to increase the resolution
+										X_grid = X_grid.reshape((len(X_grid), 1))
+										plt.scatter(X, y, color = 'red')
+										plt.plot(X_grid, regressor.predict(X_grid), color = 'blue')
+										plt.title('HR Salary Predictions (Decision Tree Regression)')
+										plt.xlabel('Position level')
+										plt.ylabel('Salary')
+										plt.show()
+
+
+										</code></pre>
+
+										
+										<!-- Visualisations -->
+
+										<div class="image-gallery">
+										<figure>
+											<a href="images/HRlogR.png" data-lightbox="HR-salaries" data-title="Figure 1: HRlogR">
+											<img src="images/HRlogR.png" alt="Figure 1: HRlogR">
+											</a>
+											<figcaption><strong>Figure 1</strong></figcaption>
+										</figure>
+
+										<figure>
+											<a href="images/HRsvm.png" data-lightbox="HR-salaries" data-title="Figure 2: HRsvm">
+											<img src="images/HRsvm.png" alt="Figure 2: HRsvm">
+											</a>
+											<figcaption><strong>Figure 2</strong></figcaption>
+										</figure>
+
+										<figure>
+											<a href="images/HRkernsvm.png" data-lightbox="HR-salaries" data-title="Figure 3: HRkernsvm">
+											<img src="images/HRkernsvm.png" alt="Figure 3: HRkernsvm">
+											</a>
+											<figcaption><strong>Figure 3</strong></figcaption>
+										</figure>
+
+										<figure>
+											<a href="images/HRknn.png" data-lightbox="HR-salaries" data-title="Figure 4: HRknn">
+											<img src="images/HRknn.png" alt="Figure 4: HRknn">
+											</a>
+											<figcaption><strong>Figure 4</strong></figcaption>
+										</figure>
+										
+										<figure>
+											<a href="images/HRnaive.png" data-lightbox="HR-salaries" data-title="Figure 5: HRnaive">
+											<img src="images/HRnaive.png" alt="Figure 5: HRnaive">
+											</a>
+											<figcaption><strong>Figure 5</strong></figcaption>
+										</figure>
+
+										<figure>
+											<a href="images/HRrandom.png" data-lightbox="HR-salaries" data-title="Figure 5: HRrandom">
+											<img src="images/HRrandom.png" alt="Figure 2: HRrandom">
+											</a>
+											<figcaption><strong>Figure 6</strong></figcaption>
+										</figure>
+										
+										<figure>
+											<a href="images/HRdectree.png" data-lightbox="HR-salaries" data-title="Figure 5: HRdectree">
+											<img src="images/HRdectree.png" alt="Figure 2: HRdectree">
+											</a>
+											<figcaption><strong>Figure 7</strong></figcaption>
+										</figure>
+										</div>
+
 
 										<h4>🌟 <strong>Key Insights:</strong></h4>
 										<ul>
@@ -787,6 +1256,138 @@
 											<li><strong>Medical model validation: </strong> Created confusion matrices to analyze true positives, false positives, true negatives, and false negatives - critical metrics for medical diagnostic applications where false negatives (missed cancers) are particularly concerning..</li>
 
 										</ul>
+
+										<h4>📊 <strong>Code Snippets & Visualisations:</strong></h4>
+
+										<!-- Code Snippet -->
+
+										<pre><code class="language-python"># Visualize Stocks data
+										def show_plot(df, title):
+										df.plot(x = 'Date', figsize=(12, 8), linewidth = 3, title=title)
+										plt.xlabel('Date')
+										plt.ylabel('Price')
+										plt.grid()
+										plt.show()
+
+										# Plot the data (Figure 1)
+										show_plot(stocks_df, 'STOCKS DATA')
+										
+										# Normalized Stock Data (Figure 2)
+										def normalize(df):
+											x = df.copy()
+											for i in x.columns[1:]:
+												x[i] = x[i]/x[i][0]
+											return x
+
+										normalize(stocks_df)
+
+										# Create Interactive chart of Stock Data (Figure 3)
+
+										def interactive_plot(df, title):
+										fig = px.line(title=title)
+
+										for i in df.columns[1:]:
+											fig.add_scatter(x=df['Date'], y=df[i], name=i)
+											fig.update_layout(
+											xaxis_title = "Date",
+											yaxis_title = "Price"
+										)
+										fig.show()
+										interactive_plot(stocks_df, 'STOCKS DATA')
+										
+										# Create Interactive chart of Normalized Stock Data (Figure 4)
+										interactive_plot(normalize(stocks_df), 'STOCKS DATA')
+
+										#Calculate stocks daily returns
+
+										def daily_return(df):
+										df_daily_return = df.copy()
+										#loop for columns
+										for i in df.columns[1:]:
+										#loop for rows
+											for j in range(1, len(df)):
+											df_daily_return[i][j] = ((df[i][j] - df[i][j-1]) / (df[i][j-1]))*100
+
+											df_daily_return[i][0] = 0
+
+										return df_daily_return
+
+
+										# Get the daily returns (Figure 5)
+										stocks_daily_return = daily_return(stocks_df)
+										stocks_daily_return
+
+										interactive_plot(stocks_daily_return, 'Stocks Daily returns')
+
+
+										# Daily Return Correlation
+										cm = stocks_daily_return.drop(columns = ['Date']).corr()
+										cm
+										# heatmap showing correlations (Figure 6)
+										plt.figure(figsize=(10, 8))
+										sns.heatmap(cm, annot=True, cmap='RdYlGn') #true give you the values on the heatmap
+										plt.show()
+
+										# Histogram of daily returns (Figure 7)
+										stocks_daily_return.hist(bins=50, figsize=(20, 10))
+										plt.show();
+
+										</code></pre>
+
+										
+										<!-- Visualisations -->
+
+										<div class="image-gallery">
+										<figure>
+											<a href="images/stocks_1.png" data-lightbox="stock-data" data-title="Figure 1: stocks_1">
+											<img src="images/stocks_1.png" alt="Figure 1: stocks_1">
+											</a>
+											<figcaption><strong>Figure 1</strong></figcaption>
+										</figure>
+
+										<figure>
+											<a href="images/stocknormal1.png" data-lightbox="stock-data" data-title="Figure 2: stocknormal1">
+											<img src="images/stocknormal1.png" alt="Figure 2: stocknormal1">
+											</a>
+											<figcaption><strong>Figure 2</strong></figcaption>
+										</figure>
+
+										<figure>
+											<a href="images/stocksdata.png" data-lightbox="stock-data" data-title="Figure 3: stocksdata">
+											<img src="images/stocksdata.png" alt="Figure 3: stocksdata">
+											</a>
+											<figcaption><strong>Figure 3</strong></figcaption>
+										</figure>
+
+										<figure>
+											<a href="images/stockdatan.png" data-lightbox="stock-data" data-title="Figure 4: stocks data normal">
+											<img src="images/stockdatan.png" alt="Figure 4: stocks data normal">
+											</a>
+											<figcaption><strong>Figure 4</strong></figcaption>
+										</figure>
+										
+										<figure>
+											<a href="images/stockdailyr.png" data-lightbox="stock-data" data-title="Figure 5: stockdailyr">
+											<img src="images/stockdailyr.png" alt="Figure 5: stockdailyr">
+											</a>
+											<figcaption><strong>Figure 5</strong></figcaption>
+										</figure>
+
+										<figure>
+											<a href="images/stockdataheat.png" data-lightbox="stock-data" data-title="Figure 5: stockdataheat">
+											<img src="images/stockdataheat.png" alt="Figure 2: stockdataheat">
+											</a>
+											<figcaption><strong>Figure 6</strong></figcaption>
+										</figure>
+										
+										<figure>
+											<a href="images/stockdatahist.png" data-lightbox="stock-data" data-title="Figure 5: stockdatahist">
+											<img src="images/stockdatahist.png" alt="Figure 2: stockdatahist">
+											</a>
+											<figcaption><strong>Figure 7</strong></figcaption>
+										</figure>
+										</div>
+
 
 										<h4>🌟 <strong>Key Insights:</strong></h4>
 										<ul>
@@ -1383,6 +1984,12 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 
 		<!-- Initialise Highlight.js -->
 		<script>hljs.highlightAll();</script>
+
+		<!-- Add jquery -->
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+		<!-- Lightbox JS -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/js/lightbox.min.js"></script>
 
 	</body>
 </html>

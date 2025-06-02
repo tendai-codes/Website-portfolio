@@ -15,15 +15,7 @@
 		<!-- Highlight.js core CSS (choose your theme) -->
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
 
-		<!-- Highlight.js core script -->
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-
-		<!-- Optional: Load specific languages -->
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/r.min.js"></script>
-
-		<!-- Initialise Highlight.js -->
-		<script>hljs.highlightAll();</script>
+	
 
 	
 		<style>
@@ -137,15 +129,36 @@
 
 			.image-gallery {
 			display: grid;
-			grid-template-columns: repeat(3, 1fr);
+			grid-template-columns: repeat(2, 1fr);
 			gap: 10px;
 			margin: 1em 0;
+			max-width: 100%;
 			}
 
 			.image-gallery img {
 			width: 100%;
+			height: auto;
 			border-radius: 8px;
 			box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+			object-fit: contain;
+			}
+
+			figure {
+				margin: 0;
+			}
+
+			figcaption {
+				font-size: 0.85em;
+				color: #555;
+				padding-top: 0.25em;
+				text-align: center;
+			}
+
+			.image-gallery-3x3 {
+			display: grid;
+			grid-template-columns: repeat(3, 1fr); /* 2 equal columns */
+			gap: 10px;
+			max-width: 100%;
 			}
 
 			pre {
@@ -279,24 +292,19 @@
 										</code></pre>
 
 
-										<!-- Code Snippet -->
-										<pre><code class="language-r">
-											# No movies are released on a Monday, Ever. (Figure 1)
-											ggplot(data=mov, aes(x=Day.of.Week)) + geom_bar()
 
-
-										</code></pre>
+									
 
 										<!-- Visualisations -->
-										<div class="image-grid">
-										<figure>
-											<img src="images/box_genre.png" alt="Figure 1">
-											<figcaption><strong>Figure 1:</strong> No releases on Mondays</figcaption>
-										</figure>
-										<figure>
-											<img src="images/box_office.png" alt="Figure 2">
-											<figcaption><strong>Figure 2:</strong> Domestic gross by genre</figcaption>
-										</figure>
+										<div class="image-gallery">
+											<figure>
+												<img src="images/box_genre.png" alt="Figure 1">
+												<figcaption><strong>Figure 1:</strong> No releases on Mondays</figcaption>
+											</figure>
+											<figure>
+												<img src="images/box_office.png" alt="Figure 2">
+												<figcaption><strong>Figure 2:</strong> Domestic gross by genre</figcaption>
+											</figure>
 										</div>
 
 
@@ -1213,6 +1221,16 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 		});
 	
     	</script>
+
+	<!-- Highlight.js core script -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+		<!-- Optional: Load specific languages -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/r.min.js"></script>
+
+		<!-- Initialise Highlight.js -->
+		<script>hljs.highlightAll();</script>
 
 	</body>
 </html>

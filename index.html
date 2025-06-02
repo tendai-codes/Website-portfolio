@@ -273,34 +273,51 @@
 										# Apply filters
 										mov2 <- mov[filt & filt2,]
 
-										# Plotting
-										p <- ggplot(data=mov2, aes(x=Genre, y=Gross...US))
-										q <- p +
-										geom_jitter(aes(size=Budget...mill., colour=Studio)) +
-										geom_boxplot(alpha = 0.7, outlier.colour = NA) +
-										xlab("Genre") + ylab("Gross % US") + ggtitle("Domestic Gross % by Genre") +
-										theme(
-											text = element_text(family="Times New Roman"),
-											axis.title.x = element_text(colour="Blue", size=30),
-											axis.title.y = element_text(colour="Blue", size=30),
-											axis.text.x = element_text(size=20),
-											axis.text.y = element_text(size=20),
-											plot.title = element_text(colour="Black", size=40),
-											legend.title = element_text(size=20),
-											legend.text = element_text(size=12)
-										)
+											#Prepare the plot's data and aes layers (Figure 2)
+
+											#Use str() or summary() to fin out the correct column names
+											p <- ggplot(data=mov2, aes(x=Genre, y=Gross...US))
+
+											q <- p +
+											geom_jitter(aes(size=Budget...mill., colour=Studio)) +
+											geom_boxplot(alpha = 0.7, outlier.colour = NA)
+
+											#Non-data ink
+											q +
+											xlab("Genre") + #x axis title
+											ylab("Gross % US") + #y axis title
+											ggtitle("Domestic Gross % by Genre") #plot title
+
+											#Theme
+											q <- q +
+											theme(
+												#this is a shortcut to alter ALL text elements at once:
+												text = element_text(family="Times New Roman"),
+
+												#Axes titles:
+												axis.title.x = element_text(colour="Blue", size=30),
+												axis.title.y = element_text(colour="Blue", size=30),
+
+												#Axes texts:
+												axis.text.x = element_text(size=20),
+												axis.text.y = element_text(size=20),
+
+												#Plot title:
+												plot.title = element_text(colour="Black",
+																		size=40),
+												#Legend title:
+												legend.title = element_text(size=20),
+
+												#Legend text
+												legend.text = element_text(size=12)
+											)
+
 										</code></pre>
 										
 										<!-- Visualisations -->
-										<div class="image-gallery">
-											<figure>
-												<img src="images/box_genre.png" alt="Figure 1">
-												<figcaption><strong>Figure 1:</strong> No releases on Mondays</figcaption>
-											</figure>
-											<figure>
-												<img src="images/box_office.png" alt="Figure 2">
-												<figcaption><strong>Figure 2:</strong> Domestic gross by genre</figcaption>
-											</figure>
+										<div class="image-grid">
+										<img src="images/box_genre.png" alt="Figure 1">
+										<img src="images/box_office.png" alt="Figure 2">
 										</div>
 
 

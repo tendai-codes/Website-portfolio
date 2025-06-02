@@ -244,6 +244,71 @@
 											<li><strong>Aesthetics:</strong> Tuned themes for clarity and presentation</li>
 										</ul>
 
+										<h4>📊 <strong>Code Snipptet & Visualisations:</strong></h4>
+
+										<!-- Code Snippet -->
+										<pre><code class="language-r">
+											# No movies are released on a Monday, Ever. (Figure 1)
+											ggplot(data=mov, aes(x=Day.of.Week)) + geom_bar()
+
+											#Filter dataset for desired genres:
+											filt <- (mov$Genre == "action") | (mov$Genre == "adventure") | (mov$Genre == "animation") | (mov$Genre == "comedy") | (mov$Genre == "drama")
+
+											#Filter dataset for desired studios:
+											filt2 <- (mov$Studio == "Buena Vista Studios") | (mov$Studio == "WB") | (mov$Studio == "Fox") | (mov$Studio == "Universal") | (mov$Studio == "Sony") | (mov$Studio == "Paramount Pictures")
+
+											#Apply the row filters to the dataframe
+											mov2 <- mov[filt & filt2,]
+
+											#Prepare the plot's data and aes layers (Figure 2)
+
+											#Use str() or summary() to fin out the correct column names
+											p <- ggplot(data=mov2, aes(x=Genre, y=Gross...US))
+
+											q <- p +
+											geom_jitter(aes(size=Budget...mill., colour=Studio)) +
+											geom_boxplot(alpha = 0.7, outlier.colour = NA)
+
+											#Non-data ink
+											q +
+											xlab("Genre") + #x axis title
+											ylab("Gross % US") + #y axis title
+											ggtitle("Domestic Gross % by Genre") #plot title
+
+											#Theme
+											q <- q +
+											theme(
+												#this is a shortcut to alter ALL text elements at once:
+												text = element_text(family="Times New Roman"),
+
+												#Axes titles:
+												axis.title.x = element_text(colour="Blue", size=30),
+												axis.title.y = element_text(colour="Blue", size=30),
+
+												#Axes texts:
+												axis.text.x = element_text(size=20),
+												axis.text.y = element_text(size=20),
+
+												#Plot title:
+												plot.title = element_text(colour="Black",
+																		size=40),
+												#Legend title:
+												legend.title = element_text(size=20),
+
+												#Legend text
+												legend.text = element_text(size=12)
+											)
+
+										</code></pre>
+
+										<!-- Visualisations -->
+										<div class="image-grid">
+										<img src="images/box_genre.png" alt="Figure 1">
+										<img src="images/box_office.png" alt="Figure 2">
+										</div>
+
+
+
 										<h4>🌟 <strong>Key Insights:</strong></h4>
 										<p>
 											Profitable genres are concentrated among a few studios. Monday releases are avoided — possibly a scheduling strategy.

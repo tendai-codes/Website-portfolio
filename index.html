@@ -13,7 +13,7 @@
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 		
 		<!-- Highlight.js core CSS (choose your theme) -->
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
 
 	
 
@@ -130,6 +130,7 @@
 			.image-gallery {
 			display: grid;
 			grid-template-columns: repeat(2, 1fr);
+			grid-template-rows: 1fr;
 			gap: 10px;
 			margin: 1em 0;
 			max-width: 100%;
@@ -157,6 +158,15 @@
 			.image-gallery-3x3 {
 			display: grid;
 			grid-template-columns: repeat(3, 1fr); /* 2 equal columns */
+			grid-template-rows: 1fr;
+			gap: 10px;
+			max-width: 100%;
+			}
+
+	.image-gallery-1 {
+			display: grid;
+			grid-template-columns: repeat(1, 1fr); /* 2 equal columns */
+			grid-template-rows: 1fr;
 			gap: 10px;
 			max-width: 100%;
 			}
@@ -171,6 +181,8 @@
 			pre code {
 			font-size: 0.9em;
 			line-height: 1.4em;
+			white-space: pre-wrap;       /* Wrap code lines */
+  			word-break: break-word;      /* Break long words if needed */
 			}
 
 
@@ -257,76 +269,64 @@
 											<li><strong>Aesthetics:</strong> Tuned themes for clarity and presentation</li>
 										</ul>
 
-										<h4>📊 <strong>Code Snipptet & Visualisations:</strong></h4>
+										<h4>📊 <strong>Code Snippets & Visualisations:</strong></h4>
 
 										<!-- Code Snippet -->
-										<pre><code class="language-r">
-										# No movies are released on a Monday, Ever. (Figure 1)
+
+										<pre><code class="language-r"># No movies are ever released on a Monday. (Figure 1)
 										ggplot(data=mov, aes(x=Day.of.Week)) + geom_bar()
 
 										# Filter dataset for desired genres:
-										filt <- (mov$Genre == "action") | (mov$Genre == "adventure") | (mov$Genre == "animation") | (mov$Genre == "comedy") | (mov$Genre == "drama")
+										filt <- (mov$Genre == "action") | (mov$Genre == "adventure") | 
+												(mov$Genre == "animation") | (mov$Genre == "comedy") | (mov$Genre == "drama")
 
 										# Filter dataset for desired studios:
-										filt2 <- (mov$Studio == "Buena Vista Studios") | (mov$Studio == "WB") | (mov$Studio == "Fox") | (mov$Studio == "Universal") | (mov$Studio == "Sony") | (mov$Studio == "Paramount Pictures")
+										filt2 <- (mov$Studio == "Buena Vista Studios") | (mov$Studio == "WB") | 
+												(mov$Studio == "Fox") | (mov$Studio == "Universal") | 
+												(mov$Studio == "Sony") | (mov$Studio == "Paramount Pictures")
 
 										# Apply filters
 										mov2 <- mov[filt & filt2,]
 
-											#Prepare the plot's data and aes layers (Figure 2)
+										# Prepare the plot's data and aes layers (Figure 2)
+										p <- ggplot(data=mov2, aes(x=Genre, y=Gross...US))
 
-											#Use str() or summary() to fin out the correct column names
-											p <- ggplot(data=mov2, aes(x=Genre, y=Gross...US))
+										q <- p +
+										geom_jitter(aes(size=Budget...mill., colour=Studio)) +
+										geom_boxplot(alpha = 0.7, outlier.colour = NA)
 
-											q <- p +
-											geom_jitter(aes(size=Budget...mill., colour=Studio)) +
-											geom_boxplot(alpha = 0.7, outlier.colour = NA)
+										# Non-data ink
+										q +
+										xlab("Genre") + 
+										ylab("Gross % US") + 
+										ggtitle("Domestic Gross % by Genre")
 
-											#Non-data ink
-											q +
-											xlab("Genre") + #x axis title
-											ylab("Gross % US") + #y axis title
-											ggtitle("Domestic Gross % by Genre") #plot title
-
-											#Theme
-											q <- q +
-											theme(
-												#this is a shortcut to alter ALL text elements at once:
-												text = element_text(family="Times New Roman"),
-
-												#Axes titles:
-												axis.title.x = element_text(colour="Blue", size=30),
-												axis.title.y = element_text(colour="Blue", size=30),
-
-												#Axes texts:
-												axis.text.x = element_text(size=20),
-												axis.text.y = element_text(size=20),
-
-												#Plot title:
-												plot.title = element_text(colour="Black",
-																		size=40),
-												#Legend title:
-												legend.title = element_text(size=20),
-
-												#Legend text
-												legend.text = element_text(size=12)
-											)
-
+										# Theme
+										q <- q +
+										theme(
+											text = element_text(family="Times New Roman"),
+											axis.title.x = element_text(colour="Blue", size=30),
+											axis.title.y = element_text(colour="Blue", size=30),
+											axis.text.x = element_text(size=20),
+											axis.text.y = element_text(size=20),
+											plot.title = element_text(colour="Black", size=40),
+											legend.title = element_text(size=20),
+											legend.text = element_text(size=12)
+										)
 										</code></pre>
+
 										
 										<!-- Visualisations -->
 										<div class="image-gallery">
 										<figure>
-											<img src="images/box_genre.png" alt="Figure 1">
-											<figcaption><strong>Figure 1:</strong> No releases on Mondays</figcaption>
+											<img src="images/box_office.png" alt="Figure 2">
+											<figcaption><strong>Figure 1:</strong> No releases on Mondays </figcaption>
 										</figure>
 										<figure>
-											<img src="images/box_office.png" alt="Figure 2">
-											<figcaption><strong>Figure 2:</strong> Domestic gross by genre</figcaption>
+											<img src="images/box_genre.png" alt="Figure 1">
+											<figcaption><strong>Figure 2:</strong> Domestic gross by genre </figcaption>
 										</figure>
 										</div>
-
-
 
 										<h4>🌟 <strong>Key Insights:</strong></h4>
 										<p>
@@ -363,6 +363,71 @@
 											
 										</ul>
 
+										<h4>📊 <strong>Code Snippets & Visualisations:</strong></h4>
+
+										<!-- Code Snippet -->
+
+										<pre><code class="language-r"># Load required library for visualizations
+										library(ggplot2)
+										library(tidyverse)
+										# Data
+										revenue <- c(14574.49, 7606.46, 8611.41, 9175.41, 8058.65, 8105.44, 11496.28, 9766.09, 10305.32, 14379.96, 10713.97, 15433.50)
+										expenses <- c(12051.82, 5695.07, 12319.20, 12089.72, 8658.57, 840.20, 3285.73, 5821.12, 6976.93, 16618.61, 10054.37, 3803.96)
+
+
+										# Calculate Profit Remaining After Tax Is Deducted
+										profit.after.tax <- profit - tax
+										profit.after.tax
+
+
+										#Visualise Profit after tax
+
+										# Create a data frame for visualisation
+										data <- data.frame(
+										Month = 1:12,
+										Profit_After_Tax = profit.after.tax
+										)
+
+										# Create the bar chart using ggplot2 (Figure 1)
+										ggplot(data, aes(x = factor(Month), y = Profit_After_Tax)) +
+										geom_bar(stat = "identity", fill = "steelblue") +
+										labs(title = "Monthly Profit After Tax", x = "Month", y = "Profit After Tax") +
+										theme_minimal()
+
+										# Calculate The Profit Margin As Profit After Tax Over Revenue
+										profit.margin <- round(profit.after.tax / revenue, 2) * 100
+										profit.margin
+
+										# Visualise Profit Margin
+
+										# Create a data frame for visualisation
+										data <- data.frame(
+										Month = 1:12,
+										Profit_margin = profit.margin
+										)
+										# Create the bar chart using ggplot2 (Figure 2)
+										ggplot(data, aes(x = factor(Month), y = profit.margin)) +
+										geom_bar(stat = "identity", fill = "orange") +
+										labs(title = "Monthly Profit Margin (%)", x = "Month", y = "Profit Margin (%)") +
+										theme_minimal()
+
+									
+										</code></pre>
+
+										
+										<!-- Visualisations -->
+										<div class="image-gallery">
+										<figure>
+											<img src="images/Financial_statement_b.png" alt="Figure 1">
+											<figcaption><strong>Figure 1:</strong> Profit After Tax </figcaption>
+										</figure>
+										<figure>
+											<img src="images/Financial_statement_O.png" alt="Figure 2">
+											<figcaption><strong>Figure 2:</strong> Profit Margin </figcaption>
+										</figure>
+										</div>
+
+
 										<h4>🌟 <strong>Key Insights:</strong></h4>
 										<p>
 											The company showed stable asset growth and rising equity, but the Debt-to-Equity ratio increased post-2020, signalling higher leverage risk.
@@ -398,6 +463,73 @@
 											<li><strong>Visualisation:</strong> Created scatter plots, line plots, and box plots to reveal relationships between population metrics and economic status.</li>
 											
 										</ul>
+
+<!-- Code Snippet -->
+
+										<pre><code class="language-python">
+										# Plot the BirthRate versus Internet Users categorised by Income Group (Figure 1)
+										vis1 = sns.lmplot( data = data, x = 'BirthRate', y = 'InternetUsers', fit_reg = False, hue = 'IncomeGroup', height = 10 )
+
+										# Create the dataframe
+										country_data = pd.DataFrame({'CountryName': np.array(Countries_2012_Dataset),
+																	'CountryCode': np.array(Codes_2012_Dataset),
+																	'CountryRegion': np.array(Regions_2012_Dataset)})
+
+										# Merge the country data to the original dataframe (Table 1)
+										merged_data = pd.merge(left=data, right=country_data, how='inner', on="CountryCode")
+										merged_data.head()
+
+										# Create a data frame with the life expectancy
+										life_exp_data = pd.DataFrame({'CountryCode': np.array(Country_Code),
+																	'LifeExp1960': np.array(Life_Expectancy_At_Birth_1960),
+																	'LifeExp2013': np.array(Life_Expectancy_At_Birth_2013)})
+
+										# Merge the data frame with the life expectancy
+										merged_data1 = pd.merge(left=merged_data, right=life_exp_data, how='inner', on='CountryCode')
+
+										# Explore the dataset (Table 2)
+										merged_data1.head()
+
+										# Plot the BirthRate versus LifeExpectancy cathegorised by Country Region in 1960 (Figure 3)
+										vis3 = sns.lmplot( data = merged_data1, x = 'BirthRate', y = 'LifeExp1960', fit_reg = False, hue = 'CountryRegion', height = 10 )
+										Plot
+
+										# Plot the BirthRate versus LifeExpectancy cathegorised by Country Region in 2013 (Figure 4)
+										vis4 = sns.lmplot( data = merged_data1, x = 'BirthRate', y = 'LifeExp2013', fit_reg = False, hue = 'CountryRegion', height = 10 )										
+										
+									
+										</code></pre>
+
+										<!-- Tables -->
+										<div class="image-gallery">
+										<figure>
+											<img src="images/world_dfmerge.png" alt="Table 1">
+											<figcaption><strong>Table 1:</strong></figcaption>
+										</figure>
+										<figure>
+											<img src="images/world_dfmerge2.png" alt="Table 2">
+											<figcaption><strong>Table 2:</strong></figcaption>
+										</figure>
+										</div>
+										
+										<!-- Visualisations -->
+										<div class="image-gallery">
+										<figure>
+											<img src="images/world_birthintIG.png" alt="Figure 1">
+											<figcaption><strong>Figure 1:</strong> BirthRate versus Internet Users categorised by Income Group </figcaption>
+										</figure>
+										<figure>
+											<img src="images/world_birthintCR.png" alt="Figure 2">
+											<figcaption><strong>Figure 2:</strong> BirthRate versus Internet Users categorised by Country Region </figcaption>
+										</figure>
+										<img src="images/world_life1960.png" alt="Figure 3">
+											<figcaption><strong>Figure 3:</strong> BirthRate versus LifeExpectancy in 1960 </figcaption>
+										</figure>
+										<figure>
+											<img src="images/world_life2013.png" alt="Figure 4">
+											<figcaption><strong>Figure 4:</strong> BirthRate versus LifeExpectancy in 2013 </figcaption>
+										</figure>
+										</div>
 
 										<h4>🌟 <strong>Key Insights:</strong></h4>
 										<ul>

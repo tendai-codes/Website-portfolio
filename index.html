@@ -232,7 +232,7 @@
 						<!-- Intro -->
 							<article id="intro">
 								<h2 class="major">Intro</h2>
-								<span class="image main"><img src="images/pic01.jpg" alt="" /></span>
+								<span class="image main"><img src="images/roadmap.png" alt="" /></span>
 								<p>This portfolio captures my journey from data analytics to machine learning. I began with projects in R and soon transitioned to Python, where I discovered the world of AI. Along the way, I’ve learned to build models catering to supervised and unsupervised learning. I’m currently getting more familiar with deep learning—specifically computer vision and retrieval-augmented generation. Check out some of my work <a href="#projects"> here</a>.</p>
 								
 							</article>
@@ -241,19 +241,22 @@
 							<article id="projects">
 								<h2 class="major">Projects</h2>
 								
-								<span class="image main"><img src="images/pic02.jpg" alt="" /></span>
+								<span class="image main"><img src="images/datascience.png" alt="" /></span>
 								<p>This section showcases hands-on projects where I apply Python and R to solve real-world problems. From data cleaning to model evaluation, each project includes a clear data pipeline, code snippets, and key takeaways. You’ll also find notes on the challenges I faced and how I overcame them, offering insight into my problem-solving approach.</p>
 								
 							
 								<h2 class="major">Project Types</h2>
 
 								<div id="project-filters">
-									<button data-tag="all" class="filter-button active">All</button>
+									
 									<button data-tag="R" class="filter-button">R</button>
 									<button data-tag="Python" class="filter-button">Python</button>
 									<button data-tag="Data Analysis" class="filter-button">Data Analysis</button>
+									<button data-tag="PyTorch" class="filter-button">PyTorch</button>
+									<button data-tag="Tensorflow" class="filter-button">Tensorflow</button>
 									<button data-tag="Machine Learning" class="filter-button">Machine Learning</button>
 									<button data-tag="Deep Learning" class="filter-button">Deep Learning</button>
+									<button data-tag="all" class="filter-button active">All</button>
                 				</div>
 
 								<div id="projects-container">
@@ -1116,7 +1119,7 @@
 										<h4>🧪 <strong>Data Pipeline:</strong></h4>
 										<ul>
 											<li><strong>Data Preparation:</strong> Loaded position-salary dataset using <code>pd.read_csv()</code> and extracted features using <code>iloc[:, 1:-1]</code> (position levels) and target variable using <code>iloc[:, -1]</code>  (salaries), strategically excluding the first column containing position titles. </li>
-											<li><strong>Linear regresion baseline:</strong> Implemented a standard<code>LinearRegression()</code>  model using <code>.fit(X, y)</code> to establish a baseline for salary prediction based on position level with a straight-line relationship. </li>
+											<li><strong>Linear regression baseline:</strong> Implemented a standard<code>LinearRegression()</code>  model using <code>.fit(X, y)</code> to establish a baseline for salary prediction based on position level with a straight-line relationship. </li>
 											<li><strong>Polynomial feature engineering: </strong> Applied <code>PolynomialFeatures(degree=4)</code>  to transform the single position level feature into polynomial terms (x, x², x³, x⁴), creating a richer feature space to capture non-linear salary progression patterns.</li>
 											<li><strong>Support Vector Regression: </strong> Implemented feature scaling using <code>StandardScaler()</code>for both X and y variables, then trained an SVR model with <code>RBF kernel</code> to handle non-linear relationships while managing the different scales between position levels and salary amounts.</li>
 											<li><strong>Decision Tree : </strong> Built a <code>DecisionTreeRegressor()</code> model that creates hierarchical decision rules to predict salaries, capturing complex non-linear patterns without requiring feature scaling.</li>
@@ -1159,53 +1162,40 @@
 
 										<div class="image-gallery">
 										<figure>
-											<a href="images/HRlogR.png" data-lightbox="HR-salaries" data-title="Figure 1: HRlogR">
-											<img src="images/HRlogR.png" alt="Figure 1: HRlogR">
+											<a href="images/HR_linReg.png" data-lightbox="salary-prediction" data-title="Figure 1: HR_linReg">
+											<img src="images/HR_linReg.png" alt="Figure 1: HR_linReg">
 											</a>
 											<figcaption><strong>Figure 1</strong></figcaption>
 										</figure>
 
 										<figure>
-											<a href="images/HRsvm.png" data-lightbox="HR-salaries" data-title="Figure 2: HRsvm">
-											<img src="images/HRsvm.png" alt="Figure 2: HRsvm">
+											<a href="images/HR_polyReg.png" data-lightbox="salary-prediction" data-title="Figure 2: HR_polyReg">
+											<img src="images/HR_polyReg.png" alt="Figure 2: HR_polyReg">
 											</a>
 											<figcaption><strong>Figure 2</strong></figcaption>
 										</figure>
 
 										<figure>
-											<a href="images/HRkernsvm.png" data-lightbox="HR-salaries" data-title="Figure 3: HRkernsvm">
-											<img src="images/HRkernsvm.png" alt="Figure 3: HRkernsvm">
+											<a href="images/HR_svr.png" data-lightbox="salary-prediction" data-title="Figure 3: HR_svr">
+											<img src="images/HR_svr.png" alt="Figure 3: HR_svr">
 											</a>
 											<figcaption><strong>Figure 3</strong></figcaption>
 										</figure>
 
 										<figure>
-											<a href="images/HRknn.png" data-lightbox="HR-salaries" data-title="Figure 4: HRknn">
-											<img src="images/HRknn.png" alt="Figure 4: HRknn">
+											<a href="images/HR_Randfor.png" data-lightbox="salary-prediction" data-title="Figure 4: HR_Randfor">
+											<img src="images/HR_Randfor.png" alt="Figure 4: HR_Randfor">
 											</a>
 											<figcaption><strong>Figure 4</strong></figcaption>
 										</figure>
 										
 										<figure>
-											<a href="images/HRnaive.png" data-lightbox="HR-salaries" data-title="Figure 5: HRnaive">
-											<img src="images/HRnaive.png" alt="Figure 5: HRnaive">
+											<a href="images/HR_DecT.png" data-lightbox="salary-prediction" data-title="Figure 5: HR_DecT">
+											<img src="images/HR_DecT.png" alt="Figure 5: HR_DecT">
 											</a>
 											<figcaption><strong>Figure 5</strong></figcaption>
 										</figure>
-
-										<figure>
-											<a href="images/HRrandom.png" data-lightbox="HR-salaries" data-title="Figure 5: HRrandom">
-											<img src="images/HRrandom.png" alt="Figure 2: HRrandom">
-											</a>
-											<figcaption><strong>Figure 6</strong></figcaption>
-										</figure>
 										
-										<figure>
-											<a href="images/HRdectree.png" data-lightbox="HR-salaries" data-title="Figure 5: HRdectree">
-											<img src="images/HRdectree.png" alt="Figure 2: HRdectree">
-											</a>
-											<figcaption><strong>Figure 7</strong></figcaption>
-										</figure>
 										</div>
 
 
@@ -1261,76 +1251,38 @@
 
 										<!-- Code Snippet -->
 
-										<pre><code class="language-python"># Visualize Stocks data
-										def show_plot(df, title):
-										df.plot(x = 'Date', figsize=(12, 8), linewidth = 3, title=title)
-										plt.xlabel('Date')
-										plt.ylabel('Price')
-										plt.grid()
-										plt.show()
+										<pre><code class="language-python"># Importing the libraries
 
-										# Plot the data (Figure 1)
-										show_plot(stocks_df, 'STOCKS DATA')
-										
-										# Normalized Stock Data (Figure 2)
-										def normalize(df):
-											x = df.copy()
-											for i in x.columns[1:]:
-												x[i] = x[i]/x[i][0]
-											return x
+										import numpy as np
+										import matplotlib.pyplot as plt
+										import pandas as pd
 
-										normalize(stocks_df)
+										# Importing the dataset
+										dataset = pd.read_csv('Breast cancer data.csv')
+										X = dataset.iloc[:, :-1].values
+										y = dataset.iloc[:, -1].values
 
-										# Create Interactive chart of Stock Data (Figure 3)
+										#Splitting the dataset into the Training set and Test set
+										from sklearn.model_selection import train_test_split
+										X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.25, random_state = 0)
 
-										def interactive_plot(df, title):
-										fig = px.line(title=title)
+										# Feature Scaling
+										from sklearn.preprocessing import StandardScaler
+										sc = StandardScaler()
+										X_train = sc.fit_transform(X_train)
+										X_test = sc.transform(X_test)
 
-										for i in df.columns[1:]:
-											fig.add_scatter(x=df['Date'], y=df[i], name=i)
-											fig.update_layout(
-											xaxis_title = "Date",
-											yaxis_title = "Price"
-										)
-										fig.show()
-										interactive_plot(stocks_df, 'STOCKS DATA')
-										
-										# Create Interactive chart of Normalized Stock Data (Figure 4)
-										interactive_plot(normalize(stocks_df), 'STOCKS DATA')
+										# Training Model on the Training set
+										from sklearn.tree import DecisionTreeClassifier
+										classifier = DecisionTreeClassifier(criterion = 'entropy', random_state = 0)
+										classifier.fit(X_train, y_train)
 
-										#Calculate stocks daily returns
-
-										def daily_return(df):
-										df_daily_return = df.copy()
-										#loop for columns
-										for i in df.columns[1:]:
-										#loop for rows
-											for j in range(1, len(df)):
-											df_daily_return[i][j] = ((df[i][j] - df[i][j-1]) / (df[i][j-1]))*100
-
-											df_daily_return[i][0] = 0
-
-										return df_daily_return
-
-
-										# Get the daily returns (Figure 5)
-										stocks_daily_return = daily_return(stocks_df)
-										stocks_daily_return
-
-										interactive_plot(stocks_daily_return, 'Stocks Daily returns')
-
-
-										# Daily Return Correlation
-										cm = stocks_daily_return.drop(columns = ['Date']).corr()
-										cm
-										# heatmap showing correlations (Figure 6)
-										plt.figure(figsize=(10, 8))
-										sns.heatmap(cm, annot=True, cmap='RdYlGn') #true give you the values on the heatmap
-										plt.show()
-
-										# Histogram of daily returns (Figure 7)
-										stocks_daily_return.hist(bins=50, figsize=(20, 10))
-										plt.show();
+										Evaluating using confusion matrix
+										from sklearn.metrics import confusion_matrix, accuracy_score
+										y_pred = classifier.predict(X_test)
+										cm = confusion_matrix(y_test, y_pred)
+										print(cm)
+										accuracy_score(y_test, y_pred)
 
 										</code></pre>
 
@@ -1339,52 +1291,52 @@
 
 										<div class="image-gallery">
 										<figure>
-											<a href="images/stocks_1.png" data-lightbox="stock-data" data-title="Figure 1: stocks_1">
-											<img src="images/stocks_1.png" alt="Figure 1: stocks_1">
+											<a href="images/Breast_logR.png" data-lightbox="breast-cancer" data-title="Figure 1: Breast_logR">
+											<img src="images/Breast_logR.png" alt="Figure 1: Breast_logR">
 											</a>
-											<figcaption><strong>Figure 1</strong></figcaption>
+											<figcaption><strong>Figure 1</strong> Logistic Regression</figcaption>
 										</figure>
 
 										<figure>
-											<a href="images/stocknormal1.png" data-lightbox="stock-data" data-title="Figure 2: stocknormal1">
-											<img src="images/stocknormal1.png" alt="Figure 2: stocknormal1">
+											<a href="images/Breast_svm.png" data-lightbox="breast-cancer" data-title="Figure 2: Breast_svm">
+											<img src="images/Breast_svm.png" alt="Figure 2: Breast_svm">
 											</a>
-											<figcaption><strong>Figure 2</strong></figcaption>
+											<figcaption><strong>Figure 2</strong> SVM</figcaption>
 										</figure>
 
 										<figure>
-											<a href="images/stocksdata.png" data-lightbox="stock-data" data-title="Figure 3: stocksdata">
-											<img src="images/stocksdata.png" alt="Figure 3: stocksdata">
+											<a href="images/Breast_ksvm.png" data-lightbox="breast-cancer" data-title="Figure 3: Breast_ksvm">
+											<img src="images/Breast_ksvm.png" alt="Figure 3: Breast_ksvm">
 											</a>
-											<figcaption><strong>Figure 3</strong></figcaption>
+											<figcaption><strong>Figure 3</strong> Kernel SVM</figcaption>
 										</figure>
 
 										<figure>
-											<a href="images/stockdatan.png" data-lightbox="stock-data" data-title="Figure 4: stocks data normal">
-											<img src="images/stockdatan.png" alt="Figure 4: stocks data normal">
+											<a href="images/Breast_knn.png" data-lightbox="breast-cancer" data-title="Figure 4: Breast_knn">
+											<img src="images/Breast_knn.png" alt="Figure 4: Breast_knn">
 											</a>
-											<figcaption><strong>Figure 4</strong></figcaption>
+											<figcaption><strong>Figure 4</strong> K-Nearest Neighbor</figcaption>
 										</figure>
 										
 										<figure>
-											<a href="images/stockdailyr.png" data-lightbox="stock-data" data-title="Figure 5: stockdailyr">
-											<img src="images/stockdailyr.png" alt="Figure 5: stockdailyr">
+											<a href="images/Breast_naive.png" data-lightbox="breast-cancer" data-title="Figure 5: Breast_naive">
+											<img src="images/Breast_naive.png" alt="Figure 5: Breast_naive">
 											</a>
-											<figcaption><strong>Figure 5</strong></figcaption>
+											<figcaption><strong>Figure 5</strong> Naïve Bayes</figcaption>
 										</figure>
 
 										<figure>
-											<a href="images/stockdataheat.png" data-lightbox="stock-data" data-title="Figure 5: stockdataheat">
-											<img src="images/stockdataheat.png" alt="Figure 2: stockdataheat">
+											<a href="images/Breast_randfor.png" data-lightbox="breast-cancer" data-title="Figure 5: Breast_randfor">
+											<img src="images/Breast_randfor.png" alt="Figure 2: Breast_randfor">
 											</a>
-											<figcaption><strong>Figure 6</strong></figcaption>
+											<figcaption><strong>Figure 6</strong> Random Forest</figcaption>
 										</figure>
 										
 										<figure>
-											<a href="images/stockdatahist.png" data-lightbox="stock-data" data-title="Figure 5: stockdatahist">
-											<img src="images/stockdatahist.png" alt="Figure 2: stockdatahist">
+											<a href="images/Breast_decision.png" data-lightbox="breast-cancer" data-title="Figure 5: Breast_decision">
+											<img src="images/Breast_decision.png" alt="Figure 2: Breast_decision">
 											</a>
-											<figcaption><strong>Figure 7</strong></figcaption>
+											<figcaption><strong>Figure 7</strong> Decision Tree</figcaption>
 										</figure>
 										</div>
 
@@ -1405,9 +1357,233 @@
 									</section>
 
 									<section class="project-item" data-tags="Python,Machine Learning">
-										<h3>📽️ <strong> New project </strong></h3>
+										<h3>📽️ <strong> Bank Customer Segmentation </strong></h3>
 										<p>
+											Analyzed bank customer data to segment customers using K-Means Clustering, with dimensionality reduction achieved through PCA. This approach resulted in 7 well-defined customer segments based on key financial behaviors, optimizing the bank's ability to tailor products and services.
+										</p>
+
+										<h4>💻 <strong>Tech Stack:</strong></h4>
+										<ul>
+											<li><strong>Python</strong> for machine learning model development and comparison</li>
+											<li><strong>Scikit-learn</strong> for multiple classification algorithms, preprocessing, and evaluation metrics</li>
+											<li><strong>Pandas</strong> for dataset loading and initial data exploration</li>
+											<li><strong>Seaborn</strong> for enhanced statistical plotting capabilities</li>
+											<li><strong>Matplotlib</strong> for data visualisationsand model performance analysis</li>
+											<li><strong>NumPy</strong> for numerical operations and grid generation</li>
+										</ul>
+
+										<h4>🧪 <strong>Data Pipeline:</strong></h4>
+										<ul>
+											<li><strong>Load & inspect data:</strong> Imported multi-statement CSV into pandas. Extracted relevant sections for Balance Sheet, Income Statement, and Cash Flow Statement using <code>loc[]</code>. </li>
+											<li><strong>Trend Analysis:</strong> Transposed time-series data <code>(.T)</code> and plotted major components (e.g. assets, equity) using <code>.plot()</code> to visualise financial stability over time. </li>
+											<li><strong>Ratio Calculations:</strong> Computed solvency and profitability ratios: Return on Equity (ROE), Return on Assets (ROA), Debt-to-Equity. Built <code>DataFrame</code> to summarise and visualise using grouped bar plots.</li>
+											<li><strong>Custom Metrics:</strong> Created Operating Cash Flow to Total Debt ratio from cash flow and balance sheet sections to assess short-term liquidity strength.</li>
 											
+										</ul>
+
+										<h4>📊 <strong>Code Snippets & Visualisations:</strong></h4>
+
+										<!-- Code Snippet -->
+
+										<pre><code class="language-python"># Importing the libraries
+										credit_card_df = pd.read_csv('/content/4.+Marketing_data.csv')
+										credit_card_df.info()
+
+										credit_card_df.describe() (Table 1)
+
+										# Mean balance is $1564
+										# Balance frequency is frequently updated on average ~0.9, Purchases average is $1000, one off purchase average is ~$600
+										# Average purchases frequency is around 0.5, Average ONEOFF_PURCHASES_FREQUENCY, PURCHASES_INSTALLMENTS_FREQUENCY, and CASH_ADVANCE_FREQUENCY are generally low
+										# Average credit limit ~ 4500, Percent of full payment is 15%, Average tenure is 11 years
+										
+										#Check for missing data (Table 2)
+										credit_card_df.isnull().sum()
+
+										# Replace the missing elements with mean of the 'MINIMUM_PAYMENT'
+										credit_card_df.MINIMUM_PAYMENTS.fillna(credit_card_df.MINIMUM_PAYMENTS.mean(), inplace=True)
+
+										# Replace the missing elements with mean of the 'CREDIT_LIMIT'
+										credit_card_df.CREDIT_LIMIT.fillna(credit_card_df.CREDIT_LIMIT.mean(), inplace=True)
+
+										#Plot to check for missing data (Figure 1)
+										sns.heatmap(credit_card_df.isnull(), yticklabels = False, cbar = False, cmap='Reds')
+										
+										# Check for duplicate entries
+										credit_card_df.duplicated().sum()
+
+										# Remove Customer ID
+										credit_card_df.drop('CUST_ID', axis=1, inplace=True)
+
+										# prompt: define function to create subplots of distplots with KDE for all columns. Make the KDE and histogram different colours
+
+										def dist_plots(dataframe):
+										fig, ax = plt.subplots(nrows=7, ncols=2, figsize=(15,30))
+										index = 0
+										for row in range(7):
+											for col in range(2):
+											sns.distplot(dataframe.iloc[:, index], ax=ax[row][col], kde_kws={'color':'blue', 'lw':3, 'label':'KDE'}, hist_kws= {'histtype':'step', 'lw':3, 'color':'green'})
+											index += 1
+										plt.tight_layout()
+										plt.show()
+
+										# Visualise distplots (Figure 2)
+										dist_plots(credit_card_df)
+										
+										# 'Balance_Frequency' for most customers is updated frequently ~1, For 'PURCHASES_FREQUENCY', there are two distinct group of customers
+										# For 'ONEOFF_PURCHASES_FREQUENCY' and 'PURCHASES_INSTALLMENT_FREQUENCY' most users don't do one off puchases or installment purchases frequently, Very small number of customers pay their balance in full 'PRC_FULL_PAYMENT'~0
+										# Mean of balance is $1500, Credit limit average is around $4500, Most customers are ~11 years tenure
+										
+										# Heatmap to visaulise correlations (Figure 3)
+										correlations = credit_card_df.corr()
+										plt.figure(figsize=(20,20))
+										sns.heatmap(correlations, annot=True)
+
+										# 'PURCHASES' have high correlation between one-off purchases, 'installment purchases, purchase transactions, credit limit and payments.
+										# Strong Positive Correlation between 'PURCHASES_FREQUENCY' and 'PURCHASES_INSTALLMENT_FREQUENCY'
+
+										# Training Model on the Training set
+										from sklearn.tree import DecisionTreeClassifier
+										classifier = DecisionTreeClassifier(criterion = 'entropy', random_state = 0)
+										classifier.fit(X_train, y_train)
+
+										Evaluating using confusion matrix
+										from sklearn.metrics import confusion_matrix, accuracy_score
+										y_pred = classifier.predict(X_test)
+										cm = confusion_matrix(y_test, y_pred)
+										print(cm)
+										accuracy_score(y_test, y_pred)
+
+										# USE ELBOW METHOD TO FIND OPTIMAL NUMBER OF CLUSTERS (Figure 4)
+										credit_card_df.head()
+
+										# Apply Feature scaling
+										scaler = StandardScaler()
+										credit_card_df_scaled = scaler.fit_transform(credit_card_df)
+
+										credit_card_df_scaled
+
+										#Apply Elbow Method
+										wcss = []
+										for i in range(1, 20):
+											kmeans = KMeans(n_clusters = i, init = 'k-means++', random_state = 42)
+											kmeans.fit(credit_card_df_scaled)
+											wcss.append(kmeans.inertia_)
+										plt.plot(range(1, 20), wcss, 'bx-')
+										plt.title('The Elbow Method')
+										plt.xlabel('Number of clusters')
+										plt.ylabel('Score (WCSS)')
+										plt.show();
+
+										# Train data using K-Means method 
+
+										# We can observe that, 4th cluster seems to be forming the elbow of the curve. However, the values does not reduce linearly until 8th cluster. Let's choose the number of clusters to be 7.
+
+										# Assuming 'kmeans' is your fitted KMeans model
+										kmeans = KMeans(n_clusters=7, init= 'k-means++',random_state=42)
+										kmeans.fit(credit_card_df_scaled)
+
+										# Use Principal Compenent Analysis to reduce dimensionality
+										pca = PCA(n_components=2)
+										principalComp = pca.fit_transform(credit_card_df_scaled )
+										principalComp
+
+										# Create a dataframe with the two components
+										pca_df = pd.DataFrame(data=principalComp, columns=['PCA1', 'PCA2'])
+										pca_df
+
+										# Concatenate the clusters labels to the dataframe (Table 3)
+										pca_df = pd.concat([pca_df, pd.DataFrame({'cluster': labels})], axis=1)
+										pca_df.head()
+
+										# Visualise Clusters (Figure 5)
+										plt.figure(figsize=(10, 10))
+										ax = sns.scatterplot(x='PCA1', y='PCA2', hue='cluster', data=pca_df, palette='tab10')
+										plt.title('Clusters identified by PCA')
+										plt.show()
+
+										</code></pre>
+
+										
+										<!-- Visualisations -->
+
+										<div class="image-gallery">
+										<figure>
+											<a href="images/Bank Customer_df.png" data-lightbox="bank-customer" data-title="Table 1: DataFrame">
+											<img src="images/Bank Customer_df.png" alt="Table 1: DataFrame">
+											</a>
+											<figcaption><strong>Table 1</strong> Data frame</figcaption>
+										</figure>
+
+										<figure>
+											<a href="images/Bank Customer_miss.png" data-lightbox="bank-customer" data-title="Table 2: Missing data">
+											<img src="images/Bank Customer_miss.png" alt="Table 2: Missing data">
+											</a>
+											<figcaption><strong>Table 2</strong> Missing data df</figcaption>
+										</figure>
+
+										<figure>
+											<a href="images/Bank Customer_check missing.png" data-lightbox="bank-customer" data-title="Figure 1: check chart">
+											<img src="images/Bank Customer_check missing.png" alt="Figure 1: check chart">
+											</a>
+											<figcaption><strong>Figure 1</strong> Check after removing missing data</figcaption>
+										</figure>
+
+										<figure>
+											<a href="images/Bank Customer_distplots.png" data-lightbox="bank-customer" data-title="Figure 2: distplot">
+											<img src="images/Bank Customer_distplots.png" alt="Figure 2: distplot">
+											</a>
+											<figcaption><strong>Figure 2</strong> distplot</figcaption>
+										</figure>
+										
+										<figure>
+											<a href="images/Bank Customer_heat.png" data-lightbox="bank-customer" data-title="Figure 3: heatmap">
+											<img src="images/Bank Customer_heat.png" alt="Figure 3: heatmap">
+											</a>
+											<figcaption><strong>Figure 3</strong> Heatmap</figcaption>
+										</figure>
+
+										<figure>
+											<a href="images/Bank Customer_elbow.png" data-lightbox="bank-customer" data-title="Figure 4: Elbow Method">
+											<img src="images/Bank Customer_elbow.png" alt="Figure 4: Elbow Method">
+											</a>
+											<figcaption><strong>Figure 4</strong> Elbow Method</figcaption>
+										</figure>
+										
+										<figure>
+											<a href="images/Bank Customer_table 3.png" data-lightbox="bank-customer" data-title="Table 3: PCA Table">
+											<img src="images/Bank Customer_table 3.png" alt="Table 3: PCA Table">
+											</a>
+											<figcaption><strong>Table 3</strong> PCA Table</figcaption>
+										</figure>
+										
+										<figure>
+											<a href="images/bank customers clusters.png" data-lightbox="bank-customer" data-title="Figure 5: Bank Customer Clusters">
+											<img src="images/bank customers clusters.png" alt="Figure 5: Bank Customer Clusters">
+											</a>
+											<figcaption><strong>Figure 5</strong> Bank Customer Clusters</figcaption>
+										</figure>
+										
+										</div>
+
+										<h4>🌟 <strong>Key Insights:</strong></h4> #fill
+										<ul>
+											<li>Multiple algorithms provided different approaches to cancer classification, each with unique strengths for medical diagnosis</li>
+											<li>Feature standardization proved crucial for distance-based algorithms (SVM, KNN) due to varying scales of cellular measurements</li>
+											<li>Confusion matrix analysis revealed the trade-offs between sensitivity (detecting cancer) and specificity (avoiding false alarms)</li>
+											<li>Model comparison enabled selection of the most reliable algorithm for medical diagnostic support</li>
+										</ul>
+
+										<h4>🧗🏾 <strong>Challenge Faced:</strong></h4> #fill
+										<p>
+											Initially, aligning the financial statements by year was inconsistent due to mixed string/index formats across categories. I overcame this by explicitly extracting year-based columns and standardising label references. This made ratio computations and cross-statement comparisons reliable and reproducible.
+										</p>
+										<p><a href="https://github.com/tendai-codes/your-project" class="github-button" target="_blank">View on GitHub</a></p>
+									</section>
+
+									<section class="project-item" data-tags="Python,Machine Learning,Tensorflow">
+										<h3>📽️ <strong>Stock Price Analsysis using Ridge Regression </strong></h3>
+										<p>
+											Built a ridge regression model to predict stock prices with high accuracy. Leveraged Pandas for data preprocessing, and TensorFlow for model development. Achieved an R-squared score of 98%, with a k-fold cross-validation score of 86%.
 										</p>
 
 										<h4>💻 <strong>Tech Stack:</strong></h4>
@@ -1427,6 +1603,255 @@
 											<li><strong>Custom Metrics:</strong> Created Operating Cash Flow to Total Debt ratio from cash flow and balance sheet sections to assess short-term liquidity strength.</li>
 											
 										</ul>
+
+										<h4>📊 <strong>Code Snippets & Visualisations:</strong></h4>
+
+										<!-- Code Snippet -->
+
+										<pre><code class="language-python"># Importing the libraries
+										import pandas as pd
+										import plotly.express as px
+										from copy import copy
+										from scipy import stats
+										import matplotlib.pyplot as plt
+										import numpy as np
+										import plotly.figure_factory as ff
+										from sklearn.linear_model import LinearRegression
+										from sklearn.svm import SVR
+										from sklearn.model_selection import train_test_split
+										from sklearn.metrics import r2_score
+										from tensorflow import keras
+
+										# Get stock prices dataframe info
+										stock_price_df.info()
+
+										# Get stock volume dataframe info
+										stock_vol_df.info()
+
+										stock_vol_df.describe()
+
+										# Function to normalize stock prices based on their initial price (Figure 1)
+										def normalize(df):
+										x = df.copy()
+										for i in x.columns[1:]:
+											x[i] = x[i]/x[i][0]
+										return x
+
+										# Function to plot interactive plots using Plotly Express (Figure 2)
+										def interactive_plot(df, title):
+										fig = px.line(title = title)
+										for i in df.columns[1:]:
+											fig.add_scatter(x = df['Date'], y = df[i], name = i)
+										fig.show()
+
+										# Interactive chart for stocks Prices data (Figure 1)
+										interactive_plot(stock_price_df, 'Stock Prices')
+
+										# Normalised chart for stocks Prices data (Figure 2)
+										interactive_plot(normalize(stock_price_df), 'Normalized Prices')
+
+										# Interactive chart for stocks Volume data (Figure 3)
+										interactive_plot(stock_vol_df, 'Stocks Volume')
+
+										# Normalised chart for stocks volume data (Figure 4)
+										interactive_plot(normalize(stock_vol_df), 'Normalized Volume')
+
+										PREPARE DATA FOR TRAINING THE REGRESSION MODEL
+
+										# Function to concatenate the date, stock price, and volume in one dataframe
+										def individual_stock(price_df, vol_df, name):
+											return pd.DataFrame({'Date': price_df['Date'], 'Close': price_df[name], 'Volume': vol_df[name]})
+
+										# Function to return the output (target) data ML Model
+										# Target stock price today will be tomorrow's price
+
+										def trading_window(data):
+
+										n = 1 #1 day window
+
+										# Create a column containing the prices for the next 1 days
+										data['Target'] = data[['Close']].shift(-n)
+
+										return data
+
+										# Test concatenation function using individual stock
+										price_volume_df = individual_stock(stock_price_df, stock_vol_df, 'AAPL')
+										price_volume_df
+
+										# Function to return the output (target) data ML Model
+										# Target stock price today will be tomorrow's price
+
+										def trading_window(data):
+
+										n = 1 #1 day window
+
+										# Create a column containing the prices for the next 1 days
+										data['Target'] = data[['Close']].shift(-n)
+
+										return data
+
+										# Test concatenation function using individual stock
+										price_volume_df = individual_stock(stock_price_df, stock_vol_df, 'AAPL')
+										price_volume_df
+
+										# Test trading window function using concatenated df (Table 1)
+										price_volume_target_df = trading_window(price_volume_df)
+										price_volume_target_df
+
+										# Apply Feature Scaling to data
+										from sklearn.preprocessing import MinMaxScaler
+										sc = MinMaxScaler(feature_range = (0, 1))
+										price_volume_target_scaled_df = sc.fit_transform(price_volume_target_df.drop(columns = ['Date']))
+
+										# Creating Feature and Target
+										X = price_volume_target_scaled_df[:,:2]
+										y = price_volume_target_scaled_df[:,2:]
+
+										# Converting dataframe to arrays
+										X = np.asarray(X)
+										y = np.asarray(y)
+										X.shape, y.shape
+
+										# Spliting the data this way, since order is important in time-series
+										split = int(0.80 * len(X))
+										X_train = X[:split]
+										y_train = y[:split]
+										X_test = X[split:]
+										y_test = y[split:]
+
+										# Define a data plotting function (Figue 5)
+										def show_plot(data, title):
+										plt.figure(figsize = (13, 5))
+										plt.plot(data, linewidth = 3)
+										plt.title(title)
+										plt.grid()
+										plt.legend(['X_train', 'X_test'])
+
+										show_plot(X_train, 'Training Data for AAPL stock')
+										show_plot(X_test, 'Testing Data for AAPL stock')
+
+										BUILD AND TRAIN A RIDGE LINEAR REGRESSION MODEL
+
+										# Train ridge regression model
+										# This model was chosen to get a generalised trend for data (avoids over fitting) - expected low testing accuracy expected. Note that Ridge regression performs linear least squares with L2 regularization.
+
+										from sklearn.linear_model import Ridge
+										regression_model = Ridge()
+										regression_model.fit(X_train, y_train)
+
+										# Test the model and calculate its accuracy
+										ridge_accuracy = regression_model.score(X_test, y_test)
+										print("Ridge Regression Score: ", ridge_accuracy)
+
+										# K-Fold Cross validation Score
+										from sklearn.model_selection import cross_val_score
+										accuracies = cross_val_score(estimator = regression_model, X = X_train, y = y_train, cv = 10)
+										print("Accuracy: {:.2f} %".format(accuracies.mean()*100))
+										print("Standard Deviation: {:.2f} %".format(accuracies.std()*100))
+
+										Accuracy: 86.27%
+										Standard Deviation: 11.01 %
+
+										# Append the predicted values into a list
+										predicted = []
+										for i in predicted_prices:
+										predicted.append(i[0])
+
+										# Append the close values to the list
+										close = []
+										for i in price_volume_target_scaled_df:
+											close.append(i[0])
+
+										# Create a dataframe based on the dates in the individual stock data
+										df_predicted = price_volume_target_df[['Date']]
+										df_predicted
+
+										# Function to add the close and predicted values to the dataframe
+										def add_predicted_and_close(df, close, predicted):
+										df_predicted['Close'] = close
+										df_predicted['Prediction'] = predicted
+										return df_predicted
+
+										add_predicted_and_close(df_predicted, close, predicted) (Table 2)
+
+										# Define interactive plot (Figure 6 & 7)
+
+										def interactive_plot(df, title):
+										fig = px.line(df, title = title, x='Date', y=['Close', 'Prediction'])
+
+										fig.show()
+
+										# Plot the results
+										interactive_plot(df_predicted, "Original Vs. Prediction (alpha=1)")
+
+
+										</code></pre>
+
+										
+										<!-- Visualisations -->
+
+										<div class="image-gallery">
+										<figure>
+											<a href="images/Ridge_stock price.png" data-lightbox="ridge-regression" data-title="Figure 1: Stock Prices">
+											<img src="images/Ridge_stock price.png" alt="Figure 1: Stock Prices ">
+											</a>
+											<figcaption><strong>Figure 1</strong> Stock Prices </figcaption>
+										</figure>
+
+										<figure>
+											<a href="images/Ridge_stock price_norm.png" data-lightbox="ridge-regression" data-title="Figure 2: Stock Prices - Normalised">
+											<img src="images/Ridge_stock price_norm.png" alt="Figure 2: Stock Prices - Normalised">
+											</a>
+											<figcaption><strong>Figure 2</strong> Stock Prices - Normalised</figcaption>
+										</figure>
+										<figure>
+											<a href="images/Ridge_stock vol.png" data-lightbox="ridge-regression" data-title="Figure 3: Stock Volumes">
+											<img src="images/Ridge_stock vol.png" alt="Figure 3: Stock Volumes">
+											</a>
+											<figcaption><strong>Figure 3</strong> Stock Volumes</figcaption>
+										</figure>
+										<figure>
+											<a href="images/Ridge_stock vol_norm.png" data-lightbox="ridge-regression" data-title="Figure 3: Stock Volumes - Normalised">
+											<img src="images/Ridge_stock vol_norm.png"  alt="Figure 3: Stock Volumes - Normalised">
+											</a>
+											<figcaption><strong>Figure 4</strong> Stock Volumes - Normalised</figcaption>
+										</figure>
+
+										<figure>
+											<a href="images/Ridge_table 1.png" data-lightbox="ridge-regression" data-title="Figure 4: Price Volume Data">
+											<img src="images/Ridge_table 1.png" alt="Figure 4: Price Volume Data">
+											</a>
+											<figcaption><strong>Table 1</strong> Price Volume Data</figcaption>
+										</figure>
+
+										<figure>
+											<a href="images/Ridge_Figure 5.png" data-lightbox="ridge-regression" data-title="Figure 5: Training & Test Data">
+											<img src="images/Ridge_Figure 5.png" alt="Figure 5: Closing & Predicted Values">
+											</a>
+											<figcaption><strong>Figure 5</strong> Training & Test Data</figcaption>
+										</figure>
+										
+										<figure>
+											<a href="images/Ridge_table 2.png" data-lightbox="ridge-regression" data-title="Figure 5: Closing & Predicted Values">
+											<img src="images/Ridge_table 2.png" alt="Table 2: Closing & Predicted Values">
+											</a>
+											<figcaption><strong>Table 2</strong> Closing & Predicted Values</figcaption>
+										</figure>
+
+										<figure>
+											<a href="images/Ridge_Figure 6.png" data-lightbox="ridge-regression" data-title="Figure 5: Breast_randfor">
+											<img src="images/Ridge_Figure 6.png" alt="Figure 6: Breast_randfor">
+											</a>
+											<figcaption><strong>Figure 6</strong> Random Forest</figcaption>
+										</figure>
+										
+										<figure>
+											<a href="images/Ridge_Figure 7.png" data-lightbox="ridge-regression" data-title="Figure 5: Breast_decision">
+											<img src="images/Ridge_Figure 7.png" alt="Figure 7: Breast_decision">
+											</a>
+											<figcaption><strong>Figure 7</strong> Decision Tree</figcaption>
+										</figure>
+										</div>
 
 										<h4>🌟 <strong>Key Insights:</strong></h4>
 										<ul>
@@ -1444,9 +1869,9 @@
 									</section>
 
 									<section class="project-item" data-tags="Python,Machine Learning">
-										<h3>📽️ <strong>New project </strong></h3>
+										<h3>📽️ <strong> Stock Price Analsysis using Ridge Regression </strong></h3>
 										<p>
-											This project explored publicly available data on top-grossing US films to identify patterns across genres, studios, and release schedules. I used <strong>R</strong> and <strong>ggplot2</strong> for data exploration and visualisation.
+											Developed an LSTM neural network to predict stock price trends using a recurrent neural network structure. Preprocessed data using Pandas and constructed the model in TensorFlow. The model achieved an average validation loss of 0.000117 using k-fold cross-validation.
 										</p>
 
 										<h4>💻 <strong>Tech Stack:</strong></h4>
@@ -1467,44 +1892,202 @@
 											
 										</ul>
 
-										<h4>🌟 <strong>Key Insights:</strong></h4>
-										<ul>
-											<li>Multiple algorithms provided different approaches to cancer classification, each with unique strengths for medical diagnosis</li>
-											<li>Feature standardization proved crucial for distance-based algorithms (SVM, KNN) due to varying scales of cellular measurements</li>
-											<li>Confusion matrix analysis revealed the trade-offs between sensitivity (detecting cancer) and specificity (avoiding false alarms)</li>
-											<li>Model comparison enabled selection of the most reliable algorithm for medical diagnostic support</li>
-										</ul>
+										<h4>📊 <strong>Code Snippets & Visualisations:</strong></h4>
 
-										<h4>🧗🏾 <strong>Challenge Faced:</strong></h4>
-										<p>
-											Initially, aligning the financial statements by year was inconsistent due to mixed string/index formats across categories. I overcame this by explicitly extracting year-based columns and standardising label references. This made ratio computations and cross-statement comparisons reliable and reproducible.
-										</p>
-										<p><a href="https://github.com/tendai-codes/your-project" class="github-button" target="_blank">View on GitHub</a></p>
-									</section>
+										<!-- Code Snippet -->
 
-									<section class="project-item" data-tags="Python,Machine Learning">
-										<h3>📽️ <strong> New Project </strong></h3>
-										<p>
-											This project explored publicly available data on top-grossing US films to identify patterns across genres, studios, and release schedules. I used <strong>R</strong> and <strong>ggplot2</strong> for data exploration and visualisation.
-										</p>
+										<pre><code class="language-python"># Importing the libraries
 
-										<h4>💻 <strong>Tech Stack:</strong></h4>
-										<ul>
-											<li><strong>Python</strong> for machine learning model development and comparison</li>
-											<li><strong>Scikit-learn</strong> for multiple classification algorithms, preprocessing, and evaluation metrics</li>
-											<li><strong>Pandas</strong> for dataset loading and initial data exploration</li>
-											<li><strong>Matplotlib</strong> for data visualisationsand model performance analysis</li>
-											<li><strong>NumPy</strong> for numerical operations and grid generation</li>
-										</ul>
+										import pandas as pd
+import plotly.express as px
+from copy import copy
+from scipy import stats
+import matplotlib.pyplot as plt
+import numpy as np
+import plotly.figure_factory as ff
+from sklearn.linear_model import LinearRegression
+from sklearn.svm import SVR
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import r2_score
+from tensorflow import keras
 
-										<h4>🧪 <strong>Data Pipeline:</strong></h4>
-										<ul>
-											<li><strong>Load & inspect data:</strong> Imported multi-statement CSV into pandas. Extracted relevant sections for Balance Sheet, Income Statement, and Cash Flow Statement using <code>loc[]</code>. </li>
-											<li><strong>Trend Analysis:</strong> Transposed time-series data <code>(.T)</code> and plotted major components (e.g. assets, equity) using <code>.plot()</code> to visualise financial stability over time. </li>
-											<li><strong>Ratio Calculations:</strong> Computed solvency and profitability ratios: Return on Equity (ROE), Return on Assets (ROA), Debt-to-Equity. Built <code>DataFrame</code> to summarise and visualise using grouped bar plots.</li>
-											<li><strong>Custom Metrics:</strong> Created Operating Cash Flow to Total Debt ratio from cash flow and balance sheet sections to assess short-term liquidity strength.</li>
-											
-										</ul>
+PREPARE DATA FOR TRAINING
+
+# Function to concatenate the date, stock price, and volume in one dataframe
+def individual_stock(price_df, vol_df, name):
+    return pd.DataFrame({'Date': price_df['Date'], 'Close': price_df[name], 'Volume': vol_df[name]})
+
+# Define function to return the output (target) data ML Model
+# Target stock price today will be tomorrow's price
+
+def trading_window(data):
+
+  n = 1 #1 day window
+
+# Create a column containing the prices for the next 1 days
+  data['Target'] = data[['Close']].shift(-n)
+
+  return data
+
+# Test concatenation function using individual stock (Table 1)
+price_volume_df = individual_stock(stock_price_df, stock_vol_df, 'TSLA')
+price_volume_df
+
+TRAIN AN LSTM TIME SERIES MODEL
+
+# Use the close and volume data as training data (Input)
+training_data = price_volume_df.iloc[:, 1:3].values
+training_data
+
+# Apply feature scaling the data
+from sklearn.preprocessing import MinMaxScaler
+sc = MinMaxScaler(feature_range = (0, 1))
+training_set_scaled = sc.fit_transform(training_data)
+
+# Create the training and testing data, training data contains present day and previous day values
+X = []
+y = []
+for i in range(1, len(price_volume_df)):
+    X.append(training_set_scaled [i-1:i, 0])
+    y.append(training_set_scaled [i, 0])
+
+# Convert the data into array format
+X = np.asarray(X)
+y = np.asarray(y)
+
+# Split the data
+split = int(0.75 * len(X))
+X_train = X[:split]
+y_train = y[:split]
+X_test = X[split:]
+y_test = y[split:]
+
+# Reshape the 1D arrays to 3D arrays to feed in the model
+X_train = np.reshape(X_train, (X_train.shape[0], X_train.shape[1], 1))
+X_test = np.reshape(X_test, (X_test.shape[0], X_test.shape[1], 1))
+X_train.shape, X_test.shape
+
+# Create the LSTM model (Table 1)
+inputs = keras.layers.Input(shape=(X_train.shape[1], X_train.shape[2]))
+x = keras.layers.LSTM(150, return_sequences= True)(inputs)
+x = keras.layers.Dropout(0.3)(x)
+
+x = keras.layers.LSTM(150, return_sequences=True)(x)
+x = keras.layers.Dropout(0.3)(x)
+
+x = keras.layers.LSTM(150)(x)
+outputs = keras.layers.Dense(1, activation='linear')(x)
+
+model = keras.Model(inputs=inputs, outputs=outputs)
+model.compile(optimizer='adam', loss="mse")
+model.summary()
+
+# Train the model
+history = model.fit(
+    X_train, y_train,
+    epochs = 20,
+    batch_size = 32,
+    validation_split = 0.2)
+
+	# K folds cross validation for model
+
+from sklearn.model_selection import KFold
+
+# Define the number of folds
+k = 5
+kf = KFold(n_splits=k, shuffle=True)
+
+# Initialize a list to store the validation loss for each fold
+fold_losses = []
+
+for train_index, val_index in kf.split(X):
+  X_train_fold, X_val_fold = X[train_index], X[val_index]
+  y_train_fold, y_val_fold = y[train_index], y[val_index]
+
+  # Reshape data for LSTM
+  X_train_fold = np.reshape(X_train_fold, (X_train_fold.shape[0], X_train_fold.shape[1], 1))
+  X_val_fold = np.reshape(X_val_fold, (X_val_fold.shape[0], X_val_fold.shape[1], 1))
+
+  # Train the model on the training fold
+  history = model.fit(
+      X_train_fold, y_train_fold,
+      epochs=20,
+      batch_size=32,
+      validation_data=(X_val_fold, y_val_fold)
+  )
+
+  # Evaluate the model on the validation fold and store the loss
+  val_loss = model.evaluate(X_val_fold, y_val_fold)
+  fold_losses.append(val_loss)
+
+# Calculate the average validation loss across all folds
+average_val_loss = np.mean(fold_losses)
+print("Average Validation Loss:", average_val_loss)
+
+# Get the Closing price data
+close = []
+for i in training_set_scaled:
+  close.append(i[0])
+
+# Create dataframe for the dates, predicted prices and closing price
+df_predicted = price_volume_df[1:][['Date']]
+df_predicted['Predictions'] = test_predicted
+df_predicted['Close'] = close[1:]
+df_predicted
+
+# Define interactive plot
+
+def interactive_plot(df, title):
+  fig = px.line(df, title = title, x='Date', y=['Close', 'Predictions'])
+
+  fig.show()
+
+# Plot the results (Figure 1 & 2)
+interactive_plot(df_predicted, "Original Vs. Prediction (TSLA)")
+
+
+										</code></pre>
+
+										
+										<!-- Visualisations -->
+
+										<div class="image-gallery">
+										<figure>
+											<a href="images/Breast_logR.png" data-lightbox="LSTM" data-title="Table 1: Breast_logR">
+											<img src="images/Breast_logR.png" alt="Table 1: Breast_logR">
+											</a>
+											<figcaption><strong>Table 1</strong>Closing vs Prediction Price</figcaption>
+										</figure>
+
+										<figure>
+											<a href="images/Breast_svm.png" data-lightbox="LSTM" data-title="Table 2: Breast_svm">
+											<img src="images/Breast_svm.png" alt="Table 2: Breast_svm">
+											</a>
+											<figcaption><strong>Table 2</strong> LSTM Model Execution</figcaption>
+										</figure>
+
+										<figure>
+											<a href="images/Breast_ksvm.png" data-lightbox="LSTM" data-title="Table 3: Breast_ksvm">
+											<img src="images/Breast_ksvm.png" alt="Table 3: Breast_ksvm">
+											</a>
+											<figcaption><strong>Table 3</strong> Closing vs Prediction Price</figcaption>
+										</figure>
+
+										<figure>
+											<a href="images/Breast_knn.png" data-lightbox="LSTM" data-title="Figure 1: Breast_knn">
+											<img src="images/Breast_knn.png" alt="Figure 1: Breast_knn">
+											</a>
+											<figcaption><strong>Figure 1</strong> Closing Price</figcaption>
+										</figure>
+										
+										<figure>
+											<a href="images/Breast_naive.png" data-lightbox="LSTM" data-title="Figure 2: Breast_naive">
+											<img src="images/Breast_naive.png" alt="Figure 2: Breast_naive">
+											</a>
+											<figcaption><strong>Figure 2</strong> Closing vs Prediction Price</figcaption>
+										</figure>
+
+										</div>
 
 										<h4>🌟 <strong>Key Insights:</strong></h4>
 										<ul>
@@ -1545,6 +2128,99 @@
 											
 										</ul>
 
+										<h4>📊 <strong>Code Snippets & Visualisations:</strong></h4>
+
+										<!-- Code Snippet -->
+
+										<pre><code class="language-python"># Importing the libraries
+
+										import numpy as np
+										import matplotlib.pyplot as plt
+										import pandas as pd
+
+										# Importing the dataset
+										dataset = pd.read_csv('Breast cancer data.csv')
+										X = dataset.iloc[:, :-1].values
+										y = dataset.iloc[:, -1].values
+
+										#Splitting the dataset into the Training set and Test set
+										from sklearn.model_selection import train_test_split
+										X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.25, random_state = 0)
+
+										# Feature Scaling
+										from sklearn.preprocessing import StandardScaler
+										sc = StandardScaler()
+										X_train = sc.fit_transform(X_train)
+										X_test = sc.transform(X_test)
+
+										# Training Model on the Training set
+										from sklearn.tree import DecisionTreeClassifier
+										classifier = DecisionTreeClassifier(criterion = 'entropy', random_state = 0)
+										classifier.fit(X_train, y_train)
+
+										Evaluating using confusion matrix
+										from sklearn.metrics import confusion_matrix, accuracy_score
+										y_pred = classifier.predict(X_test)
+										cm = confusion_matrix(y_test, y_pred)
+										print(cm)
+										accuracy_score(y_test, y_pred)
+
+										</code></pre>
+
+										
+										<!-- Visualisations -->
+
+										<div class="image-gallery">
+										<figure>
+											<a href="images/Breast_logR.png" data-lightbox="breast-cancer" data-title="Figure 1: Breast_logR">
+											<img src="images/Breast_logR.png" alt="Figure 1: Breast_logR">
+											</a>
+											<figcaption><strong>Figure 1</strong> Logistic Regression</figcaption>
+										</figure>
+
+										<figure>
+											<a href="images/Breast_svm.png" data-lightbox="breast-cancer" data-title="Figure 2: Breast_svm">
+											<img src="images/Breast_svm.png" alt="Figure 2: Breast_svm">
+											</a>
+											<figcaption><strong>Figure 2</strong> SVM</figcaption>
+										</figure>
+
+										<figure>
+											<a href="images/Breast_ksvm.png" data-lightbox="breast-cancer" data-title="Figure 3: Breast_ksvm">
+											<img src="images/Breast_ksvm.png" alt="Figure 3: Breast_ksvm">
+											</a>
+											<figcaption><strong>Figure 3</strong> Kernel SVM</figcaption>
+										</figure>
+
+										<figure>
+											<a href="images/Breast_knn.png" data-lightbox="breast-cancer" data-title="Figure 4: Breast_knn">
+											<img src="images/Breast_knn.png" alt="Figure 4: Breast_knn">
+											</a>
+											<figcaption><strong>Figure 4</strong> K-Nearest Neighbor</figcaption>
+										</figure>
+										
+										<figure>
+											<a href="images/Breast_naive.png" data-lightbox="breast-cancer" data-title="Figure 5: Breast_naive">
+											<img src="images/Breast_naive.png" alt="Figure 5: Breast_naive">
+											</a>
+											<figcaption><strong>Figure 5</strong> Naïve Bayes</figcaption>
+										</figure>
+
+										<figure>
+											<a href="images/Breast_randfor.png" data-lightbox="breast-cancer" data-title="Figure 5: Breast_randfor">
+											<img src="images/Breast_randfor.png" alt="Figure 2: Breast_randfor">
+											</a>
+											<figcaption><strong>Figure 6</strong> Random Forest</figcaption>
+										</figure>
+										
+										<figure>
+											<a href="images/Breast_decision.png" data-lightbox="breast-cancer" data-title="Figure 5: Breast_decision">
+											<img src="images/Breast_decision.png" alt="Figure 2: Breast_decision">
+											</a>
+											<figcaption><strong>Figure 7</strong> Decision Tree</figcaption>
+										</figure>
+										</div>
+
 										<h4>🌟 <strong>Key Insights:</strong></h4>
 										<ul>
 											<li>Multiple algorithms provided different approaches to cancer classification, each with unique strengths for medical diagnosis</li>
@@ -1584,6 +2260,99 @@
 											
 										</ul>
 
+										<h4>📊 <strong>Code Snippets & Visualisations:</strong></h4>
+
+										<!-- Code Snippet -->
+
+										<pre><code class="language-python"># Importing the libraries
+
+										import numpy as np
+										import matplotlib.pyplot as plt
+										import pandas as pd
+
+										# Importing the dataset
+										dataset = pd.read_csv('Breast cancer data.csv')
+										X = dataset.iloc[:, :-1].values
+										y = dataset.iloc[:, -1].values
+
+										#Splitting the dataset into the Training set and Test set
+										from sklearn.model_selection import train_test_split
+										X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.25, random_state = 0)
+
+										# Feature Scaling
+										from sklearn.preprocessing import StandardScaler
+										sc = StandardScaler()
+										X_train = sc.fit_transform(X_train)
+										X_test = sc.transform(X_test)
+
+										# Training Model on the Training set
+										from sklearn.tree import DecisionTreeClassifier
+										classifier = DecisionTreeClassifier(criterion = 'entropy', random_state = 0)
+										classifier.fit(X_train, y_train)
+
+										Evaluating using confusion matrix
+										from sklearn.metrics import confusion_matrix, accuracy_score
+										y_pred = classifier.predict(X_test)
+										cm = confusion_matrix(y_test, y_pred)
+										print(cm)
+										accuracy_score(y_test, y_pred)
+
+										</code></pre>
+
+										
+										<!-- Visualisations -->
+
+										<div class="image-gallery">
+										<figure>
+											<a href="images/Breast_logR.png" data-lightbox="breast-cancer" data-title="Figure 1: Breast_logR">
+											<img src="images/Breast_logR.png" alt="Figure 1: Breast_logR">
+											</a>
+											<figcaption><strong>Figure 1</strong> Logistic Regression</figcaption>
+										</figure>
+
+										<figure>
+											<a href="images/Breast_svm.png" data-lightbox="breast-cancer" data-title="Figure 2: Breast_svm">
+											<img src="images/Breast_svm.png" alt="Figure 2: Breast_svm">
+											</a>
+											<figcaption><strong>Figure 2</strong> SVM</figcaption>
+										</figure>
+
+										<figure>
+											<a href="images/Breast_ksvm.png" data-lightbox="breast-cancer" data-title="Figure 3: Breast_ksvm">
+											<img src="images/Breast_ksvm.png" alt="Figure 3: Breast_ksvm">
+											</a>
+											<figcaption><strong>Figure 3</strong> Kernel SVM</figcaption>
+										</figure>
+
+										<figure>
+											<a href="images/Breast_knn.png" data-lightbox="breast-cancer" data-title="Figure 4: Breast_knn">
+											<img src="images/Breast_knn.png" alt="Figure 4: Breast_knn">
+											</a>
+											<figcaption><strong>Figure 4</strong> K-Nearest Neighbor</figcaption>
+										</figure>
+										
+										<figure>
+											<a href="images/Breast_naive.png" data-lightbox="breast-cancer" data-title="Figure 5: Breast_naive">
+											<img src="images/Breast_naive.png" alt="Figure 5: Breast_naive">
+											</a>
+											<figcaption><strong>Figure 5</strong> Naïve Bayes</figcaption>
+										</figure>
+
+										<figure>
+											<a href="images/Breast_randfor.png" data-lightbox="breast-cancer" data-title="Figure 5: Breast_randfor">
+											<img src="images/Breast_randfor.png" alt="Figure 2: Breast_randfor">
+											</a>
+											<figcaption><strong>Figure 6</strong> Random Forest</figcaption>
+										</figure>
+										
+										<figure>
+											<a href="images/Breast_decision.png" data-lightbox="breast-cancer" data-title="Figure 5: Breast_decision">
+											<img src="images/Breast_decision.png" alt="Figure 2: Breast_decision">
+											</a>
+											<figcaption><strong>Figure 7</strong> Decision Tree</figcaption>
+										</figure>
+										</div>
+
 										<h4>🌟 <strong>Key Insights:</strong></h4>
 										<ul>
 											<li>Multiple algorithms provided different approaches to cancer classification, each with unique strengths for medical diagnosis</li>
@@ -1622,6 +2391,99 @@
 											<li><strong>Custom Metrics:</strong> Created Operating Cash Flow to Total Debt ratio from cash flow and balance sheet sections to assess short-term liquidity strength.</li>
 											
 										</ul>
+
+										<h4>📊 <strong>Code Snippets & Visualisations:</strong></h4>
+
+										<!-- Code Snippet -->
+
+										<pre><code class="language-python"># Importing the libraries
+
+										import numpy as np
+										import matplotlib.pyplot as plt
+										import pandas as pd
+
+										# Importing the dataset
+										dataset = pd.read_csv('Breast cancer data.csv')
+										X = dataset.iloc[:, :-1].values
+										y = dataset.iloc[:, -1].values
+
+										#Splitting the dataset into the Training set and Test set
+										from sklearn.model_selection import train_test_split
+										X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.25, random_state = 0)
+
+										# Feature Scaling
+										from sklearn.preprocessing import StandardScaler
+										sc = StandardScaler()
+										X_train = sc.fit_transform(X_train)
+										X_test = sc.transform(X_test)
+
+										# Training Model on the Training set
+										from sklearn.tree import DecisionTreeClassifier
+										classifier = DecisionTreeClassifier(criterion = 'entropy', random_state = 0)
+										classifier.fit(X_train, y_train)
+
+										Evaluating using confusion matrix
+										from sklearn.metrics import confusion_matrix, accuracy_score
+										y_pred = classifier.predict(X_test)
+										cm = confusion_matrix(y_test, y_pred)
+										print(cm)
+										accuracy_score(y_test, y_pred)
+
+										</code></pre>
+
+										
+										<!-- Visualisations -->
+
+										<div class="image-gallery">
+										<figure>
+											<a href="images/Breast_logR.png" data-lightbox="breast-cancer" data-title="Figure 1: Breast_logR">
+											<img src="images/Breast_logR.png" alt="Figure 1: Breast_logR">
+											</a>
+											<figcaption><strong>Figure 1</strong> Logistic Regression</figcaption>
+										</figure>
+
+										<figure>
+											<a href="images/Breast_svm.png" data-lightbox="breast-cancer" data-title="Figure 2: Breast_svm">
+											<img src="images/Breast_svm.png" alt="Figure 2: Breast_svm">
+											</a>
+											<figcaption><strong>Figure 2</strong> SVM</figcaption>
+										</figure>
+
+										<figure>
+											<a href="images/Breast_ksvm.png" data-lightbox="breast-cancer" data-title="Figure 3: Breast_ksvm">
+											<img src="images/Breast_ksvm.png" alt="Figure 3: Breast_ksvm">
+											</a>
+											<figcaption><strong>Figure 3</strong> Kernel SVM</figcaption>
+										</figure>
+
+										<figure>
+											<a href="images/Breast_knn.png" data-lightbox="breast-cancer" data-title="Figure 4: Breast_knn">
+											<img src="images/Breast_knn.png" alt="Figure 4: Breast_knn">
+											</a>
+											<figcaption><strong>Figure 4</strong> K-Nearest Neighbor</figcaption>
+										</figure>
+										
+										<figure>
+											<a href="images/Breast_naive.png" data-lightbox="breast-cancer" data-title="Figure 5: Breast_naive">
+											<img src="images/Breast_naive.png" alt="Figure 5: Breast_naive">
+											</a>
+											<figcaption><strong>Figure 5</strong> Naïve Bayes</figcaption>
+										</figure>
+
+										<figure>
+											<a href="images/Breast_randfor.png" data-lightbox="breast-cancer" data-title="Figure 5: Breast_randfor">
+											<img src="images/Breast_randfor.png" alt="Figure 2: Breast_randfor">
+											</a>
+											<figcaption><strong>Figure 6</strong> Random Forest</figcaption>
+										</figure>
+										
+										<figure>
+											<a href="images/Breast_decision.png" data-lightbox="breast-cancer" data-title="Figure 5: Breast_decision">
+											<img src="images/Breast_decision.png" alt="Figure 2: Breast_decision">
+											</a>
+											<figcaption><strong>Figure 7</strong> Decision Tree</figcaption>
+										</figure>
+										</div>
 
 										<h4>🌟 <strong>Key Insights:</strong></h4>
 										<p>

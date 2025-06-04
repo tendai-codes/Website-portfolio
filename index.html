@@ -1280,6 +1280,237 @@
 									</section>
 
 									<section class="project-item" data-tags="Python,Machine Learning">
+										<h3>📽️ <strong> Salary Network: Model Comparison </strong></h3>
+										<p>
+											This project implemented and compared five different regression algorithms to predict employee salaries based on position levels within an organization. I built a comprehensive machine learning pipeline comparing linear regression, polynomial regression, support vector regression (SVR), decision tree regression, and random forest regression to identify the optimal model for HR compensation analysis.
+										</p>
+
+										<h4>💻 <strong>Tech Stack:</strong></h4>
+										<ul>
+											<li><strong>Python</strong> for machine learning model development and comparison</li>
+											<li><strong>Scikit-learn</strong> for multiple regression algorithms, feature scaling, and model training</li>
+											<li><strong>Pandas</strong> for dataset loading and initial data exploration</li>
+											<li><strong>Matplotlib</strong> for data visualisations</li>
+											<li><strong>NumPy</strong> for numerical operations and grid generation</li>
+										</ul>
+
+										<h4>🧪 <strong>Data Pipeline:</strong></h4>
+										<ul>
+											<li><strong>Data Preparation:</strong> Loaded position-salary dataset using <code>pd.read_csv()</code> and extracted features using <code>iloc[:, 1:-1]</code> (position levels) and target variable using <code>iloc[:, -1]</code>  (salaries), strategically excluding the first column containing position titles. </li>
+											<li><strong>Linear regression baseline:</strong> Implemented a standard<code>LinearRegression()</code>  model using <code>.fit(X, y)</code> to establish a baseline for salary prediction based on position level with a straight-line relationship. </li>
+											<li><strong>Polynomial feature engineering: </strong> Applied <code>PolynomialFeatures(degree=4)</code>  to transform the single position level feature into polynomial terms (x, x², x³, x⁴), creating a richer feature space to capture non-linear salary progression patterns.</li>
+											<li><strong>Support Vector Regression: </strong> Implemented feature scaling using <code>StandardScaler()</code>for both X and y variables, then trained an SVR model with <code>RBF kernel</code> to handle non-linear relationships while managing the different scales between position levels and salary amounts.</li>
+											<li><strong>Decision Tree : </strong> Built a <code>DecisionTreeRegressor()</code> model that creates hierarchical decision rules to predict salaries, capturing complex non-linear patterns without requiring feature scaling.</li>
+											<li><strong>Random Forest Regression: </strong> Implemented <code>RandomForestRegressor()</code> with multiple decision trees to reduce overfitting and improve prediction stability through ensemble learning.</li>
+											<li><strong>Polynomial feature engineering: </strong> Applied <code>PolynomialFeatures(degree=4)</code>  to transform the single position level feature into polynomial terms (x, x², x³, x⁴), creating a richer feature space to capture non-linear salary progression patterns.</li>
+											<li><strong>Random Forest Regression: </strong> Implemented <code>RandomForestRegressor()</code> with multiple decision trees to reduce overfitting and improve prediction stability through ensemble learning.</li>
+											<li><strong>SVR Inverse scaling: </strong> Applied <code>sc_X.inverse_transform()</code> and <code>sc_y.inverse_transform()</code> to convert scaled predictions back to original salary units, with proper reshaping using <code>.reshape(-1, 1)</code> for visualization.</li>
+										
+											<li><strong>Model Visualisations:</strong> Created scatter plots with <code>plt.scatter()</code> for actual data points and <code>plt.plot()</code> for the linear regression line, showing the limitation of straight-line salary prediction. Generated similar visualizations for the polynomial model using <code>lin_reg_2.predict(poly_reg.fit_transform(X))</code> to display the curved relationship between position levels and salaries.</li>
+											<li><strong>Model comparison:</strong> Made direct salary predictions for position level 6.5 using both <code>lin_reg.predict([[6.5]])</code> and <code>lin_reg_2.predict(poly_reg.fit_transform([[6.5]]))</code> to compare model outputs for intermediate position levels.</li>
+										</ul>
+
+										<h4>📊 <strong>Code Snippets & Visualisations:</strong></h4>
+
+										<!-- Code Snippet -->
+
+										<pre><code class="language-python"># Importing Libraries	
+										import numpy as np
+										import matplotlib.pyplot as plt
+										import pandas as pd
+
+										# Importing Dataset
+										dataset = pd.read_csv('Social_Network_Ads.csv')
+										X = dataset.iloc[:, :-1].values
+										y = dataset.iloc[:, -1].values
+
+										# Splitting dataset into Training & Test set
+										from sklearn.model_selection import train_test_split
+										X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.25, random_state = 0)
+
+										print(X_train), print(X_test)
+										print(y_train), print(y_test)
+
+										# Feature Scaling
+										from sklearn.preprocessing import StandardScaler
+										sc = StandardScaler()
+										X_train = sc.fit_transform(X_train)
+										X_test = sc.transform(X_test)
+
+										print(X_train), print(X_test)
+
+										# Training Decision tree classification Model
+										from sklearn.tree import DecisionTreeClassifier
+										classifier = DecisionTreeClassifier(criterion = 'entropy', random_state = 0)
+										classifier.fit(X_train, y_train)
+
+										# Predicting Test Results
+										y_pred = classifier.predict(X_test)
+										print(np.concatenate((y_pred.reshape(len(y_pred),1), y_test.reshape(len(y_test),1)),1))
+
+										# Making Confusion Matrix 
+										from sklearn.metrics import confusion_matrix, accuracy_score
+										cm = confusion_matrix(y_test, y_pred)
+										print(cm)
+										accuracy_score(y_test, y_pred)
+
+										#Visualising Training set results 
+										from matplotlib.colors import ListedColormap
+										X_set, y_set = sc.inverse_transform(X_train), y_train
+										X1, X2 = np.meshgrid(np.arange(start = X_set[:, 0].min() - 10, stop = X_set[:, 0].max() + 10, step = 0.25),
+															np.arange(start = X_set[:, 1].min() - 1000, stop = X_set[:, 1].max() + 1000, step = 0.25))
+										plt.contourf(X1, X2, classifier.predict(sc.transform(np.array([X1.ravel(), X2.ravel()]).T)).reshape(X1.shape),
+													alpha = 0.75, cmap = ListedColormap(('red', 'green')))
+										plt.xlim(X1.min(), X1.max())
+										plt.ylim(X2.min(), X2.max())
+										for i, j in enumerate(np.unique(y_set)):
+											plt.scatter(X_set[y_set == j, 0], X_set[y_set == j, 1], c = ListedColormap(('red', 'green'))(i), label = j)
+										plt.title('Decision Tree Classification (Training set)')
+										plt.xlabel('Age')
+										plt.ylabel('Estimated Salary')
+										plt.legend()
+										plt.show()
+
+										#Visualising Test set results 
+										from matplotlib.colors import ListedColormap
+										X_set, y_set = sc.inverse_transform(X_test), y_test
+										X1, X2 = np.meshgrid(np.arange(start = X_set[:, 0].min() - 10, stop = X_set[:, 0].max() + 10, step = 0.25),
+															np.arange(start = X_set[:, 1].min() - 1000, stop = X_set[:, 1].max() + 1000, step = 0.25))
+										plt.contourf(X1, X2, classifier.predict(sc.transform(np.array([X1.ravel(), X2.ravel()]).T)).reshape(X1.shape),
+													alpha = 0.75, cmap = ListedColormap(('red', 'green')))
+										plt.xlim(X1.min(), X1.max())
+										plt.ylim(X2.min(), X2.max())
+										for i, j in enumerate(np.unique(y_set)):
+											plt.scatter(X_set[y_set == j, 0], X_set[y_set == j, 1], c = ListedColormap(('red', 'green'))(i), label = j)
+										plt.title('Decision Tree Classification (Test set)')
+										plt.xlabel('Age')
+										plt.ylabel('Estimated Salary')
+										plt.legend()
+										plt.show()
+										</code></pre>
+
+										
+										<!-- Visualisations -->
+
+										<div class="image-gallery">
+										<figure>
+											<a href="images/Salary_logR.png" data-lightbox="salary-network" data-title="Figure 1: Salary_logR">
+											<img src="images/Salary_logR.png" alt="Figure 1: Salary_logR">
+											</a>
+											<figcaption><strong>Figure 1</strong></figcaption>
+										</figure>
+
+										<figure>
+											<a href="images/Salary_svm.png" data-lightbox="salary-network" data-title="Figure 2: Salary_svm">
+											<img src="images/Salary_svm.png" alt="Figure 2: Salary_svm">
+											</a>
+											<figcaption><strong>Figure 2</strong></figcaption>
+										</figure>
+
+										<figure>
+											<a href="images/Salary_kernsvm.png" data-lightbox="salary-network" data-title="Figure 3: Salary_kernsvm">
+											<img src="images/Salary_kernsvm.png" alt="Figure 3: Salary_kernsvm">
+											</a>
+											<figcaption><strong>Figure 3</strong></figcaption>
+										</figure>
+
+										<figure>
+											<a href="images/Salary_naive.png" data-lightbox="salary-network" data-title="Figure 4: Salary_naive">
+											<img src="images/Salary_naive.png" alt="Figure 4: Salary_naive">
+											</a>
+											<figcaption><strong>Figure 4</strong></figcaption>
+										</figure>
+										
+										<figure>
+											<a href="images/Salary_knn.png" data-lightbox="salary-network" data-title="Figure 5: Salary_knn">
+											<img src="images/Salary_knn.png" alt="Figure 5: Salary_knn">
+											</a>
+											<figcaption><strong>Figure 5</strong></figcaption>
+										</figure>
+
+										<figure>
+											<a href="images/Salary_random.png" data-lightbox="salary-network" data-title="Figure 6: Salary_random">
+											<img src="images/Salary_random.png" alt="Figure 6: Salary_random">
+											</a>
+											<figcaption><strong>Figure 6</strong></figcaption>
+										</figure>
+										
+										<figure>
+											<a href="images/Salary_dectree.png" data-lightbox="salary-network" data-title="Figure 7: Salary_dectree">
+											<img src="images/Salary_dectree.png" alt="Figure 6: Salary_dectree">
+											</a>
+											<figcaption><strong>Figure 7</strong></figcaption>
+										</figure>
+
+										<figure>
+											<a href="images/salary_logRT.png" data-lightbox="salary-network" data-title="Table 1: salary_logRT">
+											<img src="images/salary_logRT.png" alt="Table 1: salary_logRT">
+											</a>
+											<figcaption><strong>Table 1</strong> Logistic Regression</figcaption>
+										</figure>
+
+										<figure>
+											<a href="images/salary_svmT.png" data-lightbox="salary-network" data-title="Table 2: salary_svmT">
+											<img src="images/salary_svmT.png" alt="Table 2: salary_svmT">
+											</a>
+											<figcaption><strong>Table 2</strong> SVM</figcaption>
+										</figure>
+
+										<figure>
+											<a href="images/salary_kernsvmT.png" data-lightbox="salary-network" data-title="Table 3: salary_kernsvmT">
+											<img src="images/salary_kernsvmT.png" alt="Table 3: salary_kernsvmT">
+											</a>
+											<figcaption><strong>Table 3</strong> Kernel SVM</figcaption>
+										</figure>
+
+										<figure>
+											<a href="images/Salary_naiveT.png" data-lightbox="salary-network" data-title="Table 4: Salary_naiveT">
+											<img src="images/Salary_naiveT.png" alt="Table 4: Salary_naiveT">
+											</a>
+											<figcaption><strong>Table 4</strong> Naive Bayes</figcaption>
+										</figure>
+										
+										<figure>
+											<a href="images/Salary_knnT.png" data-lightbox="salary-network" data-title="Table 5: Salary_knnT">
+											<img src="images/Salary_knnT.png" alt="Table 5: Salary_knnT">
+											</a>
+											<figcaption><strong>Table 5</strong> K-Nearest Neighbor</figcaption>
+										</figure>
+
+										<figure>
+											<a href="images/Salary_randomT.png" data-lightbox="salary-network" data-title="Table 6: Salary_randomT">
+											<img src="images/Salary_randomT.png" alt="Table 4: Salary_randomT">
+											</a>
+											<figcaption><strong>Table 6</strong> Random Forest</figcaption>
+										</figure>
+										
+										<figure>
+											<a href="images/Salary_dectreeT.png" data-lightbox="salary-network" data-title="Table 7: Salary_dectreeT">
+											<img src="images/Salary_dectreeT.png" alt="Table 5: Salary_dectreeT">
+											</a>
+											<figcaption><strong>Table 7</strong> Decision Tree</figcaption>
+										</figure>
+										</div>
+
+
+										<h4>🌟 <strong>Key Insights:</strong></h4>
+										<ul>
+											<li>Linear regression showed limitations in capturing the exponential nature of executive compensation at higher position levels</li>
+											<li>Polynomial regression successfully modeled smooth non-linear salary curves typical in corporate hierarchies</li>
+											<li>SVR with proper scaling handled the high salary variance effectively while maintaining smooth predictions</li>
+											<li>Decision tree regression captured salary jumps at specific position levels but risked overfitting</li>
+											<li>Random forest regression provided stable predictions by averaging multiple decision trees, reducing variance</li>
+										</ul>
+
+										<h4>🧗🏾 <strong>Challenge Faced:</strong></h4>
+										<p>
+											
+											The SVR model visualization presented scaling complications because support vector regression requires feature scaling for optimal performance, but the visualization needed to display results in original salary units. The challenge was handling the forward and inverse transformations correctly. This was resolved by implementing a multi-step process: using  <code>sc_X.transform(X_grid)</code> to scale the grid for SVR prediction, then applying <code>sc_y.inverse_transform()</code>  to convert predictions back to actual salary values, with careful attention to array reshaping using <code>.reshape(-1, 1)</code> to maintain proper dimensionality throughout the scaling pipeline. This approach ensured accurate model performance while maintaining interpretable visualizations in original salary units.
+										</p>
+										<p><a href="https://github.com/tendai-codes/your-project" class="github-button" target="_blank">View on GitHub</a></p>
+									</section>
+
+									<section class="project-item" data-tags="Python,Machine Learning">
 										<h3>📽️ <strong>Breast Cancer Classification: Multi-Algorithm Comparison </strong></h3>
 										<p>
 											This project implemented and compared six different machine learning classification algorithms to predict breast cancer diagnosis (malignant vs benign) based on cellular characteristics. I built a comprehensive medical classification pipeline using multiple algorithms to identify the most effective approach for cancer detection and diagnosis support.

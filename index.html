@@ -4,7 +4,7 @@
 	html5up.net | @ajlkn
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 -->
-<html>
+<html> 
 	<head>
 		<title>Data Science Portfolio</title>
 		<meta charset="utf-8" />
@@ -16,7 +16,7 @@
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
 
 		<!-- Lightbox CSS -->
-		<link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/css/lightbox.min.css" rel="stylesheet" />
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/css/lightbox.min.css" rel="stylesheet" /> 
 
 
 	
@@ -136,8 +136,12 @@
 			gap: 10px;
 			margin: 1em 0;
 			max-width: 100%;
+			overflow-x: auto;
+			border-radius: 8px;
+			padding: 10px;
 			}
 
+				
 			.image-gallery img {
 			width: 100%;
 			height: auto;
@@ -148,7 +152,7 @@
 
 			.image-gallery-1 {
 			display: grid;
-			grid-template-columns: repeat(1, 1fr); /* 2 equal columns */
+			grid-template-columns: repeat(1, 1fr); /* 1 equal columns */
 			grid-template-rows: 1fr;
 			gap: 10px;
 			max-width: 100%;
@@ -181,20 +185,33 @@
   			word-break: break-word;      /* Break long words if needed */
 			}
 
-			/* lightbox image size */
-			.lb-image {
-			width: 70vw !important;
+			/* lightbox image size 
+			lightbox-gallery  .lbGallery {
+			width: 60vw !important;
 			height: auto !important;
 			max-height: 70vh !important;
 			object-fit: contain !important;
+			} */
+
+			.lb-overlay {
+				position: fixed;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				width: 60%;
+				height: auto;
+				background-color: white;
+				border-radius: 10px;
+				box-shadow: 0 0 20px rgba(0,0,0,0.5);
 			}
 
-			.lb-outerContainer {
-			max-width: 70vw !important;
-			max-height: 70vh !important;
-			margin: auto;
+			lightbox-gallery .lbImage {
+			max-width: 60vh !important;
+			height: auto !important;
+			margin: 0 auto;
 			}
 
+			
 
 		</style>	
 	
@@ -252,11 +269,13 @@
 									<button data-tag="R" class="filter-button">R</button>
 									<button data-tag="Python" class="filter-button">Python</button>
 									<button data-tag="Data Analysis" class="filter-button">Data Analysis</button>
-									<button data-tag="PyTorch" class="filter-button">PyTorch</button>
-									<button data-tag="Tensorflow" class="filter-button">Tensorflow</button>
 									<button data-tag="Machine Learning" class="filter-button">Machine Learning</button>
+									<button data-tag="PyTorch" class="filter-button">PyTorch</button>
+									<button data-tag="TensorFlow" class="filter-button">TensorFlow</button>
 									<button data-tag="Deep Learning" class="filter-button">Deep Learning</button>
+							
 									<button data-tag="all" class="filter-button active">All</button>
+									
                 				</div>
 
 								<div id="projects-container">
@@ -308,7 +327,7 @@
 										geom_jitter(aes(size=Budget...mill., colour=Studio)) +
 										geom_boxplot(alpha = 0.7, outlier.colour = NA)
 
-										# Non-data ink
+										# Non-data info
 										q +
 										xlab("Genre") + 
 										ylab("Gross % US") + 
@@ -336,14 +355,14 @@
 											<a href="images/box_office.png" data-lightbox="box-analysis" data-title="Figure 1: No releases on Mondays">
 											<img src="images/box_office.png" alt="Figure 1: No releases on Mondays">
 											</a>
-											<figcaption><strong>Figure 1:</strong> No releases on Mondays</figcaption>
+											<figcaption><strong>Figure 1</strong> No releases on Mondays</figcaption>
 										</figure>
 
 										<figure>
 											<a href="images/box_genre.png" data-lightbox="box-analysis" data-title="Figure 2: Domestic gross by genre">
 											<img src="images/box_genre.png" alt="Figure 2: Domestic gross by genre">
 											</a>
-											<figcaption><strong>Figure 2:</strong> Domestic gross by genre</figcaption>
+											<figcaption><strong>Figure 2</strong> Domestic gross by genre</figcaption>
 										</figure>
 										</div>
 
@@ -376,7 +395,7 @@
 										<h4>🧪 <strong>Data Pipeline:</strong></h4>
 										<ul>
 											<li><strong>Load & inspect data:</strong> Imported multi-statement CSV into pandas. Extracted relevant sections for Balance Sheet, Income Statement, and Cash Flow Statement using <code>loc[]</code>. </li>
-											<li><strong>Trend Analysis:</strong> Transposed time-series data <code>(.T)</code> and plotted major components (e.g. assets, equity) using <code>.plot()</code> to visualise financial stability over time. </li>
+											<li><strong>Trend Analysis:</strong> Plotted major components (e.g. assets, equity) using <code>.plot()</code> to visualise financial stability over time. </li>
 											<li><strong>Ratio Calculations:</strong> Computed solvency and profitability ratios: Return on Equity (ROE), Return on Assets (ROA), Debt-to-Equity. Built <code>DataFrame</code> to summarise and visualise using grouped bar plots.</li>
 											<li><strong>Custom Metrics:</strong> Created Operating Cash Flow to Total Debt ratio from cash flow and balance sheet sections to assess short-term liquidity strength.</li>
 											
@@ -393,19 +412,23 @@
 										revenue <- c(14574.49, 7606.46, 8611.41, 9175.41, 8058.65, 8105.44, 11496.28, 9766.09, 10305.32, 14379.96, 10713.97, 15433.50)
 										expenses <- c(12051.82, 5695.07, 12319.20, 12089.72, 8658.57, 840.20, 3285.73, 5821.12, 6976.93, 16618.61, 10054.37, 3803.96)
 
+										# Calculate Profit As The Differences Between Revenue And Expenses
+										profit <- revenue - expenses
+										profit
+
+										# Calculate Tax As 30% Of Profit And Round To 2 Decimal Points
+										tax <- round(0.30 * profit, 2)
+										tax
 
 										# Calculate Profit Remaining After Tax Is Deducted
 										profit.after.tax <- profit - tax
 										profit.after.tax
 
-
-										#Visualise Profit after tax
-
-										# Create a data frame for visualisation
+										#Visualize Profit after tax
+										# Create a data frame for visualization
 										data <- data.frame(
 										Month = 1:12,
-										Profit_After_Tax = profit.after.tax
-										)
+										Profit_After_Tax = profit.after.tax)
 
 										# Create the bar chart using ggplot2 (Figure 1)
 										ggplot(data, aes(x = factor(Month), y = Profit_After_Tax)) +
@@ -417,20 +440,37 @@
 										profit.margin <- round(profit.after.tax / revenue, 2) * 100
 										profit.margin
 
-										# Visualise Profit Margin
-
-										# Create a data frame for visualisation
+										# Visualize Profit Margin
+										# Create a data frame for visualization
 										data <- data.frame(
 										Month = 1:12,
-										Profit_margin = profit.margin
-										)
+										Profit_margin = profit.margin)
+
 										# Create the bar chart using ggplot2 (Figure 2)
 										ggplot(data, aes(x = factor(Month), y = profit.margin)) +
 										geom_bar(stat = "identity", fill = "orange") +
 										labs(title = "Monthly Profit Margin (%)", x = "Month", y = "Profit Margin (%)") +
 										theme_minimal()
 
-									
+										# Calculate The Mean Profit After Tax For The 12 Months
+										mean_pat <- mean(profit.after.tax)
+										mean_pat
+
+										# Find The Months With Above-Mean Profit After Tax
+										good.months <- profit.after.tax > mean_pat
+										good.months
+
+										# Bad Months Are The Opposite Of Good Months
+										bad.months <- !good.months
+										bad.months
+
+										# The Best Month Is The Month With The Highest Profit After Tax
+										best.month <- profit.after.tax == max(profit.after.tax)
+										best.month
+
+										# The Worst Month Is The Month With The Lowest Profit After Tax
+										worst.month <- profit.after.tax == min(profit.after.tax)
+										worst.month
 										</code></pre>
 
 										
@@ -441,14 +481,14 @@
 											<a href="images/Financial_statement_b.png" data-lightbox="finance-state" data-title="Figure 1: Profit After Tax">
 											<img src="images/Financial_statement_b.png" alt="Figure 1: Profit After Tax">
 											</a>
-											<figcaption><strong>Figure 1:</strong> Profit After Tax</figcaption>
+											<figcaption><strong>Figure 1</strong> Profit After Tax</figcaption>
 										</figure>
 
 										<figure>
 											<a href="images/Financial_statement_O.png" data-lightbox="finance-state" data-title="Figure 2: Profit Margin">
 											<img src="images/Financial_statement_O.png" alt="Figure 2: Profit Margin">
 											</a>
-											<figcaption><strong>Figure 2:</strong>Profit Margin</figcaption>
+											<figcaption><strong>Figure 2</strong> Profit Margin</figcaption>
 										</figure>
 										</div>
 
@@ -501,7 +541,7 @@
 																	'CountryCode': np.array(Codes_2012_Dataset),
 																	'CountryRegion': np.array(Regions_2012_Dataset)})
 
-										# Merge the country data to the original dataframe (Table 1)
+										# Merge country data to the original dataframe (Table 1)
 										merged_data = pd.merge(left=data, right=country_data, how='inner', on="CountryCode")
 										merged_data.head()
 
@@ -526,37 +566,49 @@
 									
 										</code></pre>
 
-										<!-- Tables -->
 										<div class="image-gallery">
 										<figure>
-											<img src="images/world_dfmerge.png" alt="Table 1">
-											<figcaption><strong>Table 1:</strong></figcaption>
+											<a href="images/world_dfmerge.png" data-lightbox="world-bank" data-title="Table 1: Merged DF">
+											<img src="images/world_dfmerge.png" alt="Table 1: Merged DF">
+											</a>
+											<figcaption><strong>Table 1</strong></figcaption>
 										</figure>
+
 										<figure>
-											<img src="images/world_dfmerge2.png" alt="Table 2">
-											<figcaption><strong>Table 2:</strong></figcaption>
+											<a href="images/world_dfmerge2.png" data-lightbox="world-bank" data-title="Table 2: Merged DF 2">
+											<img src="images/world_dfmerge2.png" alt="Table 2: Merged DF 2">
+											</a>
+											<figcaption><strong>Table 2</strong></figcaption>
+										</figure>
+
+										<figure>
+											<a href="images/world_birthintIG.png" data-lightbox="world-bank" data-title="Figure 1: birthintIG">
+											<img src="images/world_birthintIG.png" alt="Figure 1: birthintIG">
+											</a>
+											<figcaption><strong>Figure 1</strong> BirthRate versus Internet Users categorised by Income Group</figcaption>
+										</figure>
+
+										<figure>
+											<a href="images/world_birthintCR.png" data-lightbox="world-bank" data-title="Figure 2: birthintCR">
+											<img src="images/world_birthintCR.png" alt="Figure 2: birthintCR">
+											</a>
+											<figcaption><strong>Figure 2</strong> BirthRate versus Internet Users categorised by Country Region</figcaption>
+										</figure><figure>
+											<a href="images/world_life1960.png" data-lightbox="world-bank" data-title="Figure 3: world_life1960">
+											<img src="images/world_life1960.png" alt="Figure 3: world_life1960">
+											</a>
+											<figcaption><strong>Figure 3</strong> BirthRate versus LifeExpectancy in 1960</figcaption>
+										</figure>
+
+										<figure>
+											<a href="images/world_life2013.png" data-lightbox="world-bank" data-title="Figure 4: Merged DF 2">
+											<img src="images/world_life2013.png" alt="Figure 4: world_life2013">
+											</a>
+											<figcaption><strong>Figure4</strong> BirthRate versus LifeExpectancy in 2013</figcaption>
 										</figure>
 										</div>
+
 										
-										<!-- Visualisations -->
-										<div class="image-gallery">
-											<figure>
-												<img src="images/world_birthintIG.png" alt="Figure 1">
-												<figcaption><strong>Figure 1:</strong> BirthRate versus Internet Users categorised by Income Group </figcaption>
-											</figure>
-											<figure>
-												<img src="images/world_birthintCR.png" alt="Figure 2">
-												<figcaption><strong>Figure 2:</strong> BirthRate versus Internet Users categorised by Country Region </figcaption>
-											</figure>
-											</figure>
-												<img src="images/world_life1960.png" alt="Figure 3">
-												<figcaption><strong>Figure 3:</strong> BirthRate versus LifeExpectancy in 1960 </figcaption>
-											</figure>
-											<figure>
-												<img src="images/world_life2013.png" alt="Figure 4">
-												<figcaption><strong>Figure 4:</strong> BirthRate versus LifeExpectancy in 2013 </figcaption>
-											</figure>
-										</div>
 
 										<h4>🌟 <strong>Key Insights:</strong></h4>
 										<ul>
@@ -594,7 +646,7 @@
 											<li><strong>Explore data:</strong> Loaded stock price data using <code>pd.read_csv()</code> and explored the dataset structure with <code>.info()</code>, <code>.describe()</code>, and <code>.head()</code> to understand the time series format and identify key stocks. Checked for missing values using <code>.isnull().sum()</code> and calculated basic statistics like mean returns and standard deviation to assess data completeness and variability.</li>
 											<li><strong>Price Normalisation:</strong> Created a custom <code>normalize()</code> function to standardize all stock prices to their starting values, enabling fair comparison of relative performance across different price ranges. </li>
 											<li><strong>Daily Returns Calculations:</strong> Built a <code>daily_return()</code> function using nested loops to compute percentage daily returns: <code>((current_price - previous_price) / previous_price) * 100</code> for each stock.</li>
-											<li><strong>Visualisation:</strong> Developed reusable plotting functions(<code>show_plot()</code> and <code>interactive_plot()</code>) to create both static matplotlib charts and interactive Plotly visualizations for raw prices, normalized prices, and daily returns.</li>
+											<li><strong>Visualisation:</strong> Developed reusable plotting functions <code>show_plot()</code> and <code>interactive_plot()</code> to create both static matplotlib charts and interactive Plotly visualizations for raw prices, normalized prices, and daily returns.</li>
 											<li><strong>Correlation Analysis:</strong> Generated a correlation matrix using <code>.corr()</code> and visualized it with a Seaborn heatmap to identify relationships between stock movements.</li>
 											<li><strong>Distribution Analysis:</strong> Created histograms and compiled distribution plots using Plotly's <code>create_distplot()</code> to analyze the statistical properties of daily returns.</li>
 										</ul>
@@ -768,7 +820,7 @@
 											<li><strong>Random Portfolio Generation:</strong> Used <code>np.random.seed()</code> and <code>np.random.seed(9)</code> to create randomized asset allocation weights, then normalized them using <code>weights / np.sum(weights)</code> to ensure they sum to 100%. </li>
 											<li><strong>Portfolio Normalisation:</strong> Applied a custom normalize() function to standardize all stock prices to their initial values, creating a baseline for relative performance comparison across different price ranges.</li>
 											<li><strong>Portfolio function development:</strong> Built a reusable <code>portfolio_allocation()</code> function that encapsulates the entire workflow for testing different weight combinations and portfolio strategies.</li>
-											<li><strong>Risk metrics calculation:</strong> Computed cumulative return, standard deviation (volatility), average daily return, and Sharpe ratio using <code>np.sqrt(252)</code> for annualization.</li>
+											<li><strong>Risk metrics calculation:</strong> Computed cumulative return, standard deviation (volatility), average daily return, and Sharpe ratio (assessesment of the risk-adjusted returns of an investment) using <code>np.sqrt(252)</code> for annualization.</li>
 										
 										</ul>
 
@@ -808,7 +860,6 @@
 										df_portfolio['portfolio daily % return'][i] = ( (df_portfolio['portfolio daily worth/$'][i] - df_portfolio['portfolio daily worth/$'][i-1]) / df_portfolio['portfolio daily worth/$'][i-1]) * 100
 
 										df_portfolio
-
 
 										# Create a function for stock portfolio allocation
 										# Assume $1000000 is total amount for portfolio
@@ -867,7 +918,7 @@
 											<a href="images/portfoliodaily.png" data-lightbox="portfolio-assets" data-title="Figure 1: portfoliodaily">
 											<img src="images/portfoliodaily.png" alt="Figure 1: portfoliodaily">
 											</a>
-											<figcaption><strong>Figure 1</strong></figcaption>
+											<figcaption><strong>Figure 1</strong> Portfolio Daily Returns (%)</figcaption>
 										</figure>
 										</div>
 
@@ -907,7 +958,7 @@
 										<h4>🧪 <strong>Data Pipeline:</strong></h4>
 										<ul>
 											<li><strong>Market benchmark analysis:</strong> Used S&P 500 as the market proxy and calculated average daily returns using <code>.drop('Date', axis=1).mean()</code> to establish baseline market performance. </li>
-											<li><strong>Beta & Alpha computation:</strong> Applied np.polyfit() with order=1 to perform linear regression between individual stock returns and S&P 500 returns, extracting beta (slope) and alpha (intercept) coefficients. </li>
+											<li><strong>Beta & Alpha computation:</strong> Applied <code>np.polyfit()</code> with order=1 to perform linear regression between individual stock returns and S&P 500 returns, extracting beta (slope) and alpha (intercept) coefficients. </li>
 											<li><strong>Batch analysis automation:</strong> Developed loops to iterate through all stocks (excluding S&P 500 and Date columns) using conditional statements <code>if i != 'sp500'</code> and <code>i != 'Date'</code> to calculate beta and alpha for each stock systematically.</li>
 											<li><strong>Interactive dashboard creation:</strong> Built Plotly Express scatter plots with <code>px.scatter()</code> and added regression lines using <code>fig.add_scatter()</code> to create interactive CAPM analysis charts for each stock.</li>
 											<li><strong>Risk metrics storage:</strong> Used Python dictionaries <code>beta = {}</code> and <code>alpha = {}</code> to store calculated coefficients for each stock, enabling easy comparison and further analysis. </li>
@@ -933,21 +984,19 @@
 										plt.ylabel('AAPL')
 										plt.grid()
 
-										#Add beta & alpha to plot
+										# Add beta & alpha to plot
 										beta, alpha = np.polyfit(stocks_daily_return['sp500'], stocks_daily_return['AAPL'], 1)
 
-										#add regression line (beta) - y = beta [stockvsmkt- stock volatility] * rm [stock daily return] + alpha [excess return on top of mkt return]
+										# Add regression line (beta) - y = beta [stockvsmkt- stock volatility] * rm [stock daily return] + alpha [excess return on top of mkt return]
 										plt.plot(stocks_daily_return['sp500'], beta * stocks_daily_return['sp500'] + alpha, '-', color = 'r')
 										plt.show()
 
-										# Let's calculate the annualized rate of return for S&P500
-										#Assume 252 working days per year
+										# Let's calculate the annualized rate of return for S&P500 (Assume 252 working days per year)
 
 										rm = stocks_daily_return['sp500'].mean() * 252
 										rm
 
-										# Assume risk free rate is zero
-										# Also you can use the yield of a 10-years U.S. Government bond as a risk free rate
+										# Assume risk free rate is zero (Used the yield of a 10-years U.S. Government bond as a risk free rate)
 										rf = 0
 
 										# Calculate return for any security (APPL) using CAPM
@@ -975,7 +1024,7 @@
 										print('Beta for {} stock is {} & alpha is = {}'.format('AAPL', beta, alpha))
 
 
-										# APPLY CAPM FORMULA TO CALCULATE THE RETURN FOR THE PORTFOLIO
+										# Apply CAPM formula to calculate the return for the Portfolio
 										# Obtain a list of all stock names
 										stock_names = list(beta.keys())
 										stock_names
@@ -997,8 +1046,6 @@
 										# Assume equal weights in the portfolio, calculate returns
 										ER_portfolio = sum(list(ER.values()) * Portfolio_weights)
 										ER_portfolio
-
-
 										</code></pre>
 
 										
@@ -1012,6 +1059,7 @@
 											</a>
 											<figcaption><strong>Figure 1</strong></figcaption>
 										</figure>
+										
 										</div>
 
 
@@ -1061,11 +1109,10 @@
 										<!-- Code Snippet -->
 
 										<pre><code class="language-python"># Encoding categorical data 
-
 										from sklearn.compose import ColumnTransformer
 										from sklearn.preprocessing import OneHotEncoder
 
-										# OneHotEncoder(), [3]) - the 3 is the column you want to encode
+										# OneHotEncoder(), [3] - the 3 is the column you want to encode
 										ct = ColumnTransformer(transformers=[('encoder', OneHotEncoder(), [3])], remainder='passthrough')
 										X = np.array(ct.fit_transform(X))
 
@@ -1136,11 +1183,23 @@
 
 										<!-- Code Snippet -->
 
-										<pre><code class="language-python"># Training the Decision Tree Regression
+										<pre><code class="language-python"># Importing Libraries	
+										import numpy as np
+										import matplotlib.pyplot as plt
+										import pandas as pd
+
+										# Importing dataset	
+										dataset = pd.read_csv('Position_Salaries.csv')
+										X = dataset.iloc[:, 1:-1].values
+										y = dataset.iloc[:, -1].values
+
+										# Training the Decision Tree Regression
 										from sklearn.tree import DecisionTreeRegressor
 										regressor = DecisionTreeRegressor(random_state = 0)
 										regressor.fit(X, y)
 
+										# Predicting New Result
+										regressor.predict([[6.5]])
 
 										# Visualising Results (Figure 1)
 
@@ -1153,6 +1212,10 @@
 										plt.xlabel('Position level')
 										plt.ylabel('Salary')
 										plt.show()
+
+										# Evaluating the Model Performance
+										from sklearn.metrics import r2_score
+										r2_score(y_test, y_pred)
 
 
 										</code></pre>
@@ -1252,7 +1315,6 @@
 										<!-- Code Snippet -->
 
 										<pre><code class="language-python"># Importing the libraries
-
 										import numpy as np
 										import matplotlib.pyplot as plt
 										import pandas as pd
@@ -1391,12 +1453,12 @@
 
 										credit_card_df.describe() (Table 1)
 
-										# Mean balance is $1564
-										# Balance frequency is frequently updated on average ~0.9, Purchases average is $1000, one off purchase average is ~$600
-										# Average purchases frequency is around 0.5, Average ONEOFF_PURCHASES_FREQUENCY, PURCHASES_INSTALLMENTS_FREQUENCY, and CASH_ADVANCE_FREQUENCY are generally low
-										# Average credit limit ~ 4500, Percent of full payment is 15%, Average tenure is 11 years
+										- Mean balance is $1564
+										- Balance frequency is frequently updated on average ~0.9, Purchases average is $1000, one off purchase average is ~$600
+										- Average purchases frequency is around 0.5, Average ONEOFF_PURCHASES_FREQUENCY, PURCHASES_INSTALLMENTS_FREQUENCY, and CASH_ADVANCE_FREQUENCY are generally low
+										- Average credit limit ~ 4500, Percent of full payment is 15%, Average tenure is 11 years
 										
-										#Check for missing data (Table 2)
+										# Check for missing data (Table 2)
 										credit_card_df.isnull().sum()
 
 										# Replace the missing elements with mean of the 'MINIMUM_PAYMENT'
@@ -1405,7 +1467,7 @@
 										# Replace the missing elements with mean of the 'CREDIT_LIMIT'
 										credit_card_df.CREDIT_LIMIT.fillna(credit_card_df.CREDIT_LIMIT.mean(), inplace=True)
 
-										#Plot to check for missing data (Figure 1)
+										# Plot to check for missing data (Figure 1)
 										sns.heatmap(credit_card_df.isnull(), yticklabels = False, cbar = False, cmap='Reds')
 										
 										# Check for duplicate entries
@@ -1414,7 +1476,7 @@
 										# Remove Customer ID
 										credit_card_df.drop('CUST_ID', axis=1, inplace=True)
 
-										# prompt: define function to create subplots of distplots with KDE for all columns. Make the KDE and histogram different colours
+										# Define function to create subplots of distplots with KDE for all columns.
 
 										def dist_plots(dataframe):
 										fig, ax = plt.subplots(nrows=7, ncols=2, figsize=(15,30))
@@ -1429,31 +1491,31 @@
 										# Visualise distplots (Figure 2)
 										dist_plots(credit_card_df)
 										
-										# 'Balance_Frequency' for most customers is updated frequently ~1, For 'PURCHASES_FREQUENCY', there are two distinct group of customers
-										# For 'ONEOFF_PURCHASES_FREQUENCY' and 'PURCHASES_INSTALLMENT_FREQUENCY' most users don't do one off puchases or installment purchases frequently, Very small number of customers pay their balance in full 'PRC_FULL_PAYMENT'~0
-										# Mean of balance is $1500, Credit limit average is around $4500, Most customers are ~11 years tenure
+										- 'Balance_Frequency' for most customers is updated frequently ~1, For 'PURCHASES_FREQUENCY', there are two distinct group of customers
+										- For 'ONEOFF_PURCHASES_FREQUENCY' and 'PURCHASES_INSTALLMENT_FREQUENCY' most users don't do one off puchases or installment purchases frequently, Very small number of customers pay their balance in full 'PRC_FULL_PAYMENT'~0
+										- Mean of balance is $1500, Credit limit average is around $4500, Most customers are ~11 years tenure
 										
 										# Heatmap to visaulise correlations (Figure 3)
 										correlations = credit_card_df.corr()
 										plt.figure(figsize=(20,20))
 										sns.heatmap(correlations, annot=True)
 
-										# 'PURCHASES' have high correlation between one-off purchases, 'installment purchases, purchase transactions, credit limit and payments.
-										# Strong Positive Correlation between 'PURCHASES_FREQUENCY' and 'PURCHASES_INSTALLMENT_FREQUENCY'
+										- 'PURCHASES' have high correlation between one-off purchases, 'installment purchases, purchase transactions, credit limit and payments.
+										- Strong Positive Correlation between 'PURCHASES_FREQUENCY' and 'PURCHASES_INSTALLMENT_FREQUENCY'
 
 										# Training Model on the Training set
 										from sklearn.tree import DecisionTreeClassifier
 										classifier = DecisionTreeClassifier(criterion = 'entropy', random_state = 0)
 										classifier.fit(X_train, y_train)
 
-										Evaluating using confusion matrix
+										# Evaluating using confusion matrix
 										from sklearn.metrics import confusion_matrix, accuracy_score
 										y_pred = classifier.predict(X_test)
 										cm = confusion_matrix(y_test, y_pred)
 										print(cm)
 										accuracy_score(y_test, y_pred)
 
-										# USE ELBOW METHOD TO FIND OPTIMAL NUMBER OF CLUSTERS (Figure 4)
+										# Use Elbow Method to find optimal No of clusters (Figure 4)
 										credit_card_df.head()
 
 										# Apply Feature scaling
@@ -1462,7 +1524,7 @@
 
 										credit_card_df_scaled
 
-										#Apply Elbow Method
+										# Apply Elbow Method
 										wcss = []
 										for i in range(1, 20):
 											kmeans = KMeans(n_clusters = i, init = 'k-means++', random_state = 42)
@@ -1476,7 +1538,7 @@
 
 										# Train data using K-Means method 
 
-										# We can observe that, 4th cluster seems to be forming the elbow of the curve. However, the values does not reduce linearly until 8th cluster. Let's choose the number of clusters to be 7.
+										- We can observe that, 4th cluster seems to be forming the elbow of the curve. However, the values does not reduce linearly until 8th cluster. Let's choose the number of clusters to be 7.
 
 										# Assuming 'kmeans' is your fitted KMeans model
 										kmeans = KMeans(n_clusters=7, init= 'k-means++',random_state=42)
@@ -1500,7 +1562,6 @@
 										ax = sns.scatterplot(x='PCA1', y='PCA2', hue='cluster', data=pca_df, palette='tab10')
 										plt.title('Clusters identified by PCA')
 										plt.show()
-
 										</code></pre>
 
 										
@@ -1532,7 +1593,7 @@
 											<a href="images/Bank Customer_distplots.png" data-lightbox="bank-customer" data-title="Figure 2: distplot">
 											<img src="images/Bank Customer_distplots.png" alt="Figure 2: distplot">
 											</a>
-											<figcaption><strong>Figure 2</strong> distplot</figcaption>
+											<figcaption><strong>Figure 2</strong> Distplot</figcaption>
 										</figure>
 										
 										<figure>
@@ -1593,6 +1654,9 @@
 											<li><strong>Pandas</strong> for dataset loading and initial data exploration</li>
 											<li><strong>Matplotlib</strong> for data visualisationsand model performance analysis</li>
 											<li><strong>NumPy</strong> for numerical operations and grid generation</li>
+											<li><strong>Matplotlib</strong> for static visualisations</li>
+											<li><strong>Plotly</strong> for interactive charts and dashboards</li>
+											<li><strong>NumPy & SciPy</strong> for statistical computations</li>
 										</ul>
 
 										<h4>🧪 <strong>Data Pipeline:</strong></h4>
@@ -1620,7 +1684,6 @@
 										from sklearn.svm import SVR
 										from sklearn.model_selection import train_test_split
 										from sklearn.metrics import r2_score
-										from tensorflow import keras
 
 										# Get stock prices dataframe info
 										stock_price_df.info()
@@ -1656,14 +1719,13 @@
 										# Normalised chart for stocks volume data (Figure 4)
 										interactive_plot(normalize(stock_vol_df), 'Normalized Volume')
 
-										PREPARE DATA FOR TRAINING THE REGRESSION MODEL
+										# Prepare Data before training Regression model
 
 										# Function to concatenate the date, stock price, and volume in one dataframe
 										def individual_stock(price_df, vol_df, name):
 											return pd.DataFrame({'Date': price_df['Date'], 'Close': price_df[name], 'Volume': vol_df[name]})
 
-										# Function to return the output (target) data ML Model
-										# Target stock price today will be tomorrow's price
+										# Function to return the output (target) data ML Model [Target stock price today will be tomorrow's price]
 
 										def trading_window(data):
 
@@ -1678,9 +1740,8 @@
 										price_volume_df = individual_stock(stock_price_df, stock_vol_df, 'AAPL')
 										price_volume_df
 
-										# Function to return the output (target) data ML Model
-										# Target stock price today will be tomorrow's price
-
+										# Function to return the output (target) data ML Model [Target stock price today will be tomorrow's price]
+										
 										def trading_window(data):
 
 										n = 1 #1 day window
@@ -1730,10 +1791,8 @@
 										show_plot(X_train, 'Training Data for AAPL stock')
 										show_plot(X_test, 'Testing Data for AAPL stock')
 
-										BUILD AND TRAIN A RIDGE LINEAR REGRESSION MODEL
-
-										# Train ridge regression model
-										# This model was chosen to get a generalised trend for data (avoids over fitting) - expected low testing accuracy expected. Note that Ridge regression performs linear least squares with L2 regularization.
+										# Build & Train Ridge Regression model
+										- This model was chosen to get a generalised trend for data (avoids over fitting) - expected low testing accuracy expected. Note that Ridge regression performs linear least squares with L2 regularization.
 
 										from sklearn.linear_model import Ridge
 										regression_model = Ridge()
@@ -1868,8 +1927,8 @@
 										<p><a href="https://github.com/tendai-codes/your-project" class="github-button" target="_blank">View on GitHub</a></p>
 									</section>
 
-									<section class="project-item" data-tags="Python,Machine Learning">
-										<h3>📽️ <strong> Stock Price Analsysis using Ridge Regression </strong></h3>
+									<section class="project-item" data-tags="Python,TensorFlow,Deep Learning">
+										<h3>📽️ <strong> Stock Price Analysis using Long Short Term Memory Neural Network </strong></h3>
 										<p>
 											Developed an LSTM neural network to predict stock price trends using a recurrent neural network structure. Preprocessed data using Pandas and constructed the model in TensorFlow. The model achieved an average validation loss of 0.000117 using k-fold cross-validation.
 										</p>
@@ -1878,9 +1937,10 @@
 										<ul>
 											<li><strong>Python</strong> for machine learning model development and comparison</li>
 											<li><strong>Scikit-learn</strong> for multiple classification algorithms, preprocessing, and evaluation metrics</li>
+											<li><strong>NumPy</strong> for numerical operations and grid generation</li>
 											<li><strong>Pandas</strong> for dataset loading and initial data exploration</li>
 											<li><strong>Matplotlib</strong> for data visualisationsand model performance analysis</li>
-											<li><strong>NumPy</strong> for numerical operations and grid generation</li>
+											<li><strong>TensorFlow</strong> for LSTM modelling</li>
 										</ul>
 
 										<h4>🧪 <strong>Data Pipeline:</strong></h4>
@@ -1897,154 +1957,150 @@
 										<!-- Code Snippet -->
 
 										<pre><code class="language-python"># Importing the libraries
-
 										import pandas as pd
-import plotly.express as px
-from copy import copy
-from scipy import stats
-import matplotlib.pyplot as plt
-import numpy as np
-import plotly.figure_factory as ff
-from sklearn.linear_model import LinearRegression
-from sklearn.svm import SVR
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import r2_score
-from tensorflow import keras
+										import plotly.express as px
+										from copy import copy
+										from scipy import stats
+										import matplotlib.pyplot as plt
+										import numpy as np
+										import plotly.figure_factory as ff
+										from sklearn.linear_model import LinearRegression
+										from sklearn.svm import SVR
+										from sklearn.model_selection import train_test_split
+										from sklearn.metrics import r2_score
+										from tensorflow import keras
 
-PREPARE DATA FOR TRAINING
+										# Prepare Data for training
 
-# Function to concatenate the date, stock price, and volume in one dataframe
-def individual_stock(price_df, vol_df, name):
-    return pd.DataFrame({'Date': price_df['Date'], 'Close': price_df[name], 'Volume': vol_df[name]})
+										# Function to concatenate the date, stock price, and volume in one dataframe
+										def individual_stock(price_df, vol_df, name):
+											return pd.DataFrame({'Date': price_df['Date'], 'Close': price_df[name], 'Volume': vol_df[name]})
 
-# Define function to return the output (target) data ML Model
-# Target stock price today will be tomorrow's price
+										# Function to return the output (target) data ML Model [Target stock price today will be tomorrow's price]
 
-def trading_window(data):
+										def trading_window(data):
 
-  n = 1 #1 day window
+										n = 1 #1 day window
 
-# Create a column containing the prices for the next 1 days
-  data['Target'] = data[['Close']].shift(-n)
+										# Create a column containing the prices for the next 1 days
+										data['Target'] = data[['Close']].shift(-n)
 
-  return data
+										return data
 
-# Test concatenation function using individual stock (Table 1)
-price_volume_df = individual_stock(stock_price_df, stock_vol_df, 'TSLA')
-price_volume_df
+										# Test concatenation function using individual stock (Table 1)
+										price_volume_df = individual_stock(stock_price_df, stock_vol_df, 'TSLA')
+										price_volume_df
 
-TRAIN AN LSTM TIME SERIES MODEL
+										# Train An LSTM Time Series Model
 
-# Use the close and volume data as training data (Input)
-training_data = price_volume_df.iloc[:, 1:3].values
-training_data
+										# Use the close and volume data as training data (Input)
+										training_data = price_volume_df.iloc[:, 1:3].values
+										training_data
 
-# Apply feature scaling the data
-from sklearn.preprocessing import MinMaxScaler
-sc = MinMaxScaler(feature_range = (0, 1))
-training_set_scaled = sc.fit_transform(training_data)
+										# Apply feature scaling the data
+										from sklearn.preprocessing import MinMaxScaler
+										sc = MinMaxScaler(feature_range = (0, 1))
+										training_set_scaled = sc.fit_transform(training_data)
 
-# Create the training and testing data, training data contains present day and previous day values
-X = []
-y = []
-for i in range(1, len(price_volume_df)):
-    X.append(training_set_scaled [i-1:i, 0])
-    y.append(training_set_scaled [i, 0])
+										# Create the training and testing data, training data contains present day and previous day values
+										X = []
+										y = []
+										for i in range(1, len(price_volume_df)):
+											X.append(training_set_scaled [i-1:i, 0])
+											y.append(training_set_scaled [i, 0])
 
-# Convert the data into array format
-X = np.asarray(X)
-y = np.asarray(y)
+										# Convert the data into array format
+										X = np.asarray(X)
+										y = np.asarray(y)
 
-# Split the data
-split = int(0.75 * len(X))
-X_train = X[:split]
-y_train = y[:split]
-X_test = X[split:]
-y_test = y[split:]
+										# Split the data
+										split = int(0.75 * len(X))
+										X_train = X[:split]
+										y_train = y[:split]
+										X_test = X[split:]
+										y_test = y[split:]
 
-# Reshape the 1D arrays to 3D arrays to feed in the model
-X_train = np.reshape(X_train, (X_train.shape[0], X_train.shape[1], 1))
-X_test = np.reshape(X_test, (X_test.shape[0], X_test.shape[1], 1))
-X_train.shape, X_test.shape
+										# Reshape the 1D arrays to 3D arrays to feed in the model
+										X_train = np.reshape(X_train, (X_train.shape[0], X_train.shape[1], 1))
+										X_test = np.reshape(X_test, (X_test.shape[0], X_test.shape[1], 1))
+										X_train.shape, X_test.shape
 
-# Create the LSTM model (Table 1)
-inputs = keras.layers.Input(shape=(X_train.shape[1], X_train.shape[2]))
-x = keras.layers.LSTM(150, return_sequences= True)(inputs)
-x = keras.layers.Dropout(0.3)(x)
+										# Create the LSTM model (Table 1)
+										inputs = keras.layers.Input(shape=(X_train.shape[1], X_train.shape[2]))
+										x = keras.layers.LSTM(150, return_sequences= True)(inputs)
+										x = keras.layers.Dropout(0.3)(x)
 
-x = keras.layers.LSTM(150, return_sequences=True)(x)
-x = keras.layers.Dropout(0.3)(x)
+										x = keras.layers.LSTM(150, return_sequences=True)(x)
+										x = keras.layers.Dropout(0.3)(x)
 
-x = keras.layers.LSTM(150)(x)
-outputs = keras.layers.Dense(1, activation='linear')(x)
+										x = keras.layers.LSTM(150)(x)
+										outputs = keras.layers.Dense(1, activation='linear')(x)
 
-model = keras.Model(inputs=inputs, outputs=outputs)
-model.compile(optimizer='adam', loss="mse")
-model.summary()
+										model = keras.Model(inputs=inputs, outputs=outputs)
+										model.compile(optimizer='adam', loss="mse")
+										model.summary()
 
-# Train the model
-history = model.fit(
-    X_train, y_train,
-    epochs = 20,
-    batch_size = 32,
-    validation_split = 0.2)
+										# Train the model
+										history = model.fit(
+											X_train, y_train,
+											epochs = 20,
+											batch_size = 32,
+											validation_split = 0.2)
 
-	# K folds cross validation for model
+										# K folds cross validation for model
 
-from sklearn.model_selection import KFold
+										from sklearn.model_selection import KFold
 
-# Define the number of folds
-k = 5
-kf = KFold(n_splits=k, shuffle=True)
+										# Define the number of folds
+										k = 5
+										kf = KFold(n_splits=k, shuffle=True)
 
-# Initialize a list to store the validation loss for each fold
-fold_losses = []
+										# Initialize a list to store the validation loss for each fold
+										fold_losses = []
 
-for train_index, val_index in kf.split(X):
-  X_train_fold, X_val_fold = X[train_index], X[val_index]
-  y_train_fold, y_val_fold = y[train_index], y[val_index]
+										for train_index, val_index in kf.split(X):
+										X_train_fold, X_val_fold = X[train_index], X[val_index]
+										y_train_fold, y_val_fold = y[train_index], y[val_index]
 
-  # Reshape data for LSTM
-  X_train_fold = np.reshape(X_train_fold, (X_train_fold.shape[0], X_train_fold.shape[1], 1))
-  X_val_fold = np.reshape(X_val_fold, (X_val_fold.shape[0], X_val_fold.shape[1], 1))
+										# Reshape data for LSTM
+										X_train_fold = np.reshape(X_train_fold, (X_train_fold.shape[0], X_train_fold.shape[1], 1))
+										X_val_fold = np.reshape(X_val_fold, (X_val_fold.shape[0], X_val_fold.shape[1], 1))
 
-  # Train the model on the training fold
-  history = model.fit(
-      X_train_fold, y_train_fold,
-      epochs=20,
-      batch_size=32,
-      validation_data=(X_val_fold, y_val_fold)
-  )
+										# Train the model on the training fold
+										history = model.fit(
+											X_train_fold, y_train_fold,
+											epochs=20,
+											batch_size=32,
+											validation_data=(X_val_fold, y_val_fold)	)
 
-  # Evaluate the model on the validation fold and store the loss
-  val_loss = model.evaluate(X_val_fold, y_val_fold)
-  fold_losses.append(val_loss)
+										# Evaluate the model on the validation fold and store the loss
+										val_loss = model.evaluate(X_val_fold, y_val_fold)
+										fold_losses.append(val_loss)
 
-# Calculate the average validation loss across all folds
-average_val_loss = np.mean(fold_losses)
-print("Average Validation Loss:", average_val_loss)
+										# Calculate the average validation loss across all folds
+										average_val_loss = np.mean(fold_losses)
+										print("Average Validation Loss:", average_val_loss)
 
-# Get the Closing price data
-close = []
-for i in training_set_scaled:
-  close.append(i[0])
+										# Get the Closing price data
+										close = []
+										for i in training_set_scaled:
+										close.append(i[0])
 
-# Create dataframe for the dates, predicted prices and closing price
-df_predicted = price_volume_df[1:][['Date']]
-df_predicted['Predictions'] = test_predicted
-df_predicted['Close'] = close[1:]
-df_predicted
+										# Create dataframe for the dates, predicted prices and closing price
+										df_predicted = price_volume_df[1:][['Date']]
+										df_predicted['Predictions'] = test_predicted
+										df_predicted['Close'] = close[1:]
+										df_predicted
 
-# Define interactive plot
+										# Define interactive plot
 
-def interactive_plot(df, title):
-  fig = px.line(df, title = title, x='Date', y=['Close', 'Predictions'])
+										def interactive_plot(df, title):
+										fig = px.line(df, title = title, x='Date', y=['Close', 'Predictions'])
 
-  fig.show()
+										fig.show()
 
-# Plot the results (Figure 1 & 2)
-interactive_plot(df_predicted, "Original Vs. Prediction (TSLA)")
-
+										# Plot the results (Figure 1 & 2)
+										interactive_plot(df_predicted, "Original Vs. Prediction (TSLA)")
 
 										</code></pre>
 
@@ -2053,36 +2109,36 @@ interactive_plot(df_predicted, "Original Vs. Prediction (TSLA)")
 
 										<div class="image-gallery">
 										<figure>
-											<a href="images/Breast_logR.png" data-lightbox="LSTM" data-title="Table 1: Breast_logR">
-											<img src="images/Breast_logR.png" alt="Table 1: Breast_logR">
+											<a href="images/LSTM_table 1.png" data-lightbox="LSTM" data-title="Table 1: closing vol Df">
+											<img src="images/LSTM_table 1.png" alt="Table 1: closing vol Df">
 											</a>
-											<figcaption><strong>Table 1</strong>Closing vs Prediction Price</figcaption>
+											<figcaption><strong>Table 1</strong></figcaption>
 										</figure>
 
 										<figure>
-											<a href="images/Breast_svm.png" data-lightbox="LSTM" data-title="Table 2: Breast_svm">
-											<img src="images/Breast_svm.png" alt="Table 2: Breast_svm">
+											<a href="images/LSTM_table 2.png" data-lightbox="LSTM" data-title="Table 2: LSTM Model Execution">
+											<img src="images/LSTM_table 2.png" alt="Table 2: LSTM Model Execution">
 											</a>
 											<figcaption><strong>Table 2</strong> LSTM Model Execution</figcaption>
 										</figure>
 
 										<figure>
-											<a href="images/Breast_ksvm.png" data-lightbox="LSTM" data-title="Table 3: Breast_ksvm">
-											<img src="images/Breast_ksvm.png" alt="Table 3: Breast_ksvm">
+											<a href="images/LSTM_table 3.png" data-lightbox="LSTM" data-title="Table 3: Closing vs Prediction Price">
+											<img src="images/LSTM_table 3.png" alt="Table 3: Closing vs Prediction Price">
 											</a>
 											<figcaption><strong>Table 3</strong> Closing vs Prediction Price</figcaption>
 										</figure>
 
 										<figure>
-											<a href="images/Breast_knn.png" data-lightbox="LSTM" data-title="Figure 1: Breast_knn">
-											<img src="images/Breast_knn.png" alt="Figure 1: Breast_knn">
+											<a href="images/LSTM_fig 1.png" data-lightbox="LSTM" data-title="Figure 1: Closing Price">
+											<img src="images/LSTM_fig 1.png" alt="Figure 1: Closing Price">
 											</a>
 											<figcaption><strong>Figure 1</strong> Closing Price</figcaption>
 										</figure>
 										
 										<figure>
-											<a href="images/Breast_naive.png" data-lightbox="LSTM" data-title="Figure 2: Breast_naive">
-											<img src="images/Breast_naive.png" alt="Figure 2: Breast_naive">
+											<a href="images/LSTM_fig 2.png" data-lightbox="LSTM" data-title="Figure 2: Closing vs Prediction Price">
+											<img src="images/LSTM_fig 2.png" alt="Figure 2: Closing vs Prediction Price">
 											</a>
 											<figcaption><strong>Figure 2</strong> Closing vs Prediction Price</figcaption>
 										</figure>
@@ -2104,8 +2160,8 @@ interactive_plot(df_predicted, "Original Vs. Prediction (TSLA)")
 										<p><a href="https://github.com/tendai-codes/your-project" class="github-button" target="_blank">View on GitHub</a></p>
 									</section>
 
-									<section class="project-item" data-tags="R,Data Analysis">
-										<h3>📽️ <strong>New Project </strong></h3>
+									<section class="project-item" data-tags="Python,Deep Learning,TensorFlow">
+										<h3>📽️ <strong>Building an ANN to predict Bank customer churn (Classification) </strong></h3>
 										<p>
 											This project explored publicly available data on top-grossing US films to identify patterns across genres, studios, and release schedules. I used <strong>R</strong> and <strong>ggplot2</strong> for data exploration and visualisation.
 										</p>
@@ -2133,19 +2189,36 @@ interactive_plot(df_predicted, "Original Vs. Prediction (TSLA)")
 										<!-- Code Snippet -->
 
 										<pre><code class="language-python"># Importing the libraries
-
 										import numpy as np
-										import matplotlib.pyplot as plt
 										import pandas as pd
+										import tensorflow as tf
 
-										# Importing the dataset
-										dataset = pd.read_csv('Breast cancer data.csv')
-										X = dataset.iloc[:, :-1].values
+										# Import dataset
+										dataset = pd.read_csv('Churn_Modelling.csv')
+										X = dataset.iloc[:, 3:-1].values
 										y = dataset.iloc[:, -1].values
 
-										#Splitting the dataset into the Training set and Test set
+										print(X) (Table 1)
+										print(y) (Table 2)
+
+										# Encoding categorical data (encoding gender column) (Table 3)
+										from sklearn.preprocessing import LabelEncoder
+										le = LabelEncoder()
+										X[:, 2] = le.fit_transform(X[:, 2])
+
+										print(X)
+
+										# Encoding categorical data (One Hot encoding geography column) (Table 4)
+										from sklearn.compose import ColumnTransformer
+										from sklearn.preprocessing import OneHotEncoder
+										ct = ColumnTransformer(transformers=[('encoder', OneHotEncoder(), [1])], remainder='passthrough')
+										X = np.array(ct.fit_transform(X))
+
+										print(X)
+
+										# Splitting the dataset into Training and test set
 										from sklearn.model_selection import train_test_split
-										X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.25, random_state = 0)
+										X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state = 0)
 
 										# Feature Scaling
 										from sklearn.preprocessing import StandardScaler
@@ -2153,14 +2226,29 @@ interactive_plot(df_predicted, "Original Vs. Prediction (TSLA)")
 										X_train = sc.fit_transform(X_train)
 										X_test = sc.transform(X_test)
 
-										# Training Model on the Training set
-										from sklearn.tree import DecisionTreeClassifier
-										classifier = DecisionTreeClassifier(criterion = 'entropy', random_state = 0)
-										classifier.fit(X_train, y_train)
+										# Building ANN
+										ann = tf.keras.models.Sequential()
+										ann.add(tf.keras.layers.Dense(units=6, activation='relu'))
+										ann.add(tf.keras.layers.Dense(units=6, activation='relu'))
+										ann.add(tf.keras.layers.Dense(units=1, activation='sigmoid'))
 
-										Evaluating using confusion matrix
+										# Compiling the ANN
+										ann.compile(optimizer = 'adam', loss = 'binary_crossentropy', metrics = ['accuracy'])
+
+										# Training ANN (Table 5)
+										ann.fit(X_train, y_train, batch_size = 32, epochs = 100)
+
+										# Predicting results of a single observation
+										print(ann.predict(sc.transform([[1, 0, 0, 600, 1, 40, 3, 60000, 2, 1, 1, 50000]])) > 0.5)
+
+										# Predicting Test set results (Table 6)
+										y_pred = ann.predict(X_test)
+										y_pred = (y_pred > 0.5)
+										print(np.concatenate((y_pred.reshape(len(y_pred),1), y_test.reshape(len(y_test),1)),1))
+
+										# Making the Confusion Matrix (Table 7)
+
 										from sklearn.metrics import confusion_matrix, accuracy_score
-										y_pred = classifier.predict(X_test)
 										cm = confusion_matrix(y_test, y_pred)
 										print(cm)
 										accuracy_score(y_test, y_pred)
@@ -2172,52 +2260,52 @@ interactive_plot(df_predicted, "Original Vs. Prediction (TSLA)")
 
 										<div class="image-gallery">
 										<figure>
-											<a href="images/Breast_logR.png" data-lightbox="breast-cancer" data-title="Figure 1: Breast_logR">
-											<img src="images/Breast_logR.png" alt="Figure 1: Breast_logR">
+											<a href="images/ANNClass_table 1.png" data-lightbox="ANN-Class" data-title="Table 1: Breast_logR">
+											<img src="images/ANNClass_table 1.png" alt="Table 1: Breast_logR">
 											</a>
-											<figcaption><strong>Figure 1</strong> Logistic Regression</figcaption>
+											<figcaption><strong>Table 1</strong> Variable X</figcaption>
 										</figure>
 
 										<figure>
-											<a href="images/Breast_svm.png" data-lightbox="breast-cancer" data-title="Figure 2: Breast_svm">
-											<img src="images/Breast_svm.png" alt="Figure 2: Breast_svm">
+											<a href="images/ANNClass_table 2.png" data-lightbox="ANN-Class" data-title="Table 2: Breast_svm">
+											<img src="images/ANNClass_table 2.png" alt="Table 2: Breast_svm">
 											</a>
-											<figcaption><strong>Figure 2</strong> SVM</figcaption>
+											<figcaption><strong>Table 2</strong> Variable y</figcaption>
 										</figure>
 
 										<figure>
-											<a href="images/Breast_ksvm.png" data-lightbox="breast-cancer" data-title="Figure 3: Breast_ksvm">
-											<img src="images/Breast_ksvm.png" alt="Figure 3: Breast_ksvm">
+											<a href="images/ANNClass_table 3.png" data-lightbox="ANN-Class" data-title="Table 3: Breast_ksvm">
+											<img src="images/ANNClass_table 3.png" alt="Table 3: Breast_ksvm">
 											</a>
-											<figcaption><strong>Figure 3</strong> Kernel SVM</figcaption>
+											<figcaption><strong>Table 3</strong> Encoding Gender</figcaption>
 										</figure>
 
 										<figure>
-											<a href="images/Breast_knn.png" data-lightbox="breast-cancer" data-title="Figure 4: Breast_knn">
-											<img src="images/Breast_knn.png" alt="Figure 4: Breast_knn">
+											<a href="images/ANNClass_table 4.png" data-lightbox="ANN-Class" data-title="Table 4: Breast_knn">
+											<img src="images/ANNClass_table 4.png" alt="Table 4: Breast_knn">
 											</a>
-											<figcaption><strong>Figure 4</strong> K-Nearest Neighbor</figcaption>
+											<figcaption><strong>Table 4</strong> Encoding Country</figcaption>
 										</figure>
 										
 										<figure>
-											<a href="images/Breast_naive.png" data-lightbox="breast-cancer" data-title="Figure 5: Breast_naive">
-											<img src="images/Breast_naive.png" alt="Figure 5: Breast_naive">
+											<a href="images/ANNClass_table 5.png" data-lightbox="ANN-Class" data-title="Table 5: Breast_naive">
+											<img src="images/ANNClass_table 5.png" alt="Table 5: Breast_naive">
 											</a>
-											<figcaption><strong>Figure 5</strong> Naïve Bayes</figcaption>
+											<figcaption><strong>Table 5</strong> Training the ANN</figcaption>
 										</figure>
 
 										<figure>
-											<a href="images/Breast_randfor.png" data-lightbox="breast-cancer" data-title="Figure 5: Breast_randfor">
-											<img src="images/Breast_randfor.png" alt="Figure 2: Breast_randfor">
+											<a href="images/ANNClass_table 6.png" data-lightbox="ANN-Class" data-title="Table 6: Breast_randfor">
+											<img src="images/ANNClass_table 6.png" alt="Table 6: Breast_randfor">
 											</a>
-											<figcaption><strong>Figure 6</strong> Random Forest</figcaption>
+											<figcaption><strong>Table 6</strong> Predicting Test set Results</figcaption>
 										</figure>
 										
 										<figure>
-											<a href="images/Breast_decision.png" data-lightbox="breast-cancer" data-title="Figure 5: Breast_decision">
-											<img src="images/Breast_decision.png" alt="Figure 2: Breast_decision">
+											<a href="images/ANNClass_table 7.png" data-lightbox="ANN-Class" data-title="Table 7: Breast_decision">
+											<img src="images/ANNClass_table 7.png" alt="Table 7: Breast_decision">
 											</a>
-											<figcaption><strong>Figure 7</strong> Decision Tree</figcaption>
+											<figcaption><strong>Table 7</strong> Confusion Matrix</figcaption>
 										</figure>
 										</div>
 
@@ -2236,8 +2324,8 @@ interactive_plot(df_predicted, "Original Vs. Prediction (TSLA)")
 										<p><a href="https://github.com/tendai-codes/your-project" class="github-button" target="_blank">View on GitHub</a></p>
 									</section>
 
-									<section class="project-item" data-tags="R,Data Analysis">
-										<h3>📽️ <strong>New Project </strong></h3>
+									<section class="project-item" data-tags="Python,Deep Learning,TensorFlow">
+										<h3>📽️ <strong>Building an ANN to predict... (Regression) </strong></h3>
 										<p>
 											This project explored publicly available data on top-grossing US films to identify patterns across genres, studios, and release schedules. I used <strong>R</strong> and <strong>ggplot2</strong> for data exploration and visualisation.
 										</p>
@@ -2265,37 +2353,39 @@ interactive_plot(df_predicted, "Original Vs. Prediction (TSLA)")
 										<!-- Code Snippet -->
 
 										<pre><code class="language-python"># Importing the libraries
-
 										import numpy as np
-										import matplotlib.pyplot as plt
 										import pandas as pd
+										import tensorflow as tf
 
-										# Importing the dataset
-										dataset = pd.read_csv('Breast cancer data.csv')
+										# Importing dataset
+										dataset = pd.read_excel('Folds5x2_pp.xlsx')
 										X = dataset.iloc[:, :-1].values
 										y = dataset.iloc[:, -1].values
 
-										#Splitting the dataset into the Training set and Test set
+										# Splitting the dataset into the Training set and Test set
+
 										from sklearn.model_selection import train_test_split
-										X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.25, random_state = 0)
+										X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state = 0)
 
-										# Feature Scaling
-										from sklearn.preprocessing import StandardScaler
-										sc = StandardScaler()
-										X_train = sc.fit_transform(X_train)
-										X_test = sc.transform(X_test)
+										# Building the ANN
 
-										# Training Model on the Training set
-										from sklearn.tree import DecisionTreeClassifier
-										classifier = DecisionTreeClassifier(criterion = 'entropy', random_state = 0)
-										classifier.fit(X_train, y_train)
+										ann = tf.keras.models.Sequential()
+										ann.add(tf.keras.layers.Dense(units=6, activation='relu'))
+										ann.add(tf.keras.layers.Dense(units=6, activation='relu'))
+										ann.add(tf.keras.layers.Dense(units=6, activation='relu'))
+										ann.add(tf.keras.layers.Dense(units=1))
 
-										Evaluating using confusion matrix
-										from sklearn.metrics import confusion_matrix, accuracy_score
-										y_pred = classifier.predict(X_test)
-										cm = confusion_matrix(y_test, y_pred)
-										print(cm)
-										accuracy_score(y_test, y_pred)
+										# Compiling the ANN
+										ann.compile(optimizer = 'adam', loss = 'mean_squared_error')
+
+										# Training the ANN (Table 1)
+
+										ann.fit(X_train, y_train, batch_size = 32, epochs = 100)
+
+										# Predicting the results of the test set (Table 2)
+										y_pred = ann.predict(X_test)
+										np.set_printoptions(precision=2)
+										print(np.concatenate((y_pred.reshape(len(y_pred),1), y_test.reshape(len(y_test),1)),1))
 
 										</code></pre>
 
@@ -2304,53 +2394,33 @@ interactive_plot(df_predicted, "Original Vs. Prediction (TSLA)")
 
 										<div class="image-gallery">
 										<figure>
-											<a href="images/Breast_logR.png" data-lightbox="breast-cancer" data-title="Figure 1: Breast_logR">
-											<img src="images/Breast_logR.png" alt="Figure 1: Breast_logR">
+											<a href="images/ANNReg_Table 1.png" data-lightbox="ANN-Reg" data-title="Table 1: Training ANN">
+											<img src="images/ANNReg_Table 1.png" alt="Table 1: Training ANN">
 											</a>
-											<figcaption><strong>Figure 1</strong> Logistic Regression</figcaption>
+											<figcaption><strong>Table 1</strong> Training ANN</figcaption>
 										</figure>
 
 										<figure>
-											<a href="images/Breast_svm.png" data-lightbox="breast-cancer" data-title="Figure 2: Breast_svm">
-											<img src="images/Breast_svm.png" alt="Figure 2: Breast_svm">
+											<a href="images/ANNReg_Table 2.png" data-lightbox="ANN-Reg" data-title="Table 2: Predicting Test Set Results">
+											<img src="images/ANNReg_Table 2.png" alt="Table 2: Predicting Test Set Results">
 											</a>
-											<figcaption><strong>Figure 2</strong> SVM</figcaption>
+											<figcaption><strong>Table 2</strong> Predicting Test Set Results</figcaption>
 										</figure>
 
 										<figure>
-											<a href="images/Breast_ksvm.png" data-lightbox="breast-cancer" data-title="Figure 3: Breast_ksvm">
-											<img src="images/Breast_ksvm.png" alt="Figure 3: Breast_ksvm">
+											<a href="images/ANNClass_table 3.png" data-lightbox="ANN-Reg" data-title="Table 3: Breast_ksvm">
+											<img src="images/ANNClass_table 3.png" alt="Table 3: Breast_ksvm">
 											</a>
-											<figcaption><strong>Figure 3</strong> Kernel SVM</figcaption>
+											<figcaption><strong>Table 3</strong> Encoding Gender</figcaption>
 										</figure>
 
 										<figure>
-											<a href="images/Breast_knn.png" data-lightbox="breast-cancer" data-title="Figure 4: Breast_knn">
-											<img src="images/Breast_knn.png" alt="Figure 4: Breast_knn">
+											<a href="images/ANNClass_table 4.png" data-lightbox="ANN-Reg" data-title="Table 4: Breast_knn">
+											<img src="images/ANNClass_table 4.png" alt="Table 4: Breast_knn">
 											</a>
-											<figcaption><strong>Figure 4</strong> K-Nearest Neighbor</figcaption>
+											<figcaption><strong>Table 4</strong> Encoding Country</figcaption>
 										</figure>
 										
-										<figure>
-											<a href="images/Breast_naive.png" data-lightbox="breast-cancer" data-title="Figure 5: Breast_naive">
-											<img src="images/Breast_naive.png" alt="Figure 5: Breast_naive">
-											</a>
-											<figcaption><strong>Figure 5</strong> Naïve Bayes</figcaption>
-										</figure>
-
-										<figure>
-											<a href="images/Breast_randfor.png" data-lightbox="breast-cancer" data-title="Figure 5: Breast_randfor">
-											<img src="images/Breast_randfor.png" alt="Figure 2: Breast_randfor">
-											</a>
-											<figcaption><strong>Figure 6</strong> Random Forest</figcaption>
-										</figure>
-										
-										<figure>
-											<a href="images/Breast_decision.png" data-lightbox="breast-cancer" data-title="Figure 5: Breast_decision">
-											<img src="images/Breast_decision.png" alt="Figure 2: Breast_decision">
-											</a>
-											<figcaption><strong>Figure 7</strong> Decision Tree</figcaption>
-										</figure>
 										</div>
 
 										<h4>🌟 <strong>Key Insights:</strong></h4>
@@ -2368,8 +2438,8 @@ interactive_plot(df_predicted, "Original Vs. Prediction (TSLA)")
 										<p><a href="https://github.com/tendai-codes/your-project" class="github-button" target="_blank">View on GitHub</a></p>
 									</section>
 
-									<section class="project-item" data-tags="R,Data Analysis">
-										<h3>📽️ <strong>New Project </strong></h3>
+									<section class="project-item" data-tags="Python,Deep Learning,TensorFlow">
+										<h3>📽️ <strong>Natural Language Processing Model to understand resturant reviews </strong></h3>
 										<p>
 											This project explored publicly available data on top-grossing US films to identify patterns across genres, studios, and release schedules. I used <strong>R</strong> and <strong>ggplot2</strong> for data exploration and visualisation.
 										</p>
@@ -2397,38 +2467,200 @@ interactive_plot(df_predicted, "Original Vs. Prediction (TSLA)")
 										<!-- Code Snippet -->
 
 										<pre><code class="language-python"># Importing the libraries
+										import re
+										import nltk
+										nltk.download('stopwords')
+										from nltk.corpus import stopwords
+										from nltk.stem.porter import PorterStemmer
+										corpus = []
+										for i in range(0, 1000):
+										review = re.sub('[^a-zA-Z]', ' ', dataset['Review'][i])
+										review = review.lower()
+										review = review.split()
+										ps = PorterStemmer()
+										all_stopwords = stopwords.words('english')
+										all_stopwords.remove('not')
+										review = [ps.stem(word) for word in review if not word in set(all_stopwords)]
+										review = ' '.join(review)
+										corpus.append(review)
 
-										import numpy as np
-										import matplotlib.pyplot as plt
-										import pandas as pd
+										print(corpus) (Table 1)
 
-										# Importing the dataset
-										dataset = pd.read_csv('Breast cancer data.csv')
-										X = dataset.iloc[:, :-1].values
+										# Creating the bag of words model
+										from sklearn.feature_extraction.text import CountVectorizer
+										cv = CountVectorizer(max_features = 1500)
+										X = cv.fit_transform(corpus).toarray()
 										y = dataset.iloc[:, -1].values
 
-										#Splitting the dataset into the Training set and Test set
+										# Splitting the dataset into the Training set and Test set
+
 										from sklearn.model_selection import train_test_split
-										X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.25, random_state = 0)
+										X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.20, random_state = 0)
 
-										# Feature Scaling
-										from sklearn.preprocessing import StandardScaler
-										sc = StandardScaler()
-										X_train = sc.fit_transform(X_train)
-										X_test = sc.transform(X_test)
-
-										# Training Model on the Training set
-										from sklearn.tree import DecisionTreeClassifier
-										classifier = DecisionTreeClassifier(criterion = 'entropy', random_state = 0)
+										# Training the Naive Bayes model on the Training set (Table 2)
+										from sklearn.naive_bayes import GaussianNB
+										classifier = GaussianNB()
 										classifier.fit(X_train, y_train)
 
-										Evaluating using confusion matrix
-										from sklearn.metrics import confusion_matrix, accuracy_score
+										# Predicting the Test set results (Table 3)
 										y_pred = classifier.predict(X_test)
+										print(np.concatenate((y_pred.reshape(len(y_pred),1), y_test.reshape(len(y_test),1)),1))
+
+										# Making Confusion Matrix (Table 4)
+										from sklearn.metrics import confusion_matrix, accuracy_score
 										cm = confusion_matrix(y_test, y_pred)
 										print(cm)
 										accuracy_score(y_test, y_pred)
+										</code></pre>
 
+										
+										<!-- Visualisations -->
+
+										<div class="image-gallery">
+										<figure>
+											<a href="images/NLP_table 1.png" data-lightbox="NLP" data-title="Table 1: Removed words">
+											<img src="images/NLP_table 1.png" alt="Table 1: Removed words">
+											</a>
+											<figcaption><strong>Table 1</strong> Removed words</figcaption>
+										</figure>
+
+										<figure>
+											<a href="images/NLP_table 2.png" data-lightbox="NLP" data-title="Table 2: Naive Bayes Model">
+											<img src="images/NLP_table 2.png" alt="Table 2: Naive Bayes Model">
+											</a>
+											<figcaption><strong>Table 2</strong> Naive Bayes Model y</figcaption>
+										</figure>
+
+										<figure>
+											<a href="images/NLP_table 3.png" data-lightbox="NLP" data-title="Table 3: Predicting Test Set Results">
+											<img src="images/NLP_table 3.png" alt="Table 3: Predicting Test Set Results">
+											</a>
+											<figcaption><strong>Table 3</strong> Predicting Test Set Results </figcaption>
+										</figure>
+
+										<figure>
+											<a href="images/NLP_table 4.png" data-lightbox="NLP" data-title="Table 4: Confusion Matrix">
+											<img src="images/NLP_table 4.png" alt="Table 4: Confusion Matrix">
+											</a>
+											<figcaption><strong>Table 4</strong> Confusion Matrix </figcaption>
+										</figure>
+										
+										<figure>
+											<a href="images/" data-lightbox="NLP" data-title="Figure 5: Breast_naive">
+											<img src="images/" alt="Figure 5: Breast_naive">
+											</a>
+											<figcaption><strong>Figure 5</strong> Naïve Bayes</figcaption>
+										</figure>
+
+										<figure>
+											<a href="images/" data-lightbox="NLP" data-title="Figure 5: Breast_randfor">
+											<img src="images/" alt="Figure 2: Breast_randfor">
+											</a>
+											<figcaption><strong>Figure 6</strong> Random Forest</figcaption>
+										</figure>
+									
+										</div>
+
+										<h4>🌟 <strong>Key Insights:</strong></h4>
+										<p>
+											The company showed stable asset growth and rising equity, but the Debt-to-Equity ratio increased post-2020, signalling higher leverage risk.
+											Operating cash flow was consistently positive, suggesting sufficient liquidity to meet short-term obligations — a green flag for operational health.
+										</p>
+
+										<h4>🧗🏾 <strong>Challenge Faced:</strong></h4>
+										<p>
+											Initially, aligning the financial statements by year was inconsistent due to mixed string/index formats across categories. I overcame this by explicitly extracting year-based columns and standardising label references. This made ratio computations and cross-statement comparisons reliable and reproducible.
+										</p>
+										<p><a href="https://github.com/tendai-codes/your-project" class="github-button" target="_blank">View on GitHub</a></p>
+									</section>
+
+									<section class="project-item" data-tags="Python,Deep Learning,TensorFlow">
+										<h3>📽️ <strong>Building Convolutional Neural network to differentiate between dogs and cats (Classification) </strong></h3>
+										<p>
+											This project explored publicly available data on top-grossing US films to identify patterns across genres, studios, and release schedules. I used <strong>R</strong> and <strong>ggplot2</strong> for data exploration and visualisation.
+										</p>
+
+										<h4>💻 <strong>Tech Stack:</strong></h4>
+										<ul>
+											<li><strong>Python</strong> for machine learning model development and comparison</li>
+											<li><strong>Scikit-learn</strong> for multiple classification algorithms, preprocessing, and evaluation metrics</li>
+											<li><strong>Pandas</strong> for dataset loading and initial data exploration</li>
+											<li><strong>Matplotlib</strong> for data visualisationsand model performance analysis</li>
+											<li><strong>NumPy</strong> for numerical operations and grid generation</li>
+										</ul>
+
+										<h4>🧪 <strong>Data Pipeline:</strong></h4>
+										<ul>
+											<li><strong>Load & inspect data:</strong> Imported multi-statement CSV into pandas. Extracted relevant sections for Balance Sheet, Income Statement, and Cash Flow Statement using <code>loc[]</code>. </li>
+											<li><strong>Trend Analysis:</strong> Transposed time-series data <code>(.T)</code> and plotted major components (e.g. assets, equity) using <code>.plot()</code> to visualise financial stability over time. </li>
+											<li><strong>Ratio Calculations:</strong> Computed solvency and profitability ratios: Return on Equity (ROE), Return on Assets (ROA), Debt-to-Equity. Built <code>DataFrame</code> to summarise and visualise using grouped bar plots.</li>
+											<li><strong>Custom Metrics:</strong> Created Operating Cash Flow to Total Debt ratio from cash flow and balance sheet sections to assess short-term liquidity strength.</li>
+											
+										</ul>
+
+										<h4>📊 <strong>Code Snippets & Visualisations:</strong></h4>
+
+										<!-- Code Snippet -->
+
+										<pre><code class="language-python"># Importing the libraries
+										import tensorflow as tf
+										from keras.preprocessing.image import ImageDataGenerator
+
+										# Preprocessing Training set
+										train_datagen = ImageDataGenerator(rescale = 1./255,
+																		shear_range = 0.2,
+																		zoom_range = 0.2,
+																		horizontal_flip = True)
+										training_set = train_datagen.flow_from_directory('dataset/training_set',
+																						target_size = (64, 64),
+																						batch_size = 32,
+																						class_mode = 'binary')
+
+										# Preprocessing Test set
+										test_datagen = ImageDataGenerator(rescale = 1./255)
+										test_set = test_datagen.flow_from_directory('dataset/test_set',
+																					target_size = (64, 64),
+																					batch_size = 32,
+																					class_mode = 'binary')
+
+										# Building the CNN
+
+										# Initialising CNN
+										cnn = tf.keras.models.Sequential()
+										# Step 1 - Convolution
+										cnn.add(tf.keras.layers.Conv2D(filters=32, kernel_size=3, activation='relu', input_shape=[64, 64, 3]))
+										# Step 2 - Pooling
+										cnn.add(tf.keras.layers.MaxPool2D(pool_size=2, strides=2))
+										# Step 3 - Adding second layer
+										cnn.add(tf.keras.layers.Conv2D(filters=32, kernel_size=3, activation='relu'))
+										cnn.add(tf.keras.layers.MaxPool2D(pool_size=2, strides=2))
+										# Step 4 - Flattening
+										cnn.add(tf.keras.layers.Flatten())
+										# Step 5 - Full connection
+										cnn.add(tf.keras.layers.Dense(units=128, activation='relu'))
+										# Step 6 - Flattening
+										cnn.add(tf.keras.layers.Dense(units=1, activation='sigmoid'))
+
+										# Compiling CNN
+										cnn.compile(optimizer = 'adam', loss = 'binary_crossentropy', metrics = ['accuracy'])
+
+										# Training CNN and evaluating on test set
+										cnn.fit(x = training_set, validation_data = test_set, epochs = 25)
+
+										# Making a single prediction
+										import numpy as np
+										from keras.preprocessing import image
+										test_image = image.load_img('dataset/single_prediction/cat_or_dog_1.jpg', target_size = (64, 64))
+										test_image = image.img_to_array(test_image)
+										test_image = np.expand_dims(test_image, axis = 0)
+										result = cnn.predict(test_image)
+										training_set.class_indices
+										if result[0][0] == 1:
+										prediction = 'dog'
+										else:
+										prediction = 'cat'
+
+										print(prediction)
 										</code></pre>
 
 										
@@ -2498,6 +2730,147 @@ interactive_plot(df_predicted, "Original Vs. Prediction (TSLA)")
 										<p><a href="https://github.com/tendai-codes/your-project" class="github-button" target="_blank">View on GitHub</a></p>
 									</section>
 
+									<section class="project-item" data-tags="Python,Deep Learning">
+										<h3>📽️ <strong>Natural Language Processing Model to understand resturant reviews </strong></h3>
+										<p>
+											This project explored publicly available data on top-grossing US films to identify patterns across genres, studios, and release schedules. I used <strong>R</strong> and <strong>ggplot2</strong> for data exploration and visualisation.
+										</p>
+
+										<h4>💻 <strong>Tech Stack:</strong></h4>
+										<ul>
+											<li><strong>Python</strong> for machine learning model development and comparison</li>
+											<li><strong>Scikit-learn</strong> for multiple classification algorithms, preprocessing, and evaluation metrics</li>
+											<li><strong>Pandas</strong> for dataset loading and initial data exploration</li>
+											<li><strong>Matplotlib</strong> for data visualisationsand model performance analysis</li>
+											<li><strong>NumPy</strong> for numerical operations and grid generation</li>
+										</ul>
+
+										<h4>🧪 <strong>Data Pipeline:</strong></h4>
+										<ul>
+											<li><strong>Load & inspect data:</strong> Imported multi-statement CSV into pandas. Extracted relevant sections for Balance Sheet, Income Statement, and Cash Flow Statement using <code>loc[]</code>. </li>
+											<li><strong>Trend Analysis:</strong> Transposed time-series data <code>(.T)</code> and plotted major components (e.g. assets, equity) using <code>.plot()</code> to visualise financial stability over time. </li>
+											<li><strong>Ratio Calculations:</strong> Computed solvency and profitability ratios: Return on Equity (ROE), Return on Assets (ROA), Debt-to-Equity. Built <code>DataFrame</code> to summarise and visualise using grouped bar plots.</li>
+											<li><strong>Custom Metrics:</strong> Created Operating Cash Flow to Total Debt ratio from cash flow and balance sheet sections to assess short-term liquidity strength.</li>
+											
+										</ul>
+
+										<h4>📊 <strong>Code Snippets & Visualisations:</strong></h4>
+
+										<!-- Code Snippet -->
+
+										<pre><code class="language-python"># Importing the libraries
+										import re
+										import nltk
+										nltk.download('stopwords')
+										from nltk.corpus import stopwords
+										from nltk.stem.porter import PorterStemmer
+										corpus = []
+										for i in range(0, 1000):
+										review = re.sub('[^a-zA-Z]', ' ', dataset['Review'][i])
+										review = review.lower()
+										review = review.split()
+										ps = PorterStemmer()
+										all_stopwords = stopwords.words('english')
+										all_stopwords.remove('not')
+										review = [ps.stem(word) for word in review if not word in set(all_stopwords)]
+										review = ' '.join(review)
+										corpus.append(review)
+
+										print(corpus) (Table 1)
+
+										# Creating the bag of words model
+										from sklearn.feature_extraction.text import CountVectorizer
+										cv = CountVectorizer(max_features = 1500)
+										X = cv.fit_transform(corpus).toarray()
+										y = dataset.iloc[:, -1].values
+
+										# Splitting the dataset into the Training set and Test set
+
+										from sklearn.model_selection import train_test_split
+										X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.20, random_state = 0)
+
+										# Training the Naive Bayes model on the Training set
+										from sklearn.naive_bayes import GaussianNB
+										classifier = GaussianNB()
+										classifier.fit(X_train, y_train)
+
+										# Predicting the Test set results (Table 2)
+										y_pred = classifier.predict(X_test)
+										print(np.concatenate((y_pred.reshape(len(y_pred),1), y_test.reshape(len(y_test),1)),1))
+
+										# Making Confusion Matrix (Table 3)
+										from sklearn.metrics import confusion_matrix, accuracy_score
+										cm = confusion_matrix(y_test, y_pred)
+										print(cm)
+										accuracy_score(y_test, y_pred)
+										</code></pre>
+
+										
+										<!-- Visualisations -->
+
+										<div class="image-gallery">
+										<figure>
+											<a href="images/Breast_logR.png" data-lightbox="breast-cancer" data-title="Figure 1: Breast_logR">
+											<img src="images/Breast_logR.png" alt="Figure 1: Breast_logR">
+											</a>
+											<figcaption><strong>Figure 1</strong> Logistic Regression</figcaption>
+										</figure>
+
+										<figure>
+											<a href="images/Breast_svm.png" data-lightbox="breast-cancer" data-title="Figure 2: Breast_svm">
+											<img src="images/Breast_svm.png" alt="Figure 2: Breast_svm">
+											</a>
+											<figcaption><strong>Figure 2</strong> SVM</figcaption>
+										</figure>
+
+										<figure>
+											<a href="images/Breast_ksvm.png" data-lightbox="breast-cancer" data-title="Figure 3: Breast_ksvm">
+											<img src="images/Breast_ksvm.png" alt="Figure 3: Breast_ksvm">
+											</a>
+											<figcaption><strong>Figure 3</strong> Kernel SVM</figcaption>
+										</figure>
+
+										<figure>
+											<a href="images/Breast_knn.png" data-lightbox="breast-cancer" data-title="Figure 4: Breast_knn">
+											<img src="images/Breast_knn.png" alt="Figure 4: Breast_knn">
+											</a>
+											<figcaption><strong>Figure 4</strong> K-Nearest Neighbor</figcaption>
+										</figure>
+										
+										<figure>
+											<a href="images/Breast_naive.png" data-lightbox="breast-cancer" data-title="Figure 5: Breast_naive">
+											<img src="images/Breast_naive.png" alt="Figure 5: Breast_naive">
+											</a>
+											<figcaption><strong>Figure 5</strong> Naïve Bayes</figcaption>
+										</figure>
+
+										<figure>
+											<a href="images/Breast_randfor.png" data-lightbox="breast-cancer" data-title="Figure 5: Breast_randfor">
+											<img src="images/Breast_randfor.png" alt="Figure 2: Breast_randfor">
+											</a>
+											<figcaption><strong>Figure 6</strong> Random Forest</figcaption>
+										</figure>
+										
+										<figure>
+											<a href="images/Breast_decision.png" data-lightbox="breast-cancer" data-title="Figure 5: Breast_decision">
+											<img src="images/Breast_decision.png" alt="Figure 2: Breast_decision">
+											</a>
+											<figcaption><strong>Figure 7</strong> Decision Tree</figcaption>
+										</figure>
+										</div>
+
+										<h4>🌟 <strong>Key Insights:</strong></h4>
+										<p>
+											The company showed stable asset growth and rising equity, but the Debt-to-Equity ratio increased post-2020, signalling higher leverage risk.
+											Operating cash flow was consistently positive, suggesting sufficient liquidity to meet short-term obligations — a green flag for operational health.
+										</p>
+
+										<h4>🧗🏾 <strong>Challenge Faced:</strong></h4>
+										<p>
+											Initially, aligning the financial statements by year was inconsistent due to mixed string/index formats across categories. I overcame this by explicitly extracting year-based columns and standardising label references. This made ratio computations and cross-statement comparisons reliable and reproducible.
+										</p>
+										<p><a href="https://github.com/tendai-codes/your-project" class="github-button" target="_blank">View on GitHub</a></p>
+									</section>
 
 								</div>
 							</article>
@@ -2507,7 +2880,8 @@ interactive_plot(df_predicted, "Original Vs. Prediction (TSLA)")
 						<!-- About Me -->
 							<article id="about">
 								<h2 class="major">About Me</h2>
-								<span class="image main"><img src="images/pic03.jpg" alt="" /></span>
+								<span class="bio-container"><img src="images/bio.jpg" alt="" style="width: 70%; max-width: 550px; margin-left: 90px; border-radius: 4px; "/>
+								</span>
 								<p>I am an aspiring data scientist and educator focused on curriculum innovation, AI-driven assessment, and machine learning for real-world educational impact. I attained my BSc in Liberal Arts & Sciences from Maastricht University, where I learned to blend critical thinking with interdisciplinary research—developing a mindset for tackling complex, real-world challenges.</p>
 								<p>At the University of Manchester, I took a deep dive into molecular biology research through an MRes in Tissue Engineering for Regenerative Medicine. There, I developed a gene therapy model for a genetic muscle-wasting disease, which acted as a proof-of-principle to support early stage clinical trials. During this time I strengthened my hypothesis-driven probelm solving approach and my ability to leverage data to tell a stories at the intersection of biomedical engineering, and data analysis.</p>
 								<p>As a former science coordinator in the UAE public education system, I designed national exams, and later began integrating generative AI tools into the classroom. These experiences sparked my current focus of understanding  data to  help build AI systems that empower with how people learn—ethically, adaptively, and with lasting impact.</p>
@@ -2849,9 +3223,50 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 
 		<!-- Add jquery -->
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+	
 		<!-- Lightbox JS -->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/js/lightbox.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/js/lightbox.group.min.js"></script>
 
+		
+		<script>
+    // Initialize Lightbox with custom settings
+    lightbox.option({
+        'wrapAround': true,
+        'maxWidth': '60%',
+        'maxHeight': '90vh',
+        'positionFromTop': 50,
+        'positionFromLeft': 50,
+        'enableKeyboardInput': true,
+        'showImageNumberLabel': false
+		'resizeImage': true,
+		'wrapAround': false
+    });
+
+    // Add custom functionality to allow scrolling through images while zoomed in
+    $(document).ready(function() {
+        lightbox.addEventListener('afterOpen', function() {
+            // Add a "Next" and "Previous" button inside the overlay
+            var controls = $('<div>').addClass('image-controls')
+                .append('<button class="prev">Previous</button>')
+                .append('<button class="next">Next</button>');
+            
+            $('.lb-overlay').prepend(controls);
+
+            // Set up click handlers for navigation
+            $('.image-controls .prev').click(function() {
+                lightbox.close();
+                lightbox.gotoPrev();
+                lightbox.open();
+            });
+
+            $('.image-controls .next').click(function() {
+                lightbox.close();
+                lightbox.gotoNext();
+                lightbox.open();
+            });
+        });
+    });
+</script>
 	</body>
 </html>

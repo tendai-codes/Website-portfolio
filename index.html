@@ -375,7 +375,7 @@
 										<p>
 											Overlapping outliers and jitter points in ggplot2 caused clutter. I resolved this with <code>outlier.colour = NA</code> and <code>alpha</code> blending.
 										</p>
-										<p><a href="https://github.com/tendai-codes/your-project" class="github-button" target="_blank">View on GitHub</a></p>
+										<p><a href="https://github.com/tendai-codes/Data-Analysis" class="github-button" target="_blank">View on GitHub</a></p>
 										</p>
 									</section>
 
@@ -502,7 +502,7 @@
 										<p>
 											Initially, aligning the financial statements by year was inconsistent due to mixed string/index formats across categories. I overcame this by explicitly extracting year-based columns and standardising label references. This made ratio computations and cross-statement comparisons reliable and reproducible.
 										</p>
-										<p><a href="https://github.com/tendai-codes/your-project" class="github-button" target="_blank">View on GitHub</a></p>
+										<p><a href="https://github.com/tendai-codes/Data-Analysis" class="github-button" target="_blank">View on GitHub</a></p>
 									</section>
 
 									<section class="project-item" data-tags="Python,Data Analysis">
@@ -622,7 +622,7 @@
 										<p>
 											Filtering and reshaping the dataset for multi-variable analysis was complex due to inconsistent column names and missing data. I solved this by methodically renaming columns and using <code>.dropna()</code> to exclude incomplete records while maintaining dataset integrity.
 										</p>
-										<p><a href="https://github.com/tendai-codes/your-project" class="github-button" target="_blank">View on GitHub</a></p>
+										<p><a href="https://github.com/tendai-codes/Data-Analysis" class="github-button" target="_blank">View on GitHub</a></p>
 									</section>
 
 
@@ -797,7 +797,7 @@
 										<p>
 											The daily returns calculation initially produced incorrect values for the first row of each stock. After debugging, the issue was that there's no previous day to calculate a return from for the first entry. This was solved by explicitly setting the first day's return to 0 using <code>df_daily_return[i][0] = 0</code> after the loop calculation, ensuring accurate percentage calculations for all subsequent days.
 										</p>
-										<p><a href="https://github.com/tendai-codes/your-project" class="github-button" target="_blank">View on GitHub</a></p>
+										<p><a href="https://github.com/tendai-codes/Data-Analysis" class="github-button" target="_blank">View on GitHub</a></p>
 									</section>
 
 									<section class="project-item" data-tags="Python,Data Analysis">
@@ -935,7 +935,7 @@
 										<p>
 											I initially encountered an indexing error when calculating portfolio daily returns because I was trying to access the previous day's value for the first row, which doesn't exist. The calculation <code>df_portfolio['portfolio daily % return'][i-1]</code> failed on the first iteration. I solved this by explicitly setting the first day's return to 0 using <code>df_portfolio['portfolio daily % return'][0] = 0</code> after the loop, and ensuring the loop started from index 1 rather than 0. This approach properly handled the edge case while maintaining accurate percentage calculations for all subsequent trading days.
 										</p>
-										<p><a href="https://github.com/tendai-codes/your-project" class="github-button" target="_blank">View on GitHub</a></p>
+										<p><a href="https://github.com/tendai-codes/Data-Analysis" class="github-button" target="_blank">View on GitHub</a></p>
 									</section>
 
 
@@ -1075,7 +1075,7 @@
 										<p>
 											I initially struggled with the loop logic for batch processing all stocks because I was accidentally including the S&P 500 index in the analysis against itself, which created perfect correlation (beta = 1, alpha = 0) and distorted my results. After debugging, I realized I needed to exclude both 'sp500' and 'Date' columns using compound conditional statements <code>if i != 'sp500'</code> and <code>i != 'Date'</code>. This solution ensured I only analyzed actual stocks against the market benchmark, providing meaningful beta and alpha calculations for investment decision-making.
 										</p>
-										<p><a href="https://github.com/tendai-codes/your-project" class="github-button" target="_blank">View on GitHub</a></p>
+										<p><a href="https://github.com/tendai-codes/Data-Analysis" class="github-button" target="_blank">View on GitHub</a></p>
 									</section>
 
 									<section class="project-item" data-tags="Python,Machine Learning">
@@ -1549,7 +1549,7 @@
 											
 											At first, the visualisations were hard to understand because the data had been scaled. The age and salary values didn’t look realistic in the plots. I solved this by converting the data back to its original scale before plotting. This made the decision areas easier to read and relate to real-life values.
 										</p>
-										<p><a href="https://github.com/tendai-codes/your-project" class="github-button" target="_blank">View on GitHub</a></p>
+										<p><a href="https://github.com/tendai-codes/Machine-learning" class="github-button" target="_blank">View on GitHub</a></p>
 									</section>
 
 									<section class="project-item" data-tags="Python,Machine Learning">
@@ -1688,7 +1688,7 @@
 										<p>
 											Working with medical diagnostic data presented a critical class imbalance consideration that required careful attention to evaluation metrics beyond simple accuracy. While accuracy score provides an overall performance measure, it can be misleading in medical contexts where false negatives (missing actual cancer cases) have far more severe consequences than false positives (flagging benign cases as suspicious). The challenge was ensuring that model evaluation properly weighted the clinical importance of sensitivity (recall) versus specificity, as a model with 95% accuracy might still miss 20% of actual cancer cases if the dataset is imbalanced. This was addressed by implementing confusion matrix analysis to examine true positives, false positives, true negatives, and false negatives separately, enabling assessment of each model's ability to minimize the most clinically dangerous errors while maintaining overall diagnostic reliability.
 										</p>
-										<p><a href="https://github.com/tendai-codes/your-project" class="github-button" target="_blank">View on GitHub</a></p>
+										<p><a href="https://github.com/tendai-codes/Machine-learning" class="github-button" target="_blank">View on GitHub</a></p>
 									</section>
 
 									<section class="project-item" data-tags="Python,Machine Learning">
@@ -1910,7 +1910,7 @@
 										<p>
 											Initial visualisations of K-Means clusters were ambiguous due to the high dimensionality of features. Reducing dimensions with PCA made it easier to see meaningful separation, but it required balancing between retaining variance and simplifying complexity. I resolved this by examining explained variance ratios and adjusting the number of components accordingly.
 										</p>
-										<p><a href="https://github.com/tendai-codes/your-project" class="github-button" target="_blank">View on GitHub</a></p>
+										<p><a href="https://github.com/tendai-codes/Machine-learning" class="github-button" target="_blank">View on GitHub</a></p>
 									</section>
 
 									<section class="project-item" data-tags="Python,Machine Learning,Tensorflow">
@@ -2194,7 +2194,7 @@
 										<p>
 											Feature engineering for time series prediction was a significant challenge. Initially, using raw historical prices didn’t yield strong predictive accuracy. After adding lagged variables and scaling features, the model performance improved. It required careful experimentation to balance information richness and model simplicity.
 										</p>
-										<p><a href="https://github.com/tendai-codes/your-project" class="github-button" target="_blank">View on GitHub</a></p>
+										<p><a href="https://github.com/tendai-codes/Machine-learning" class="github-button" target="_blank">View on GitHub</a></p>
 									</section>
 
 									<section class="project-item" data-tags="Python,TensorFlow,Deep Learning">
@@ -2426,7 +2426,7 @@
 										<h4>🧗🏾 <strong>Challenge Faced:</strong></h4>
 										<p>
 											My biggest challenge was preparing the time series data in the correct 3D format for LSTM input. Initially, I struggled with reshaping arrays from 1D to the required (samples, timesteps, features) structure. After researching LSTM input requirements and experimenting with NumPy reshape operations, I learned to properly sequence the data with sliding windows and convert to the appropriate tensor dimensions for neural network training.
-										<p><a href="https://github.com/tendai-codes/your-project" class="github-button" target="_blank">View on GitHub</a></p>
+										<p><a href="https://github.com/tendai-codes/Machine-learning" class="github-button" target="_blank">View on GitHub</a></p>
 									</section>
 
 									<section class="project-item" data-tags="Python,Deep Learning,TensorFlow">
@@ -2590,7 +2590,7 @@
 										<p>
 											The main challenge was handling mixed categorical and numerical data types efficiently. Initially, I struggled with applying different encoding methods to different columns simultaneously. After experimenting with various approaches, I discovered ColumnTransformer, which allowed me to apply One-Hot Encoding to geography while preserving other numerical features, streamlining the preprocessing pipeline significantly.
 										</p>
-										<p><a href="https://github.com/tendai-codes/your-project" class="github-button" target="_blank">View on GitHub</a></p>
+										
 									</section>
 
 									<section class="project-item" data-tags="Python,Deep Learning,TensorFlow">
@@ -2702,7 +2702,7 @@
 										<h4>🧗🏾 <strong>Challenge Faced:</strong></h4>
 										<p>
 											My primary challenge was determining the optimal network depth for regression without overfitting. Initially, I experimented with different numbers of hidden layers and found that too few layers couldn't capture the complex thermodynamic relationships, while too many layers led to overfitting. After testing various architectures, I settled on three hidden layers as the sweet spot that balanced model complexity with generalization performance.
-										<p><a href="https://github.com/tendai-codes/your-project" class="github-button" target="_blank">View on GitHub</a></p>
+										
 									</section>
 
 									<section class="project-item" data-tags="Python,Deep Learning,TensorFlow">
@@ -2839,7 +2839,7 @@
 										<p>
 											The main challenge was balancing feature dimensionality with model performance. Initially, I used all unique words which created an extremely sparse and high-dimensional feature space, leading to overfitting. After experimenting with different max_features values in CountVectorizer, I found that limiting to 1500 features provided the optimal trade-off between capturing important sentiment words and maintaining computational efficiency while avoiding the curse of dimensionality.
 										</p>
-										<p><a href="https://github.com/tendai-codes/your-project" class="github-button" target="_blank">View on GitHub</a></p>
+										
 									</section>
 
 									<section class="project-item" data-tags="Python,Deep Learning,TensorFlow">
@@ -2934,56 +2934,7 @@
 										
 										<!-- Visualisations -->
 
-										<div class="image-gallery">
-										<figure>
-											<a href="images/Breast_logR.png" data-lightbox="breast-cancer" data-title="Figure 1: Breast_logR">
-											<img src="images/Breast_logR.png" alt="Figure 1: Breast_logR">
-											</a>
-											<figcaption><strong>Figure 1</strong> Logistic Regression</figcaption>
-										</figure>
-
-										<figure>
-											<a href="images/Breast_svm.png" data-lightbox="breast-cancer" data-title="Figure 2: Breast_svm">
-											<img src="images/Breast_svm.png" alt="Figure 2: Breast_svm">
-											</a>
-											<figcaption><strong>Figure 2</strong> SVM</figcaption>
-										</figure>
-
-										<figure>
-											<a href="images/Breast_ksvm.png" data-lightbox="breast-cancer" data-title="Figure 3: Breast_ksvm">
-											<img src="images/Breast_ksvm.png" alt="Figure 3: Breast_ksvm">
-											</a>
-											<figcaption><strong>Figure 3</strong> Kernel SVM</figcaption>
-										</figure>
-
-										<figure>
-											<a href="images/Breast_knn.png" data-lightbox="breast-cancer" data-title="Figure 4: Breast_knn">
-											<img src="images/Breast_knn.png" alt="Figure 4: Breast_knn">
-											</a>
-											<figcaption><strong>Figure 4</strong> K-Nearest Neighbor</figcaption>
-										</figure>
 										
-										<figure>
-											<a href="images/Breast_naive.png" data-lightbox="breast-cancer" data-title="Figure 5: Breast_naive">
-											<img src="images/Breast_naive.png" alt="Figure 5: Breast_naive">
-											</a>
-											<figcaption><strong>Figure 5</strong> Naïve Bayes</figcaption>
-										</figure>
-
-										<figure>
-											<a href="images/Breast_randfor.png" data-lightbox="breast-cancer" data-title="Figure 5: Breast_randfor">
-											<img src="images/Breast_randfor.png" alt="Figure 2: Breast_randfor">
-											</a>
-											<figcaption><strong>Figure 6</strong> Random Forest</figcaption>
-										</figure>
-										
-										<figure>
-											<a href="images/Breast_decision.png" data-lightbox="breast-cancer" data-title="Figure 5: Breast_decision">
-											<img src="images/Breast_decision.png" alt="Figure 2: Breast_decision">
-											</a>
-											<figcaption><strong>Figure 7</strong> Decision Tree</figcaption>
-										</figure>
-										</div>
 
 										<h4>🌟 <strong>Key Insights:</strong></h4>
 										<p>
@@ -2996,10 +2947,10 @@
 										<p>
 											The primary challenge was balancing model complexity with training efficiency given the 64x64 input resolution. Initially, I experimented with deeper architectures but encountered overfitting and slow training times. After testing various configurations, I discovered that two convolutional layers provided sufficient feature extraction capability while maintaining reasonable training speed and preventing overfitting on the limited dataset size.
 										</p>
-										<p><a href="https://github.com/tendai-codes/your-project" class="github-button" target="_blank">View on GitHub</a></p>
+										
 									</section>
 
-									<section class="project-item" data-tags="Python,Deep Learning">
+									<section class="project-item" data-tags="">
 										<h3>📽️ <strong>New project </strong></h3>
 										<p>
 											This project explored publicly available data on top-grossing US films to identify patterns across genres, studios, and release schedules. I used <strong>R</strong> and <strong>ggplot2</strong> for data exploration and visualisation.

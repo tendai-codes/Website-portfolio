@@ -925,9 +925,9 @@
 
 										<h4>🌟 <strong>Key Insights:</strong></h4>
 										<ul>
-											<li>The random portfolio allocation provided a baseline for comparing systematic investment strategies</li>
-											<li>Sharpe ratio calculation revealed the risk-adjusted return efficiency of the portfolio</li>
-											<li>Daily return volatility patterns showed the importance of diversification across different stocks</li>
+											<li>Random portfolio allocation provides baseline performance benchmarks for comparing against optimized strategies, revealing how diversification across 9 stocks performs under equal-weight and random-weight scenarioss</li>
+											<li>Daily return volatility patterns indicate portfolio risk characteristics with higher volatility periods corresponding to market stress, while Sharpe ratio quantifies whether returns adequately compensate for risk takeno</li>
+											<li>Normalization to Day 1 baseline enables fair comparison across stocks with different price levels, allowing proper weight allocation based on percentage changes rather than absolute dollar amounts</li>
 											<li>Cumulative returns demonstrated the compound effect of daily performance over the investment period</li>
 										</ul>
 
@@ -942,7 +942,7 @@
 									<section class="project-item" data-tags="Python,Data Analysis">
 										<h3>📽️ <strong>Stock Beta & Alpha Analysis (CAPM Model) </strong></h3>
 										<p>
-											This project implemented the Capital Asset Pricing Model (CAPM) to analyze individual stock performance relative to the S&P 500 market benchmark. I calculated beta (market sensitivity) and alpha (excess returns) for each stock using linear regression, creating comprehensive risk-return profiles for portfolio decision-making.
+											This project emerged from a natural curiosity sparked during my earlier stock market analysis, where I explored daily return patterns and volatility trends. That initial exploration raised deeper questions: <em>How do individual stocks behave in relation to market-wide movements?</em> <em>Can risk be quantified and priced?</em> These questions led me to explore <strong>Beta</strong> (market sensitivity), <strong>Alpha</strong> (excess returns), and the <strong>Capital Asset Pricing Model</strong> (CAPM)—a foundational framework in modern finance.
 										</p>
 
 										<h4>💻 <strong>Tech Stack:</strong></h4>
@@ -1129,9 +1129,21 @@
 										np.set_printoptions(precision=2)
 										print(np.concatenate((y_pred.reshape(len(y_pred),1), y_test.reshape(len(y_test),1)),1))
 
+										# Evaluating the Model Performance
+										from sklearn.metrics import r2_score
+										r2_score(y_test, y_pred)
 										</code></pre>
 
+										<!-- Visualisations -->
 
+										<div class="image-gallery">
+										<figure>
+											<a href="images/startup_table1.png" data-lightbox="salary-prediction" data-title="Figure 1: startup">
+											<img src="images/startup_table1.png" alt="Figure 1: startup">
+											</a>
+											<figcaption><strong>Figure 1</strong> Model Evaluation</figcaption>
+										</figure>
+										</div>
 
 										<h4>🌟 <strong>Key Insights:</strong></h4>
 										<ul>
@@ -1193,6 +1205,7 @@
 										X = dataset.iloc[:, 1:-1].values
 										y = dataset.iloc[:, -1].values
 
+
 										# Training the Decision Tree Regression
 										from sklearn.tree import DecisionTreeRegressor
 										regressor = DecisionTreeRegressor(random_state = 0)
@@ -1213,10 +1226,12 @@
 										plt.ylabel('Salary')
 										plt.show()
 
-										# Evaluating the Model Performance
+										
+										# Evaluating the Model Performance 
 										from sklearn.metrics import r2_score
-										r2_score(y_test, y_pred)
-
+										# Since the model was trained on the whole dataset, we    evaluate on the whole dataset
+										y_pred = regressor.predict(X)
+										r2_score(y, y_pred)
 
 										</code></pre>
 
@@ -1228,35 +1243,67 @@
 											<a href="images/HR_linReg.png" data-lightbox="salary-prediction" data-title="Figure 1: HR_linReg">
 											<img src="images/HR_linReg.png" alt="Figure 1: HR_linReg">
 											</a>
-											<figcaption><strong>Figure 1</strong></figcaption>
+											<figcaption><strong>Figure 1</strong> Linear Regression</figcaption>
+										</figure>
+
+										<figure>
+											<a href="images/HReval_linReg.png" data-lightbox="salary-prediction" data-title="Figure 2: HReval_linReg">
+											<img src="images/HReval_linReg.png" alt="Figure 2: HReval_linReg">
+											</a>
+											<figcaption><strong></strong> Model Evaluation - Linear Regression</figcaption>
 										</figure>
 
 										<figure>
 											<a href="images/HR_polyReg.png" data-lightbox="salary-prediction" data-title="Figure 2: HR_polyReg">
 											<img src="images/HR_polyReg.png" alt="Figure 2: HR_polyReg">
 											</a>
-											<figcaption><strong>Figure 2</strong></figcaption>
+											<figcaption><strong>Figure 2</strong> Polynomial Regression</figcaption>
 										</figure>
 
+										<figure>
+											<a href="images/HReval_polyReg.png" data-lightbox="salary-prediction" data-title="Figure 2: HReval_polyReg.png">
+											<img src="images/HReval_polyReg.png" alt="Figure 2: HReval_polyReg.png">
+											</a>
+											<figcaption><strong></strong>Model Evaluation - Polynomial Regression</figcaption>
+										</figure>
 										<figure>
 											<a href="images/HR_svr.png" data-lightbox="salary-prediction" data-title="Figure 3: HR_svr">
 											<img src="images/HR_svr.png" alt="Figure 3: HR_svr">
 											</a>
-											<figcaption><strong>Figure 3</strong></figcaption>
+											<figcaption><strong>Figure 3</strong> SVR</figcaption>
+										</figure>
+										<figure>
+											<a href="images/HReval_svr.png" data-lightbox="salary-prediction" data-title="Figure 3: HReval_svr">
+											<img src="images/HReval_svr.png" alt="Figure 3: HReval_svr">
+											</a>
+											<figcaption><strong></strong> Model Evaluation - SVR</figcaption>
 										</figure>
 
 										<figure>
 											<a href="images/HR_Randfor.png" data-lightbox="salary-prediction" data-title="Figure 4: HR_Randfor">
 											<img src="images/HR_Randfor.png" alt="Figure 4: HR_Randfor">
 											</a>
-											<figcaption><strong>Figure 4</strong></figcaption>
+											<figcaption><strong>Figure 4</strong> Random Forest</figcaption>
+										</figure>
+
+										<figure>
+											<a href="images/HReval_Randfor.png" data-lightbox="salary-prediction" data-title="Figure 4: HReval_Randfor">
+											<img src="images/HReval_Randfor.png" alt="Figure 4: HReval_Randfor">
+											</a>
+											<figcaption><strong></strong> Model Evaluation - Random Forest</figcaption>
 										</figure>
 										
 										<figure>
 											<a href="images/HR_DecT.png" data-lightbox="salary-prediction" data-title="Figure 5: HR_DecT">
 											<img src="images/HR_DecT.png" alt="Figure 5: HR_DecT">
 											</a>
-											<figcaption><strong>Figure 5</strong></figcaption>
+											<figcaption><strong>Figure 5</strong> Decision Tree</figcaption>
+										</figure>
+										<figure>
+											<a href="images/HReval_DecT.png" data-lightbox="salary-prediction" data-title="Figure 5: HReval_DecT">
+											<img src="images/HReval_DecT.png" alt="Figure 5: HReval_DecT">
+											</a>
+											<figcaption><strong></strong> Model Evaluation - Decision Tree</figcaption>
 										</figure>
 										
 										</div>
@@ -1264,6 +1311,7 @@
 
 										<h4>🌟 <strong>Key Insights:</strong></h4>
 										<ul>
+										<strong>N.B:</strong> <em>Due to small dataset there is no train-test split to avoid model overfitting</em>
 											<li>Linear regression showed limitations in capturing the exponential nature of executive compensation at higher position levels</li>
 											<li>Polynomial regression successfully modeled smooth non-linear salary curves typical in corporate hierarchies</li>
 											<li>SVR with proper scaling handled the high salary variance effectively while maintaining smooth predictions</li>
@@ -1280,36 +1328,31 @@
 									</section>
 
 									<section class="project-item" data-tags="Python,Machine Learning">
-										<h3>📽️ <strong> Salary Network: Model Comparison </strong></h3>
+										<h3>📽️ <strong> Customer Purchase Prediction – Model Comparison & Optimization </strong></h3>
 										<p>
-											This project implemented and compared five different regression algorithms to predict employee salaries based on position levels within an organization. I built a comprehensive machine learning pipeline comparing linear regression, polynomial regression, support vector regression (SVR), decision tree regression, and random forest regression to identify the optimal model for HR compensation analysis.
+											This project involved comparing multiple classification algorithms to predict whether users would purchase a product based on their age and estimated salary from social network advertisement data. I tested various models including Logistic Regression, SVM, Kernel SVM, Naive Bayes, K-NN, Random Forest, and Decision Tree. The Decision Tree classifier yielded the best results, which is why I've included its implementation in my portfolio.
 										</p>
 
 										<h4>💻 <strong>Tech Stack:</strong></h4>
 										<ul>
 											<li><strong>Python</strong> for machine learning model development and comparison</li>
-											<li><strong>Scikit-learn</strong> for multiple regression algorithms, feature scaling, and model training</li>
+											<li><strong>Scikit-learn</strong> for machine learning model implementation and evaluation</li>
 											<li><strong>Pandas</strong> for dataset loading and initial data exploration</li>
-											<li><strong>Matplotlib</strong> for data visualisations</li>
+											<li><strong>Matplotlib</strong> for creating decision boundary visualizations and scatter plots</li>
 											<li><strong>NumPy</strong> for numerical operations and grid generation</li>
 										</ul>
 
 										<h4>🧪 <strong>Data Pipeline:</strong></h4>
 										<ul>
-											<li><strong>Data Preparation:</strong> Loaded position-salary dataset using <code>pd.read_csv()</code> and extracted features using <code>iloc[:, 1:-1]</code> (position levels) and target variable using <code>iloc[:, -1]</code>  (salaries), strategically excluding the first column containing position titles. </li>
-											<li><strong>Linear regression baseline:</strong> Implemented a standard<code>LinearRegression()</code>  model using <code>.fit(X, y)</code> to establish a baseline for salary prediction based on position level with a straight-line relationship. </li>
-											<li><strong>Polynomial feature engineering: </strong> Applied <code>PolynomialFeatures(degree=4)</code>  to transform the single position level feature into polynomial terms (x, x², x³, x⁴), creating a richer feature space to capture non-linear salary progression patterns.</li>
-											<li><strong>Support Vector Regression: </strong> Implemented feature scaling using <code>StandardScaler()</code>for both X and y variables, then trained an SVR model with <code>RBF kernel</code> to handle non-linear relationships while managing the different scales between position levels and salary amounts.</li>
-											<li><strong>Decision Tree : </strong> Built a <code>DecisionTreeRegressor()</code> model that creates hierarchical decision rules to predict salaries, capturing complex non-linear patterns without requiring feature scaling.</li>
-											<li><strong>Random Forest Regression: </strong> Implemented <code>RandomForestRegressor()</code> with multiple decision trees to reduce overfitting and improve prediction stability through ensemble learning.</li>
-											<li><strong>Polynomial feature engineering: </strong> Applied <code>PolynomialFeatures(degree=4)</code>  to transform the single position level feature into polynomial terms (x, x², x³, x⁴), creating a richer feature space to capture non-linear salary progression patterns.</li>
-											<li><strong>Random Forest Regression: </strong> Implemented <code>RandomForestRegressor()</code> with multiple decision trees to reduce overfitting and improve prediction stability through ensemble learning.</li>
-											<li><strong>SVR Inverse scaling: </strong> Applied <code>sc_X.inverse_transform()</code> and <code>sc_y.inverse_transform()</code> to convert scaled predictions back to original salary units, with proper reshaping using <code>.reshape(-1, 1)</code> for visualization.</li>
-										
-											<li><strong>Model Visualisations:</strong> Created scatter plots with <code>plt.scatter()</code> for actual data points and <code>plt.plot()</code> for the linear regression line, showing the limitation of straight-line salary prediction. Generated similar visualizations for the polynomial model using <code>lin_reg_2.predict(poly_reg.fit_transform(X))</code> to display the curved relationship between position levels and salaries.</li>
-											<li><strong>Model comparison:</strong> Made direct salary predictions for position level 6.5 using both <code>lin_reg.predict([[6.5]])</code> and <code>lin_reg_2.predict(poly_reg.fit_transform([[6.5]]))</code> to compare model outputs for intermediate position levels.</li>
+											<li><strong>Model Comparison & selection:</strong> Tested multiple classification algorithms (Logistic Regression, SVM, Kernel SVM, Naive Bayes, K-NN, Random Forest, and Decision Tree) to identify the best-performing model for this dataset. </li>
+											<li><strong>Data Import & Preparation:</strong> Loaded the Social Network Ads dataset using pandas and separated features (age, salary) from the target variable (purchase decision). </li>
+											<li><strong>Data Splitting: </strong> Used <code>train_test_split()</code> to divide the dataset into 75% training and 25% testing sets with a fixed random state for reproducibility.</li>
+											<li><strong>Feature scaling: </strong> Applied <code>StandardScaler</code> to normalize both age and salary features, ensuring equal contribution to the model since salary values are much larger than age values.</li>
+											<li><strong>Model Training: </strong> Implemented and trained seven different classifiers on the scaled training data: <code>LogisticRegression</code>, <code>SVC (linear and RBF kernel)</code>, <code>GaussianNB</code>, <code>KNeighborsClassifier</code>, <code>RandomForestClassifier</code>, and <code>DecisionTreeClassifier</code> with entropy criterion.</li>
+											<li><strong>Model Evaluation: </strong> Generated predictions on the test set and created a confusion matrix to assess classification performance and calculate accuracy score..</li>
+											<li><strong>Decision Boundary Visualization feature engineering: </strong> Created contour plots showing decision boundaries for both training and test sets, with red and green regions representing different classification zones.</li>
+											
 										</ul>
-
 										<h4>📊 <strong>Code Snippets & Visualisations:</strong></h4>
 
 										<!-- Code Snippet -->
@@ -1495,17 +1538,16 @@
 
 										<h4>🌟 <strong>Key Insights:</strong></h4>
 										<ul>
-											<li>Linear regression showed limitations in capturing the exponential nature of executive compensation at higher position levels</li>
-											<li>Polynomial regression successfully modeled smooth non-linear salary curves typical in corporate hierarchies</li>
-											<li>SVR with proper scaling handled the high salary variance effectively while maintaining smooth predictions</li>
-											<li>Decision tree regression captured salary jumps at specific position levels but risked overfitting</li>
-											<li>Random forest regression provided stable predictions by averaging multiple decision trees, reducing variance</li>
+											<li>Decision Tree outperformed six other classification models including Logistic Regression, SVM variants, Naive Bayes, K-NN, and Random Forest, demonstrating superior accuracy for this specific age-salary prediction task</li>
+											<li>Feature scaling significantly improved model performance across all algorithms by preventing salary values from dominating the decision-making process due to their larger magnitude compared to age values</li>
+											<li>Visual analysis revealed clear classification patterns where younger, lower-salary individuals and older, higher-salary individuals showed different purchasing behaviors, with the winning Decision Tree model capturing these complex relationships most effectively</li>
+										
 										</ul>
 
 										<h4>🧗🏾 <strong>Challenge Faced:</strong></h4>
 										<p>
 											
-											The SVR model visualization presented scaling complications because support vector regression requires feature scaling for optimal performance, but the visualization needed to display results in original salary units. The challenge was handling the forward and inverse transformations correctly. This was resolved by implementing a multi-step process: using  <code>sc_X.transform(X_grid)</code> to scale the grid for SVR prediction, then applying <code>sc_y.inverse_transform()</code>  to convert predictions back to actual salary values, with careful attention to array reshaping using <code>.reshape(-1, 1)</code> to maintain proper dimensionality throughout the scaling pipeline. This approach ensured accurate model performance while maintaining interpretable visualizations in original salary units.
+											At first, the visualisations were hard to understand because the data had been scaled. The age and salary values didn’t look realistic in the plots. I solved this by converting the data back to its original scale before plotting. This made the decision areas easier to read and relate to real-life values.
 										</p>
 										<p><a href="https://github.com/tendai-codes/your-project" class="github-button" target="_blank">View on GitHub</a></p>
 									</section>
@@ -1652,26 +1694,26 @@
 									<section class="project-item" data-tags="Python,Machine Learning">
 										<h3>📽️ <strong> Bank Customer Segmentation </strong></h3>
 										<p>
-											Analyzed bank customer data to segment customers using K-Means Clustering, with dimensionality reduction achieved through PCA. This approach resulted in 7 well-defined customer segments based on key financial behaviors, optimizing the bank's ability to tailor products and services.
+											Analyzed bank customer data to segment customers using K-Means Clustering, with dimensionality reduction achieved through PCA. This approach resulted in 7 well-defined customer segments based on key financial behaviors, optimizing the bank's ability to market tailored products and services to their customers.
 										</p>
 
 										<h4>💻 <strong>Tech Stack:</strong></h4>
 										<ul>
 											<li><strong>Python</strong> for machine learning model development and comparison</li>
-											<li><strong>Scikit-learn</strong> for multiple classification algorithms, preprocessing, and evaluation metrics</li>
-											<li><strong>Pandas</strong> for dataset loading and initial data exploration</li>
-											<li><strong>Seaborn</strong> for enhanced statistical plotting capabilities</li>
-											<li><strong>Matplotlib</strong> for data visualisationsand model performance analysis</li>
-											<li><strong>NumPy</strong> for numerical operations and grid generation</li>
+											<li><strong>Scikit-learn</strong> for Clustering (KMeans) and PCA</li>
+											<li><strong>Pandas</strong> for data manipulation</li>
+											<li><strong>Seaborn</strong> for for data visualisation</li>
+											<li><strong>Matplotlib</strong> for data visualisation and model performance analysis</li>
+											
 										</ul>
 
 										<h4>🧪 <strong>Data Pipeline:</strong></h4>
 										<ul>
-											<li><strong>Load & inspect data:</strong> Imported multi-statement CSV into pandas. Extracted relevant sections for Balance Sheet, Income Statement, and Cash Flow Statement using <code>loc[]</code>. </li>
-											<li><strong>Trend Analysis:</strong> Transposed time-series data <code>(.T)</code> and plotted major components (e.g. assets, equity) using <code>.plot()</code> to visualise financial stability over time. </li>
-											<li><strong>Ratio Calculations:</strong> Computed solvency and profitability ratios: Return on Equity (ROE), Return on Assets (ROA), Debt-to-Equity. Built <code>DataFrame</code> to summarise and visualise using grouped bar plots.</li>
-											<li><strong>Custom Metrics:</strong> Created Operating Cash Flow to Total Debt ratio from cash flow and balance sheet sections to assess short-term liquidity strength.</li>
-											
+											<li><strong>Load & inspect data:</strong> Loaded the dataset using <code>pd.read_csv()</code>, checked for nulls and reviewed data types using <code>.info()</code> and <code>.describe()</code>. </li>
+											<li><strong>Exploratory Analysis:</strong> Removed customer ID column. Handled missing values, especially in <code>MINIMUM_PAYMENTS</code> and <code>CREDIT_LIMIT</code>. Used pair plots and distribution plots to understand feature distributions and detect outliers. </li>
+											<li><strong>Feature selection & scaling:</strong> Selected numerical columns (like Age, Income, Spending Score) and scaled them using <code>StandardScaler</code> for optimal clustering.</li>
+											<li><strong>Clustering wiht KMeans:</strong> Applied the Elbow Method to determine the optimal number of clusters and used <code>KMeans</code> to group customers.</li>
+											<li><strong>Visualisation:</strong> Plotted clusters using PCA components. Created scatter plots with cluster labels to visualise customer groupings based on income and spending behaviour.</li>
 										</ul>
 
 										<h4>📊 <strong>Code Snippets & Visualisations:</strong></h4>
@@ -1859,15 +1901,14 @@
 
 										<h4>🌟 <strong>Key Insights:</strong></h4> #fill
 										<ul>
-											<li>Multiple algorithms provided different approaches to cancer classification, each with unique strengths for medical diagnosis</li>
-											<li>Feature standardization proved crucial for distance-based algorithms (SVM, KNN) due to varying scales of cellular measurements</li>
-											<li>Confusion matrix analysis revealed the trade-offs between sensitivity (detecting cancer) and specificity (avoiding false alarms)</li>
-											<li>Model comparison enabled selection of the most reliable algorithm for medical diagnostic support</li>
+											<li>High income earners tend to be low spenders and Low income earners tend to be high spenders</li>
+											<li>Customer spending behaviour is strongly differentiated by frequency of purchases and reliance on cash advances. Some customer groups showed heavy instalment purchases but minimal one-off spending, revealing clear segmentation potential for tailored credit card offers.</li>
+										
 										</ul>
 
 										<h4>🧗🏾 <strong>Challenge Faced:</strong></h4> #fill
 										<p>
-											Initially, aligning the financial statements by year was inconsistent due to mixed string/index formats across categories. I overcame this by explicitly extracting year-based columns and standardising label references. This made ratio computations and cross-statement comparisons reliable and reproducible.
+											Initial visualisations of K-Means clusters were ambiguous due to the high dimensionality of features. Reducing dimensions with PCA made it easier to see meaningful separation, but it required balancing between retaining variance and simplifying complexity. I resolved this by examining explained variance ratios and adjusting the number of components accordingly.
 										</p>
 										<p><a href="https://github.com/tendai-codes/your-project" class="github-button" target="_blank">View on GitHub</a></p>
 									</section>
@@ -1875,28 +1916,28 @@
 									<section class="project-item" data-tags="Python,Machine Learning,Tensorflow">
 										<h3>📽️ <strong>Stock Price Analsysis using Ridge Regression </strong></h3>
 										<p>
-											Built a ridge regression model to predict stock prices with high accuracy. Leveraged Pandas for data preprocessing, and TensorFlow for model development. Achieved an R-squared score of 98%, with a k-fold cross-validation score of 86%.
+											This project focused on predicting future stock prices using historical data and Ridge Regression, comparing its performance to other models. I used Python and integrated both traditional machine learning and visualisation libraries to explore the data and build predictive models. Achieved an R-squared score of 98%, with a k-fold cross-validation score of 86%.
 										</p>
 
 										<h4>💻 <strong>Tech Stack:</strong></h4>
 										<ul>
 											<li><strong>Python</strong> for machine learning model development and comparison</li>
-											<li><strong>Scikit-learn</strong> for multiple classification algorithms, preprocessing, and evaluation metrics</li>
+											<li><strong>Scikit-learn</strong> for rideg regression model and evaluation and evaluation metrics</li>
 											<li><strong>Pandas</strong> for dataset loading and initial data exploration</li>
 											<li><strong>Matplotlib</strong> for data visualisationsand model performance analysis</li>
 											<li><strong>NumPy</strong> for numerical operations and grid generation</li>
 											<li><strong>Matplotlib</strong> for static visualisations</li>
 											<li><strong>Plotly</strong> for interactive charts and dashboards</li>
-											<li><strong>NumPy & SciPy</strong> for statistical computations</li>
+											<li><strong>TensorFlow/Keras</strong> for for experimenting with neural models</li>
 										</ul>
 
 										<h4>🧪 <strong>Data Pipeline:</strong></h4>
 										<ul>
-											<li><strong>Load & inspect data:</strong> Imported multi-statement CSV into pandas. Extracted relevant sections for Balance Sheet, Income Statement, and Cash Flow Statement using <code>loc[]</code>. </li>
-											<li><strong>Trend Analysis:</strong> Transposed time-series data <code>(.T)</code> and plotted major components (e.g. assets, equity) using <code>.plot()</code> to visualise financial stability over time. </li>
-											<li><strong>Ratio Calculations:</strong> Computed solvency and profitability ratios: Return on Equity (ROE), Return on Assets (ROA), Debt-to-Equity. Built <code>DataFrame</code> to summarise and visualise using grouped bar plots.</li>
-											<li><strong>Custom Metrics:</strong> Created Operating Cash Flow to Total Debt ratio from cash flow and balance sheet sections to assess short-term liquidity strength.</li>
-											
+											<li><strong>Load & inspect data:</strong> Loaded historical stock price and volume data from CSV files. Visualised trends in stock prices and volumes using line and distribution plots. </li>
+											<li><strong>Preprocessing:</strong> Cleaned and aligned datasets by timestampse. Normalised features and created lag-based features for time series modelling.</li>
+											<li><strong>Model Development:</strong> Applied Ridge Regression to reduce overfitting from correlated features. Split dataset into training and testing sets using <code>train_test_split().</code></li>
+											<li><strong>Performance comparison:</strong> Evaluated models using <code>r2_score</code>.</li>
+											<li><strong>Visualisation:</strong> Plotted predicted vs actual stock prices to interpret model behaviour.</li>
 										</ul>
 
 										<h4>📊 <strong>Code Snippets & Visualisations:</strong></h4>
@@ -2145,15 +2186,13 @@
 
 										<h4>🌟 <strong>Key Insights:</strong></h4>
 										<ul>
-											<li>Multiple algorithms provided different approaches to cancer classification, each with unique strengths for medical diagnosis</li>
-											<li>Feature standardization proved crucial for distance-based algorithms (SVM, KNN) due to varying scales of cellular measurements</li>
-											<li>Confusion matrix analysis revealed the trade-offs between sensitivity (detecting cancer) and specificity (avoiding false alarms)</li>
-											<li>Model comparison enabled selection of the most reliable algorithm for medical diagnostic support</li>
+											<li>Ridge Regression outperformed Linear Regression in terms of stability and generalisation, especially when features had multicollinearity. The regularisation strength helped in handling noisy financial indicators. </li>
+											
 										</ul>
 
 										<h4>🧗🏾 <strong>Challenge Faced:</strong></h4>
 										<p>
-											Initially, aligning the financial statements by year was inconsistent due to mixed string/index formats across categories. I overcame this by explicitly extracting year-based columns and standardising label references. This made ratio computations and cross-statement comparisons reliable and reproducible.
+											Feature engineering for time series prediction was a significant challenge. Initially, using raw historical prices didn’t yield strong predictive accuracy. After adding lagged variables and scaling features, the model performance improved. It required careful experimentation to balance information richness and model simplicity.
 										</p>
 										<p><a href="https://github.com/tendai-codes/your-project" class="github-button" target="_blank">View on GitHub</a></p>
 									</section>
@@ -2161,25 +2200,25 @@
 									<section class="project-item" data-tags="Python,TensorFlow,Deep Learning">
 										<h3>📽️ <strong> Stock Price Analysis using Long Short Term Memory Neural Network </strong></h3>
 										<p>
-											Developed an LSTM neural network to predict stock price trends using a recurrent neural network structure. Preprocessed data using Pandas and constructed the model in TensorFlow. The model achieved an average validation loss of 0.000117 using k-fold cross-validation.
+											This project focused on predicting Tesla (TSLA) stock prices using deep learning techniques with LSTM neural networks. I built a time series forecasting model that uses historical closing prices and trading volumes to predict next-day stock prices, implementing robust validation through K-fold cross-validation.
 										</p>
 
 										<h4>💻 <strong>Tech Stack:</strong></h4>
 										<ul>
 											<li><strong>Python</strong> for machine learning model development and comparison</li>
-											<li><strong>Scikit-learn</strong> for multiple classification algorithms, preprocessing, and evaluation metrics</li>
+											<li><strong>Scikit-learn</strong> for data scaling, train-test splits, and cross-validations</li>
 											<li><strong>NumPy</strong> for numerical operations and grid generation</li>
 											<li><strong>Pandas</strong> for dataset loading and initial data exploration</li>
-											<li><strong>Matplotlib</strong> for data visualisationsand model performance analysis</li>
-											<li><strong>TensorFlow</strong> for LSTM modelling</li>
+											<li><strong>Matplotlib</strong> for data visualisations and model performance analysis</li>
+											<li><strong>TensorFlow/Keras</strong> for building and training LSTM neural networks</li>
 										</ul>
 
 										<h4>🧪 <strong>Data Pipeline:</strong></h4>
 										<ul>
-											<li><strong>Load & inspect data:</strong> Imported multi-statement CSV into pandas. Extracted relevant sections for Balance Sheet, Income Statement, and Cash Flow Statement using <code>loc[]</code>. </li>
-											<li><strong>Trend Analysis:</strong> Transposed time-series data <code>(.T)</code> and plotted major components (e.g. assets, equity) using <code>.plot()</code> to visualise financial stability over time. </li>
-											<li><strong>Ratio Calculations:</strong> Computed solvency and profitability ratios: Return on Equity (ROE), Return on Assets (ROA), Debt-to-Equity. Built <code>DataFrame</code> to summarise and visualise using grouped bar plots.</li>
-											<li><strong>Custom Metrics:</strong> Created Operating Cash Flow to Total Debt ratio from cash flow and balance sheet sections to assess short-term liquidity strength.</li>
+											<li><strong>Data Preparation:</strong> Combined separate stock price and volume datasets using custom <code>individual_stock()</code> function. Created target variable using <code>trading_window()</code> function with 1-day prediction horizon. Focused on Tesla (TSLA) stock as the primary case study.</li>
+											<li><strong>Feature Engineering & Preprocessing:</strong> Applied <code>MinMaxScaler</code> to normalize closing prices and volumes to (0,1) range. Converted 1D arrays to 3D format required for LSTM input (samples, timesteps, features). Split data with 75% for training and 25% for testing.</li>
+											<li><strong>Model Architecture:</strong> Built multi-layer LSTM model with three LSTM layers (150 units each). Implemented dropout layers (0.3 rate) between LSTM layers to prevent overfitting, used linear activation for final dense layer to output continuous price predictions and compiled with Adam optimizer and MSE loss function.</li>
+											<li><strong>Model Validation:</strong> Implemented 5-fold cross-validation to ensure model robustness, trained for 20 epochs with batch size of 32 and used 20% validation split during training for monitoring.</li>
 											
 										</ul>
 
@@ -2378,40 +2417,39 @@
 
 										<h4>🌟 <strong>Key Insights:</strong></h4>
 										<ul>
-											<li>Multiple algorithms provided different approaches to cancer classification, each with unique strengths for medical diagnosis</li>
-											<li>Feature standardization proved crucial for distance-based algorithms (SVM, KNN) due to varying scales of cellular measurements</li>
-											<li>Confusion matrix analysis revealed the trade-offs between sensitivity (detecting cancer) and specificity (avoiding false alarms)</li>
-											<li>Model comparison enabled selection of the most reliable algorithm for medical diagnostic support</li>
+											<li>The model demonstrated strong performance in predicting stock prices, with an average validation loss indicating effective learning.</li>
+											<li>Release day (or time) significantly influenced stock price trends, reflecting market behavior that could be strategic or influenced by external factors.</li>
+											<li>Using LSTM allowed the model to capture temporal dependencies effectively, which might not have been possible with simpler models like linear regression.</li>
+											<li>K-fold cross-validation revealed consistent model performance across different time periods, suggesting the LSTM approach generalizes well to unseen Tesla stock data.</li>
 										</ul>
 
 										<h4>🧗🏾 <strong>Challenge Faced:</strong></h4>
 										<p>
-											Initially, aligning the financial statements by year was inconsistent due to mixed string/index formats across categories. I overcame this by explicitly extracting year-based columns and standardising label references. This made ratio computations and cross-statement comparisons reliable and reproducible.
-										</p>
+											My biggest challenge was preparing the time series data in the correct 3D format for LSTM input. Initially, I struggled with reshaping arrays from 1D to the required (samples, timesteps, features) structure. After researching LSTM input requirements and experimenting with NumPy reshape operations, I learned to properly sequence the data with sliding windows and convert to the appropriate tensor dimensions for neural network training.
 										<p><a href="https://github.com/tendai-codes/your-project" class="github-button" target="_blank">View on GitHub</a></p>
 									</section>
 
 									<section class="project-item" data-tags="Python,Deep Learning,TensorFlow">
-										<h3>📽️ <strong>Building an ANN to predict Bank customer churn (Classification) </strong></h3>
+										<h3>📽️ <strong>Customer Churn Prediction with ANN (Classification) </strong></h3>
 										<p>
-											This project explored publicly available data on top-grossing US films to identify patterns across genres, studios, and release schedules. I used <strong>R</strong> and <strong>ggplot2</strong> for data exploration and visualisation.
+											This project developed a binary classification model to predict bank customer churn using an Artificial Neural Network (ANN). I built a deep learning solution to identify customers likely to leave the bank based on their demographic and account information, enabling proactive retention strategies.
 										</p>
 
 										<h4>💻 <strong>Tech Stack:</strong></h4>
 										<ul>
 											<li><strong>Python</strong> for machine learning model development and comparison</li>
-											<li><strong>Scikit-learn</strong> for multiple classification algorithms, preprocessing, and evaluation metrics</li>
+											<li><strong>Scikit-learn</strong> for preprocessing, encoding, scaling, and evaluation metrics</li>
 											<li><strong>Pandas</strong> for dataset loading and initial data exploration</li>
-											<li><strong>Matplotlib</strong> for data visualisationsand model performance analysis</li>
 											<li><strong>NumPy</strong> for numerical operations and grid generation</li>
+											<li><strong>TensorFlow/Keras</strong> for building and training the neural network</li>
 										</ul>
 
 										<h4>🧪 <strong>Data Pipeline:</strong></h4>
 										<ul>
-											<li><strong>Load & inspect data:</strong> Imported multi-statement CSV into pandas. Extracted relevant sections for Balance Sheet, Income Statement, and Cash Flow Statement using <code>loc[]</code>. </li>
-											<li><strong>Trend Analysis:</strong> Transposed time-series data <code>(.T)</code> and plotted major components (e.g. assets, equity) using <code>.plot()</code> to visualise financial stability over time. </li>
-											<li><strong>Ratio Calculations:</strong> Computed solvency and profitability ratios: Return on Equity (ROE), Return on Assets (ROA), Debt-to-Equity. Built <code>DataFrame</code> to summarise and visualise using grouped bar plots.</li>
-											<li><strong>Custom Metrics:</strong> Created Operating Cash Flow to Total Debt ratio from cash flow and balance sheet sections to assess short-term liquidity strength.</li>
+											<li><strong>Load & inspect data:</strong> Loaded customer banking dataset with demographic and account features, selected relevant features <code>(columns [:, 3:-1])</code> as input variables and extracted churn status as target binary variable<code>loc[]</code>. </li>
+											<li><strong>Data preprocessing Analysis:</strong> Applied <code>Label Encoding</code> to convert Gender column to numerical format, Implemented <code>One-Hot Encoding</code> for Geography column to handle multiple categories and used <code>ColumnTransformer</code> to apply different encodings to specific columns</li>
+											<li><strong>Model Architecture:</strong> Built <code>Sequential</code> ANN with three layers: two hidden layers (6 units each, <code>ReLU activation</code>) and output layer (1 unit, <code>sigmoid activation</code>), compiled with <code>Adam optimizer</code> and <code>binary crossentropy</code> loss for binary classification and trained for 100 epochs with batch size of 32</li>
+											<li><strong>Model Evaluation:</strong> Generated predictions on test set with 0.5 probability threshold, created confusion matrix to analyze true/false positives and negatives and calculated accuracy score for overall model performance assessment</li>
 											
 										</ul>
 
@@ -2542,21 +2580,21 @@
 
 										<h4>🌟 <strong>Key Insights:</strong></h4>
 										<ul>
-											<li>Multiple algorithms provided different approaches to cancer classification, each with unique strengths for medical diagnosis</li>
-											<li>Feature standardization proved crucial for distance-based algorithms (SVM, KNN) due to varying scales of cellular measurements</li>
+											<li>Neural networks effectively capture non-linear relationships between customer demographics and churn behavior, outperforming traditional linear models for this complex classification task</li>
+											<li>Feature engineering with proper encoding techniques significantly improved model performance, particularly the one-hot encoding of geography which revealed location-based churn patterns</li>
 											<li>Confusion matrix analysis revealed the trade-offs between sensitivity (detecting cancer) and specificity (avoiding false alarms)</li>
-											<li>Model comparison enabled selection of the most reliable algorithm for medical diagnostic support</li>
+											<li>Standardization was crucial for ANN convergence, as the varied scales of financial features (account balance, salary) required normalization to prevent training instability</li>
 										</ul>
 
 										<h4>🧗🏾 <strong>Challenge Faced:</strong></h4>
 										<p>
-											Initially, aligning the financial statements by year was inconsistent due to mixed string/index formats across categories. I overcame this by explicitly extracting year-based columns and standardising label references. This made ratio computations and cross-statement comparisons reliable and reproducible.
+											The main challenge was handling mixed categorical and numerical data types efficiently. Initially, I struggled with applying different encoding methods to different columns simultaneously. After experimenting with various approaches, I discovered ColumnTransformer, which allowed me to apply One-Hot Encoding to geography while preserving other numerical features, streamlining the preprocessing pipeline significantly.
 										</p>
 										<p><a href="https://github.com/tendai-codes/your-project" class="github-button" target="_blank">View on GitHub</a></p>
 									</section>
 
 									<section class="project-item" data-tags="Python,Deep Learning,TensorFlow">
-										<h3>📽️ <strong>Building an ANN to predict... (Regression) </strong></h3>
+										<h3>📽️ <strong>Power Plant Energy Output Prediction with ANN (Regression) </strong></h3>
 										<p>
 											This project explored publicly available data on top-grossing US films to identify patterns across genres, studios, and release schedules. I used <strong>R</strong> and <strong>ggplot2</strong> for data exploration and visualisation.
 										</p>
@@ -2564,19 +2602,19 @@
 										<h4>💻 <strong>Tech Stack:</strong></h4>
 										<ul>
 											<li><strong>Python</strong> for machine learning model development and comparison</li>
-											<li><strong>Scikit-learn</strong> for multiple classification algorithms, preprocessing, and evaluation metrics</li>
+											<li><strong>Scikit-learn</strong> for preprocessing, encoding, scaling, and evaluation metrics</li>
 											<li><strong>Pandas</strong> for dataset loading and initial data exploration</li>
-											<li><strong>Matplotlib</strong> for data visualisationsand model performance analysis</li>
 											<li><strong>NumPy</strong> for numerical operations and grid generation</li>
+											<li><strong>TensorFlow/Keras</strong> for building and training the neural network</li>
+
 										</ul>
 
 										<h4>🧪 <strong>Data Pipeline:</strong></h4>
 										<ul>
-											<li><strong>Load & inspect data:</strong> Imported multi-statement CSV into pandas. Extracted relevant sections for Balance Sheet, Income Statement, and Cash Flow Statement using <code>loc[]</code>. </li>
-											<li><strong>Trend Analysis:</strong> Transposed time-series data <code>(.T)</code> and plotted major components (e.g. assets, equity) using <code>.plot()</code> to visualise financial stability over time. </li>
-											<li><strong>Ratio Calculations:</strong> Computed solvency and profitability ratios: Return on Equity (ROE), Return on Assets (ROA), Debt-to-Equity. Built <code>DataFrame</code> to summarise and visualise using grouped bar plots.</li>
-											<li><strong>Custom Metrics:</strong> Created Operating Cash Flow to Total Debt ratio from cash flow and balance sheet sections to assess short-term liquidity strength.</li>
-											
+											<li><strong>Load & inspect data:</strong> Loaded Combined Cycle Power Plant dataset from Excel file containing hourly average ambient variables: <code>Ambient Temperature</code><strong>(AT)</strong>, <code>Ambient Pressure</code> <strong>(AP)</strong>, <code>Relative Humidity</code> <strong>(RH)</strong>, <code>Exhaust Vacuum</code> <strong>(V)</strong>, and <code>net hourly electrical energy output</code> <strong>(PE)</strong>. Extracted four environmental features as input variables: <strong>AT (°C)</strong>, <strong>V (cm Hg)</strong>, <strong>AP (mbar)</strong>, and <strong>RH (%)</strong>. Used <strong>PE (MW)</strong> as continuous target variable representing net hourly electrical energy output for regression </li>
+											<li><strong>Data Preparation:</strong> Split dataset into 80% training and 20% testing sets with random_state=0 for reproducibility, no feature scaling applied, relying on neural network's ability to learn appropriate feature weights and maintained original feature scales since all variables were in compatible ranges </li>
+											<li><strong>Model Architecture:</strong> Built <code>Sequential</code> ANN with 4 layers: 3 hidden layers (6 units each, <code>ReLU activation</code>) and linear output layer (1 unit, <code>no activation</code>), compiled with <code>Adam optimizer</code> and <code>Mean Squared Error</code> loss for regression optimization</li>
+											<li><strong>Model training & Evaluation:</strong> Trained for 100 epochs with batch size of 32 for stable gradient updates, generated predictions on test set without threshold conversion, and compared predicted vs actual energy outputs with 2-decimal precision formatting</li>
 										</ul>
 
 										<h4>📊 <strong>Code Snippets & Visualisations:</strong></h4>
@@ -2656,40 +2694,38 @@
 
 										<h4>🌟 <strong>Key Insights:</strong></h4>
 										<ul>
-											<li>Multiple algorithms provided different approaches to cancer classification, each with unique strengths for medical diagnosis</li>
-											<li>Feature standardization proved crucial for distance-based algorithms (SVM, KNN) due to varying scales of cellular measurements</li>
-											<li>Confusion matrix analysis revealed the trade-offs between sensitivity (detecting cancer) and specificity (avoiding false alarms)</li>
-											<li>Model comparison enabled selection of the most reliable algorithm for medical diagnostic support</li>
+											<li>Deep neural networks excel at modeling complex thermodynamic relationships in combined cycle power plants, capturing non-linear interactions between ambient conditions (temperature, pressure, humidity, vacuum) and energy output that traditional linear models miss</li>
+											<li>Regression ANN architecture with multiple hidden layers effectively learned the intricate dependencies between environmental variables and gas/steam turbine efficiency in the combined cycle system</li>
+											<li>Mean Squared Error optimization provided robust training for continuous energy prediction, enabling accurate forecasting of net hourly electrical output (PE) across different seasonal and operational conditions</li>
 										</ul>
 
 										<h4>🧗🏾 <strong>Challenge Faced:</strong></h4>
 										<p>
-											Initially, aligning the financial statements by year was inconsistent due to mixed string/index formats across categories. I overcame this by explicitly extracting year-based columns and standardising label references. This made ratio computations and cross-statement comparisons reliable and reproducible.
-										</p>
+											My primary challenge was determining the optimal network depth for regression without overfitting. Initially, I experimented with different numbers of hidden layers and found that too few layers couldn't capture the complex thermodynamic relationships, while too many layers led to overfitting. After testing various architectures, I settled on three hidden layers as the sweet spot that balanced model complexity with generalization performance.
 										<p><a href="https://github.com/tendai-codes/your-project" class="github-button" target="_blank">View on GitHub</a></p>
 									</section>
 
 									<section class="project-item" data-tags="Python,Deep Learning,TensorFlow">
-										<h3>📽️ <strong>Natural Language Processing Model to understand resturant reviews </strong></h3>
+										<h3>📽️ <strong>Restaurant Review Sentiment Analysis with NLP </strong></h3>
 										<p>
-											This project explored publicly available data on top-grossing US films to identify patterns across genres, studios, and release schedules. I used <strong>R</strong> and <strong>ggplot2</strong> for data exploration and visualisation.
+											In this project developed a natural language processing model to classify restaurant reviews as positive or negative sentiment using text preprocessing and machine learning. I built an end-to-end NLP pipeline that transforms raw review text into numerical features for binary sentiment classification using Naive Bayes algorithm.
 										</p>
 
 										<h4>💻 <strong>Tech Stack:</strong></h4>
 										<ul>
 											<li><strong>Python</strong> for machine learning model development and comparison</li>
-											<li><strong>Scikit-learn</strong> for multiple classification algorithms, preprocessing, and evaluation metrics</li>
+											<li><strong>Scikit-learn</strong> for feature extraction <code>(CountVectorizer)</code>, model training (GaussianNB), and evaluation metrics</li>
 											<li><strong>Pandas</strong> for dataset loading and initial data exploration</li>
-											<li><strong>Matplotlib</strong> for data visualisationsand model performance analysis</li>
 											<li><strong>NumPy</strong> for numerical operations and grid generation</li>
+											<li><strong>Regular Expressions (re)</strong> for text cleaning and preprocessing</li>
+											<li><strong>NLTK</strong> for natural language processing, stopwords, and text stemming</li>
 										</ul>
 
 										<h4>🧪 <strong>Data Pipeline:</strong></h4>
 										<ul>
-											<li><strong>Load & inspect data:</strong> Imported multi-statement CSV into pandas. Extracted relevant sections for Balance Sheet, Income Statement, and Cash Flow Statement using <code>loc[]</code>. </li>
-											<li><strong>Trend Analysis:</strong> Transposed time-series data <code>(.T)</code> and plotted major components (e.g. assets, equity) using <code>.plot()</code> to visualise financial stability over time. </li>
-											<li><strong>Ratio Calculations:</strong> Computed solvency and profitability ratios: Return on Equity (ROE), Return on Assets (ROA), Debt-to-Equity. Built <code>DataFrame</code> to summarise and visualise using grouped bar plots.</li>
-											<li><strong>Custom Metrics:</strong> Created Operating Cash Flow to Total Debt ratio from cash flow and balance sheet sections to assess short-term liquidity strength.</li>
+											<li><strong>Text Preprocessing & Cleaning:</strong> Applied comprehensive text cleaning on 1000 restaurant reviews using regex to remove non-alphabetic characters, converted all text to lowercase for consistency and split into individual words, implemented Porter Stemming to reduce words to their root forms (e.g., "running" → "run"), and removed English stopwords while preserving "not" to maintain negation context for sentiment analysis </li>
+											<li><strong>Feature Engineering:</strong> Created Bag of Words model using CountVectorizer with maximum 1500 features to convert text to numerical representation, generated sparse matrix where each column represents a unique word and values indicate word frequency and extracted sentiment labels (positive/negative) as target variable for binary classification </li>
+											<li><strong>Model training & Evaluation:</strong> Split dataset into 80% training and 20% testing sets with random_state=0, trained Gaussian Naive Bayes classifier on the bag-of-words features, generated predictions on test set and compared against actual sentiment labels and evaluated model performance using confusion matrix and accuracy score metrics</li>
 											
 										</ul>
 
@@ -2794,38 +2830,39 @@
 
 										<h4>🌟 <strong>Key Insights:</strong></h4>
 										<p>
-											The company showed stable asset growth and rising equity, but the Debt-to-Equity ratio increased post-2020, signalling higher leverage risk.
-											Operating cash flow was consistently positive, suggesting sufficient liquidity to meet short-term obligations — a green flag for operational health.
+											<li>Text preprocessing significantly impacts model performance, thus removing noise, stemming words, and strategic stopword removal (keeping "not") improved the classifier's ability to capture sentiment nuances</li>
+											<li>The Bag of Words representation effectively captured sentiment patterns despite its simplicity, with the 1500 most frequent words providing sufficient discriminative power for restaurant review classification</li>
+											<li>Mean Squared Error optimization provided robust training for continuous energy prediction, enabling accurate forecasting of net hourly electrical output (PE) across different seasonal and operational conditions</li>
 										</p>
 
 										<h4>🧗🏾 <strong>Challenge Faced:</strong></h4>
 										<p>
-											Initially, aligning the financial statements by year was inconsistent due to mixed string/index formats across categories. I overcame this by explicitly extracting year-based columns and standardising label references. This made ratio computations and cross-statement comparisons reliable and reproducible.
+											The main challenge was balancing feature dimensionality with model performance. Initially, I used all unique words which created an extremely sparse and high-dimensional feature space, leading to overfitting. After experimenting with different max_features values in CountVectorizer, I found that limiting to 1500 features provided the optimal trade-off between capturing important sentiment words and maintaining computational efficiency while avoiding the curse of dimensionality.
 										</p>
 										<p><a href="https://github.com/tendai-codes/your-project" class="github-button" target="_blank">View on GitHub</a></p>
 									</section>
 
 									<section class="project-item" data-tags="Python,Deep Learning,TensorFlow">
-										<h3>📽️ <strong>Building Convolutional Neural network to differentiate between dogs and cats (Classification) </strong></h3>
+										<h3>📽️ <strong>Cat vs Dog Image Classification with CNN </strong></h3>
 										<p>
-											This project explored publicly available data on top-grossing US films to identify patterns across genres, studios, and release schedules. I used <strong>R</strong> and <strong>ggplot2</strong> for data exploration and visualisation.
+											developed a Convolutional Neural Network to classify images of cats and dogs using deep learning computer vision techniques. I built an end-to-end image classification pipeline that processes raw images through data augmentation, feature extraction, and binary classification to distinguish between cats and dogs with high accuracy.
 										</p>
 
 										<h4>💻 <strong>Tech Stack:</strong></h4>
 										<ul>
-											<li><strong>Python</strong> for machine learning model development and comparison</li>
-											<li><strong>Scikit-learn</strong> for multiple classification algorithms, preprocessing, and evaluation metrics</li>
-											<li><strong>Pandas</strong> for dataset loading and initial data exploration</li>
-											<li><strong>Matplotlib</strong> for data visualisationsand model performance analysis</li>
-											<li><strong>NumPy</strong> for numerical operations and grid generation</li>
+											
+											<li><strong>ImageDataGenerator</strong> for real-time data augmentation and preprocessing</li>
+											<li><strong>NumPy</strong>  for array manipulation and image processing</li>
+											<li><strong>TensorFlow/Keras</strong> for building and training convolutional neural networks</li>
+											<li><strong>Keras Preprocessing</strong> for individual image prediction and testing</li>
 										</ul>
 
 										<h4>🧪 <strong>Data Pipeline:</strong></h4>
 										<ul>
-											<li><strong>Load & inspect data:</strong> Imported multi-statement CSV into pandas. Extracted relevant sections for Balance Sheet, Income Statement, and Cash Flow Statement using <code>loc[]</code>. </li>
-											<li><strong>Trend Analysis:</strong> Transposed time-series data <code>(.T)</code> and plotted major components (e.g. assets, equity) using <code>.plot()</code> to visualise financial stability over time. </li>
-											<li><strong>Ratio Calculations:</strong> Computed solvency and profitability ratios: Return on Equity (ROE), Return on Assets (ROA), Debt-to-Equity. Built <code>DataFrame</code> to summarise and visualise using grouped bar plots.</li>
-											<li><strong>Custom Metrics:</strong> Created Operating Cash Flow to Total Debt ratio from cash flow and balance sheet sections to assess short-term liquidity strength.</li>
+											<li><strong>Data Preprocessing & Augmentation</strong> Applied comprehensive data augmentation to training set: <code>rescaling</code> <strong>(1./255)</strong>, <code>shear transformation</code> <strong>(0.2)</strong>, <code>zoom</code> <strong>(0.2)</strong>, and horizontal flipping to increase dataset diversity, resized all images to <strong>64x64 pixels</strong> for consistent input dimensions, used <code>ImageDataGenerator</code> to load images directly from directory structure with binary class mode and applied only rescaling to test set to maintain evaluation integrity </li>
+											<li><strong>CNN Architechural Design:</strong> Built Sequential CNN with systematic layer progression: <strong>Convolution</strong> → <strong>Pooling</strong> → <strong>Convolution</strong> → <strong>Pooling</strong> → <strong>Flatten</strong> → <strong>Dense</strong> → <strong>Output</strong>, <strong>First convolutional layer:</strong> <code>32 filters</code> with <code>3x3 kernel</code> and <code>ReLU activation</code>, input shape <code>[64, 64, 3]</code>, Added <strong>MaxPool2D layers</strong> <code>(2x2, stride=2)</code> after each convolution for spatial dimension reduction, <strong>Flattened feature</strong> maps before dense layers and added <strong>fully connected layer</strong> <code>(128 units, ReLU)</code>, <strong>Output layer:</strong> Single neuron with <code>sigmoid activation</code> for binary classification </li>
+											<li><strong>Model Training & Evaluation:</strong> Compiled with <code>Adam optimizer</code>,  <code>binary crossentropy loss</code>, and accuracy metrics, trained for <strong>25 epochs</strong> using training set with validation on test set and implemented single image prediction pipeline with proper preprocessing and class mapping</li>
+											
 											
 										</ul>
 
@@ -2950,19 +2987,20 @@
 
 										<h4>🌟 <strong>Key Insights:</strong></h4>
 										<p>
-											The company showed stable asset growth and rising equity, but the Debt-to-Equity ratio increased post-2020, signalling higher leverage risk.
-											Operating cash flow was consistently positive, suggesting sufficient liquidity to meet short-term obligations — a green flag for operational health.
+											<li>Data augmentation significantly improved model generalization by artificially expanding the training dataset through transformations, helping the CNN learn invariant features regardless of image orientation or lighting conditions</li>
+											<li>Two-layer CNN architecture effectively captured hierarchical features from low-level edges and textures in early layers to high-level animal-specific patterns in deeper layers for robust classification</li>
+											<li>MaxPooling layers provided crucial dimensionality reduction while preserving important spatial features, enabling the model to focus on the most discriminative regions for cat vs dog classification</li>
 										</p>
 
 										<h4>🧗🏾 <strong>Challenge Faced:</strong></h4>
 										<p>
-											Initially, aligning the financial statements by year was inconsistent due to mixed string/index formats across categories. I overcame this by explicitly extracting year-based columns and standardising label references. This made ratio computations and cross-statement comparisons reliable and reproducible.
+											The primary challenge was balancing model complexity with training efficiency given the 64x64 input resolution. Initially, I experimented with deeper architectures but encountered overfitting and slow training times. After testing various configurations, I discovered that two convolutional layers provided sufficient feature extraction capability while maintaining reasonable training speed and preventing overfitting on the limited dataset size.
 										</p>
 										<p><a href="https://github.com/tendai-codes/your-project" class="github-button" target="_blank">View on GitHub</a></p>
 									</section>
 
 									<section class="project-item" data-tags="Python,Deep Learning">
-										<h3>📽️ <strong>Natural Language Processing Model to understand resturant reviews </strong></h3>
+										<h3>📽️ <strong>New project </strong></h3>
 										<p>
 											This project explored publicly available data on top-grossing US films to identify patterns across genres, studios, and release schedules. I used <strong>R</strong> and <strong>ggplot2</strong> for data exploration and visualisation.
 										</p>
@@ -2974,6 +3012,10 @@
 											<li><strong>Pandas</strong> for dataset loading and initial data exploration</li>
 											<li><strong>Matplotlib</strong> for data visualisationsand model performance analysis</li>
 											<li><strong>NumPy</strong> for numerical operations and grid generation</li>
+											<li><strong>ImageDataGenerator</strong> for real-time data augmentation and preprocessing</li>
+											<li><strong>NumPy</strong>  for array manipulation and image processing</li>
+											<li><strong>TensorFlow/Keras</strong> for building and training convolutional neural networks</li>
+											<li><strong>Keras Preprocessing</strong> for individual image prediction and testing</li>
 										</ul>
 
 										<h4>🧪 <strong>Data Pipeline:</strong></h4>
@@ -3092,8 +3134,9 @@
 
 										<h4>🌟 <strong>Key Insights:</strong></h4>
 										<p>
-											The company showed stable asset growth and rising equity, but the Debt-to-Equity ratio increased post-2020, signalling higher leverage risk.
-											Operating cash flow was consistently positive, suggesting sufficient liquidity to meet short-term obligations — a green flag for operational health.
+											<li>Data augmentation significantly improved model generalization by artificially expanding the training dataset through transformations, helping the CNN learn invariant features regardless of image orientation or lighting conditions</li>
+											<li>Two-layer CNN architecture effectively captured hierarchical features from low-level edges and textures in early layers to high-level animal-specific patterns in deeper layers for robust classification</li>
+											<li>MaxPooling layers provided crucial dimensionality reduction while preserving important spatial features, enabling the model to focus on the most discriminative regions for cat vs dog classification</li>
 										</p>
 
 										<h4>🧗🏾 <strong>Challenge Faced:</strong></h4>

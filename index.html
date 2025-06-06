@@ -21,6 +21,195 @@
 
 	
 		<style>
+			/* Gallery Modal Styles - Scoped to prevent conflicts */
+			.gallery-modal {
+				display: none;
+				position: fixed;
+				z-index: 9999;
+				left: 0;
+				top: 0;
+				width: 100%;
+				height: 100%;
+				background-color: rgba(0, 0, 0, 0.9);
+				backdrop-filter: blur(5px);
+			}
+
+			.gallery-modal .modal-content {
+				position: relative;
+				width: 100%;
+				height: 100%;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+
+			.gallery-modal .gallery-image {
+				max-width: 90%;
+				max-height: 90%;
+				object-fit: contain;
+				border-radius: 8px;
+				box-shadow: 0 4px 20px rgba(255, 255, 255, 0.1);
+			}
+
+			/* Navigation Buttons - Fixed Centering */
+			.gallery-modal .nav-btn {
+				position: absolute;
+				top: 50%;
+				transform: translateY(-50%);
+				background: rgba(255, 255, 255, 0.2);
+				border: none;
+				color: white;
+				font-size: 24px;
+				padding: 0;
+				cursor: pointer;
+				border-radius: 50%;
+				transition: all 0.3s ease;
+				backdrop-filter: blur(10px);
+				width: 60px;
+				height: 60px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				line-height: 1;
+			}
+
+			.gallery-modal .nav-btn:hover {
+				background: rgba(255, 255, 255, 0.3);
+				transform: translateY(-50%) scale(1.1);
+			}
+
+			.gallery-modal .prev-btn {
+				left: 30px;
+			}
+
+			.gallery-modal .next-btn {
+				right: 30px;
+			}
+
+			/* Close Button - Fixed Centering */
+			.gallery-modal .close-btn {
+				position: absolute;
+				top: 20px;
+				right: 30px;
+				background: rgba(255, 255, 255, 0.2);
+				border: none;
+				color: white;
+				font-size: 28px;
+				padding: 0;
+				cursor: pointer;
+				border-radius: 50%;
+				transition: all 0.3s ease;
+				backdrop-filter: blur(10px);
+				width: 50px;
+				height: 50px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				line-height: 1;
+			}
+
+			.gallery-modal .close-btn:hover {
+				background: rgba(255, 255, 255, 0.3);
+				transform: rotate(90deg);
+			}
+
+			/* Image Counter */
+			.gallery-modal .image-counter {
+				position: absolute;
+				bottom: 30px;
+				left: 50%;
+				transform: translateX(-50%);
+				color: white;
+				background: rgba(0, 0, 0, 0.6);
+				padding: 8px 16px;
+				border-radius: 20px;
+				font-size: 14px;
+				backdrop-filter: blur(10px);
+			}
+
+			/* Thumbnail strip at bottom */
+			.gallery-modal .thumbnail-strip {
+				position: absolute;
+				bottom: 80px;
+				left: 50%;
+				transform: translateX(-50%);
+				display: flex;
+				gap: 10px;
+				max-width: 80%;
+				overflow-x: auto;
+				padding: 10px;
+				background: rgba(0, 0, 0, 0.5);
+				border-radius: 10px;
+				backdrop-filter: blur(10px);
+			}
+
+			.gallery-modal .thumbnail {
+				width: 60px;
+				height: 60px;
+				object-fit: cover;
+				border-radius: 5px;
+				cursor: pointer;
+				opacity: 0.6;
+				transition: all 0.3s ease;
+				border: 2px solid transparent;
+			}
+
+			.gallery-modal .thumbnail:hover,
+			.gallery-modal .thumbnail.active {
+				opacity: 1;
+				border-color: white;
+				transform: scale(1.1);
+			}
+
+			/* Clickable images in your content - ONLY affects gallery trigger images */
+			img.gallery-trigger {
+				cursor: pointer;
+				transition: all 0.3s ease;
+				border-radius: 8px;
+			}
+
+			img.gallery-trigger:hover {
+				transform: scale(1.05);
+				box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+			}
+
+			/* Mobile responsiveness - Updated */
+			@media (max-width: 768px) {
+				.gallery-modal .nav-btn {
+					width: 50px;
+					height: 50px;
+					font-size: 20px;
+				}
+				
+				.gallery-modal .prev-btn {
+					left: 15px;
+				}
+				
+				.gallery-modal .next-btn {
+					right: 15px;
+				}
+				
+				.gallery-modal .close-btn {
+					top: 15px;
+					right: 15px;
+					width: 45px;
+					height: 45px;
+					font-size: 24px;
+				}
+				
+				.gallery-modal .thumbnail-strip {
+					bottom: 60px;
+					max-width: 90%;
+				}
+				
+				.gallery-modal .thumbnail {
+					width: 50px;
+					height: 50px;
+				}
+			
+        
+
+
 			/* Filter button styles */
 			#project-filters {
 				margin-bottom: 2rem;
@@ -184,34 +373,9 @@
 			white-space: pre-wrap;       /* Wrap code lines */
   			word-break: break-word;      /* Break long words if needed */
 			}
+		
 
-			/* lightbox image size 
-			lightbox-gallery  .lbGallery {
-			width: 60vw !important;
-			height: auto !important;
-			max-height: 70vh !important;
-			object-fit: contain !important;
-			} */
-
-			.lb-overlay {
-				position: fixed;
-				top: 50%;
-				left: 50%;
-				transform: translate(-50%, -50%);
-				width: 60%;
-				height: auto;
-				background-color: white;
-				border-radius: 10px;
-				box-shadow: 0 0 20px rgba(0,0,0,0.5);
-			}
-
-			lightbox-gallery .lbImage {
-			max-width: 60vh !important;
-			height: auto !important;
-			margin: 0 auto;
-			}
-
-			
+		}	
 
 		</style>	
 	
@@ -351,20 +515,26 @@
 										<!-- Visualisations -->
 
 										<div class="image-gallery">
-										<figure>
-											<a href="images/box_office.png" data-lightbox="box-analysis" data-title="Figure 1: No releases on Mondays">
-											<img src="images/box_office.png" alt="Figure 1: No releases on Mondays">
-											</a>
-											<figcaption><strong>Figure 1</strong> No releases on Mondays</figcaption>
-										</figure>
+											<figure>
+												<img src="images/box_office.png" 
+													alt="Figure 1: No releases on Mondays"
+													class="gallery-trigger"
+													data-gallery="box-analysis"
+													data-caption="Figure 1: No releases on Mondays">
+												<figcaption><strong>Figure 1</strong> No releases on Mondays</figcaption>
+											</figure>
 
-										<figure>
-											<a href="images/box_genre.png" data-lightbox="box-analysis" data-title="Figure 2: Domestic gross by genre">
-											<img src="images/box_genre.png" alt="Figure 2: Domestic gross by genre">
-											</a>
-											<figcaption><strong>Figure 2</strong> Domestic gross by genre</figcaption>
-										</figure>
+											<figure>
+												<img src="images/box_genre.png" 
+													alt="Figure 2: Domestic gross by genre"
+													class="gallery-trigger"
+													data-gallery="box-analysis"
+													data-caption="Figure 2: Domestic gross by genre">
+												<figcaption><strong>Figure 2</strong> Domestic gross by genre</figcaption>
+											</figure>
 										</div>
+
+										
 
 										<h4>🌟 <strong>Key Insights:</strong></h4>
 										<p>
@@ -477,20 +647,25 @@
 										<!-- Visualisations -->
 
 										<div class="image-gallery">
-										<figure>
-											<a href="images/Financial_statement_b.png" data-lightbox="finance-state" data-title="Figure 1: Profit After Tax">
-											<img src="images/Financial_statement_b.png" alt="Figure 1: Profit After Tax">
-											</a>
-											<figcaption><strong>Figure 1</strong> Profit After Tax</figcaption>
-										</figure>
+											<figure>
+												<img src="images/Financial_statement_b.png" 
+													alt="Figure 1: Profit After Tax"
+													class="gallery-trigger"
+													data-gallery="finance-state"
+													data-caption="Figure 1: Profit After Tax">
+												<figcaption><strong>Figure 1</strong> Profit After Tax</figcaption>
+											</figure>
 
-										<figure>
-											<a href="images/Financial_statement_O.png" data-lightbox="finance-state" data-title="Figure 2: Profit Margin">
-											<img src="images/Financial_statement_O.png" alt="Figure 2: Profit Margin">
-											</a>
-											<figcaption><strong>Figure 2</strong> Profit Margin</figcaption>
-										</figure>
+											<figure>
+												<img src="images/Financial_statement_O.png" 
+													alt="Figure 2: Profit Margin"
+													class="gallery-trigger"
+													data-gallery="finance-state"
+													data-caption="Figure 2: Profit Margin">
+												<figcaption><strong>Figure 2</strong> Profit Margin</figcaption>
+											</figure>
 										</div>
+
 
 										<h4>🌟 <strong>Key Insights:</strong></h4>
 										<p>
@@ -567,45 +742,66 @@
 										</code></pre>
 
 										<div class="image-gallery">
-										<figure>
-											<a href="images/world_dfmerge.png" data-lightbox="world-bank" data-title="Table 1: Merged DF">
-											<img src="images/world_dfmerge.png" alt="Table 1: Merged DF">
-											</a>
-											<figcaption><strong>Table 1</strong></figcaption>
-										</figure>
+											<figure>
+												<img 
+													src="images/world_dfmerge.png" 
+													alt="Table 1: Merged DF" 
+													class="gallery-trigger" 
+													data-gallery="world-bank" 
+													data-caption="Table 1: Merged DF">
+												<figcaption><strong>Table 1</strong> Merged DF</figcaption>
+												</figure>
 
-										<figure>
-											<a href="images/world_dfmerge2.png" data-lightbox="world-bank" data-title="Table 2: Merged DF 2">
-											<img src="images/world_dfmerge2.png" alt="Table 2: Merged DF 2">
-											</a>
-											<figcaption><strong>Table 2</strong></figcaption>
-										</figure>
+												<figure>
+												<img 
+													src="images/world_dfmerge2.png" 
+													alt="Table 2: Merged DF 2" 
+													class="gallery-trigger" 
+													data-gallery="world-bank" 
+													data-caption="Table 2: Merged DF 2">
+												<figcaption><strong>Table 2</strong> Merged DF 2</figcaption>
+												</figure>
 
-										<figure>
-											<a href="images/world_birthintIG.png" data-lightbox="world-bank" data-title="Figure 1: birthintIG">
-											<img src="images/world_birthintIG.png" alt="Figure 1: birthintIG">
-											</a>
-											<figcaption><strong>Figure 1</strong> BirthRate versus Internet Users categorised by Income Group</figcaption>
-										</figure>
+												<figure>
+												<img 
+													src="images/world_birthintIG.png" 
+													alt="Figure 1: BirthRate versus Internet Users categorised by Income Group" 
+													class="gallery-trigger" 
+													data-gallery="world-bank" 
+													data-caption="Figure 1: BirthRate versus Internet Users categorised by Income Group">
+												<figcaption><strong>Figure 1</strong> BirthRate versus Internet Users categorised by Income Group</figcaption>
+												</figure>
 
-										<figure>
-											<a href="images/world_birthintCR.png" data-lightbox="world-bank" data-title="Figure 2: birthintCR">
-											<img src="images/world_birthintCR.png" alt="Figure 2: birthintCR">
-											</a>
-											<figcaption><strong>Figure 2</strong> BirthRate versus Internet Users categorised by Country Region</figcaption>
-										</figure><figure>
-											<a href="images/world_life1960.png" data-lightbox="world-bank" data-title="Figure 3: world_life1960">
-											<img src="images/world_life1960.png" alt="Figure 3: world_life1960">
-											</a>
-											<figcaption><strong>Figure 3</strong> BirthRate versus LifeExpectancy in 1960</figcaption>
-										</figure>
+												<figure>
+												<img 
+													src="images/world_birthintCR.png" 
+													alt="Figure 2: BirthRate versus Internet Users categorised by Country Region" 
+													class="gallery-trigger" 
+													data-gallery="world-bank" 
+													data-caption="Figure 2: BirthRate versus Internet Users categorised by Country Region">
+												<figcaption><strong>Figure 2</strong> BirthRate versus Internet Users categorised by Country Region</figcaption>
+												</figure>
 
-										<figure>
-											<a href="images/world_life2013.png" data-lightbox="world-bank" data-title="Figure 4: Merged DF 2">
-											<img src="images/world_life2013.png" alt="Figure 4: world_life2013">
-											</a>
-											<figcaption><strong>Figure4</strong> BirthRate versus LifeExpectancy in 2013</figcaption>
-										</figure>
+												<figure>
+												<img 
+													src="images/world_life1960.png" 
+													alt="Figure 3: BirthRate versus LifeExpectancy in 1960" 
+													class="gallery-trigger" 
+													data-gallery="world-bank" 
+													data-caption="Figure 3: BirthRate versus LifeExpectancy in 1960">
+												<figcaption><strong>Figure 3</strong> BirthRate versus LifeExpectancy in 1960</figcaption>
+												</figure>
+
+												<figure>
+												<img 
+													src="images/world_life2013.png" 
+													alt="Figure 4: BirthRate versus LifeExpectancy in 2013" 
+													class="gallery-trigger" 
+													data-gallery="world-bank" 
+													data-caption="Figure 4: BirthRate versus LifeExpectancy in 2013">
+												<figcaption><strong>Figure 4</strong> BirthRate versus LifeExpectancy in 2013</figcaption>
+											</figure>
+
 										</div>
 
 										
@@ -733,64 +929,68 @@
 
 										<div class="image-gallery">
 										<figure>
-											<a href="images/stocks_1.png" data-lightbox="stock-data" data-title="Figure 1: stocks_1">
-											<img src="images/stocks_1.png" alt="Figure 1: stocks_1">
-											</a>
+											<img src="images/stocks_1.png"
+												alt="Figure 1: stocks_1"
+												class="gallery-trigger"
+												data-gallery="project1"
+												data-caption="Figure 1: stocks_1">
 											<figcaption><strong>Figure 1</strong></figcaption>
 										</figure>
 
 										<figure>
-											<a href="images/stocknormal1.png" data-lightbox="stock-data" data-title="Figure 2: stocknormal1">
-											<img src="images/stocknormal1.png" alt="Figure 2: stocknormal1">
-											</a>
+											<img src="images/stocknormal1.png"
+												alt="Figure 2: stocknormal1"
+												class="gallery-trigger"
+												data-gallery="project1"
+												data-caption="Figure 2: stocknormal1">
 											<figcaption><strong>Figure 2</strong></figcaption>
 										</figure>
 
 										<figure>
-											<a href="images/stocksdata.png" data-lightbox="stock-data" data-title="Figure 3: stocksdata">
-											<img src="images/stocksdata.png" alt="Figure 3: stocksdata">
-											</a>
+											<img src="images/stocksdata.png"
+												alt="Figure 3: stocksdata"
+												class="gallery-trigger"
+												data-gallery="project1"
+												data-caption="Figure 3: stocksdata">
 											<figcaption><strong>Figure 3</strong></figcaption>
 										</figure>
 
 										<figure>
-											<a href="images/stockdatan.png" data-lightbox="stock-data" data-title="Figure 4: stocks data normal">
-											<img src="images/stockdatan.png" alt="Figure 4: stocks data normal">
-											</a>
+											<img src="images/stockdatan.png"
+												alt="Figure 4: stocks data normal"
+												class="gallery-trigger"
+												data-gallery="project1"
+												data-caption="Figure 4: stocks data normal">
 											<figcaption><strong>Figure 4</strong></figcaption>
 										</figure>
-										
+
 										<figure>
-											<a href="images/stockdailyr.png" data-lightbox="stock-data" data-title="Figure 5: stockdailyr">
-											<img src="images/stockdailyr.png" alt="Figure 5: stockdailyr">
-											</a>
+											<img src="images/stockdailyr.png"
+												alt="Figure 5: stockdailyr"
+												class="gallery-trigger"
+												data-gallery="project1"
+												data-caption="Figure 5: stockdailyr">
 											<figcaption><strong>Figure 5</strong></figcaption>
 										</figure>
 
 										<figure>
-											<a href="images/stockdataheat.png" data-lightbox="stock-data" data-title="Figure 6: stockdataheat">
-											<img src="images/stockdataheat.png" alt="Figure 2: stockdataheat">
-											</a>
+											<img src="images/stockdataheat.png"
+												alt="Figure 6: stockdataheat"
+												class="gallery-trigger"
+												data-gallery="project1"
+												data-caption="Figure 6: stockdataheat">
 											<figcaption><strong>Figure 6</strong></figcaption>
 										</figure>
-										
+
 										<figure>
-											<a href="images/stockdatahist.png" data-lightbox="stock-data" data-title="Figure 7: stockdatahist">
-											<img src="images/stockdatahist.png" alt="Figure 2: stockdatahist">
-											</a>
+											<img src="images/stockdatahist.png"
+												alt="Figure 7: stockdatahist"
+												class="gallery-trigger"
+												data-gallery="project1"
+												data-caption="Figure 7: stockdatahist">
 											<figcaption><strong>Figure 7</strong></figcaption>
 										</figure>
-										</div>
-
-
-
-										<h4>🌟 <strong>Key Insights:</strong></h4>
-										<ul>
-											<li>Amazon (AMZN) showed the highest maximum price during the 2012-2020 period</li>
-											<li>The S&P 500 provided a solid benchmark for market performance comparison</li>
-											<li>Stock correlations revealed clusters of related companies that move together</li>
-											<li>Daily return distributions showed varying levels of volatility across different stocks</li>
-										</ul>
+									</div>
 
 
 										<h4>🧗🏾 <strong>Challenge Faced:</strong></h4>
@@ -913,14 +1113,17 @@
 										<!-- Visualisations -->
 
 										<div class="image-gallery">
-										
-										<figure>
-											<a href="images/portfoliodaily.png" data-lightbox="portfolio-assets" data-title="Figure 1: portfoliodaily">
-											<img src="images/portfoliodaily.png" alt="Figure 1: portfoliodaily">
-											</a>
-											<figcaption><strong>Figure 1</strong> Portfolio Daily Returns (%)</figcaption>
-										</figure>
+											<figure>
+												<img 
+												src="images/portfoliodaily.png" 
+												alt="Figure 1: Portfolio Daily Returns (%)" 
+												class="gallery-trigger" 
+												data-gallery="portfolio-assets" 
+												data-caption="Figure 1: Portfolio Daily Returns (%)">
+												<figcaption><strong>Figure 1</strong> Portfolio Daily Returns (%)</figcaption>
+											</figure>
 										</div>
+
 
 
 										<h4>🌟 <strong>Key Insights:</strong></h4>
@@ -1052,16 +1255,15 @@
 										<!-- Visualisations -->
 
 										<div class="image-gallery">
-										
-										<figure>
-											<a href="images/CAPM.png" data-lightbox="CAPM" data-title="Figure 1: Stock Daily Returns">
-											<img src="images/CAPM.png" alt="Figure 1: Stock Daily Returns">
-											</a>
-											<figcaption><strong>Figure 1</strong></figcaption>
-										</figure>
-										
+											<figure>
+												<img src="images/CAPM.png" 
+													alt="Figure 1: Stock Daily Returns"
+													class="gallery-trigger"
+													data-gallery="project1"
+													data-caption="Figure 1: Stock Daily Returns">
+												<figcaption><strong>Figure 1</strong></figcaption>
+											</figure>
 										</div>
-
 
 										<h4>🌟 <strong>Key Insights:</strong></h4>
 										<ul>
@@ -1137,13 +1339,16 @@
 										<!-- Visualisations -->
 
 										<div class="image-gallery">
-										<figure>
-											<a href="images/startup_table1.png" data-lightbox="salary-prediction" data-title="Figure 1: startup">
-											<img src="images/startup_table1.png" alt="Figure 1: startup">
-											</a>
-											<figcaption><strong>Figure 1</strong> Model Evaluation</figcaption>
-										</figure>
+											<figure>
+												<img src="images/startup_table1.png" 
+													alt="Figure 1: startup"
+													class="gallery-trigger"
+													data-gallery="project1"
+													data-caption="Figure 1: startup">
+												<figcaption><strong>Figure 1</strong> Model Evaluation</figcaption>
+											</figure>
 										</div>
+
 
 										<h4>🌟 <strong>Key Insights:</strong></h4>
 										<ul>
@@ -1239,73 +1444,95 @@
 										<!-- Visualisations -->
 
 										<div class="image-gallery">
-										<figure>
-											<a href="images/HR_linReg.png" data-lightbox="salary-prediction" data-title="Figure 1: HR_linReg">
-											<img src="images/HR_linReg.png" alt="Figure 1: HR_linReg">
-											</a>
-											<figcaption><strong>Figure 1</strong> Linear Regression</figcaption>
-										</figure>
+											<figure>
+												<img src="images/HR_linReg.png" 
+													alt="Linear Regression Model"
+													class="gallery-trigger" 
+													data-gallery="salary-prediction" 
+													data-caption="Figure 1: Linear Regression Model">
+												<figcaption><strong>Figure 1</strong> Linear Regression</figcaption>
+											</figure>
 
-										<figure>
-											<a href="images/HReval_linReg.png" data-lightbox="salary-prediction" data-title="Figure 2: HReval_linReg">
-											<img src="images/HReval_linReg.png" alt="Figure 2: HReval_linReg">
-											</a>
-											<figcaption><strong></strong> Model Evaluation - Linear Regression</figcaption>
-										</figure>
+											<figure>
+												<img src="images/HReval_linReg.png" 
+													alt="Linear Regression Evaluation"
+													class="gallery-trigger" 
+													data-gallery="salary-prediction" 
+													data-caption="Figure 1a: Linear Regression Model Evaluation">
+												<figcaption><strong>Figure 1a</strong> Model Evaluation – Linear Regression</figcaption>
+											</figure>
 
-										<figure>
-											<a href="images/HR_polyReg.png" data-lightbox="salary-prediction" data-title="Figure 2: HR_polyReg">
-											<img src="images/HR_polyReg.png" alt="Figure 2: HR_polyReg">
-											</a>
-											<figcaption><strong>Figure 2</strong> Polynomial Regression</figcaption>
-										</figure>
+											<figure>
+												<img src="images/HR_polyReg.png" 
+													alt="Polynomial Regression Model"
+													class="gallery-trigger" 
+													data-gallery="salary-prediction" 
+													data-caption="Figure 2: Polynomial Regression Model">
+												<figcaption><strong>Figure 2</strong> Polynomial Regression</figcaption>
+											</figure>
 
-										<figure>
-											<a href="images/HReval_polyReg.png" data-lightbox="salary-prediction" data-title="Figure 2: HReval_polyReg.png">
-											<img src="images/HReval_polyReg.png" alt="Figure 2: HReval_polyReg.png">
-											</a>
-											<figcaption><strong></strong>Model Evaluation - Polynomial Regression</figcaption>
-										</figure>
-										<figure>
-											<a href="images/HR_svr.png" data-lightbox="salary-prediction" data-title="Figure 3: HR_svr">
-											<img src="images/HR_svr.png" alt="Figure 3: HR_svr">
-											</a>
-											<figcaption><strong>Figure 3</strong> SVR</figcaption>
-										</figure>
-										<figure>
-											<a href="images/HReval_svr.png" data-lightbox="salary-prediction" data-title="Figure 3: HReval_svr">
-											<img src="images/HReval_svr.png" alt="Figure 3: HReval_svr">
-											</a>
-											<figcaption><strong></strong> Model Evaluation - SVR</figcaption>
-										</figure>
+											<figure>
+												<img src="images/HReval_polyReg.png" 
+													alt="Polynomial Regression Evaluation"
+													class="gallery-trigger" 
+													data-gallery="salary-prediction" 
+													data-caption="Figure 2a: Polynomial Regression Model Evaluation">
+												<figcaption><strong>Figure 2a</strong> Model Evaluation – Polynomial Regression</figcaption>
+											</figure>
 
-										<figure>
-											<a href="images/HR_Randfor.png" data-lightbox="salary-prediction" data-title="Figure 4: HR_Randfor">
-											<img src="images/HR_Randfor.png" alt="Figure 4: HR_Randfor">
-											</a>
-											<figcaption><strong>Figure 4</strong> Random Forest</figcaption>
-										</figure>
+											<figure>
+												<img src="images/HR_svr.png" 
+													alt="SVR Model"
+													class="gallery-trigger" 
+													data-gallery="salary-prediction" 
+													data-caption="Figure 3: Support Vector Regression Model">
+												<figcaption><strong>Figure 3</strong> SVR</figcaption>
+											</figure>
 
-										<figure>
-											<a href="images/HReval_Randfor.png" data-lightbox="salary-prediction" data-title="Figure 4: HReval_Randfor">
-											<img src="images/HReval_Randfor.png" alt="Figure 4: HReval_Randfor">
-											</a>
-											<figcaption><strong></strong> Model Evaluation - Random Forest</figcaption>
-										</figure>
-										
-										<figure>
-											<a href="images/HR_DecT.png" data-lightbox="salary-prediction" data-title="Figure 5: HR_DecT">
-											<img src="images/HR_DecT.png" alt="Figure 5: HR_DecT">
-											</a>
-											<figcaption><strong>Figure 5</strong> Decision Tree</figcaption>
-										</figure>
-										<figure>
-											<a href="images/HReval_DecT.png" data-lightbox="salary-prediction" data-title="Figure 5: HReval_DecT">
-											<img src="images/HReval_DecT.png" alt="Figure 5: HReval_DecT">
-											</a>
-											<figcaption><strong></strong> Model Evaluation - Decision Tree</figcaption>
-										</figure>
-										
+											<figure>
+												<img src="images/HReval_svr.png" 
+													alt="SVR Evaluation"
+													class="gallery-trigger" 
+													data-gallery="salary-prediction" 
+													data-caption="Figure 3a: Support Vector Regression Model Evaluation">
+												<figcaption><strong>Figure 3a</strong> Model Evaluation – SVR</figcaption>
+											</figure>
+
+											<figure>
+												<img src="images/HR_Randfor.png" 
+													alt="Random Forest Model"
+													class="gallery-trigger" 
+													data-gallery="salary-prediction" 
+													data-caption="Figure 4: Random Forest Model">
+												<figcaption><strong>Figure 4</strong> Random Forest</figcaption>
+											</figure>
+
+											<figure>
+												<img src="images/HReval_Randfor.png" 
+													alt="Random Forest Evaluation"
+													class="gallery-trigger" 
+													data-gallery="salary-prediction" 
+													data-caption="Figure 4a: Random Forest Model Evaluation">
+												<figcaption><strong>Figure 4a</strong> Model Evaluation – Random Forest</figcaption>
+											</figure>
+
+											<figure>
+												<img src="images/HR_DecT.png" 
+													alt="Decision Tree Model"
+													class="gallery-trigger" 
+													data-gallery="salary-prediction" 
+													data-caption="Figure 5: Decision Tree Model">
+												<figcaption><strong>Figure 5</strong> Decision Tree</figcaption>
+											</figure>
+
+											<figure>
+												<img src="images/HReval_DecT.png" 
+													alt="Decision Tree Evaluation"
+													class="gallery-trigger" 
+													data-gallery="salary-prediction" 
+													data-caption="Figure 5a: Decision Tree Model Evaluation">
+												<figcaption><strong>Figure 5a</strong> Model Evaluation – Decision Tree</figcaption>
+											</figure>
 										</div>
 
 
@@ -1434,99 +1661,132 @@
 
 										
 										<!-- Visualisations -->
-
 										<div class="image-gallery">
-										<figure>
-											<a href="images/Salary_logR.png" data-lightbox="salary-network" data-title="Figure 1: Salary_logR">
-											<img src="images/Salary_logR.png" alt="Figure 1: Salary_logR">
-											</a>
-											<figcaption><strong>Figure 1</strong></figcaption>
-										</figure>
+											<figure>
+												<img src="images/Salary_logR.png" 
+													alt="Logistic Regression visualization"
+													class="gallery-trigger"
+													data-gallery="salary-network"
+													data-caption="Logistic Regression Model">
+												<figcaption><strong>Figure 1</strong> Logistic Regression</figcaption>
+											</figure>
 
-										<figure>
-											<a href="images/salary_logRT.png" data-lightbox="salary-network" data-title="Table 1: salary_logRT">
-											<img src="images/salary_logRT.png" alt="Table 1: salary_logRT">
-											</a>
-											<figcaption><strong>Table 1</strong> Logistic Regression</figcaption>
-										</figure>
-										<figure>
-											<a href="images/Salary_svm.png" data-lightbox="salary-network" data-title="Figure 2: Salary_svm">
-											<img src="images/Salary_svm.png" alt="Figure 2: Salary_svm">
-											</a>
-											<figcaption><strong>Figure 2</strong></figcaption>
-										</figure>
+											<figure>
+												<img src="images/salary_logRT.png" 
+													alt="Logistic Regression performance metrics"
+													class="gallery-trigger"
+													data-gallery="salary-network"
+													data-caption="Logistic Regression Results">
+												<figcaption><strong>Table 1</strong> Logistic Regression Metrics</figcaption>
+											</figure>
 
-										<figure>
-											<a href="images/salary_svmT.png" data-lightbox="salary-network" data-title="Table 2: salary_svmT">
-											<img src="images/salary_svmT.png" alt="Table 2: salary_svmT">
-											</a>
-											<figcaption><strong>Table 2</strong> SVM</figcaption>
-										</figure>
-										<figure>
-											<a href="images/Salary_kernsvm.png" data-lightbox="salary-network" data-title="Figure 3: Salary_kernsvm">
-											<img src="images/Salary_kernsvm.png" alt="Figure 3: Salary_kernsvm">
-											</a>
-											<figcaption><strong>Figure 3</strong></figcaption>
-										</figure>
+											<figure>
+												<img src="images/Salary_svm.png" 
+													alt="Support Vector Machine visualization"
+													class="gallery-trigger"
+													data-gallery="salary-network"
+													data-caption="SVM Model">
+												<figcaption><strong>Figure 2</strong> Support Vector Machine</figcaption>
+											</figure>
 
-										<figure>
-											<a href="images/salary_kernsvmT.png" data-lightbox="salary-network" data-title="Table 3: salary_kernsvmT">
-											<img src="images/salary_kernsvmT.png" alt="Table 3: salary_kernsvmT">
-											</a>
-											<figcaption><strong>Table 3</strong> Kernel SVM</figcaption>
-										</figure>
-										<figure>
-											<a href="images/Salary_naive.png" data-lightbox="salary-network" data-title="Figure 4: Salary_naive">
-											<img src="images/Salary_naive.png" alt="Figure 4: Salary_naive">
-											</a>
-											<figcaption><strong>Figure 4</strong></figcaption>
-										</figure>
-										
-										<figure>
-											<a href="images/Salary_naiveT.png" data-lightbox="salary-network" data-title="Table 4: Salary_naiveT">
-											<img src="images/Salary_naiveT.png" alt="Table 4: Salary_naiveT">
-											</a>
-											<figcaption><strong>Table 4</strong> Naive Bayes</figcaption>
-										</figure>
-										<figure>
-											<a href="images/Salary_knn.png" data-lightbox="salary-network" data-title="Figure 5: Salary_knn">
-											<img src="images/Salary_knn.png" alt="Figure 5: Salary_knn">
-											</a>
-											<figcaption><strong>Figure 5</strong></figcaption>
-										</figure>
+											<figure>
+												<img src="images/salary_svmT.png" 
+													alt="SVM performance metrics"
+													class="gallery-trigger"
+													data-gallery="salary-network"
+													data-caption="SVM Results">
+												<figcaption><strong>Table 2</strong> SVM Metrics</figcaption>
+											</figure>
 
-										<figure>
-											<a href="images/Salary_knnT.png" data-lightbox="salary-network" data-title="Table 5: Salary_knnT">
-											<img src="images/Salary_knnT.png" alt="Table 5: Salary_knnT">
-											</a>
-											<figcaption><strong>Table 5</strong> K-Nearest Neighbor</figcaption>
-										</figure>
-										<figure>
-											<a href="images/Salary_random.png" data-lightbox="salary-network" data-title="Figure 6: Salary_random">
-											<img src="images/Salary_random.png" alt="Figure 6: Salary_random">
-											</a>
-											<figcaption><strong>Figure 6</strong></figcaption>
-										</figure>
-										
-										<figure>
-											<a href="images/Salary_randomT.png" data-lightbox="salary-network" data-title="Table 6: Salary_randomT">
-											<img src="images/Salary_randomT.png" alt="Table 4: Salary_randomT">
-											</a>
-											<figcaption><strong>Table 6</strong> Random Forest</figcaption>
-										</figure>
-										<figure>
-											<a href="images/Salary_dectree.png" data-lightbox="salary-network" data-title="Figure 7: Salary_dectree">
-											<img src="images/Salary_dectree.png" alt="Figure 6: Salary_dectree">
-											</a>
-											<figcaption><strong>Figure 7</strong></figcaption>
-										</figure>
+											<figure>
+												<img src="images/Salary_kernsvm.png" 
+													alt="Kernel SVM visualization"
+													class="gallery-trigger"
+													data-gallery="salary-network"
+													data-caption="Kernel SVM Model">
+												<figcaption><strong>Figure 3</strong> Kernel SVM</figcaption>
+											</figure>
 
-										<figure>
-											<a href="images/Salary_dectreeT.png" data-lightbox="salary-network" data-title="Table 7: Salary_dectreeT">
-											<img src="images/Salary_dectreeT.png" alt="Table 5: Salary_dectreeT">
-											</a>
-											<figcaption><strong>Table 7</strong> Decision Tree</figcaption>
-										</figure>
+											<figure>
+												<img src="images/salary_kernsvmT.png" 
+													alt="Kernel SVM performance metrics"
+													class="gallery-trigger"
+													data-gallery="salary-network"
+													data-caption="Kernel SVM Results">
+												<figcaption><strong>Table 3</strong> Kernel SVM Metrics</figcaption>
+											</figure>
+
+											<figure>
+												<img src="images/Salary_naive.png" 
+													alt="Naive Bayes visualization"
+													class="gallery-trigger"
+													data-gallery="salary-network"
+													data-caption="Naive Bayes Model">
+												<figcaption><strong>Figure 4</strong> Naive Bayes</figcaption>
+											</figure>
+											
+											<figure>
+												<img src="images/Salary_naiveT.png" 
+													alt="Naive Bayes performance metrics"
+													class="gallery-trigger"
+													data-gallery="salary-network"
+													data-caption="Naive Bayes Results">
+												<figcaption><strong>Table 4</strong> Naive Bayes Metrics</figcaption>
+											</figure>
+
+											<figure>
+												<img src="images/Salary_knn.png" 
+													alt="K-Nearest Neighbors visualization"
+													class="gallery-trigger"
+													data-gallery="salary-network"
+													data-caption="KNN Model">
+												<figcaption><strong>Figure 5</strong> K-Nearest Neighbors</figcaption>
+											</figure>
+
+											<figure>
+												<img src="images/Salary_knnT.png" 
+													alt="KNN performance metrics"
+													class="gallery-trigger"
+													data-gallery="salary-network"
+													data-caption="KNN Results">
+												<figcaption><strong>Table 5</strong> KNN Metrics</figcaption>
+											</figure>
+
+											<figure>
+												<img src="images/Salary_random.png" 
+													alt="Random Forest visualization"
+													class="gallery-trigger"
+													data-gallery="salary-network"
+													data-caption="Random Forest Model">
+												<figcaption><strong>Figure 6</strong> Random Forest</figcaption>
+											</figure>
+											
+											<figure>
+												<img src="images/Salary_randomT.png" 
+													alt="Random Forest performance metrics"
+													class="gallery-trigger"
+													data-gallery="salary-network"
+													data-caption="Random Forest Results">
+												<figcaption><strong>Table 6</strong> Random Forest Metrics</figcaption>
+											</figure>
+
+											<figure>
+												<img src="images/Salary_dectree.png" 
+													alt="Decision Tree visualization"
+													class="gallery-trigger"
+													data-gallery="salary-network"
+													data-caption="Decision Tree Model">
+												<figcaption><strong>Figure 7</strong> Decision Tree</figcaption>
+											</figure>
+
+											<figure>
+												<img src="images/Salary_dectreeT.png" 
+													alt="Decision Tree performance metrics"
+													class="gallery-trigger"
+													data-gallery="salary-network"
+													data-caption="Decision Tree Results">
+												<figcaption><strong>Table 7</strong> Decision Tree Metrics</figcaption>
+											</figure>
 										</div>
 
 
@@ -1619,54 +1879,68 @@
 										<!-- Visualisations -->
 
 										<div class="image-gallery">
-										<figure>
-											<a href="images/Breast_logR.png" data-lightbox="breast-cancer" data-title="Figure 1: Breast_logR">
-											<img src="images/Breast_logR.png" alt="Figure 1: Breast_logR">
-											</a>
-											<figcaption><strong>Figure 1</strong> Logistic Regression</figcaption>
-										</figure>
+											<figure>
+												<img src="images/Breast_logR.png" 
+													alt="Logistic Regression visualization for breast cancer classification"
+													class="gallery-trigger"
+													data-gallery="breast-cancer"
+													data-caption="Logistic Regression Model - Breast Cancer">
+												<figcaption><strong>Figure 1</strong> Logistic Regression</figcaption>
+											</figure>
 
-										<figure>
-											<a href="images/Breast_svm.png" data-lightbox="breast-cancer" data-title="Figure 2: Breast_svm">
-											<img src="images/Breast_svm.png" alt="Figure 2: Breast_svm">
-											</a>
-											<figcaption><strong>Figure 2</strong> SVM</figcaption>
-										</figure>
+											<figure>
+												<img src="images/Breast_svm.png" 
+													alt="Support Vector Machine visualization for breast cancer classification"
+													class="gallery-trigger"
+													data-gallery="breast-cancer"
+													data-caption="SVM Model - Breast Cancer">
+												<figcaption><strong>Figure 2</strong> SVM</figcaption>
+											</figure>
 
-										<figure>
-											<a href="images/Breast_ksvm.png" data-lightbox="breast-cancer" data-title="Figure 3: Breast_ksvm">
-											<img src="images/Breast_ksvm.png" alt="Figure 3: Breast_ksvm">
-											</a>
-											<figcaption><strong>Figure 3</strong> Kernel SVM</figcaption>
-										</figure>
+											<figure>
+												<img src="images/Breast_ksvm.png" 
+													alt="Kernel SVM visualization for breast cancer classification"
+													class="gallery-trigger"
+													data-gallery="breast-cancer"
+													data-caption="Kernel SVM Model - Breast Cancer">
+												<figcaption><strong>Figure 3</strong> Kernel SVM</figcaption>
+											</figure>
 
-										<figure>
-											<a href="images/Breast_knn.png" data-lightbox="breast-cancer" data-title="Figure 4: Breast_knn">
-											<img src="images/Breast_knn.png" alt="Figure 4: Breast_knn">
-											</a>
-											<figcaption><strong>Figure 4</strong> K-Nearest Neighbor</figcaption>
-										</figure>
-										
-										<figure>
-											<a href="images/Breast_naive.png" data-lightbox="breast-cancer" data-title="Figure 5: Breast_naive">
-											<img src="images/Breast_naive.png" alt="Figure 5: Breast_naive">
-											</a>
-											<figcaption><strong>Figure 5</strong> Naïve Bayes</figcaption>
-										</figure>
+											<figure>
+												<img src="images/Breast_knn.png" 
+													alt="K-Nearest Neighbors visualization for breast cancer classification"
+													class="gallery-trigger"
+													data-gallery="breast-cancer"
+													data-caption="K-Nearest Neighbors Model - Breast Cancer">
+												<figcaption><strong>Figure 4</strong> K-Nearest Neighbor</figcaption>
+											</figure>
+											
+											<figure>
+												<img src="images/Breast_naive.png" 
+													alt="Naïve Bayes visualization for breast cancer classification"
+													class="gallery-trigger"
+													data-gallery="breast-cancer"
+													data-caption="Naïve Bayes Model - Breast Cancer">
+												<figcaption><strong>Figure 5</strong> Naïve Bayes</figcaption>
+											</figure>
 
-										<figure>
-											<a href="images/Breast_randfor.png" data-lightbox="breast-cancer" data-title="Figure 5: Breast_randfor">
-											<img src="images/Breast_randfor.png" alt="Figure 2: Breast_randfor">
-											</a>
-											<figcaption><strong>Figure 6</strong> Random Forest</figcaption>
-										</figure>
-										
-										<figure>
-											<a href="images/Breast_decision.png" data-lightbox="breast-cancer" data-title="Figure 5: Breast_decision">
-											<img src="images/Breast_decision.png" alt="Figure 2: Breast_decision">
-											</a>
-											<figcaption><strong>Figure 7</strong> Decision Tree</figcaption>
-										</figure>
+											<figure>
+												<img src="images/Breast_randfor.png" 
+													alt="Random Forest visualization for breast cancer classification"
+													class="gallery-trigger"
+													data-gallery="breast-cancer"
+													data-caption="Random Forest Model - Breast Cancer">
+												<figcaption><strong>Figure 6</strong> Random Forest</figcaption>
+											</figure>
+											
+											<figure>
+												<img src="images/Breast_decision.png" 
+													alt="Decision Tree visualization for breast cancer classification"
+													class="gallery-trigger"
+													data-gallery="breast-cancer"
+													data-caption="Decision Tree Model - Breast Cancer">
+												<figcaption><strong>Figure 7</strong> Decision Tree</figcaption>
+											</figure>
 										</div>
 
 
@@ -1835,62 +2109,77 @@
 										<!-- Visualisations -->
 
 										<div class="image-gallery">
-										<figure>
-											<a href="images/Bank Customer_df.png" data-lightbox="bank-customer" data-title="Table 1: DataFrame">
-											<img src="images/Bank Customer_df.png" alt="Table 1: DataFrame">
-											</a>
-											<figcaption><strong>Table 1</strong> Data frame</figcaption>
-										</figure>
+											<figure>
+												<img src="images/Bank Customer_df.png" 
+													alt="Data frame showing bank customer characteristics"
+													class="gallery-trigger"
+													data-gallery="bank-customer"
+													data-caption="Customer Data Overview">
+												<figcaption><strong>Table 1</strong> Customer Data Frame</figcaption>
+											</figure>
 
-										<figure>
-											<a href="images/Bank Customer_miss.png" data-lightbox="bank-customer" data-title="Table 2: Missing data">
-											<img src="images/Bank Customer_miss.png" alt="Table 2: Missing data">
-											</a>
-											<figcaption><strong>Table 2</strong> Missing data df</figcaption>
-										</figure>
+											<figure>
+												<img src="images/Bank Customer_miss.png" 
+													alt="Table showing missing data patterns in customer records"
+													class="gallery-trigger"
+													data-gallery="bank-customer"
+													data-caption="Missing Data Analysis">
+												<figcaption><strong>Table 2</strong> Missing Data Analysis</figcaption>
+											</figure>
 
-										<figure>
-											<a href="images/Bank Customer_check missing.png" data-lightbox="bank-customer" data-title="Figure 1: check chart">
-											<img src="images/Bank Customer_check missing.png" alt="Figure 1: check chart">
-											</a>
-											<figcaption><strong>Figure 1</strong> Check after removing missing data</figcaption>
-										</figure>
+											<figure>
+												<img src="images/Bank Customer_check missing.png" 
+													alt="Visual confirmation of complete data after cleaning"
+													class="gallery-trigger"
+													data-gallery="bank-customer"
+													data-caption="Data Completeness Verification">
+												<figcaption><strong>Figure 1</strong> Data Completeness Verification</figcaption>
+											</figure>
 
-										<figure>
-											<a href="images/Bank Customer_distplots.png" data-lightbox="bank-customer" data-title="Figure 2: distplot">
-											<img src="images/Bank Customer_distplots.png" alt="Figure 2: distplot">
-											</a>
-											<figcaption><strong>Figure 2</strong> Distplot</figcaption>
-										</figure>
-										
-										<figure>
-											<a href="images/Bank Customer_heat.png" data-lightbox="bank-customer" data-title="Figure 3: heatmap">
-											<img src="images/Bank Customer_heat.png" alt="Figure 3: heatmap">
-											</a>
-											<figcaption><strong>Figure 3</strong> Heatmap</figcaption>
-										</figure>
+											<figure>
+												<img src="images/Bank Customer_distplots.png" 
+													alt="Distribution plots of customer attributes"
+													class="gallery-trigger"
+													data-gallery="bank-customer"
+													data-caption="Feature Distribution Analysis">
+												<figcaption><strong>Figure 2</strong> Feature Distribution Analysis</figcaption>
+											</figure>
+											
+											<figure>
+												<img src="images/Bank Customer_heat.png" 
+													alt="Heatmap showing correlations between features"
+													class="gallery-trigger"
+													data-gallery="bank-customer"
+													data-caption="Feature Correlation Heatmap">
+												<figcaption><strong>Figure 3</strong> Feature Correlation Heatmap</figcaption>
+											</figure>
 
-										<figure>
-											<a href="images/Bank Customer_elbow.png" data-lightbox="bank-customer" data-title="Figure 4: Elbow Method">
-											<img src="images/Bank Customer_elbow.png" alt="Figure 4: Elbow Method">
-											</a>
-											<figcaption><strong>Figure 4</strong> Elbow Method</figcaption>
-										</figure>
-										
-										<figure>
-											<a href="images/Bank Customer_table 3.png" data-lightbox="bank-customer" data-title="Table 3: PCA Table">
-											<img src="images/Bank Customer_table 3.png" alt="Table 3: PCA Table">
-											</a>
-											<figcaption><strong>Table 3</strong> PCA Table</figcaption>
-										</figure>
-										
-										<figure>
-											<a href="images/bank customers clusters.png" data-lightbox="bank-customer" data-title="Figure 5: Bank Customer Clusters">
-											<img src="images/bank customers clusters.png" alt="Figure 5: Bank Customer Clusters">
-											</a>
-											<figcaption><strong>Figure 5</strong> Bank Customer Clusters</figcaption>
-										</figure>
-										
+											<figure>
+												<img src="images/Bank Customer_elbow.png" 
+													alt="Elbow method plot for optimal cluster determination"
+													class="gallery-trigger"
+													data-gallery="bank-customer"
+													data-caption="Optimal Cluster Determination">
+												<figcaption><strong>Figure 4</strong> Optimal Cluster Determination</figcaption>
+											</figure>
+											
+											<figure>
+												<img src="images/Bank Customer_table 3.png" 
+													alt="Principal Component Analysis results table"
+													class="gallery-trigger"
+													data-gallery="bank-customer"
+													data-caption="PCA Component Analysis">
+												<figcaption><strong>Table 3</strong> PCA Component Analysis</figcaption>
+											</figure>
+											
+											<figure>
+												<img src="images/bank customers clusters.png" 
+													alt="Visualization of bank customer clusters"
+													class="gallery-trigger"
+													data-gallery="bank-customer"
+													data-caption="Customer Cluster Visualization">
+												<figcaption><strong>Figure 5</strong> Customer Cluster Visualization</figcaption>
+											</figure>
 										</div>
 
 										<h4>🌟 <strong>Key Insights:</strong></h4> #fill
@@ -2116,66 +2405,86 @@
 										<!-- Visualisations -->
 
 										<div class="image-gallery">
-										<figure>
-											<a href="images/Ridge_stock price.png" data-lightbox="ridge-regression" data-title="Figure 1: Stock Prices">
-											<img src="images/Ridge_stock price.png" alt="Figure 1: Stock Prices ">
-											</a>
-											<figcaption><strong>Figure 1</strong> Stock Prices </figcaption>
-										</figure>
+											<figure>
+												<img src="images/Ridge_stock price.png" 
+													alt="Stock price visualization"
+													class="gallery-trigger"
+													data-gallery="ridge-regression"
+													data-caption="Stock Prices">
+												<figcaption><strong>Figure 1</strong> Stock Prices</figcaption>
+											</figure>
 
-										<figure>
-											<a href="images/Ridge_stock price_norm.png" data-lightbox="ridge-regression" data-title="Figure 2: Stock Prices - Normalised">
-											<img src="images/Ridge_stock price_norm.png" alt="Figure 2: Stock Prices - Normalised">
-											</a>
-											<figcaption><strong>Figure 2</strong> Stock Prices - Normalised</figcaption>
-										</figure>
-										<figure>
-											<a href="images/Ridge_stock vol.png" data-lightbox="ridge-regression" data-title="Figure 3: Stock Volumes">
-											<img src="images/Ridge_stock vol.png" alt="Figure 3: Stock Volumes">
-											</a>
-											<figcaption><strong>Figure 3</strong> Stock Volumes</figcaption>
-										</figure>
-										<figure>
-											<a href="images/Ridge_stock vol_norm.png" data-lightbox="ridge-regression" data-title="Figure 3: Stock Volumes - Normalised">
-											<img src="images/Ridge_stock vol_norm.png"  alt="Figure 3: Stock Volumes - Normalised">
-											</a>
-											<figcaption><strong>Figure 4</strong> Stock Volumes - Normalised</figcaption>
-										</figure>
+											<figure>
+												<img src="images/Ridge_stock price_norm.png" 
+													alt="Normalized stock price visualization"
+													class="gallery-trigger"
+													data-gallery="ridge-regression"
+													data-caption="Stock Prices - Normalised">
+												<figcaption><strong>Figure 2</strong> Stock Prices - Normalised</figcaption>
+											</figure>
 
-										<figure>
-											<a href="images/Ridge_table 1.png" data-lightbox="ridge-regression" data-title="Figure 4: Price Volume Data">
-											<img src="images/Ridge_table 1.png" alt="Figure 4: Price Volume Data">
-											</a>
-											<figcaption><strong>Table 1</strong> Price Volume Data</figcaption>
-										</figure>
+											<figure>
+												<img src="images/Ridge_stock vol.png" 
+													alt="Stock trading volume visualization"
+													class="gallery-trigger"
+													data-gallery="ridge-regression"
+													data-caption="Stock Volumes">
+												<figcaption><strong>Figure 3</strong> Stock Volumes</figcaption>
+											</figure>
 
-										<figure>
-											<a href="images/Ridge_Figure 5.png" data-lightbox="ridge-regression" data-title="Figure 5: Training & Test Data">
-											<img src="images/Ridge_Figure 5.png" alt="Figure 5: Closing & Predicted Values">
-											</a>
-											<figcaption><strong>Figure 5</strong> Training & Test Data</figcaption>
-										</figure>
-										
-										<figure>
-											<a href="images/Ridge_table 2.png" data-lightbox="ridge-regression" data-title="Figure 5: Closing & Predicted Values">
-											<img src="images/Ridge_table 2.png" alt="Table 2: Closing & Predicted Values">
-											</a>
-											<figcaption><strong>Table 2</strong> Closing & Predicted Values</figcaption>
-										</figure>
+											<figure>
+												<img src="images/Ridge_stock vol_norm.png" 
+													alt="Normalized stock trading volume visualization"
+													class="gallery-trigger"
+													data-gallery="ridge-regression"
+													data-caption="Stock Volumes - Normalised">
+												<figcaption><strong>Figure 4</strong> Stock Volumes - Normalised</figcaption>
+											</figure>
 
-										<figure>
-											<a href="images/Ridge_Figure 6.png" data-lightbox="ridge-regression" data-title="Figure 5: Breast_randfor">
-											<img src="images/Ridge_Figure 6.png" alt="Figure 6: Breast_randfor">
-											</a>
-											<figcaption><strong>Figure 6</strong> Random Forest</figcaption>
-										</figure>
-										
-										<figure>
-											<a href="images/Ridge_Figure 7.png" data-lightbox="ridge-regression" data-title="Figure 5: Breast_decision">
-											<img src="images/Ridge_Figure 7.png" alt="Figure 7: Breast_decision">
-											</a>
-											<figcaption><strong>Figure 7</strong> Decision Tree</figcaption>
-										</figure>
+											<figure>
+												<img src="images/Ridge_table 1.png" 
+													alt="Price and volume data table"
+													class="gallery-trigger"
+													data-gallery="ridge-regression"
+													data-caption="Price Volume Data">
+												<figcaption><strong>Table 1</strong> Price Volume Data</figcaption>
+											</figure>
+
+											<figure>
+												<img src="images/Ridge_Figure 5.png" 
+													alt="Training and test data comparison"
+													class="gallery-trigger"
+													data-gallery="ridge-regression"
+													data-caption="Training & Test Data">
+												<figcaption><strong>Figure 5</strong> Training & Test Data</figcaption>
+											</figure>
+											
+											<figure>
+												<img src="images/Ridge_table 2.png" 
+													alt="Closing and predicted values table"
+													class="gallery-trigger"
+													data-gallery="ridge-regression"
+													data-caption="Closing & Predicted Values">
+												<figcaption><strong>Table 2</strong> Closing & Predicted Values</figcaption>
+											</figure>
+
+											<figure>
+												<img src="images/Ridge_Figure 6.png" 
+													alt="Random Forest model results"
+													class="gallery-trigger"
+													data-gallery="ridge-regression"
+													data-caption="Random Forest Analysis">
+												<figcaption><strong>Figure 6</strong> Random Forest Analysis</figcaption>
+											</figure>
+											
+											<figure>
+												<img src="images/Ridge_Figure 7.png" 
+													alt="Decision Tree model results"
+													class="gallery-trigger"
+													data-gallery="ridge-regression"
+													data-caption="Decision Tree Analysis">
+												<figcaption><strong>Figure 7</strong> Decision Tree Analysis</figcaption>
+											</figure>
 										</div>
 
 										<h4>🌟 <strong>Key Insights:</strong></h4>
@@ -2372,42 +2681,52 @@
 										<!-- Visualisations -->
 
 										<div class="image-gallery">
-										<figure>
-											<a href="images/LSTM_table 1.png" data-lightbox="LSTM" data-title="Table 1: closing vol Df">
-											<img src="images/LSTM_table 1.png" alt="Table 1: closing vol Df">
-											</a>
-											<figcaption><strong>Table 1</strong></figcaption>
-										</figure>
+											<figure>
+												<img src="images/LSTM_table 1.png" 
+													alt="Table 1: closing vol Df"
+													class="gallery-trigger"
+													data-gallery="project1"
+													data-caption="Table 1: closing vol Df">
+												<figcaption><strong>Table 1</strong></figcaption>
+											</figure>
 
-										<figure>
-											<a href="images/LSTM_table 2.png" data-lightbox="LSTM" data-title="Table 2: LSTM Model Execution">
-											<img src="images/LSTM_table 2.png" alt="Table 2: LSTM Model Execution">
-											</a>
-											<figcaption><strong>Table 2</strong> LSTM Model Execution</figcaption>
-										</figure>
+											<figure>
+												<img src="images/LSTM_table 2.png" 
+													alt="Table 2: LSTM Model Execution"
+													class="gallery-trigger"
+													data-gallery="project1"
+													data-caption="Table 2: LSTM Model Execution">
+												<figcaption><strong>Table 2</strong> LSTM Model Execution</figcaption>
+											</figure>
 
-										<figure>
-											<a href="images/LSTM_table 3.png" data-lightbox="LSTM" data-title="Table 3: Closing vs Prediction Price">
-											<img src="images/LSTM_table 3.png" alt="Table 3: Closing vs Prediction Price">
-											</a>
-											<figcaption><strong>Table 3</strong> Closing vs Prediction Price</figcaption>
-										</figure>
+											<figure>
+												<img src="images/LSTM_table 3.png" 
+													alt="Table 3: Closing vs Prediction Price"
+													class="gallery-trigger"
+													data-gallery="project1"
+													data-caption="Table 3: Closing vs Prediction Price">
+												<figcaption><strong>Table 3</strong> Closing vs Prediction Price</figcaption>
+											</figure>
 
-										<figure>
-											<a href="images/LSTM_fig 1.png" data-lightbox="LSTM" data-title="Figure 1: Closing Price">
-											<img src="images/LSTM_fig 1.png" alt="Figure 1: Closing Price">
-											</a>
-											<figcaption><strong>Figure 1</strong> Closing Price</figcaption>
-										</figure>
-										
-										<figure>
-											<a href="images/LSTM_fig 2.png" data-lightbox="LSTM" data-title="Figure 2: Closing vs Prediction Price">
-											<img src="images/LSTM_fig 2.png" alt="Figure 2: Closing vs Prediction Price">
-											</a>
-											<figcaption><strong>Figure 2</strong> Closing vs Prediction Price</figcaption>
-										</figure>
-
+											<figure>
+												<img src="images/LSTM_fig 1.png" 
+													alt="Figure 1: Closing Price"
+													class="gallery-trigger"
+													data-gallery="project1"
+													data-caption="Figure 1: Closing Price">
+												<figcaption><strong>Figure 1</strong> Closing Price</figcaption>
+											</figure>
+											
+											<figure>
+												<img src="images/LSTM_fig 2.png" 
+													alt="Figure 2: Closing vs Prediction Price"
+													class="gallery-trigger"
+													data-gallery="project1"
+													data-caption="Figure 2: Closing vs Prediction Price">
+												<figcaption><strong>Figure 2</strong> Closing vs Prediction Price</figcaption>
+											</figure>
 										</div>
+
 
 										<h4>🌟 <strong>Key Insights:</strong></h4>
 										<ul>
@@ -2522,55 +2841,70 @@
 										<!-- Visualisations -->
 
 										<div class="image-gallery">
-										<figure>
-											<a href="images/ANNClass_table 1.png" data-lightbox="ANN-Class" data-title="Table 1: Breast_logR">
-											<img src="images/ANNClass_table 1.png" alt="Table 1: Breast_logR">
-											</a>
-											<figcaption><strong>Table 1</strong> Variable X</figcaption>
-										</figure>
+											<figure>
+												<img src="images/ANNClass_table 1.png" 
+													alt="Table 1: Breast_logR"
+													class="gallery-trigger"
+													data-gallery="project1"
+													data-caption="Table 1: Breast_logR">
+												<figcaption><strong>Table 1</strong> Variable X</figcaption>
+											</figure>
 
-										<figure>
-											<a href="images/ANNClass_table 2.png" data-lightbox="ANN-Class" data-title="Table 2: Breast_svm">
-											<img src="images/ANNClass_table 2.png" alt="Table 2: Breast_svm">
-											</a>
-											<figcaption><strong>Table 2</strong> Variable y</figcaption>
-										</figure>
+											<figure>
+												<img src="images/ANNClass_table 2.png" 
+													alt="Table 2: Breast_svm"
+													class="gallery-trigger"
+													data-gallery="project1"
+													data-caption="Table 2: Breast_svm">
+												<figcaption><strong>Table 2</strong> Variable y</figcaption>
+											</figure>
 
-										<figure>
-											<a href="images/ANNClass_table 3.png" data-lightbox="ANN-Class" data-title="Table 3: Breast_ksvm">
-											<img src="images/ANNClass_table 3.png" alt="Table 3: Breast_ksvm">
-											</a>
-											<figcaption><strong>Table 3</strong> Encoding Gender</figcaption>
-										</figure>
+											<figure>
+												<img src="images/ANNClass_table 3.png" 
+													alt="Table 3: Breast_ksvm"
+													class="gallery-trigger"
+													data-gallery="project1"
+													data-caption="Table 3: Breast_ksvm">
+												<figcaption><strong>Table 3</strong> Encoding Gender</figcaption>
+											</figure>
 
-										<figure>
-											<a href="images/ANNClass_table 4.png" data-lightbox="ANN-Class" data-title="Table 4: Breast_knn">
-											<img src="images/ANNClass_table 4.png" alt="Table 4: Breast_knn">
-											</a>
-											<figcaption><strong>Table 4</strong> Encoding Country</figcaption>
-										</figure>
-										
-										<figure>
-											<a href="images/ANNClass_table 5.png" data-lightbox="ANN-Class" data-title="Table 5: Breast_naive">
-											<img src="images/ANNClass_table 5.png" alt="Table 5: Breast_naive">
-											</a>
-											<figcaption><strong>Table 5</strong> Training the ANN</figcaption>
-										</figure>
+											<figure>
+												<img src="images/ANNClass_table 4.png" 
+													alt="Table 4: Breast_knn"
+													class="gallery-trigger"
+													data-gallery="project1"
+													data-caption="Table 4: Breast_knn">
+												<figcaption><strong>Table 4</strong> Encoding Country</figcaption>
+											</figure>
+											
+											<figure>
+												<img src="images/ANNClass_table 5.png" 
+													alt="Table 5: Breast_naive"
+													class="gallery-trigger"
+													data-gallery="project1"
+													data-caption="Table 5: Breast_naive">
+												<figcaption><strong>Table 5</strong> Training the ANN</figcaption>
+											</figure>
 
-										<figure>
-											<a href="images/ANNClass_table 6.png" data-lightbox="ANN-Class" data-title="Table 6: Breast_randfor">
-											<img src="images/ANNClass_table 6.png" alt="Table 6: Breast_randfor">
-											</a>
-											<figcaption><strong>Table 6</strong> Predicting Test set Results</figcaption>
-										</figure>
-										
-										<figure>
-											<a href="images/ANNClass_table 7.png" data-lightbox="ANN-Class" data-title="Table 7: Breast_decision">
-											<img src="images/ANNClass_table 7.png" alt="Table 7: Breast_decision">
-											</a>
-											<figcaption><strong>Table 7</strong> Confusion Matrix</figcaption>
-										</figure>
+											<figure>
+												<img src="images/ANNClass_table 6.png" 
+													alt="Table 6: Breast_randfor"
+													class="gallery-trigger"
+													data-gallery="project1"
+													data-caption="Table 6: Breast_randfor">
+												<figcaption><strong>Table 6</strong> Predicting Test set Results</figcaption>
+											</figure>
+											
+											<figure>
+												<img src="images/ANNClass_table 7.png" 
+													alt="Table 7: Breast_decision"
+													class="gallery-trigger"
+													data-gallery="project1"
+													data-caption="Table 7: Breast_decision">
+												<figcaption><strong>Table 7</strong> Confusion Matrix</figcaption>
+											</figure>
 										</div>
+
 
 										<h4>🌟 <strong>Key Insights:</strong></h4>
 										<ul>
@@ -2656,35 +2990,43 @@
 										<!-- Visualisations -->
 
 										<div class="image-gallery">
-										<figure>
-											<a href="images/ANNReg_Table 1.png" data-lightbox="ANN-Reg" data-title="Table 1: Training ANN">
-											<img src="images/ANNReg_Table 1.png" alt="Table 1: Training ANN">
-											</a>
-											<figcaption><strong>Table 1</strong> Training ANN</figcaption>
-										</figure>
+											<figure>
+												<img src="images/ANNReg_Table 1.png" 
+													alt="Table 1: Training ANN"
+													class="gallery-trigger"
+													data-gallery="project1"
+													data-caption="Table 1: Training ANN">
+												<figcaption><strong>Table 1</strong> Training ANN</figcaption>
+											</figure>
 
-										<figure>
-											<a href="images/ANNReg_Table 2.png" data-lightbox="ANN-Reg" data-title="Table 2: Predicting Test Set Results">
-											<img src="images/ANNReg_Table 2.png" alt="Table 2: Predicting Test Set Results">
-											</a>
-											<figcaption><strong>Table 2</strong> Predicting Test Set Results</figcaption>
-										</figure>
+											<figure>
+												<img src="images/ANNReg_Table 2.png" 
+													alt="Table 2: Predicting Test Set Results"
+													class="gallery-trigger"
+													data-gallery="project1"
+													data-caption="Table 2: Predicting Test Set Results">
+												<figcaption><strong>Table 2</strong> Predicting Test Set Results</figcaption>
+											</figure>
 
-										<figure>
-											<a href="images/ANNClass_table 3.png" data-lightbox="ANN-Reg" data-title="Table 3: Breast_ksvm">
-											<img src="images/ANNClass_table 3.png" alt="Table 3: Breast_ksvm">
-											</a>
-											<figcaption><strong>Table 3</strong> Encoding Gender</figcaption>
-										</figure>
+											<figure>
+												<img src="images/ANNClass_table 3.png" 
+													alt="Table 3: Breast_ksvm"
+													class="gallery-trigger"
+													data-gallery="project1"
+													data-caption="Table 3: Breast_ksvm">
+												<figcaption><strong>Table 3</strong> Encoding Gender</figcaption>
+											</figure>
 
-										<figure>
-											<a href="images/ANNClass_table 4.png" data-lightbox="ANN-Reg" data-title="Table 4: Breast_knn">
-											<img src="images/ANNClass_table 4.png" alt="Table 4: Breast_knn">
-											</a>
-											<figcaption><strong>Table 4</strong> Encoding Country</figcaption>
-										</figure>
-										
+											<figure>
+												<img src="images/ANNClass_table 4.png" 
+													alt="Table 4: Breast_knn"
+													class="gallery-trigger"
+													data-gallery="project1"
+													data-caption="Table 4: Breast_knn">
+												<figcaption><strong>Table 4</strong> Encoding Country</figcaption>
+											</figure>
 										</div>
+
 
 										<h4>🌟 <strong>Key Insights:</strong></h4>
 										<ul>
@@ -2778,36 +3120,43 @@
 										<!-- Visualisations -->
 
 										<div class="image-gallery">
-										<figure>
-											<a href="images/NLP_table 1.png" data-lightbox="NLP" data-title="Table 1: Removed words">
-											<img src="images/NLP_table 1.png" alt="Table 1: Removed words">
-											</a>
-											<figcaption><strong>Table 1</strong> Removed words</figcaption>
-										</figure>
+											<figure>
+												<img src="images/NLP_table 1.png" 
+													alt="Table 1: Removed words"
+													class="gallery-trigger"
+													data-gallery="project1"
+													data-caption="Table 1: Removed words">
+												<figcaption><strong>Table 1</strong> Removed words</figcaption>
+											</figure>
 
-										<figure>
-											<a href="images/NLP_table 2.png" data-lightbox="NLP" data-title="Table 2: Naive Bayes Model">
-											<img src="images/NLP_table 2.png" alt="Table 2: Naive Bayes Model">
-											</a>
-											<figcaption><strong>Table 2</strong> Naive Bayes Model y</figcaption>
-										</figure>
+											<figure>
+												<img src="images/NLP_table 2.png" 
+													alt="Table 2: Naive Bayes Model"
+													class="gallery-trigger"
+													data-gallery="project1"
+													data-caption="Table 2: Naive Bayes Model">
+												<figcaption><strong>Table 2</strong> Naive Bayes Model y</figcaption>
+											</figure>
 
-										<figure>
-											<a href="images/NLP_table 3.png" data-lightbox="NLP" data-title="Table 3: Predicting Test Set Results">
-											<img src="images/NLP_table 3.png" alt="Table 3: Predicting Test Set Results">
-											</a>
-											<figcaption><strong>Table 3</strong> Predicting Test Set Results </figcaption>
-										</figure>
+											<figure>
+												<img src="images/NLP_table 3.png" 
+													alt="Table 3: Predicting Test Set Results"
+													class="gallery-trigger"
+													data-gallery="project1"
+													data-caption="Table 3: Predicting Test Set Results">
+												<figcaption><strong>Table 3</strong> Predicting Test Set Results </figcaption>
+											</figure>
 
-										<figure>
-											<a href="images/NLP_table 4.png" data-lightbox="NLP" data-title="Table 4: Confusion Matrix">
-											<img src="images/NLP_table 4.png" alt="Table 4: Confusion Matrix">
-											</a>
-											<figcaption><strong>Table 4</strong> Confusion Matrix </figcaption>
-										</figure>
-										
-									
+											<figure>
+												<img src="images/NLP_table 4.png" 
+													alt="Table 4: Confusion Matrix"
+													class="gallery-trigger"
+													data-gallery="project1"
+													data-caption="Table 4: Confusion Matrix">
+												<figcaption><strong>Table 4</strong> Confusion Matrix </figcaption>
+											</figure>
 										</div>
+
 
 										<h4>🌟 <strong>Key Insights:</strong></h4>
 										<p>
@@ -2931,7 +3280,7 @@
 										
 									</section>
 
-									<section class="project-item" data-tags="">
+									 <!-- <section class="project-item" data-tags="">
 										<h3>📽️ <strong>New project </strong></h3>
 										<p>
 											This project explored publicly available data on top-grossing US films to identify patterns across genres, studios, and release schedules. I used <strong>R</strong> and <strong>ggplot2</strong> for data exploration and visualisation.
@@ -2961,8 +3310,8 @@
 
 										<h4>📊 <strong>Code Snippets & Visualisations:</strong></h4>
 
-										<!-- Code Snippet -->
-
+										 <!-- Code Snippet -->
+<!--
 										<pre><code class="language-python"># Importing the libraries
 										import re
 										import nltk
@@ -3012,57 +3361,18 @@
 
 										
 										<!-- Visualisations -->
-
+<!--
 										<div class="image-gallery">
-										<figure>
-											<a href="images/Breast_logR.png" data-lightbox="breast-cancer" data-title="Figure 1: Breast_logR">
-											<img src="images/Breast_logR.png" alt="Figure 1: Breast_logR">
-											</a>
-											<figcaption><strong>Figure 1</strong> Logistic Regression</figcaption>
-										</figure>
-
-										<figure>
-											<a href="images/Breast_svm.png" data-lightbox="breast-cancer" data-title="Figure 2: Breast_svm">
-											<img src="images/Breast_svm.png" alt="Figure 2: Breast_svm">
-											</a>
-											<figcaption><strong>Figure 2</strong> SVM</figcaption>
-										</figure>
-
-										<figure>
-											<a href="images/Breast_ksvm.png" data-lightbox="breast-cancer" data-title="Figure 3: Breast_ksvm">
-											<img src="images/Breast_ksvm.png" alt="Figure 3: Breast_ksvm">
-											</a>
-											<figcaption><strong>Figure 3</strong> Kernel SVM</figcaption>
-										</figure>
-
-										<figure>
-											<a href="images/Breast_knn.png" data-lightbox="breast-cancer" data-title="Figure 4: Breast_knn">
-											<img src="images/Breast_knn.png" alt="Figure 4: Breast_knn">
-											</a>
-											<figcaption><strong>Figure 4</strong> K-Nearest Neighbor</figcaption>
-										</figure>
-										
-										<figure>
-											<a href="images/Breast_naive.png" data-lightbox="breast-cancer" data-title="Figure 5: Breast_naive">
-											<img src="images/Breast_naive.png" alt="Figure 5: Breast_naive">
-											</a>
-											<figcaption><strong>Figure 5</strong> Naïve Bayes</figcaption>
-										</figure>
-
-										<figure>
-											<a href="images/Breast_randfor.png" data-lightbox="breast-cancer" data-title="Figure 5: Breast_randfor">
-											<img src="images/Breast_randfor.png" alt="Figure 2: Breast_randfor">
-											</a>
-											<figcaption><strong>Figure 6</strong> Random Forest</figcaption>
-										</figure>
-										
-										<figure>
-											<a href="images/Breast_decision.png" data-lightbox="breast-cancer" data-title="Figure 5: Breast_decision">
-											<img src="images/Breast_decision.png" alt="Figure 2: Breast_decision">
-											</a>
-											<figcaption><strong>Figure 7</strong> Decision Tree</figcaption>
-										</figure>
+											<figure>
+												<img src="images/.png" 
+													alt="Figure 1: startup"
+													class="gallery-trigger"
+													data-gallery="project1"
+													data-caption="Figure 1: startup">
+												<figcaption><strong>Figure 1</strong> Model Evaluation</figcaption>
+											</figure>
 										</div>
+
 
 										<h4>🌟 <strong>Key Insights:</strong></h4>
 										<p>
@@ -3079,9 +3389,9 @@
 									</section>
 
 								</div>
-							</article>
+							</article> 
 
-							
+											-->
 
 						<!-- About Me -->
 							<article id="about">
@@ -3123,7 +3433,7 @@
 							<ul class="icons">
 								<li><a href="https://www.linkedin.com/in/tendai-sibanda" class="icon brands fa-linkedin"><span class="label">LinkedIn</span></a></li>
 								<li><a href="https://github.com/tendai-codes" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
-								<li><a href="mailto:tendai_sibanda14@me.com" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
+							
 							</ul>
 						</article>	
 				
@@ -3387,6 +3697,132 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
 
+
+
+    <!-- Gallery Modal -->
+    <div id="galleryModal" class="gallery-modal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeGallery()">&times;</button>
+            <button class="nav-btn prev-btn" onclick="changeImage(-1)">&#8249;</button>
+            <button class="nav-btn next-btn" onclick="changeImage(1)">&#8250;</button>
+            
+            <img id="modalImage" class="gallery-image" src="" alt="">
+            
+            <div class="image-counter">
+                <span id="currentImageNum">1</span> / <span id="totalImages">1</span>
+            </div>
+            
+            <div class="thumbnail-strip" id="thumbnailStrip"></div>
+        </div>
+    </div>
+
+    <script>
+        let currentGallery = [];
+        let currentImageIndex = 0;
+
+        // Initialize gallery functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add click listeners to all gallery trigger images
+            document.querySelectorAll('.gallery-trigger').forEach(img => {
+                img.addEventListener('click', function() {
+                    openGallery(this);
+                });
+            });
+
+            // Keyboard navigation
+            document.addEventListener('keydown', function(e) {
+                if (document.getElementById('galleryModal').style.display === 'block') {
+                    if (e.key === 'ArrowLeft') changeImage(-1);
+                    if (e.key === 'ArrowRight') changeImage(1);
+                    if (e.key === 'Escape') closeGallery();
+                }
+            });
+
+            // Close modal when clicking outside image
+            document.getElementById('galleryModal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeGallery();
+                }
+            });
+        });
+
+        function openGallery(clickedImage) {
+            const galleryName = clickedImage.getAttribute('data-gallery') || 'default';
+            
+            // Get all images in the same gallery group
+            currentGallery = Array.from(document.querySelectorAll(`[data-gallery="${galleryName}"]`));
+            
+            // Find the index of the clicked image
+            currentImageIndex = currentGallery.indexOf(clickedImage);
+            
+            // Show modal and display image
+            document.getElementById('galleryModal').style.display = 'block';
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+            
+            displayCurrentImage();
+            createThumbnails();
+        }
+
+        function closeGallery() {
+            document.getElementById('galleryModal').style.display = 'none';
+            document.body.style.overflow = 'auto'; // Restore scrolling
+        }
+
+        function changeImage(direction) {
+            currentImageIndex += direction;
+            
+            // Loop around if at the end/beginning
+            if (currentImageIndex >= currentGallery.length) {
+                currentImageIndex = 0;
+            } else if (currentImageIndex < 0) {
+                currentImageIndex = currentGallery.length - 1;
+            }
+            
+            displayCurrentImage();
+            updateThumbnails();
+        }
+
+        function displayCurrentImage() {
+            const currentImg = currentGallery[currentImageIndex];
+            const modalImage = document.getElementById('modalImage');
+            
+            modalImage.src = currentImg.src;
+            modalImage.alt = currentImg.getAttribute('data-caption') || currentImg.alt;
+            
+            // Update counter
+            document.getElementById('currentImageNum').textContent = currentImageIndex + 1;
+            document.getElementById('totalImages').textContent = currentGallery.length;
+        }
+
+        function createThumbnails() {
+            const thumbnailStrip = document.getElementById('thumbnailStrip');
+            thumbnailStrip.innerHTML = '';
+            
+            currentGallery.forEach((img, index) => {
+                const thumbnail = document.createElement('img');
+                thumbnail.src = img.src;
+                thumbnail.className = 'thumbnail';
+                thumbnail.addEventListener('click', () => {
+                    currentImageIndex = index;
+                    displayCurrentImage();
+                    updateThumbnails();
+                });
+                
+                thumbnailStrip.appendChild(thumbnail);
+            });
+            
+            updateThumbnails();
+        }
+
+        function updateThumbnails() {
+            const thumbnails = document.querySelectorAll('.thumbnail');
+            thumbnails.forEach((thumb, index) => {
+                thumb.classList.toggle('active', index === currentImageIndex);
+            });
+        }
+    </script>
+
+
 		<script>
         document.addEventListener("DOMContentLoaded", () => {
 			const buttons = document.querySelectorAll(".filter-button");
@@ -3436,49 +3872,22 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 		<!-- Add jquery -->
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	
-		<!-- Lightbox JS -->
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/js/lightbox.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/js/lightbox.group.min.js"></script>
-
-		
-		<script>
-    // Initialize Lightbox with custom settings
-    lightbox.option({
-        'wrapAround': true,
-        'maxWidth': '60%',
-        'maxHeight': '90vh',
-        'positionFromTop': 50,
-        'positionFromLeft': 50,
-        'enableKeyboardInput': true,
-        'showImageNumberLabel': false
-		'resizeImage': true,
-		'wrapAround': false
-    });
-
-    // Add custom functionality to allow scrolling through images while zoomed in
-    $(document).ready(function() {
-        lightbox.addEventListener('afterOpen', function() {
-            // Add a "Next" and "Previous" button inside the overlay
-            var controls = $('<div>').addClass('image-controls')
-                .append('<button class="prev">Previous</button>')
-                .append('<button class="next">Next</button>');
-            
-            $('.lb-overlay').prepend(controls);
-
-            // Set up click handlers for navigation
-            $('.image-controls .prev').click(function() {
-                lightbox.close();
-                lightbox.gotoPrev();
-                lightbox.open();
-            });
-
-            $('.image-controls .next').click(function() {
-                lightbox.close();
-                lightbox.gotoNext();
-                lightbox.open();
-            });
-        });
-    });
-</script>
+		<!-- Gallery Modal -->
+		<div id="galleryModal" class="gallery-modal">
+			<div class="modal-content">
+				<button class="close-btn" onclick="closeGallery()">&times;</button>
+				<button class="nav-btn prev-btn" onclick="changeImage(-1)">&#8249;</button>
+				<button class="nav-btn next-btn" onclick="changeImage(1)">&#8250;</button>
+				
+				<img id="modalImage" class="gallery-image" src="" alt="">
+				
+				<div class="image-counter">
+					<span id="currentImageNum">1</span> / <span id="totalImages">1</span>
+				</div>
+				
+				<div class="thumbnail-strip" id="thumbnailStrip"></div>
+			</div>
+		</div>	
+    
 	</body>
 </html>

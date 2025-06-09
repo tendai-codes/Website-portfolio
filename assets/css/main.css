@@ -1860,3 +1860,44 @@ pre, pre code {
     grid-template-columns: 1fr;
   }
 }
+
+/* Filter button style */
+.filter-button {
+	padding: 0.5rem 1rem;
+	font-size: 0.80rem;
+	height: auto;
+	line-height: 1.3rem;
+	margin: 1px;
+	border-radius: 4px;
+	background-color: transparent;
+	border: 1px solid #ffffff;
+	color: #22a6ca;
+	font-weight: 400;
+	transition: background-color 0.3s ease, color 0.3s ease;
+	white-space: nowrap;
+	flex-shrink: 0;
+}
+
+/* Hover effect */
+.filter-button:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+  color: #3087bd;
+  cursor: pointer;
+}
+
+/* Active filter style */
+.filter-button.active {
+  background-color: #3a5a33;
+  color: #1b1f22;
+  font-weight: 600;
+  border: 1px solid #ffffff;
+}
+
+#project-filters {
+  display: flex !important; 
+  flex-wrap: wrap !important;
+  justify-content: flex-start !important; /* change to center or space-between if preferred */
+  gap: 10px !important;
+  margin-bottom: 2rem;
+
+}

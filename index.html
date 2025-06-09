@@ -3015,119 +3015,178 @@
 			<script src="assets/js/main.js"></script>
 
 			<script>
-				let currentGallery = [];
-				let currentImageIndex = 0;
-				let currentProjectSection = null;
+			
+			let currentGallery = [];
+			let currentImageIndex = 0;
+			let currentProjectSection = null;
+			let scrollPosition = 0;
+			let galleryOpen = false;
+			let targetScrollPosition = 0;
 
-				// Initialize gallery functionality
-				document.addEventListener('DOMContentLoaded', function() {
-					// Add click listeners to all gallery trigger images
-					document.querySelectorAll('.gallery-trigger').forEach(img => {
-						img.addEventListener('click', function() {
-							openGallery(this);
-						});
-					});
-
-					// Keyboard navigation
-					document.addEventListener('keydown', function(e) {
-						if (document.getElementById('galleryModal').style.display === 'block') {
-							if (e.key === 'ArrowLeft') changeImage(-1);
-							if (e.key === 'ArrowRight') changeImage(1);
-							if (e.key === 'Escape') closeGallery();
-						}
-					});
-
-					// Close modal when clicking outside image
-					document.getElementById('galleryModal').addEventListener('click', function(e) {
-						if (e.target === this) {
-							closeGallery();
-						}
+			// Initialize gallery functionality
+			document.addEventListener('DOMContentLoaded', function() {
+				// Add click listeners to all gallery trigger images
+				document.querySelectorAll('.gallery-trigger').forEach(img => {
+					img.addEventListener('click', function() {
+						openGallery(this);
 					});
 				});
 
-				function openGallery(clickedImage) {
-					// Find the closest parent section (project)
-  					currentProjectSection = clickedImage.closest('.project-item');
-					
-					const galleryName = clickedImage.getAttribute('data-gallery') || 'default';
-					
-					// Get all images in the same gallery group
-					currentGallery = Array.from(document.querySelectorAll(`img.gallery-trigger[data-gallery="${galleryName}"]`));
-					
-					// Find the index of the clicked image
-					currentImageIndex = currentGallery.indexOf(clickedImage);
-					
-					// Show modal and display image
-					document.getElementById('galleryModal').style.display = 'block';
-					document.body.style.overflow = 'hidden'; // Prevent background scrolling
-					
-					displayCurrentImage();
-					createThumbnails();
-				}
-
-				function closeGallery() {
-					document.getElementById('galleryModal').style.display = 'none';
-					document.body.style.overflow = 'auto'; // Restore scrolling
-
-					// ✅ Scroll back to the last project viewed
-					if (currentProjectSection) {
-						currentProjectSection.scrollIntoView({ behavior: 'instant', block: 'start' });
+				// Keyboard navigation
+				document.addEventListener('keydown', function(e) {
+					if (galleryOpen) {
+						if (e.key === 'ArrowLeft') changeImage(-1);
+						if (e.key === 'ArrowRight') changeImage(1);
+						if (e.key === 'Escape') closeGallery();
 					}
+				});
 
-				}
-
-				function changeImage(direction) {
-					currentImageIndex += direction;
-					
-					// Loop around if at the end/beginning
-					if (currentImageIndex >= currentGallery.length) {
-						currentImageIndex = 0;
-					} else if (currentImageIndex < 0) {
-						currentImageIndex = currentGallery.length - 1;
+				// Close modal when clicking outside image
+				document.getElementById('galleryModal').addEventListener('click', function(e) {
+					if (e.target === this) {
+						closeGallery();
 					}
-					
-					displayCurrentImage();
-					updateThumbnails();
-				}
+				});
 
-				function displayCurrentImage() {
-					const currentImg = currentGallery[currentImageIndex];
-					const modalImage = document.getElementById('modalImage');
-					
-					modalImage.src = currentImg.src;
-					modalImage.alt = currentImg.getAttribute('data-caption') || currentImg.alt;
-					
-					// Update counter
-					document.getElementById('currentImageNum').textContent = currentImageIndex + 1;
-					document.getElementById('totalImages').textContent = currentGallery.length;
-				}
+				// Override the main.js scroll behavior when gallery is involved
+				const originalScrollTop = $.fn.scrollTop;
+				$.fn.scrollTop = function(value) {
+					// If gallery just closed, don't let main.js scroll to top
+					if (arguments.length && value === 0 && galleryOpen === 'closing') {
+						console.log('Prevented main.js from scrolling to top');
+						return this;
+					}
+					return originalScrollTop.apply(this, arguments);
+				};
+			});
 
-				function createThumbnails() {
-					const thumbnailStrip = document.getElementById('thumbnailStrip');
-					thumbnailStrip.innerHTML = '';
-					
-					currentGallery.forEach((img, index) => {
-						const thumbnail = document.createElement('img');
-						thumbnail.src = img.src;
-						thumbnail.className = 'thumbnail';
-						thumbnail.addEventListener('click', () => {
-							currentImageIndex = index;
-							displayCurrentImage();
-							updateThumbnails();
+			function openGallery(clickedImage) {
+				galleryOpen = true;
+				
+				// Store current scroll position and find project section
+				scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+				
+				currentProjectSection = clickedImage.closest('.project-item') || 
+									clickedImage.closest('.project') || 
+									clickedImage.closest('section') ||
+									clickedImage.closest('article');
+				
+				console.log('Opening gallery, scroll position:', scrollPosition);
+				console.log('Project section found:', currentProjectSection);
+				
+				const galleryName = clickedImage.getAttribute('data-gallery') || 'default';
+				currentGallery = Array.from(document.querySelectorAll(`img.gallery-trigger[data-gallery="${galleryName}"]`));
+				currentImageIndex = currentGallery.indexOf(clickedImage);
+				
+				// Show modal
+				document.getElementById('galleryModal').style.display = 'block';
+				document.body.style.overflow = 'hidden';
+				
+				displayCurrentImage();
+				createThumbnails();
+			}
+
+			function closeGallery() {
+				galleryOpen = 'closing'; // Special state to prevent scroll interference
+				
+				document.getElementById('galleryModal').style.display = 'none';
+				document.body.style.overflow = 'auto';
+
+				console.log('Closing gallery, will restore to position:', scrollPosition);
+				
+				// Calculate target position if we have a project section
+				if (currentProjectSection) {
+					const rect = currentProjectSection.getBoundingClientRect();
+					targetScrollPosition = rect.top + window.pageYOffset - 50;
+					console.log('Target scroll position for project:', targetScrollPosition);
+				} else {
+					targetScrollPosition = scrollPosition;
+				}
+				
+				// Use multiple approaches to restore position
+				
+				// Immediate attempt
+				setTimeout(() => {
+					window.scrollTo({
+						top: targetScrollPosition,
+						behavior: 'instant'
+					});
+					console.log('First scroll attempt to:', targetScrollPosition);
+				}, 10);
+				
+				// Second attempt after potential main.js interference
+				setTimeout(() => {
+					window.scrollTo({
+						top: targetScrollPosition,
+						behavior: 'instant'
+					});
+					console.log('Second scroll attempt to:', targetScrollPosition);
+				}, 100);
+				
+				// Final attempt with smooth scroll
+				setTimeout(() => {
+					if (Math.abs(window.pageYOffset - targetScrollPosition) > 50) {
+						window.scrollTo({
+							top: targetScrollPosition,
+							behavior: 'smooth'
 						});
-						
-						thumbnailStrip.appendChild(thumbnail);
+						console.log('Final smooth scroll to:', targetScrollPosition);
+					}
+					galleryOpen = false; // Reset state after all attempts
+				}, 300);
+			}
+
+			function changeImage(direction) {
+				currentImageIndex += direction;
+				
+				if (currentImageIndex >= currentGallery.length) {
+					currentImageIndex = 0;
+				} else if (currentImageIndex < 0) {
+					currentImageIndex = currentGallery.length - 1;
+				}
+				
+				displayCurrentImage();
+				updateThumbnails();
+			}
+
+			function displayCurrentImage() {
+				const currentImg = currentGallery[currentImageIndex];
+				const modalImage = document.getElementById('modalImage');
+				
+				modalImage.src = currentImg.src;
+				modalImage.alt = currentImg.getAttribute('data-caption') || currentImg.alt;
+				
+				document.getElementById('currentImageNum').textContent = currentImageIndex + 1;
+				document.getElementById('totalImages').textContent = currentGallery.length;
+			}
+
+			function createThumbnails() {
+				const thumbnailStrip = document.getElementById('thumbnailStrip');
+				thumbnailStrip.innerHTML = '';
+				
+				currentGallery.forEach((img, index) => {
+					const thumbnail = document.createElement('img');
+					thumbnail.src = img.src;
+					thumbnail.className = 'thumbnail';
+					thumbnail.addEventListener('click', () => {
+						currentImageIndex = index;
+						displayCurrentImage();
+						updateThumbnails();
 					});
 					
-					updateThumbnails();
-				}
+					thumbnailStrip.appendChild(thumbnail);
+				});
+				
+				updateThumbnails();
+			}
 
-				function updateThumbnails() {
-					const thumbnails = document.querySelectorAll('.thumbnail');
-					thumbnails.forEach((thumb, index) => {
-						thumb.classList.toggle('active', index === currentImageIndex);
-					});
-				}
+			function updateThumbnails() {
+				const thumbnails = document.querySelectorAll('.thumbnail');
+				thumbnails.forEach((thumb, index) => {
+					thumb.classList.toggle('active', index === currentImageIndex);
+				});
+			}
+
 			</script>
 
 			<script>

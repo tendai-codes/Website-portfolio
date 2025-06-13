@@ -1901,3 +1901,36 @@ pre, pre code {
   margin-bottom: 2rem;
 
 }
+
+@media screen and (max-width: 1024px) {
+  .image-gallery img {
+    max-height: 60vh;
+	object-fit: contain;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .gallery-modal .gallery-image {
+    max-width: 90%;
+    max-height: 50vh;
+  }
+
+  .gallery-modal .nav-btn {
+    top: 45%;
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+  }
+
+  .gallery-modal .close-btn {
+    top: 15px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    font-size: 24px;
+  }
+}
+
+body.modal-open {
+  overflow: hidden;
+}

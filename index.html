@@ -3133,17 +3133,6 @@
 						closeGallery();
 					}
 				});
-
-				// Override the main.js scroll behavior when gallery is involved
-				const originalScrollTop = $.fn.scrollTop;
-				$.fn.scrollTop = function(value) {
-					// If gallery just closed, don't let main.js scroll to top
-					if (arguments.length && value === 0 && galleryOpen === 'closing') {
-						console.log('Prevented main.js from scrolling to top');
-						return this;
-					}
-					return originalScrollTop.apply(this, arguments);
-				};
 			});
 
 			function openGallery(clickedImage) {
@@ -3152,13 +3141,11 @@
 				// Store current scroll position and find project section
 				scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
 				
+				// Find the nearest project item or section
 				currentProjectSection = clickedImage.closest('.project-item') || 
 									clickedImage.closest('.project') || 
 									clickedImage.closest('section') ||
 									clickedImage.closest('article');
-				
-				console.log('Opening gallery, scroll position:', scrollPosition);
-				console.log('Project section found:', currentProjectSection);
 				
 				const galleryName = clickedImage.getAttribute('data-gallery') || 'default';
 				currentGallery = Array.from(document.querySelectorAll(`img.gallery-trigger[data-gallery="${galleryName}"]`));
@@ -3173,53 +3160,29 @@
 			}
 
 			function closeGallery() {
-				galleryOpen = 'closing'; // Special state to prevent scroll interference
+				galleryOpen = false;
 				
 				document.getElementById('galleryModal').style.display = 'none';
 				document.body.style.overflow = 'auto';
 
-				console.log('Closing gallery, will restore to position:', scrollPosition);
-				
 				// Calculate target position if we have a project section
 				if (currentProjectSection) {
 					const rect = currentProjectSection.getBoundingClientRect();
-					targetScrollPosition = rect.top + window.pageYOffset - 50;
-					console.log('Target scroll position for project:', targetScrollPosition);
+					targetScrollPosition = rect.top + window.pageYOffset - 100; // 100px offset from top
 				} else {
 					targetScrollPosition = scrollPosition;
 				}
 				
-				// Use multiple approaches to restore position
-				
-				// Immediate attempt
-				setTimeout(() => {
+				// Use requestAnimationFrame for smoother scroll restoration
+				const scrollToPosition = () => {
 					window.scrollTo({
 						top: targetScrollPosition,
-						behavior: 'instant'
+						behavior: 'smooth'
 					});
-					console.log('First scroll attempt to:', targetScrollPosition);
-				}, 10);
+				};
 				
-				// Second attempt after potential main.js interference
-				setTimeout(() => {
-					window.scrollTo({
-						top: targetScrollPosition,
-						behavior: 'instant'
-					});
-					console.log('Second scroll attempt to:', targetScrollPosition);
-				}, 100);
-				
-				// Final attempt with smooth scroll
-				setTimeout(() => {
-					if (Math.abs(window.pageYOffset - targetScrollPosition) > 50) {
-						window.scrollTo({
-							top: targetScrollPosition,
-							behavior: 'smooth'
-						});
-						console.log('Final smooth scroll to:', targetScrollPosition);
-					}
-					galleryOpen = false; // Reset state after all attempts
-				}, 300);
+				// Small delay to ensure modal is fully closed before scrolling
+				setTimeout(scrollToPosition, 50);
 			}
 
 			function changeImage(direction) {
@@ -3238,9 +3201,11 @@
 			function displayCurrentImage() {
 				const currentImg = currentGallery[currentImageIndex];
 				const modalImage = document.getElementById('modalImage');
+				const modalCaption = document.getElementById('modalCaption');
 				
 				modalImage.src = currentImg.src;
 				modalImage.alt = currentImg.getAttribute('data-caption') || currentImg.alt;
+				modalCaption.textContent = currentImg.getAttribute('data-caption') || '';
 				
 				document.getElementById('currentImageNum').textContent = currentImageIndex + 1;
 				document.getElementById('totalImages').textContent = currentGallery.length;

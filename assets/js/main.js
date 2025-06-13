@@ -141,9 +141,7 @@
 										$article.addClass('active');
 
 										// Window stuff.
-											$window
-												.scrollTop(0)
-												.triggerHandler('resize.flexbox-fix');
+											if (!window.galleryOpen) $window.scrollTop(0).triggerHandler('resize.flexbox-fix');
 
 										// Unlock.
 											setTimeout(function() {
@@ -180,9 +178,7 @@
 										$article.addClass('active');
 
 										// Window stuff.
-											$window
-												.scrollTop(0)
-												.triggerHandler('resize.flexbox-fix');
+											if (!window.galleryOpen) $window.scrollTop(0).triggerHandler('resize.flexbox-fix');
 
 										// Unlock.
 											setTimeout(function() {
@@ -239,9 +235,7 @@
 								$body.removeClass('is-switching');
 
 							// Window stuff.
-								$window
-									.scrollTop(0)
-									.triggerHandler('resize.flexbox-fix');
+								if (!window.galleryOpen) $window.scrollTop(0).triggerHandler('resize.flexbox-fix');
 
 							return;
 
@@ -270,9 +264,7 @@
 								$body.removeClass('is-article-visible');
 
 								// Window stuff.
-									$window
-										.scrollTop(0)
-										.triggerHandler('resize.flexbox-fix');
+									if (!window.galleryOpen) $window.scrollTop(0).triggerHandler('resize.flexbox-fix');
 
 								// Unlock.
 									setTimeout(function() {

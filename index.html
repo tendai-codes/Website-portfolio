@@ -2556,28 +2556,29 @@
 										
 									</section>
 
-									<section class="project-item" data-tags="Python,Deep Learning,TensorFlow">
-										<h3>📽️ <strong>Power Plant Energy Output Prediction with ANN (Regression) </strong></h3>
+									<section class="project-item" data-tags="Python,Deep Learning,PyTorch">
+										<h3>📽️ <strong>FashionMNIST Image Classification </strong></h3>
 										<p>
-											This project explored publicly available data on top-grossing US films to identify patterns across genres, studios, and release schedules. I used <strong>R</strong> and <strong>ggplot2</strong> for data exploration and visualisation.
+											This project explores image classification using the FashionMNIST dataset, focusing on comparing CNN architectures to improve accuracy and training efficiency. It began as a practical extension of previous work in computer vision, driven by curiosity to deepen my understanding of how convolutional layers and activation functions impact learning. I designed a CNN inspired by the TinyVGG architecture and benchmarked it against two other models on performance and training time.
 										</p>
 
 										<h4>💻 <strong>Tech Stack:</strong></h4>
 										<ul>
-											<li><strong>Python</strong> for machine learning model development and comparison</li>
-											<li><strong>Scikit-learn</strong> for preprocessing, encoding, scaling, and evaluation metrics</li>
-											<li><strong>Pandas</strong> for dataset loading and initial data exploration</li>
-											<li><strong>NumPy</strong> for numerical operations and grid generation</li>
-											<li><strong>TensorFlow/Keras</strong> for building and training the neural network</li>
-
+											<li><strong>Python</strong> for machine learning model development</li>
+											<li><strong>PyTorch</strong> for deep learning and custom CNN architecture</li>
+											<li><strong>Matplotlib</strong> for visualisation</li>
+											<li><strong>TorchMetrics & MLXtend</strong> for evaluation and plotting confusion matrix</li>
+											
 										</ul>
 
 										<h4>🧪 <strong>Data Pipeline:</strong></h4>
 										<ul>
-											<li><strong>Load & inspect data:</strong> Loaded Combined Cycle Power Plant dataset from Excel file containing hourly average ambient variables: <code>Ambient Temperature</code><strong>(AT)</strong>, <code>Ambient Pressure</code> <strong>(AP)</strong>, <code>Relative Humidity</code> <strong>(RH)</strong>, <code>Exhaust Vacuum</code> <strong>(V)</strong>, and <code>net hourly electrical energy output</code> <strong>(PE)</strong>. Extracted four environmental features as input variables: <strong>AT (°C)</strong>, <strong>V (cm Hg)</strong>, <strong>AP (mbar)</strong>, and <strong>RH (%)</strong>. Used <strong>PE (MW)</strong> as continuous target variable representing net hourly electrical energy output for regression </li>
-											<li><strong>Data Preparation:</strong> Split dataset into 80% training and 20% testing sets with random_state=0 for reproducibility, no feature scaling applied, relying on neural network's ability to learn appropriate feature weights and maintained original feature scales since all variables were in compatible ranges </li>
-											<li><strong>Model Architecture:</strong> Built <code>Sequential</code> ANN with 4 layers: 3 hidden layers (6 units each, <code>ReLU activation</code>) and linear output layer (1 unit, <code>no activation</code>), compiled with <code>Adam optimizer</code> and <code>Mean Squared Error</code> loss for regression optimization</li>
-											<li><strong>Model training & Evaluation:</strong> Trained for 100 epochs with batch size of 32 for stable gradient updates, generated predictions on test set without threshold conversion, and compared predicted vs actual energy outputs with 2-decimal precision formatting</li>
+											<li><strong>Import & Setup:</strong> Loaded FashionMNIST using <code>torchvision.datasets</code>, transforming PIL images into PyTorch tensors.</li>
+											<li><strong>Visual Exploration:</strong> Used <code>matplotlib.pyplot</code> to visualise images in grayscale and display class names, gaining familiarity with the data distribution (Figures A–C). </li>
+											<li><strong>Data Loaders:</strong> Implemented <code>DataLoader</code> objects with shuffling and batching (batch size = 32) for both training and test datasets.</li>
+											<li><strong>Model Definition:</strong> Constructed a CNN (TinyVGG-inspired) using <code>nn.Sequential</code> blocks for convolution, activation, and pooling, with a dynamically calculated flattened feature size for the final <code>Linear</code> layer.</li>
+											<li><strong>Model Training:</strong> Trained the CNN using a loop with manual timing and <code>CrossEntropyLoss</code>. Tracked model accuracy with a custom <code>accuracy_function</code>.</li>
+											<li><strong>Model Evaluation:</strong> Used a combination of random sample predictions, visual comparisons (Figure 3), and a confusion matrix (Figure 4) using TorchMetrics + MLXtend for deeper analysis.</li>
 										</ul>
 
 										<h4>📊 <strong>Code Snippets & Visualisations:</strong></h4>
@@ -2585,364 +2586,371 @@
 										<!-- Code Snippet -->
 
 										<pre><code class="language-python"># Importing the libraries
-										import numpy as np
-										import pandas as pd
-										import tensorflow as tf
+										import torch
+										from torch import nn
 
-										# Importing dataset
-										dataset = pd.read_excel('Folds5x2_pp.xlsx')
-										X = dataset.iloc[:, :-1].values
-										y = dataset.iloc[:, -1].values
+										# Import torchvision
+										import torchvision
 
-										# Splitting the dataset into the Training set and Test set
-
-										from sklearn.model_selection import train_test_split
-										X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state = 0)
-
-										# Building the ANN
-
-										ann = tf.keras.models.Sequential()
-										ann.add(tf.keras.layers.Dense(units=6, activation='relu'))
-										ann.add(tf.keras.layers.Dense(units=6, activation='relu'))
-										ann.add(tf.keras.layers.Dense(units=6, activation='relu'))
-										ann.add(tf.keras.layers.Dense(units=1))
-
-										# Compiling the ANN
-										ann.compile(optimizer = 'adam', loss = 'mean_squared_error')
-
-										# Training the ANN (Table 1)
-
-										ann.fit(X_train, y_train, batch_size = 32, epochs = 100)
-
-										# Predicting the results of the test set (Table 2)
-										y_pred = ann.predict(X_test)
-										np.set_printoptions(precision=2)
-										print(np.concatenate((y_pred.reshape(len(y_pred),1), y_test.reshape(len(y_test),1)),1))
-
-										</code></pre>
-
-										
-										<!-- Visualisations -->
-
-										<div class="image-gallery">
-											<figure>
-												<img src="images/ANNReg_Table 1.png" 
-													alt="Table 1: Training ANN"
-													class="gallery-trigger"
-													data-gallery="ANNReg"
-													data-caption="Table 1: Training ANN">
-												<figcaption><strong>Table 1</strong> Training ANN</figcaption>
-											</figure>
-
-											<figure>
-												<img src="images/ANNReg_Table 2.png" 
-													alt="Table 2: Predicting Test Set Results"
-													class="gallery-trigger"
-													data-gallery="ANNReg"
-													data-caption="Table 2: Predicting Test Set Results">
-												<figcaption><strong>Table 2</strong> Predicting Test Set Results</figcaption>
-											</figure>
-
-										</div>
-
-
-										<h4>🌟 <strong>Key Insights:</strong></h4>
-										<ul>
-											<li>Deep neural networks excel at modeling complex thermodynamic relationships in combined cycle power plants, capturing non-linear interactions between ambient conditions (temperature, pressure, humidity, vacuum) and energy output that traditional linear models miss</li>
-											<li>Regression ANN architecture with multiple hidden layers effectively learned the intricate dependencies between environmental variables and gas/steam turbine efficiency in the combined cycle system</li>
-											<li>Mean Squared Error optimization provided robust training for continuous energy prediction, enabling accurate forecasting of net hourly electrical output (PE) across different seasonal and operational conditions</li>
-										</ul>
-
-										<h4>🧗🏾 <strong>Challenge Faced:</strong></h4>
-										<p>
-											My primary challenge was determining the optimal network depth for regression without overfitting. Initially, I experimented with different numbers of hidden layers and found that too few layers couldn't capture the complex thermodynamic relationships, while too many layers led to overfitting. After testing various architectures, I settled on three hidden layers as the sweet spot that balanced model complexity with generalization performance.
-										</p><a href="https://github.com/tendai-codes/DeepLearning" class="github-button" target="_blank">View on GitHub</a></p>
-									</section>
-
-									<section class="project-item" data-tags="Python,Deep Learning,TensorFlow">
-										<h3>📽️ <strong>Restaurant Review Sentiment Analysis with NLP </strong></h3>
-										<p>
-											In this project developed a natural language processing model to classify restaurant reviews as positive or negative sentiment using text preprocessing and machine learning. I built an end-to-end NLP pipeline that transforms raw review text into numerical features for binary sentiment classification using Naive Bayes algorithm.
-										</p>
-
-										<h4>💻 <strong>Tech Stack:</strong></h4>
-										<ul>
-											<li><strong>Python</strong> for machine learning model development and comparison</li>
-											<li><strong>Scikit-learn</strong> for feature extraction <code>(CountVectorizer)</code>, model training (GaussianNB), and evaluation metrics</li>
-											<li><strong>Pandas</strong> for dataset loading and initial data exploration</li>
-											<li><strong>NumPy</strong> for numerical operations and grid generation</li>
-											<li><strong>Regular Expressions (re)</strong> for text cleaning and preprocessing</li>
-											<li><strong>NLTK</strong> for natural language processing, stopwords, and text stemming</li>
-										</ul>
-
-										<h4>🧪 <strong>Data Pipeline:</strong></h4>
-										<ul>
-											<li><strong>Text Preprocessing & Cleaning:</strong> Applied comprehensive text cleaning on 1000 restaurant reviews using regex to remove non-alphabetic characters, converted all text to lowercase for consistency and split into individual words, implemented Porter Stemming to reduce words to their root forms (e.g., "running" → "run"), and removed English stopwords while preserving "not" to maintain negation context for sentiment analysis </li>
-											<li><strong>Feature Engineering:</strong> Created Bag of Words model using CountVectorizer with maximum 1500 features to convert text to numerical representation, generated sparse matrix where each column represents a unique word and values indicate word frequency and extracted sentiment labels (positive/negative) as target variable for binary classification </li>
-											<li><strong>Model training & Evaluation:</strong> Split dataset into 80% training and 20% testing sets with random_state=0, trained Gaussian Naive Bayes classifier on the bag-of-words features, generated predictions on test set and compared against actual sentiment labels and evaluated model performance using confusion matrix and accuracy score metrics</li>
-											
-										</ul>
-
-										<h4>📊 <strong>Code Snippets & Visualisations:</strong></h4>
-
-										<!-- Code Snippet -->
-
-										<pre><code class="language-python"># Importing the libraries
-										import re
-										import nltk
-										nltk.download('stopwords')
-										from nltk.corpus import stopwords
-										from nltk.stem.porter import PorterStemmer
-										corpus = []
-										for i in range(0, 1000):
-										review = re.sub('[^a-zA-Z]', ' ', dataset['Review'][i])
-										review = review.lower()
-										review = review.split()
-										ps = PorterStemmer()
-										all_stopwords = stopwords.words('english')
-										all_stopwords.remove('not')
-										review = [ps.stem(word) for word in review if not word in set(all_stopwords)]
-										review = ' '.join(review)
-										corpus.append(review)
-
-										print(corpus) (Table 1)
-
-										# Creating the bag of words model
-										from sklearn.feature_extraction.text import CountVectorizer
-										cv = CountVectorizer(max_features = 1500)
-										X = cv.fit_transform(corpus).toarray()
-										y = dataset.iloc[:, -1].values
-
-										# Splitting the dataset into the Training set and Test set
-
-										from sklearn.model_selection import train_test_split
-										X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.20, random_state = 0)
-
-										# Training the Naive Bayes model on the Training set (Table 2)
-										from sklearn.naive_bayes import GaussianNB
-										classifier = GaussianNB()
-										classifier.fit(X_train, y_train)
-
-										# Predicting the Test set results (Table 3)
-										y_pred = classifier.predict(X_test)
-										print(np.concatenate((y_pred.reshape(len(y_pred),1), y_test.reshape(len(y_test),1)),1))
-
-										# Making Confusion Matrix (Table 4)
-										from sklearn.metrics import confusion_matrix, accuracy_score
-										cm = confusion_matrix(y_test, y_pred)
-										print(cm)
-										accuracy_score(y_test, y_pred)
-										</code></pre>
-
-										
-										<!-- Visualisations -->
-
-										<div class="image-gallery">
-											<figure>
-												<img src="images/NLP_table 1.png" 
-													alt="Table 1: Removed words"
-													class="gallery-trigger"
-													data-gallery="NLP"
-													data-caption="Table 1: Removed words">
-												<figcaption><strong>Table 1</strong> Removed words</figcaption>
-											</figure>
-
-											<figure>
-												<img src="images/NLP_table 2.png" 
-													alt="Table 2: Naive Bayes Model"
-													class="gallery-trigger"
-													data-gallery="NLP"
-													data-caption="Table 2: Naive Bayes Model">
-												<figcaption><strong>Table 2</strong> Naive Bayes Model y</figcaption>
-											</figure>
-
-											<figure>
-												<img src="images/NLP_table 3.png" 
-													alt="Table 3: Predicting Test Set Results"
-													class="gallery-trigger"
-													data-gallery="NLP"
-													data-caption="Table 3: Predicting Test Set Results">
-												<figcaption><strong>Table 3</strong> Predicting Test Set Results </figcaption>
-											</figure>
-
-											<figure>
-												<img src="images/NLP_table 4.png" 
-													alt="Table 4: Confusion Matrix"
-													class="gallery-trigger"
-													data-gallery="NLP"
-													data-caption="Table 4: Confusion Matrix">
-												<figcaption><strong>Table 4</strong> Confusion Matrix </figcaption>
-											</figure>
-										</div>
-
-
-										<h4>🌟 <strong>Key Insights:</strong></h4>
-										<p>
-											<li>Text preprocessing significantly impacts model performance, thus removing noise, stemming words, and strategic stopword removal (keeping "not") improved the classifier's ability to capture sentiment nuances</li>
-											<li>The Bag of Words representation effectively captured sentiment patterns despite its simplicity, with the 1500 most frequent words providing sufficient discriminative power for restaurant review classification</li>
-											<li>Mean Squared Error optimization provided robust training for continuous energy prediction, enabling accurate forecasting of net hourly electrical output (PE) across different seasonal and operational conditions</li>
-										</p>
-
-										<h4>🧗🏾 <strong>Challenge Faced:</strong></h4>
-										<p>
-											The main challenge was balancing feature dimensionality with model performance. Initially, I used all unique words which created an extremely sparse and high-dimensional feature space, leading to overfitting. After experimenting with different max_features values in CountVectorizer, I found that limiting to 1500 features provided the optimal trade-off between capturing important sentiment words and maintaining computational efficiency while avoiding the curse of dimensionality.
-										</p><a href="https://github.com/tendai-codes/DeepLearning" class="github-button" target="_blank">View on GitHub</a></p>
-										
-									</section>
-
-									<section class="project-item" data-tags="Python,Deep Learning,TensorFlow">
-										<h3>📽️ <strong>Cat vs Dog Image Classification with CNN </strong></h3>
-										<p>
-											developed a Convolutional Neural Network to classify images of cats and dogs using deep learning computer vision techniques. I built an end-to-end image classification pipeline that processes raw images through data augmentation, feature extraction, and binary classification to distinguish between cats and dogs with high accuracy.
-										</p>
-
-										<h4>💻 <strong>Tech Stack:</strong></h4>
-										<ul>
-											
-											<li><strong>ImageDataGenerator</strong> for real-time data augmentation and preprocessing</li>
-											<li><strong>NumPy</strong>  for array manipulation and image processing</li>
-											<li><strong>TensorFlow/Keras</strong> for building and training convolutional neural networks</li>
-											<li><strong>Keras Preprocessing</strong> for individual image prediction and testing</li>
-										</ul>
-
-										<h4>🧪 <strong>Data Pipeline:</strong></h4>
-										<ul>
-											<li><strong>Data Preprocessing & Augmentation</strong> Applied comprehensive data augmentation to training set: <code>rescaling</code> <strong>(1./255)</strong>, <code>shear transformation</code> <strong>(0.2)</strong>, <code>zoom</code> <strong>(0.2)</strong>, and horizontal flipping to increase dataset diversity, resized all images to <strong>64x64 pixels</strong> for consistent input dimensions, used <code>ImageDataGenerator</code> to load images directly from directory structure with binary class mode and applied only rescaling to test set to maintain evaluation integrity </li>
-											<li><strong>CNN Architechural Design:</strong> Built Sequential CNN with systematic layer progression: <strong>Convolution</strong> → <strong>Pooling</strong> → <strong>Convolution</strong> → <strong>Pooling</strong> → <strong>Flatten</strong> → <strong>Dense</strong> → <strong>Output</strong>, <strong>First convolutional layer:</strong> <code>32 filters</code> with <code>3x3 kernel</code> and <code>ReLU activation</code>, input shape <code>[64, 64, 3]</code>, Added <strong>MaxPool2D layers</strong> <code>(2x2, stride=2)</code> after each convolution for spatial dimension reduction, <strong>Flattened feature</strong> maps before dense layers and added <strong>fully connected layer</strong> <code>(128 units, ReLU)</code>, <strong>Output layer:</strong> Single neuron with <code>sigmoid activation</code> for binary classification </li>
-											<li><strong>Model Training & Evaluation:</strong> Compiled with <code>Adam optimizer</code>,  <code>binary crossentropy loss</code>, and accuracy metrics, trained for <strong>25 epochs</strong> using training set with validation on test set and implemented single image prediction pipeline with proper preprocessing and class mapping</li>
-											
-											
-										</ul>
-
-										<h4>📊 <strong>Code Snippets & Visualisations:</strong></h4>
-
-										<!-- Code Snippet -->
-
-										<pre><code class="language-python"># Importing the libraries
-										import tensorflow as tf
-										from tensorflow.keras.preprocessing.image import ImageDataGenerator
-										from tensorflow.keras.models import Sequential
-										from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense, Dropout
+										# Import matplotlib for visualization
 										import matplotlib.pyplot as plt
-										from keras.preprocessing import image
-										import numpy as np
 
-										# Preprocessing Training set
-										train_datagen = ImageDataGenerator(rescale = 1./255,
-																		shear_range = 0.2,
-																		zoom_range = 0.2,
-																		horizontal_flip = True)
-										training_set = train_datagen.flow_from_directory('dataset/training_set',
-																						target_size = (64, 64),
-																						batch_size = 32,
-																						class_mode = 'binary')
+										# Setup device Agnostic Code
+										device = "cuda" if torch.cuda.is_available() else "cpu"
+										print(f"Using Device: {device}")
 
-										# Preprocessing Test set
-										test_datagen = ImageDataGenerator(rescale = 1./255)
-										test_set = test_datagen.flow_from_directory('dataset/test_set',
-																					target_size = (64, 64),
-																					batch_size = 32,
-																					class_mode = 'binary')
-
-										# Check Dataset (Images) Figure 1
-
-										train_generator = train_datagen.flow_from_directory(
-											'dataset/training_set',
-											target_size=(64, 64),
-											batch_size=9,          # Show 9 images
-											class_mode='binary',
-											shuffle=True
+										# Setup training data
+										from torchvision import datasets
+										from torchvision.transforms import ToTensor
+										train_data = datasets.FashionMNIST(
+											root="data", # where to download data to?
+											train=True, # get training data
+											download=True, # download data if it doesn't exist on disk
+											transform=torchvision.transforms.ToTensor(), # images come as PIL format, we want to turn into Torch tensors
+											target_transform=None # you can transform labels as well
 										)
 
-										images, labels = next(train_generator)  # Get a batch
-
-										plt.figure(figsize=(8, 8))
-										for i in range(9):
-											plt.subplot(3, 3, i + 1)
-											plt.imshow(images[i])
-											label = 'Dog' if labels[i] == 1 else 'Cat'
-											plt.title(label)
-											plt.axis('off')
-										plt.tight_layout()
-										plt.show()
-										
-										# Building the CNN
-
-										# Initialising CNN
-										cnn = tf.keras.models.Sequential()
-										# Step 1 - Convolution
-										cnn.add(tf.keras.layers.Conv2D(filters=32, kernel_size=3, activation='relu', input_shape=[64, 64, 3]))
-										# Step 2 - Pooling
-										cnn.add(tf.keras.layers.MaxPool2D(pool_size=2, strides=2))
-										# Step 3 - Adding second layer
-										cnn.add(tf.keras.layers.Conv2D(filters=32, kernel_size=3, activation='relu'))
-										cnn.add(tf.keras.layers.MaxPool2D(pool_size=2, strides=2))
-										# Step 4 - Flattening
-										cnn.add(tf.keras.layers.Flatten())
-										# Step 5 - Full connection
-										cnn.add(tf.keras.layers.Dense(units=128, activation='relu'))
-										# Step 6 - Flattening
-										cnn.add(tf.keras.layers.Dense(units=1, activation='sigmoid'))
-
-										# Compiling CNN
-										cnn.compile(optimizer = 'adam', loss = 'binary_crossentropy', metrics = ['accuracy'])
-
-										# Training CNN and evaluating on test set (Figure 2)
-										cnn.fit(
-											training_set,
-											validation_data=test_set,
-											epochs=25,
-											verbose=1 
+										# Setup testing data
+										test_data = datasets.FashionMNIST(
+											root="data",
+											train=False, # get test data
+											download=True,
+											transform=torchvision.transforms.ToTensor(),
+											target_transform=None
 										)
 
-										# Making a single prediction (Figure 3)
-										# Load and preprocess the image
-										img_path = 'dataset/single_prediction/cat_or_dog_1.jpg'
-										test_image = image.load_img(img_path, target_size=(64, 64))
-										img_array = image.img_to_array(test_image)
-										test_image_input = np.expand_dims(img_array, axis=0)
+										# Explore Data
+										len(train_data), len(test_data)
 
-										# Predict
-										result = cnn.predict(test_image_input)
+										# See first training sample
+										image, label = train_data[0]
+										print(label), print(image)
 
-										# Determine label
-										if result[0][0] == 1:
-											prediction = 'dog'
+										# See classes of data
+										class_names = train_data.classes
+										class_names
+
+										# Labels and their corresponding index
+										class_to_idx = train_data.class_to_idx
+										class_to_idx
+
+										# Check shape of our Image
+										image.shape , label
+										print(f"Image shape: {image.shape} -> [colour_channels, height, width]")
+										print(f"Image label: {class_names[label]}")
+
+										# Visualise data (Figure A)
+										import matplotlib.pyplot as plt
+										image, label = train_data[0]
+										print(f"Image shape: {image.shape}")
+										plt.imshow(image.squeeze()) # image shape is [1, 28, 28] (colour channels, height, width) matplotlib doesn't recognise so squeeze function is used to remove 1 dimension
+										plt.title(label);
+
+										# Observe image in grayscale (Figure B)
+										plt.imshow(image.squeeze(), cmap="gray")
+										plt.title(class_names[label]);
+										plt.axis(False); #remove axes
+
+										# Plot more images (Figure C)
+										torch.manual_seed(42)
+										fig = plt.figure(figsize=(9, 9))
+										rows, cols = 4, 4
+										for i in range(1, rows * cols + 1):
+											random_idx = torch.randint(0, len(train_data), size=[1]).item()
+											img, label = train_data[random_idx]
+											fig.add_subplot(rows, cols, i)
+											plt.imshow(img.squeeze(), cmap="gray")
+											plt.title(class_names[label])
+											plt.axis(False);
+
+										# Prepare Dataloader
+										from torch.utils.data import DataLoader
+
+										# Setup the batch size hyperparameter
+										BATCH_SIZE = 32
+
+										# Turn datasets into iterables (batches)
+										train_dataloader = DataLoader(train_data, # dataset to turn into iterable
+																	batch_size=BATCH_SIZE, # how many samples per batch?
+																	shuffle=True) # shuffle data so model doesn't evaluate order
+
+
+										test_dataloader = DataLoader(test_data,
+																	batch_size=BATCH_SIZE,
+																	shuffle=False) # don't necessarily have to shuffle the testing data
+										train_dataloader, test_dataloader
+
+										# Check out created dataloader
+										print(f"Dataloaders: {train_dataloader, test_dataloader}")
+										print(f"Length of train dataloader: {len(train_dataloader)} batches of {BATCH_SIZE}")
+										print(f"Length of test dataloader: {len(test_dataloader)} batches of {BATCH_SIZE}")
+
+										# Check what's inside the training dataloader
+										train_features_batch, train_labels_batch = next(iter(train_dataloader))
+										train_features_batch.shape, train_labels_batch.shape# Check what's inside the training dataloader
+										train_features_batch, train_labels_batch = next(iter(train_dataloader))
+										train_features_batch.shape, train_labels_batch.shape
+
+										# Create a convolutional neural network
+										class ImageModelV2(nn.Module):
+											"""
+											Model architecture copying TinyVGG from:
+											https://poloclub.github.io/cnn-explainer/
+											"""
+											def __init__(self,
+														input_shape: int,
+														hidden_units: int,
+														output_shape: int):
+											super().__init__()
+											self.conv_block_1 = nn.Sequential(
+												nn.Conv2d(in_channels=input_shape,
+															out_channels=hidden_units,
+															kernel_size=3, # how big is the square that's going over the image?
+															stride=1, # default
+															padding=1),# options = "valid" (no padding) or "same" (output has same shape as input) or int for specific number
+												nn.ReLU(),
+												nn.Conv2d(in_channels=hidden_units,
+															out_channels=hidden_units,
+															kernel_size=3,
+															stride=1,
+															padding=1),
+												nn.ReLU(),
+												nn.MaxPool2d(kernel_size=2,
+																stride=2) # default stride value is same as kernel_size
+											)
+											self.conv_block_2 = nn.Sequential(
+												nn.Conv2d(in_channels=hidden_units,
+															out_channels=hidden_units,
+															stride=1,
+															kernel_size=3,
+															padding=1),
+												nn.ReLU(),
+												nn.Conv2d(in_channels=hidden_units,
+															out_channels=hidden_units,
+															stride=1,
+															kernel_size=3,
+															padding=1),
+												nn.ReLU(),
+												nn.MaxPool2d(kernel_size=2)
+											)
+
+											# Dynamically calculate flattened feature size
+
+											with torch.no_grad():
+												dummy_input = torch.randn(1, input_shape, 28, 28)  # adjust size as needed
+												x = self.conv_block_1(dummy_input)
+												x = self.conv_block_2(x)
+												self.flattened_size = x.view(1, -1).shape[1]
+
+
+
+											self.classifier = nn.Sequential(
+												nn.Flatten(),
+												# Where did this in_features shape come from?
+												# It's because each layer of our network compresses and changes the shape of our input data.
+												nn.Linear(in_features=self.flattened_size,
+															out_features=output_shape)
+											)
+
+											def forward(self, x):
+												x = self.conv_block_1(x)
+												x = self.conv_block_2(x)
+												#print(f"Flatten input shape: {x.shape}")
+												x = self.classifier(x)
+												return x
+
+										# Create instance of the model_2
+
+										torch.manual_seed(42)
+										model_2 = ImageModelV2(input_shape=1,
+															hidden_units=10,
+															output_shape=len(class_names)).to(device)
+
+										next(model_1.parameters()).device # keep model on CPU to begin with
+
+										# Create loss function, optimizer and evaluation
+										# Calculate accuracy
+										def accuracy_function(y_true, y_pred):
+										correct = torch.eq(y_true, y_pred).sum().item()
+										acc = (correct / len(y_pred)) * 100
+										return acc
+
+										# Setup loss function and optimizer
+										loss_fn = nn.CrossEntropyLoss() # this is also called "criterion"/"cost function" in some places
+										optimizer = torch.optim.SGD(params=model_2.parameters(),
+																	lr=0.1)
+
+
+										#Training & Testing CNN Model
+										torch.manual_seed(42)
+										#torch.cuda.manual_seed(42)
+
+										# Measure time
+										from timeit import default_timer as timer
+										train_time_start_model_2 = timer()
+
+										# Train and test model (Figure 1)
+										epochs = 3
+										for epoch in tqdm(range(epochs)):
+											print(f"Epoch: {epoch}\n---------")
+											train_step(model=model_2,
+													data_loader=train_dataloader,      loss_fn=loss_fn,
+													optimizer=optimizer,
+													accuracy_fn=accuracy_function,
+													device=device
+											)
+											test_step(model=model_2,
+													data_loader=test_dataloader,
+													loss_fn=loss_fn,
+													accuracy_fn=accuracy_function,
+													device=device
+											)
+
+										train_time_end_model_2 = timer()
+										total_train_time_model_2 = print_train_time(start=train_time_start_model_2,
+																				end=train_time_end_model_2,
+																				device=device)
+
+										# Get model_2 results
+										model_2_results = eval_model(
+											model=model_2,
+											data_loader=test_dataloader,
+											loss_fn=loss_fn,
+											accuracy_fn=accuracy_function
+										)
+										model_2_results
+
+										# Create dataframe to view results of Models 
+										import pandas as pd
+										compare_results = pd.DataFrame([model_0_results,
+																		model_1_results, model_2_results])
+										compare_results
+
+										# Add training times to results comparison (Table 1)
+										compare_results["training_time"] = [total_train_time_model_0,
+																			total_train_time_model_1,
+																			total_train_time_model_2]
+										compare_results
+
+										# Visualise Model Results (Figure 2)
+										compare_results.set_index("model_name")["model_acc"].plot(kind="barh")
+										plt.xlabel("Accuracy(%)")
+										plt.ylabel("Model Name")
+										plt.title("Model Accuracy Comparison");
+
+										# Make and Evaluate Random Predictions
+										def make_predictions(model: torch.nn.Module, data: list, device: torch.device = device):
+											pred_probs = []
+											model.eval()
+											with torch.inference_mode():
+												for sample in data:
+													# Prepare sample
+													sample = torch.unsqueeze(sample, dim=0).to(device) # Add a batch dimension and send sample to device
+
+													# Forward pass (model outputs raw logits)
+													pred_logit = model(sample)
+
+													# Get prediction probability (logit -> prediction probability)
+													pred_prob = torch.softmax(pred_logit.squeeze(), dim=0) # note: perform softmax on the "logits" dimension, not "batch" dimension (in this case we have a batch size of 1, so can perform on dim=0)
+
+													# Get pred_prob off GPU for further calculations
+													pred_probs.append(pred_prob.cpu())
+
+											# Stack the pred_probs to turn list into a tensor
+											return torch.stack(pred_probs)
+
+										import random
+										random.seed(51)
+
+										test_samples = []
+										test_labels = []
+
+										for sample, label in random.sample(list(test_data), k=9):
+										test_samples.append(sample)
+										test_labels.append(label)
+
+										# View first sample shape
+										test_samples[0].shape
+
+										# Make Predictions
+										pred_probs = make_predictions(model=model_2,
+																	data=test_samples)
+										pred_probs
+
+										# Convert prediction probabilities to labels
+										pred_classes = pred_probs.argmax(dim=1)
+										pred_classes
+
+										test_labels
+
+										# Plot predictions (Figure 2)
+										plt.figure(figsize=(9, 9))
+										nrows = 3
+										ncols = 3
+										for i, sample in enumerate(test_samples):
+										# Create a subplot
+										plt.subplot(nrows, ncols, i+1)
+
+										# Plot the target image
+										plt.imshow(sample.squeeze(), cmap="gray")
+
+										# Find the prediction label (in text form, e.g. "Sandal")
+										pred_label = class_names[pred_classes[i]]
+
+										# Get the truth label (in text form, e.g. "T-shirt")
+										truth_label = class_names[test_labels[i]]
+
+										# Create the title text of the plot
+										title_text = f"Pred: {pred_label} | Truth: {truth_label}"
+
+										# Check for equality and change title colour accordingly
+										if pred_label == truth_label:
+											plt.title(title_text, fontsize=10, c="g") # green text if correct
 										else:
-											prediction = 'cat'
+											plt.title(title_text, fontsize=10, c="r") # red text if wrong
+										plt.axis(False);
 
-										# Print prediction
-										print(f'Prediction: {prediction}')
 
-										# Show the image
-										plt.imshow(img_array.astype('uint8') / 255.0)
-										plt.title(f'Predicted: {prediction}')
-										plt.axis('off')
-										plt.show()
+										# Making Confusion Matrix (Figure 3)
+										# Import tqdm for progress bar
+										from tqdm.auto import tqdm
 
-										# Load and preprocess the image (Figure 4)
-										img_path = 'dataset/single_prediction/cat_or_dog_2.jpg'
-										test_image = image.load_img(img_path, target_size=(64, 64))
-										img_array = image.img_to_array(test_image)
-										test_image_input = np.expand_dims(img_array, axis=0)
+										# 1. Make predictions with trained model
+										y_preds = []
+										model_2.eval()
+										with torch.inference_mode():
+										for X, y in tqdm(test_dataloader, desc="Making predictions"):
+											# Send data and targets to target device
+											X, y = X.to(device), y.to(device)
+											# Do the forward pass
+											y_logit = model_2(X)
+											# Turn predictions from logits -> prediction probabilities -> predictions labels
+											y_pred = torch.softmax(y_logit, dim=1).argmax(dim=1) # note: perform softmax on the "logits" dimension, not "batch" dimension (in this case we have a batch size of 32, so can perform on dim=1)
+											# Put predictions on CPU for evaluation
+											y_preds.append(y_pred.cpu())
 
-										# Predict
-										result = cnn.predict(test_image_input)
+										# Concatenate list of predictions into a tensor
+										y_pred_tensor = torch.cat(y_preds)
+										y_pred_tensor
 
-										# Determine label
-										if result[0][0] == 1:
-											prediction = 'dog'
-										else:
-											prediction = 'cat'
+										!pip install -q torchmetrics -U mlxtend #-U is for upgrade
+										import torchmetrics, mlxtend
+										print(f"mlxtend version: {mlxtend.__version__}")
 
-										# Print prediction
-										print(f'Prediction: {prediction}')
+										from torchmetrics import ConfusionMatrix
+										from mlxtend.plotting import plot_confusion_matrix
 
-										# Show the image
-										plt.imshow(img_array.astype('uint8') / 255.0)
-										plt.title(f'Predicted: {prediction}')
-										plt.axis('off')
-										plt.show()
+										# 2. Setup confusion matrix instance and compare predictions to targets
+										confmat = ConfusionMatrix(num_classes=len(class_names), task='multiclass')
+										confmat_tensor = confmat(preds=y_pred_tensor,
+																target=test_data.targets)
+
+										# 3. Plot the confusion matrix
+										fig, ax = plot_confusion_matrix(
+											conf_mat=confmat_tensor.numpy(), # matplotlib likes working with NumPy
+											class_names=class_names, # turn the row and column labels into class names
+											figsize=(10, 7)
+										);
 
 										</code></pre>
 
@@ -2951,57 +2959,92 @@
 
 										<div class="image-gallery">
 											<figure>
-												<img src="images/CNN_fig1.png" 
-													alt="Figure 1: Verifying Dataset"
+												<img src="images/Fashion_figA.png" 
+													alt="Figure A: EDA - Image (Colour)"
 													class="gallery-trigger"
-													data-gallery="CNN"
-													data-caption="Figure 1: Verifying Dataset">
-												<figcaption><strong>Figure 1</strong> Verifying Dataset</figcaption>
+													data-gallery="CNN-Py"
+													data-caption="Figure A: EDA - Image (Colour)t">
+												<figcaption><strong>Figure A</strong> EDA - Image (Colour)</figcaption>
 											</figure>
 
 											<figure>
-												<img src="images/CNN_fig2.png" 
-													alt="Figure 2: Training the Model"
+												<img src="images/Fashion_figB.png" 
+													alt="Figure B: EDA - Image (Grayscale)"
 													class="gallery-trigger"
-													data-gallery="CNN"
-													data-caption="Figure 2: Training the Model">
-												<figcaption><strong>Figure 2</strong> Training the Model</figcaption>
+													data-gallery="CNN-Py"
+													data-caption="Figure B: EDA - Image (Grayscale)">
+												<figcaption><strong>Figure B</strong> EDA - Image (Grayscale)</figcaption>
 											</figure>
 
 											<figure>
-												<img src="images/CNN_fig3.png" 
-													alt="Figure 3: Predicting Test Set Results - cat"
+												<img src="images/Fashion_figC.png" 
+													alt="Figure C: EDA - Range of Images (Grayscale)"
 													class="gallery-trigger"
-													data-gallery="CNN"
-													data-caption="Figure 3: Predicting Test Set Results - cat">
-												<figcaption><strong>Figure 3</strong> Predicting Test Set Results - cat</figcaption>
+													data-gallery="CNN-Py"
+													data-caption="Figure C: EDA - Range of Images (Grayscale)">
+												<figcaption><strong>Figure C</strong> EDA - Range of Images (Grayscale)</figcaption>
 											</figure>
 
 											<figure>
-												<img src="images/CNN_fig4.png 4.png" 
-													alt="Figure 4: Predicting Test Set Results - dog"
+												<img src="images/Fashion_fig1.png" 
+													alt="Figure 1: Training & Testing Model"
 													class="gallery-trigger"
-													data-gallery="CNN"
-													data-caption="Figure 4: Predicting Test Set Results - dog">
-												<figcaption><strong>Figure 4</strong> Predicting Test Set Results - dog </figcaption>
+													data-gallery="CNN-Py"
+													data-caption="Figure 1: Training & Testing Model">
+												<figcaption><strong>Figure 1</strong> Training & Testing Model</figcaption>
+											</figure>
+
+											<figure>
+												<img src="images/Fashion_Table1.png" 
+													alt="Table 2: Comparison of Different Model Performance"
+													class="gallery-trigger"
+													data-gallery="CNN-Py"
+													data-caption="Table 2: Comparison of Different Model Performance">
+												<figcaption><strong>Table 2</strong> Comparison of Different Model Performance</figcaption>
+											</figure>
+
+											<figure>
+												<img src="images/Fashion_fig2.png" 
+													alt="Figure 2: Bar Chart of Model Perfomance"
+													class="gallery-trigger"
+													data-gallery="CNN-Py"
+													data-caption="Figure 2: Bar Chart of Model Perfomance">
+												<figcaption><strong>Figure 2</strong> Bar Chart of Model Perfomance</figcaption>
+											</figure>
+
+											<figure>
+												<img src="images/Fashion_fig3.png" 
+													alt="Figure 3: CNN Image Prediction"
+													class="gallery-trigger"
+													data-gallery="CNN-Py"
+													data-caption="Figure 2: CNN Image Prediction">
+												<figcaption><strong>Figure 3</strong> CNN Image Prediction</figcaption>
+											</figure>
+
+											<figure>
+												<img src="images/Fashion_fig4.png" 
+													alt="Figure 4: Confusion Matrix"
+													class="gallery-trigger"
+													data-gallery="CNN-Py"
+													data-caption="Figure 4: Confusion Matrix">
+												<figcaption><strong>Figure 4</strong> Confusion Matrix</figcaption>
 											</figure>
 										</div>
 
 
 										<h4>🌟 <strong>Key Insights:</strong></h4>
 										<p>
-											<li>Data augmentation significantly improved model generalization by artificially expanding the training dataset through transformations, helping the CNN learn invariant features regardless of image orientation or lighting conditions</li>
-											<li>Two-layer CNN architecture effectively captured hierarchical features from low-level edges and textures in early layers to high-level animal-specific patterns in deeper layers for robust classification</li>
-											<li>MaxPooling layers provided crucial dimensionality reduction while preserving important spatial features, enabling the model to focus on the most discriminative regions for cat vs dog classification</li>
+											<li>The custom TinyVGG-style model performed significantly better in terms of accuracy than simpler baselines, demonstrating the importance of deeper architecture in capturing spatial hierarchies.</li>
+											<li>A higher-resolution grid (0.01 step size) in the visualisation allowed finer decision boundary analysis.</li>
+											<li>The confusion matrix revealed that similar-looking classes (e.g., shirts vs. T-shirts) were more prone to misclassification, informing ideas for future data augmentation or attention layers.</li>
 										</p>
 
 										<h4>🧗🏾 <strong>Challenge Faced:</strong></h4>
 										<p>
-											The primary challenge was balancing model complexity with training efficiency given the 64x64 input resolution. Initially, I experimented with deeper architectures but encountered overfitting and slow training times. After testing various configurations, I discovered that two convolutional layers provided sufficient feature extraction capability while maintaining reasonable training speed and preventing overfitting on the limited dataset size.
+											A key challenge was dynamically computing the flattened input size after the convolutional layers to correctly set up the first <code>Linear</code> layer. To solve this, I used a with <code>torch.no_grad()</code> block to pass dummy input through the conv layers and automatically extract the output shape. This approach prevented manual miscalculation and made the model reusable for different input sizes.
 										</p><a href="https://github.com/tendai-codes/DeepLearning" class="github-button" target="_blank">View on GitHub</a></p>
 										
 									</section>
-
 
 							</article>
 

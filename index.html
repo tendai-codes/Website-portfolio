@@ -103,46 +103,54 @@
 
 										<!-- Code Snippet -->
 
-										<pre><code class="language-r"># No movies are ever released on a Monday. (Figure 1)
-										ggplot(data=mov, aes(x=Day.of.Week)) + geom_bar()
+										<pre><code class="language-r" data-trim># No movies are ever released on a Monday. (Figure 1)
+ggplot(data = mov, aes(x = Day.of.Week)) + 
+geom_bar()
 
-										# Filter dataset for desired genres:
-										filt <- (mov$Genre == "action") | (mov$Genre == "adventure") | 
-												(mov$Genre == "animation") | (mov$Genre == "comedy") | (mov$Genre == "drama")
+# Filter dataset for desired genres:
+filt <- (mov$Genre == "action") | 
+		(mov$Genre == "adventure") | 
+		(mov$Genre == "animation") | 
+		(mov$Genre == "comedy") | 
+		(mov$Genre == "drama")
 
-										# Filter dataset for desired studios:
-										filt2 <- (mov$Studio == "Buena Vista Studios") | (mov$Studio == "WB") | 
-												(mov$Studio == "Fox") | (mov$Studio == "Universal") | 
-												(mov$Studio == "Sony") | (mov$Studio == "Paramount Pictures")
+# Filter dataset for desired studios:
+filt2 <- (mov$Studio == "Buena Vista Studios") | 
+		(mov$Studio == "WB") | 
+		(mov$Studio == "Fox") | 
+		(mov$Studio == "Universal") | 
+		(mov$Studio == "Sony") | 
+		(mov$Studio == "Paramount Pictures")
 
-										# Apply filters
-										mov2 <- mov[filt & filt2,]
+# Apply filters
+mov2 <- mov[filt & filt2, ]
 
-										# Prepare the plot's data and aes layers (Figure 2)
-										p <- ggplot(data=mov2, aes(x=Genre, y=Gross...US))
+# Prepare the plot's data and aes layers (Figure 2)
+p <- ggplot(data = mov2, aes(x = Genre, y = Gross...US))
 
-										q <- p +
-										geom_jitter(aes(size=Budget...mill., colour=Studio)) +
-										geom_boxplot(alpha = 0.7, outlier.colour = NA)
+q <- p +
+geom_jitter(aes(size = Budget...mill., colour = Studio)) +
+geom_boxplot(alpha = 0.7, outlier.colour = NA)
 
-										# Non-data info
-										q +
-										xlab("Genre") + 
-										ylab("Gross % US") + 
-										ggtitle("Domestic Gross % by Genre")
+# Non-data info
+q <- q +
+xlab("Genre") + 
+ylab("Gross % US") + 
+ggtitle("Domestic Gross % by Genre")
 
-										# Theme
-										q <- q +
-										theme(
-											text = element_text(family="Times New Roman"),
-											axis.title.x = element_text(colour="Blue", size=30),
-											axis.title.y = element_text(colour="Blue", size=30),
-											axis.text.x = element_text(size=20),
-											axis.text.y = element_text(size=20),
-											plot.title = element_text(colour="Black", size=40),
-											legend.title = element_text(size=20),
-											legend.text = element_text(size=12)
-										)
+# Theme
+q <- q +
+theme(
+	text = element_text(family = "Times New Roman"),
+	axis.title.x = element_text(colour = "Blue", size = 30),
+	axis.title.y = element_text(colour = "Blue", size = 30),
+	axis.text.x = element_text(size = 20),
+	axis.text.y = element_text(size = 20),
+	plot.title = element_text(colour = "Black", size = 40),
+	legend.title = element_text(size = 20),
+	legend.text = element_text(size = 12)
+)
+
 										</code></pre>
 
 										
@@ -209,72 +217,79 @@
 
 										<!-- Code Snippet -->
 
-										<pre><code class="language-r"># Load required library for visualizations
-										library(ggplot2)
-										library(tidyverse)
-										# Data
-										revenue <- c(14574.49, 7606.46, 8611.41, 9175.41, 8058.65, 8105.44, 11496.28, 9766.09, 10305.32, 14379.96, 10713.97, 15433.50)
-										expenses <- c(12051.82, 5695.07, 12319.20, 12089.72, 8658.57, 840.20, 3285.73, 5821.12, 6976.93, 16618.61, 10054.37, 3803.96)
+										<pre><code class="language-r"># Load required libraries for visualizations
+library(ggplot2)
+library(tidyverse)
 
-										# Calculate Profit As The Differences Between Revenue And Expenses
-										profit <- revenue - expenses
-										profit
+# Data
+revenue <- c(14574.49, 7606.46, 8611.41, 9175.41, 8058.65, 8105.44, 
+             11496.28, 9766.09, 10305.32, 14379.96, 10713.97, 15433.50)
 
-										# Calculate Tax As 30% Of Profit And Round To 2 Decimal Points
-										tax <- round(0.30 * profit, 2)
-										tax
+expenses <- c(12051.82, 5695.07, 12319.20, 12089.72, 8658.57, 840.20, 
+              3285.73, 5821.12, 6976.93, 16618.61, 10054.37, 3803.96)
 
-										# Calculate Profit Remaining After Tax Is Deducted
-										profit.after.tax <- profit - tax
-										profit.after.tax
+# Calculate Profit As The Difference Between Revenue And Expenses
+profit <- revenue - expenses
+profit
 
-										#Visualize Profit after tax
-										# Create a data frame for visualization
-										data <- data.frame(
-										Month = 1:12,
-										Profit_After_Tax = profit.after.tax)
+# Calculate Tax As 30% Of Profit And Round To 2 Decimal Places
+tax <- round(0.30 * profit, 2)
+tax
 
-										# Create the bar chart using ggplot2 (Figure 1)
-										ggplot(data, aes(x = factor(Month), y = Profit_After_Tax)) +
-										geom_bar(stat = "identity", fill = "steelblue") +
-										labs(title = "Monthly Profit After Tax", x = "Month", y = "Profit After Tax") +
-										theme_minimal()
+# Calculate Profit Remaining After Tax Is Deducted
+profit.after.tax <- profit - tax
+profit.after.tax
 
-										# Calculate The Profit Margin As Profit After Tax Over Revenue
-										profit.margin <- round(profit.after.tax / revenue, 2) * 100
-										profit.margin
+# Visualize Profit After Tax
+# Create a data frame for visualization
+data <- data.frame(
+    Month = 1:12,
+    Profit_After_Tax = profit.after.tax
+)
 
-										# Visualize Profit Margin
-										# Create a data frame for visualization
-										data <- data.frame(
-										Month = 1:12,
-										Profit_margin = profit.margin)
+# Create the bar chart using ggplot2 (Figure 1)
+ggplot(data, aes(x = factor(Month), y = Profit_After_Tax)) +
+    geom_bar(stat = "identity", fill = "steelblue") +
+    labs(title = "Monthly Profit After Tax", x = "Month", y = "Profit After Tax") +
+    theme_minimal()
 
-										# Create the bar chart using ggplot2 (Figure 2)
-										ggplot(data, aes(x = factor(Month), y = profit.margin)) +
-										geom_bar(stat = "identity", fill = "orange") +
-										labs(title = "Monthly Profit Margin (%)", x = "Month", y = "Profit Margin (%)") +
-										theme_minimal()
+# Calculate The Profit Margin As Profit After Tax Over Revenue
+profit.margin <- round(profit.after.tax / revenue, 2) * 100
+profit.margin
 
-										# Calculate The Mean Profit After Tax For The 12 Months
-										mean_pat <- mean(profit.after.tax)
-										mean_pat
+# Visualize Profit Margin
+# Create a data frame for visualization
+data <- data.frame(
+    Month = 1:12,
+    Profit_Margin = profit.margin
+)
 
-										# Find The Months With Above-Mean Profit After Tax
-										good.months <- profit.after.tax > mean_pat
-										good.months
+# Create the bar chart using ggplot2 (Figure 2)
+ggplot(data, aes(x = factor(Month), y = Profit_Margin)) +
+    geom_bar(stat = "identity", fill = "orange") +
+    labs(title = "Monthly Profit Margin (%)", x = "Month", y = "Profit Margin (%)") +
+    theme_minimal()
 
-										# Bad Months Are The Opposite Of Good Months
-										bad.months <- !good.months
-										bad.months
+# Calculate The Mean Profit After Tax For The 12 Months
+mean_pat <- mean(profit.after.tax)
+mean_pat
 
-										# The Best Month Is The Month With The Highest Profit After Tax
-										best.month <- profit.after.tax == max(profit.after.tax)
-										best.month
+# Find The Months With Above-Mean Profit After Tax
+good.months <- profit.after.tax > mean_pat
+good.months
 
-										# The Worst Month Is The Month With The Lowest Profit After Tax
-										worst.month <- profit.after.tax == min(profit.after.tax)
-										worst.month
+# Bad Months Are The Opposite Of Good Months
+bad.months <- !good.months
+bad.months
+
+# The Best Month Is The Month With The Highest Profit After Tax
+best.month <- profit.after.tax == max(profit.after.tax)
+best.month
+
+# The Worst Month Is The Month With The Lowest Profit After Tax
+worst.month <- profit.after.tax == min(profit.after.tax)
+worst.month
+
 										</code></pre>
 
 										
@@ -342,37 +357,70 @@
 
 										<!-- Code Snippet -->
 
-										<pre><code class="language-python"># Plot the BirthRate versus Internet Users categorised by Income Group (Figure 1)
-										vis1 = sns.lmplot( data = data, x = 'BirthRate', y = 'InternetUsers', fit_reg = False, hue = 'IncomeGroup', height = 10 )
+										<pre><code class="language-python" data-trim># Plot the BirthRate versus Internet Users categorised by Income Group (Figure 1)
+vis1 = sns.lmplot(
+	data=data,
+	x='BirthRate',
+	y='InternetUsers',
+	fit_reg=False,
+	hue='IncomeGroup',
+	height=10
+)
 
-										# Create the dataframe
-										country_data = pd.DataFrame({'CountryName': np.array(Countries_2012_Dataset),
-																	'CountryCode': np.array(Codes_2012_Dataset),
-																	'CountryRegion': np.array(Regions_2012_Dataset)})
+# Create the dataframe
+country_data = pd.DataFrame({
+	'CountryName': np.array(Countries_2012_Dataset),
+	'CountryCode': np.array(Codes_2012_Dataset),
+	'CountryRegion': np.array(Regions_2012_Dataset)
+})
 
-										# Merge country data to the original dataframe (Table 1)
-										merged_data = pd.merge(left=data, right=country_data, how='inner', on="CountryCode")
-										merged_data.head()
+# Merge country data to the original dataframe (Table 1)
+merged_data = pd.merge(
+	left=data,
+	right=country_data,
+	how='inner',
+	on='CountryCode'
+)
+merged_data.head()
 
-										# Create a data frame with the life expectancy
-										life_exp_data = pd.DataFrame({'CountryCode': np.array(Country_Code),
-																	'LifeExp1960': np.array(Life_Expectancy_At_Birth_1960),
-																	'LifeExp2013': np.array(Life_Expectancy_At_Birth_2013)})
+# Create a data frame with the life expectancy
+life_exp_data = pd.DataFrame({
+	'CountryCode': np.array(Country_Code),
+	'LifeExp1960': np.array(Life_Expectancy_At_Birth_1960),
+	'LifeExp2013': np.array(Life_Expectancy_At_Birth_2013)
+})
 
-										# Merge the data frame with the life expectancy
-										merged_data1 = pd.merge(left=merged_data, right=life_exp_data, how='inner', on='CountryCode')
+# Merge the data frame with the life expectancy
+merged_data1 = pd.merge(
+	left=merged_data,
+	right=life_exp_data,
+	how='inner',
+	on='CountryCode'
+)
 
-										# Explore the dataset (Table 2)
-										merged_data1.head()
+# Explore the dataset (Table 2)
+merged_data1.head()
 
-										# Plot the BirthRate versus LifeExpectancy cathegorised by Country Region in 1960 (Figure 3)
-										vis3 = sns.lmplot( data = merged_data1, x = 'BirthRate', y = 'LifeExp1960', fit_reg = False, hue = 'CountryRegion', height = 10 )
-										Plot
+# Plot the BirthRate versus LifeExpectancy categorised by Country Region in 1960 (Figure 3)
+vis3 = sns.lmplot(
+	data=merged_data1,
+	x='BirthRate',
+	y='LifeExp1960',
+	fit_reg=False,
+	hue='CountryRegion',
+	height=10
+)
 
-										# Plot the BirthRate versus LifeExpectancy cathegorised by Country Region in 2013 (Figure 4)
-										vis4 = sns.lmplot( data = merged_data1, x = 'BirthRate', y = 'LifeExp2013', fit_reg = False, hue = 'CountryRegion', height = 10 )										
-										
-									
+# Plot the BirthRate versus LifeExpectancy categorised by Country Region in 2013 (Figure 4)
+vis4 = sns.lmplot(
+	data=merged_data1,
+	x='BirthRate',
+	y='LifeExp2013',
+	fit_reg=False,
+	hue='CountryRegion',
+	height=10
+)
+
 										</code></pre>
 
 										<div class="image-gallery">
@@ -485,77 +533,68 @@
 
 										<!-- Code Snippet -->
 
-										<pre><code class="language-python"># Visualize Stocks data
-										def show_plot(df, title):
-										df.plot(x = 'Date', figsize=(12, 8), linewidth = 3, title=title)
-										plt.xlabel('Date')
-										plt.ylabel('Price')
-										plt.grid()
-										plt.show()
+										<pre><code class="language-python" data-trim>def show_plot(df, title):
+    df.plot(x='Date', figsize=(12, 8), linewidth=3, title=title)
+    plt.xlabel('Date')
+    plt.ylabel('Price')
+    plt.grid()
+    plt.show()
 
-										# Plot the data (Figure 1)
-										show_plot(stocks_df, 'STOCKS DATA')
-										
-										# Normalized Stock Data (Figure 2)
-										def normalize(df):
-											x = df.copy()
-											for i in x.columns[1:]:
-												x[i] = x[i]/x[i][0]
-											return x
+# Plot the data (Figure 1)
+show_plot(stocks_df, 'STOCKS DATA')
 
-										normalize(stocks_df)
+# Normalized Stock Data (Figure 2)
+def normalize(df):
+    x = df.copy()
+    for i in x.columns[1:]:
+        x[i] = x[i] / x[i][0]
+    return x
 
-										# Create Interactive chart of Stock Data (Figure 3)
+normalize(stocks_df)
 
-										def interactive_plot(df, title):
-										fig = px.line(title=title)
+# Create Interactive chart of Stock Data (Figure 3)
+def interactive_plot(df, title):
+    fig = px.line(title=title)
+    for i in df.columns[1:]:
+        fig.add_scatter(x=df['Date'], y=df[i], name=i)
+    fig.update_layout(
+        xaxis_title="Date",
+        yaxis_title="Price"
+    )
+    fig.show()
 
-										for i in df.columns[1:]:
-											fig.add_scatter(x=df['Date'], y=df[i], name=i)
-											fig.update_layout(
-											xaxis_title = "Date",
-											yaxis_title = "Price"
-										)
-										fig.show()
-										interactive_plot(stocks_df, 'STOCKS DATA')
-										
-										# Create Interactive chart of Normalized Stock Data (Figure 4)
-										interactive_plot(normalize(stocks_df), 'STOCKS DATA')
+interactive_plot(stocks_df, 'STOCKS DATA')
 
-										#Calculate stocks daily returns
+# Create Interactive chart of Normalized Stock Data (Figure 4)
+interactive_plot(normalize(stocks_df), 'STOCKS DATA')
 
-										def daily_return(df):
-										df_daily_return = df.copy()
-										#loop for columns
-										for i in df.columns[1:]:
-										#loop for rows
-											for j in range(1, len(df)):
-											df_daily_return[i][j] = ((df[i][j] - df[i][j-1]) / (df[i][j-1]))*100
+# Calculate stocks daily returns
+def daily_return(df):
+    df_daily_return = df.copy()
+    for i in df.columns[1:]:  # loop through columns
+        for j in range(1, len(df)):  # loop through rows
+            df_daily_return[i][j] = ((df[i][j] - df[i][j - 1]) / df[i][j - 1]) * 100
+        df_daily_return[i][0] = 0
+    return df_daily_return
 
-											df_daily_return[i][0] = 0
+# Get the daily returns (Figure 5)
+stocks_daily_return = daily_return(stocks_df)
+stocks_daily_return
 
-										return df_daily_return
+interactive_plot(stocks_daily_return, 'Stocks Daily returns')
 
+# Daily Return Correlation
+cm = stocks_daily_return.drop(columns=['Date']).corr()
+cm
 
-										# Get the daily returns (Figure 5)
-										stocks_daily_return = daily_return(stocks_df)
-										stocks_daily_return
+# Heatmap showing correlations (Figure 6)
+plt.figure(figsize=(10, 8))
+sns.heatmap(cm, annot=True, cmap='RdYlGn')  # `annot=True` displays values on the heatmap
+plt.show()
 
-										interactive_plot(stocks_daily_return, 'Stocks Daily returns')
-
-
-										# Daily Return Correlation
-										cm = stocks_daily_return.drop(columns = ['Date']).corr()
-										cm
-										
-										# heatmap showing correlations (Figure 6)
-										plt.figure(figsize=(10, 8))
-										sns.heatmap(cm, annot=True, cmap='RdYlGn') #true give you the values on the heatmap
-										plt.show()
-
-										# Histogram of daily returns (Figure 7)
-										stocks_daily_return.hist(bins=50, figsize=(20, 10))
-										plt.show();
+# Histogram of daily returns (Figure 7)
+stocks_daily_return.hist(bins=50, figsize=(20, 10))
+plt.show()
 
 										</code></pre>
 
@@ -661,90 +700,95 @@
 
 										<h4>📊 <strong>Code Snippets & Visualisations:</strong></h4>
 
+
 										<!-- Code Snippet -->
 
-										<pre><code class="language-python">#Create random portfolio weights
-										np.random.seed()
+										<pre><code class="language-python" data-trim>np.random.seed()
 
-										# Create random weights for the stocks
-										weights = np.array(np.random.random(9))
+# Create random weights for the stocks
+weights = np.array(np.random.random(9))
 
-										# Random Asset Allocation & Calculate Portfolio Daily Return
-										weights = weights / np.sum(weights)
-										print(weights)
+# Random Asset Allocation & Calculate Portfolio Daily Return
+weights = weights / np.sum(weights)
+print(weights)
 
-										# Define Normalization function
-										def normalize(df):
-										x = df.copy()
-										for i in x.columns[1:]:
-											x[i] = x[i]/x[i][0]
-										return x
+# Define Normalization function
+def normalize(df):
+    x = df.copy()
+    for i in x.columns[1:]:
+        x[i] = x[i] / x[i][0]
+    return x
 
-										# Enumerate returns the value and a counter as well
-										for counter, stock in enumerate(df_portfolio.columns[1:]):
-										df_portfolio[stock] = df_portfolio[stock] * weights[counter]
-										df_portfolio[stock] = df_portfolio[stock] * 1000000
-										df_portfolio
+# Enumerate returns the value and a counter as well
+for counter, stock in enumerate(df_portfolio.columns[1:]):
+    df_portfolio[stock] = df_portfolio[stock] * weights[counter]
+    df_portfolio[stock] = df_portfolio[stock] * 1000000
 
-										# Calculate the portfolio daily return
+# Calculate the portfolio daily return
+df_portfolio['portfolio daily % return'] = 0.0000
 
-										df_portfolio['portfolio daily % return'] = 0.0000
+for i in range(1, len(stocks_df)):
+    # Calculate the percentage of change from the previous day
+    df_portfolio['portfolio daily % return'][i] = (
+        (df_portfolio['portfolio daily worth/$'][i] - df_portfolio['portfolio daily worth/$'][i - 1])
+        / df_portfolio['portfolio daily worth/$'][i - 1]
+    ) * 100
 
-										for i in range(1, len(stocks_df)):
-										# Calculate the percentage of change from the previous day
-										df_portfolio['portfolio daily % return'][i] = ( (df_portfolio['portfolio daily worth/$'][i] - df_portfolio['portfolio daily worth/$'][i-1]) / df_portfolio['portfolio daily worth/$'][i-1]) * 100
+# Create a function for stock portfolio allocation
+# Assume $1000000 is total amount for portfolio
+def portfolio_allocation(df, weights):
+    df_portfolio = df.copy()
 
-										df_portfolio
+    # Normalize the stock values
+    df_portfolio = normalize(df_portfolio)
 
-										# Create a function for stock portfolio allocation
-										# Assume $1000000 is total amount for portfolio
+    for counter, stock in enumerate(df_portfolio.columns[1:]):
+        df_portfolio[stock] = df_portfolio[stock] * weights[counter]
+        df_portfolio[stock] = df_portfolio[stock] * 1000000
 
-										def portfolio_allocation(df, weights):
+    df_portfolio['portfolio daily worth in $'] = df_portfolio[df_portfolio.columns[1:]].sum(axis=1)
 
-										df_portfolio = df.copy()
+    df_portfolio['portfolio daily % return'] = 0.0000
 
-										# Normalize the stock avalues
-										df_portfolio = normalize(df_portfolio)
+    for i in range(1, len(stocks_df)):
+        # Calculate the percentage of change from the previous day
+        df_portfolio['portfolio daily % return'][i] = (
+            (df_portfolio['portfolio daily worth in $'][i] - df_portfolio['portfolio daily worth in $'][i - 1])
+            / df_portfolio['portfolio daily worth in $'][i - 1]
+        ) * 100
 
-										for counter, stock in enumerate(df_portfolio.columns[1:]):
-											df_portfolio[stock] = df_portfolio[stock] * weights[counter]
-											df_portfolio[stock] = df_portfolio[stock] * 1000000
+    # Set the value of first row to zero, as previous value is not available
+    df_portfolio['portfolio daily % return'][0] = 0
+    return df_portfolio
 
-										df_portfolio['portfolio daily worth in $'] = df_portfolio[df_portfolio != 'Date'].sum(axis = 1)
+# Plot the portfolio daily return (Figure 1)
+fig = px.line(
+    x=df_portfolio.Date,
+    y=df_portfolio['portfolio daily % return'],
+    title='Portfolio Daily % Return',
+    labels={"x": "Date", "y": "Daily Percentage Return"}
+)
+fig.show()
 
-										df_portfolio['portfolio daily % return'] = 0.0000
+# Cumulative return of the portfolio
+cumulative_return = (
+    (df_portfolio['portfolio daily worth/$'][-1:] - df_portfolio['portfolio daily worth/$'][0])
+    / df_portfolio['portfolio daily worth/$'][0]
+) * 100
+print('Cumulative return of the portfolio is {} %'.format(cumulative_return.values[0]))
 
-										for i in range(1, len(stocks_df)):
+# Calculate the average daily return
+print('Average daily return of the portfolio is {} %'.format(df_portfolio['portfolio daily % return'].mean()))
 
-										# Calculate the percentage of change from the previous day
-											df_portfolio['portfolio daily % return'][i] = ( (df_portfolio['portfolio daily worth in $'][i] - df_portfolio['portfolio daily worth in $'][i-1]) / df_portfolio['portfolio daily worth in $'][i-1]) * 100
-
-										# Set the value of first row to zero, as previous value is not available
-										df_portfolio['portfolio daily % return'][0] = 0
-										return df_portfolio
-
-										# Plot the portfolio daily return (Figure 1)
-										fig = px.line(x = df_portfolio.Date, y = df_portfolio['portfolio daily % return'], title = 'Portfolio Daily % Return',
-													labels = {
-															"x": "Date",
-															"y": "Daily Percentage Return"
-														})
-										fig.show()
-
-										# Cummulative return of the portfolio
-										cummulative_return = ((df_portfolio['portfolio daily worth/$'][-1:] - df_portfolio['portfolio daily worth/$'][0])/ df_portfolio['portfolio daily worth/$'][0]) * 100
-										print('Cummulative return of the portfolio is {} %'.format(cummulative_return.values[0]))
-
-										# Calculate the average daily return
-										print('Average daily return of the portfolio is {} %'.format(df_portfolio['portfolio daily % return'].mean() ))
-
-										# Portfolio sharpe ratio
-										sharpe_ratio = df_portfolio['portfolio daily % return'].mean() / df_portfolio['portfolio daily % return'].std() * np.sqrt(252)
-										print('Sharpe ratio of the portfolio is {}'.format(sharpe_ratio))
-
+# Portfolio Sharpe ratio
+sharpe_ratio = (
+    df_portfolio['portfolio daily % return'].mean()
+    / df_portfolio['portfolio daily % return'].std()
+    * np.sqrt(252)
+)
+print('Sharpe ratio of the portfolio is {}'.format(sharpe_ratio))
 										</code></pre>
 
-										
 										<!-- Visualisations -->
 
 										<div class="image-gallery">
@@ -807,83 +851,81 @@
 										<!-- Code Snippet -->
 
 										<pre><code class="language-python"># Function to calculate the daily returns
-										def daily_returns(df):
-										df_daily_return = df.copy()
-										for i in df.columns[1:]:
-											for j in range(1, len(df)):
-											df_daily_return[i][j] = ((df[i][j] - df[i][j-1])/df[i][j-1])*100
+def daily_returns(df):
+    df_daily_return = df.copy()
+    for i in df.columns[1:]:
+        for j in range(1, len(df)):
+            df_daily_return[i][j] = ((df[i][j] - df[i][j-1])/df[i][j-1])*100
+        
+        df_daily_return[i][0] = 0
+    return df_daily_return
 
-											df_daily_return[i][0] = 0
-										return df_daily_return
+# Plot a scatter plot between the selected stock and the S&P500 (Market) (Figure 1)
+plt.scatter(stocks_daily_return['sp500'], stocks_daily_return['AAPL'])
+plt.xlabel('sp500')
+plt.ylabel('AAPL')
+plt.grid()
 
-										# Plot a scatter plot between the selected stock and the S&P500 (Market) (Figure 1)
-										plt.scatter(stocks_daily_return['sp500'], stocks_daily_return['AAPL'])
-										plt.xlabel('sp500')
-										plt.ylabel('AAPL')
-										plt.grid()
+# Add beta & alpha to plot
+beta, alpha = np.polyfit(stocks_daily_return['sp500'], stocks_daily_return['AAPL'], 1)
 
-										# Add beta & alpha to plot
-										beta, alpha = np.polyfit(stocks_daily_return['sp500'], stocks_daily_return['AAPL'], 1)
+# Add regression line (beta) - y = beta [stockvsmkt- stock volatility] * rm [stock daily return] + alpha [excess return on top of mkt return]
+plt.plot(stocks_daily_return['sp500'], beta * stocks_daily_return['sp500'] + alpha, '-', color = 'r')
+plt.show()
 
-										# Add regression line (beta) - y = beta [stockvsmkt- stock volatility] * rm [stock daily return] + alpha [excess return on top of mkt return]
-										plt.plot(stocks_daily_return['sp500'], beta * stocks_daily_return['sp500'] + alpha, '-', color = 'r')
-										plt.show()
+# Let's calculate the annualized rate of return for S&P500 (Assume 252 working days per year)
+rm = stocks_daily_return['sp500'].mean() * 252
+rm
 
-										# Let's calculate the annualized rate of return for S&P500 (Assume 252 working days per year)
+# Assume risk free rate is zero (Used the yield of a 10-years U.S. Government bond as a risk free rate)
+rf = 0
 
-										rm = stocks_daily_return['sp500'].mean() * 252
-										rm
+# Calculate return for any security (APPL) using CAPM
+Exp_return_AAPL = rf + (beta * (rm - rf))
+Exp_return_AAPL
 
-										# Assume risk free rate is zero (Used the yield of a 10-years U.S. Government bond as a risk free rate)
-										rf = 0
+# Create a placeholder for all betas and alphas
+beta = {}
+alpha = {}
 
-										# Calculate return for any security (APPL) using CAPM
-										Exp_return_AAPL = rf + (beta * (rm - rf))
-										Exp_return_AAPL
+for i in stocks_daily_return.columns[1:]:
+    if i != 'sp500' and i != 'Date':
+        
+        stocks_daily_return.plot(kind = 'scatter', x = 'sp500', y = i, title = i)
+        plt.scatter(stocks_daily_return['sp500'], stocks_daily_return[i])
+        plt.xlabel('sp500')
+        plt.ylabel(i)
+        beta[i], alpha[i] = np.polyfit(stocks_daily_return['sp500'], stocks_daily_return[i], 1)
+        plt.plot(stocks_daily_return['sp500'], beta[i] * stocks_daily_return['sp500'] + alpha[i], '-', color = 'r')
+        
+        plt.grid()
+        plt.show()
 
-										# Create a placeholder for all betas and alphas
-										beta = {}
-										alpha = {}
+        
+print('Beta for {} stock is {} & alpha is = {}'.format('AAPL', beta, alpha))
 
-										for i in stocks_daily_return.columns[1:]:
-										if i != 'sp500'and i != 'Date':
+# Apply CAPM formula to calculate the return for the Portfolio
+# Obtain a list of all stock names
+stock_names = list(beta.keys())
+stock_names
 
-											stocks_daily_return.plot(kind = 'scatter', x = 'sp500', y = i, title = i)
-											plt.scatter(stocks_daily_return['sp500'], stocks_daily_return[i])
-											plt.xlabel('sp500')
-											plt.ylabel(i)
-											beta[i], alpha[i] = np.polyfit(stocks_daily_return['sp500'], stocks_daily_return[i], 1)
-											plt.plot(stocks_daily_return['sp500'], beta[i] * stocks_daily_return['sp500'] + alpha[i], '-', color = 'r')
+# Define the expected return dictionary
+ER = {}
 
-											plt.grid()
-											plt.show()
+rf = 0
+rm = stocks_daily_return['sp500'].mean() * 252
+for i in stock_names:
+    ER[i] = rf + (beta[i] * (rm - rf))
+ER
 
-											
-										print('Beta for {} stock is {} & alpha is = {}'.format('AAPL', beta, alpha))
+for i in stock_names:
+    print('Expected return for {} is {}%'.format(i, ER[i]))
 
+Portfolio_weights = 1/8 * np.ones(8)
 
-										# Apply CAPM formula to calculate the return for the Portfolio
-										# Obtain a list of all stock names
-										stock_names = list(beta.keys())
-										stock_names
-
-										# Define the expected return dictionary
-										ER = {}
-
-										rf = 0
-										rm = stocks_daily_return['sp500'].mean() * 252
-										for i in stock_names:
-										ER[i] = rf + (beta[i] * (rm - rf))
-										ER
-
-										for i in stock_names:
-										print('Expected return for {} is {}%'.format(i, ER[i]))
-
-										Portfolio_weights = 1/8 * np.ones(8)
-
-										# Assume equal weights in the portfolio, calculate returns
-										ER_portfolio = sum(list(ER.values()) * Portfolio_weights)
-										ER_portfolio
+# Assume equal weights in the portfolio, calculate returns
+ER_portfolio = sum(list(ER.values()) * Portfolio_weights)
+ER_portfolio
 										</code></pre>
 
 										
@@ -946,29 +988,29 @@
 										<!-- Code Snippet -->
 
 										<pre><code class="language-python"># Encoding categorical data 
-										from sklearn.compose import ColumnTransformer
-										from sklearn.preprocessing import OneHotEncoder
+from sklearn.compose import ColumnTransformer
+from sklearn.preprocessing import OneHotEncoder
 
-										# OneHotEncoder(), [3] - the 3 is the column you want to encode
-										ct = ColumnTransformer(transformers=[('encoder', OneHotEncoder(), [3])], remainder='passthrough')
-										X = np.array(ct.fit_transform(X))
+# OneHotEncoder(), [3] - the 3 is the column you want to encode
+ct = ColumnTransformer(transformers=[('encoder', OneHotEncoder(), [3])], remainder='passthrough')
+X = np.array(ct.fit_transform(X))
 
-										# Splitting Train ad Test set
-										from sklearn.model_selection import train_test_split
-										X_train, X_test, y_train, y_test = train_test_split(X, y, test_sise = 0.2, random_state = 0)
+# Splitting Train and Test set
+from sklearn.model_selection import train_test_split
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state = 0)
 
-										from sklearn.linear_model import LinearRegression
-										regressor = LinearRegression()
-										regressor.fit(X_train, y_train)
+from sklearn.linear_model import LinearRegression
+regressor = LinearRegression()
+regressor.fit(X_train, y_train)
 
-										# Predicting Results
-										y_pred = regressor.predict(X_test)
-										np.set_printoptions(precision=2)
-										print(np.concatenate((y_pred.reshape(len(y_pred),1), y_test.reshape(len(y_test),1)),1))
+# Predicting Results
+y_pred = regressor.predict(X_test)
+np.set_printoptions(precision=2)
+print(np.concatenate((y_pred.reshape(len(y_pred),1), y_test.reshape(len(y_test),1)),1))
 
-										# Evaluating the Model Performance
-										from sklearn.metrics import r2_score
-										r2_score(y_test, y_pred)
+# Evaluating the Model Performance
+from sklearn.metrics import r2_score
+r2_score(y_test, y_pred)
 										</code></pre>
 
 										<!-- Visualisations -->
@@ -1036,42 +1078,39 @@
 										<!-- Code Snippet -->
 
 										<pre><code class="language-python"># Importing Libraries	
-										import numpy as np
-										import matplotlib.pyplot as plt
-										import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
 
-										# Importing dataset	
-										dataset = pd.read_csv('Position_Salaries.csv')
-										X = dataset.iloc[:, 1:-1].values
-										y = dataset.iloc[:, -1].values
+# Importing dataset	
+dataset = pd.read_csv('Position_Salaries.csv')
+X = dataset.iloc[:, 1:-1].values
+y = dataset.iloc[:, -1].values
 
+# Training the Decision Tree Regression
+from sklearn.tree import DecisionTreeRegressor
+regressor = DecisionTreeRegressor(random_state = 0)
+regressor.fit(X, y)
 
-										# Training the Decision Tree Regression
-										from sklearn.tree import DecisionTreeRegressor
-										regressor = DecisionTreeRegressor(random_state = 0)
-										regressor.fit(X, y)
+# Predicting New Result
+regressor.predict([[6.5]])
 
-										# Predicting New Result
-										regressor.predict([[6.5]])
+# Visualising Results (Figure 1)
+X_grid = np.arange(min(X), max(X), 0.01)
+# 0.01 was adjusted from 0.1 to increase the resolution
+X_grid = X_grid.reshape((len(X_grid), 1))
+plt.scatter(X, y, color = 'red')
+plt.plot(X_grid, regressor.predict(X_grid), color = 'blue')
+plt.title('HR Salary Predictions (Decision Tree Regression)')
+plt.xlabel('Position level')
+plt.ylabel('Salary')
+plt.show()
 
-										# Visualising Results (Figure 1)
-
-										X_grid = np.arange(min(X), max(X), 0.01)
-										# 0.01 was adjusted from 0.1 to increase the resolution
-										X_grid = X_grid.reshape((len(X_grid), 1))
-										plt.scatter(X, y, color = 'red')
-										plt.plot(X_grid, regressor.predict(X_grid), color = 'blue')
-										plt.title('HR Salary Predictions (Decision Tree Regression)')
-										plt.xlabel('Position level')
-										plt.ylabel('Salary')
-										plt.show()
-
-										
-										# Evaluating the Model Performance 
-										from sklearn.metrics import r2_score
-										# Since the model was trained on the whole dataset, we    evaluate on the whole dataset
-										y_pred = regressor.predict(X)
-										r2_score(y, y_pred)
+# Evaluating the Model Performance 
+from sklearn.metrics import r2_score
+# Since the model was trained on the whole dataset, we evaluate on the whole dataset
+y_pred = regressor.predict(X)
+r2_score(y, y_pred)
 
 										</code></pre>
 
@@ -1220,78 +1259,78 @@
 										<!-- Code Snippet -->
 
 										<pre><code class="language-python"># Importing Libraries	
-										import numpy as np
-										import matplotlib.pyplot as plt
-										import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
 
-										# Importing Dataset
-										dataset = pd.read_csv('Social_Network_Ads.csv')
-										X = dataset.iloc[:, :-1].values
-										y = dataset.iloc[:, -1].values
+# Importing Dataset
+dataset = pd.read_csv('Social_Network_Ads.csv')
+X = dataset.iloc[:, :-1].values
+y = dataset.iloc[:, -1].values
 
-										# Splitting dataset into Training & Test set
-										from sklearn.model_selection import train_test_split
-										X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.25, random_state = 0)
+# Splitting dataset into Training & Test set
+from sklearn.model_selection import train_test_split
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.25, random_state = 0)
 
-										print(X_train), print(X_test)
-										print(y_train), print(y_test)
+print(X_train), print(X_test)
+print(y_train), print(y_test)
 
-										# Feature Scaling
-										from sklearn.preprocessing import StandardScaler
-										sc = StandardScaler()
-										X_train = sc.fit_transform(X_train)
-										X_test = sc.transform(X_test)
+# Feature Scaling
+from sklearn.preprocessing import StandardScaler
+sc = StandardScaler()
+X_train = sc.fit_transform(X_train)
+X_test = sc.transform(X_test)
 
-										print(X_train), print(X_test)
+print(X_train), print(X_test)
 
-										# Training Decision tree classification Model
-										from sklearn.tree import DecisionTreeClassifier
-										classifier = DecisionTreeClassifier(criterion = 'entropy', random_state = 0)
-										classifier.fit(X_train, y_train)
+# Training Decision tree classification Model
+from sklearn.tree import DecisionTreeClassifier
+classifier = DecisionTreeClassifier(criterion = 'entropy', random_state = 0)
+classifier.fit(X_train, y_train)
 
-										# Predicting Test Results
-										y_pred = classifier.predict(X_test)
-										print(np.concatenate((y_pred.reshape(len(y_pred),1), y_test.reshape(len(y_test),1)),1))
+# Predicting Test Results
+y_pred = classifier.predict(X_test)
+print(np.concatenate((y_pred.reshape(len(y_pred),1), y_test.reshape(len(y_test),1)),1))
 
-										# Making Confusion Matrix 
-										from sklearn.metrics import confusion_matrix, accuracy_score
-										cm = confusion_matrix(y_test, y_pred)
-										print(cm)
-										accuracy_score(y_test, y_pred)
+# Making Confusion Matrix 
+from sklearn.metrics import confusion_matrix, accuracy_score
+cm = confusion_matrix(y_test, y_pred)
+print(cm)
+accuracy_score(y_test, y_pred)
 
-										#Visualising Training set results 
-										from matplotlib.colors import ListedColormap
-										X_set, y_set = sc.inverse_transform(X_train), y_train
-										X1, X2 = np.meshgrid(np.arange(start = X_set[:, 0].min() - 10, stop = X_set[:, 0].max() + 10, step = 0.25),
-															np.arange(start = X_set[:, 1].min() - 1000, stop = X_set[:, 1].max() + 1000, step = 0.25))
-										plt.contourf(X1, X2, classifier.predict(sc.transform(np.array([X1.ravel(), X2.ravel()]).T)).reshape(X1.shape),
-													alpha = 0.75, cmap = ListedColormap(('red', 'green')))
-										plt.xlim(X1.min(), X1.max())
-										plt.ylim(X2.min(), X2.max())
-										for i, j in enumerate(np.unique(y_set)):
-											plt.scatter(X_set[y_set == j, 0], X_set[y_set == j, 1], c = ListedColormap(('red', 'green'))(i), label = j)
-										plt.title('Decision Tree Classification (Training set)')
-										plt.xlabel('Age')
-										plt.ylabel('Estimated Salary')
-										plt.legend()
-										plt.show()
+# Visualising Training set results 
+from matplotlib.colors import ListedColormap
+X_set, y_set = sc.inverse_transform(X_train), y_train
+X1, X2 = np.meshgrid(np.arange(start = X_set[:, 0].min() - 10, stop = X_set[:, 0].max() + 10, step = 0.25),
+                     np.arange(start = X_set[:, 1].min() - 1000, stop = X_set[:, 1].max() + 1000, step = 0.25))
+plt.contourf(X1, X2, classifier.predict(sc.transform(np.array([X1.ravel(), X2.ravel()]).T)).reshape(X1.shape),
+             alpha = 0.75, cmap = ListedColormap(('red', 'green')))
+plt.xlim(X1.min(), X1.max())
+plt.ylim(X2.min(), X2.max())
+for i, j in enumerate(np.unique(y_set)):
+    plt.scatter(X_set[y_set == j, 0], X_set[y_set == j, 1], c = ListedColormap(('red', 'green'))(i), label = j)
+plt.title('Decision Tree Classification (Training set)')
+plt.xlabel('Age')
+plt.ylabel('Estimated Salary')
+plt.legend()
+plt.show()
 
-										#Visualising Test set results 
-										from matplotlib.colors import ListedColormap
-										X_set, y_set = sc.inverse_transform(X_test), y_test
-										X1, X2 = np.meshgrid(np.arange(start = X_set[:, 0].min() - 10, stop = X_set[:, 0].max() + 10, step = 0.25),
-															np.arange(start = X_set[:, 1].min() - 1000, stop = X_set[:, 1].max() + 1000, step = 0.25))
-										plt.contourf(X1, X2, classifier.predict(sc.transform(np.array([X1.ravel(), X2.ravel()]).T)).reshape(X1.shape),
-													alpha = 0.75, cmap = ListedColormap(('red', 'green')))
-										plt.xlim(X1.min(), X1.max())
-										plt.ylim(X2.min(), X2.max())
-										for i, j in enumerate(np.unique(y_set)):
-											plt.scatter(X_set[y_set == j, 0], X_set[y_set == j, 1], c = ListedColormap(('red', 'green'))(i), label = j)
-										plt.title('Decision Tree Classification (Test set)')
-										plt.xlabel('Age')
-										plt.ylabel('Estimated Salary')
-										plt.legend()
-										plt.show()
+# Visualising Test set results 
+from matplotlib.colors import ListedColormap
+X_set, y_set = sc.inverse_transform(X_test), y_test
+X1, X2 = np.meshgrid(np.arange(start = X_set[:, 0].min() - 10, stop = X_set[:, 0].max() + 10, step = 0.25),
+                     np.arange(start = X_set[:, 1].min() - 1000, stop = X_set[:, 1].max() + 1000, step = 0.25))
+plt.contourf(X1, X2, classifier.predict(sc.transform(np.array([X1.ravel(), X2.ravel()]).T)).reshape(X1.shape),
+             alpha = 0.75, cmap = ListedColormap(('red', 'green')))
+plt.xlim(X1.min(), X1.max())
+plt.ylim(X2.min(), X2.max())
+for i, j in enumerate(np.unique(y_set)):
+    plt.scatter(X_set[y_set == j, 0], X_set[y_set == j, 1], c = ListedColormap(('red', 'green'))(i), label = j)
+plt.title('Decision Tree Classification (Test set)')
+plt.xlabel('Age')
+plt.ylabel('Estimated Salary')
+plt.legend()
+plt.show()
 										</code></pre>
 
 										
@@ -1477,36 +1516,36 @@
 										<!-- Code Snippet -->
 
 										<pre><code class="language-python"># Importing the libraries
-										import numpy as np
-										import matplotlib.pyplot as plt
-										import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
 
-										# Importing the dataset
-										dataset = pd.read_csv('Breast cancer data.csv')
-										X = dataset.iloc[:, :-1].values
-										y = dataset.iloc[:, -1].values
+# Importing the dataset
+dataset = pd.read_csv('Breast cancer data.csv')
+X = dataset.iloc[:, :-1].values
+y = dataset.iloc[:, -1].values
 
-										#Splitting the dataset into the Training set and Test set
-										from sklearn.model_selection import train_test_split
-										X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.25, random_state = 0)
+# Splitting the dataset into the Training set and Test set
+from sklearn.model_selection import train_test_split
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.25, random_state = 0)
 
-										# Feature Scaling
-										from sklearn.preprocessing import StandardScaler
-										sc = StandardScaler()
-										X_train = sc.fit_transform(X_train)
-										X_test = sc.transform(X_test)
+# Feature Scaling
+from sklearn.preprocessing import StandardScaler
+sc = StandardScaler()
+X_train = sc.fit_transform(X_train)
+X_test = sc.transform(X_test)
 
-										# Training Model on the Training set
-										from sklearn.tree import DecisionTreeClassifier
-										classifier = DecisionTreeClassifier(criterion = 'entropy', random_state = 0)
-										classifier.fit(X_train, y_train)
+# Training Model on the Training set
+from sklearn.tree import DecisionTreeClassifier
+classifier = DecisionTreeClassifier(criterion = 'entropy', random_state = 0)
+classifier.fit(X_train, y_train)
 
-										Evaluating using confusion matrix
-										from sklearn.metrics import confusion_matrix, accuracy_score
-										y_pred = classifier.predict(X_test)
-										cm = confusion_matrix(y_test, y_pred)
-										print(cm)
-										accuracy_score(y_test, y_pred)
+# Evaluating using confusion matrix
+from sklearn.metrics import confusion_matrix, accuracy_score
+y_pred = classifier.predict(X_test)
+cm = confusion_matrix(y_test, y_pred)
+print(cm)
+accuracy_score(y_test, y_pred)
 
 										</code></pre>
 
@@ -1624,120 +1663,140 @@
 										<!-- Code Snippet -->
 
 										<pre><code class="language-python"># Importing the libraries
-										credit_card_df = pd.read_csv('/content/4.+Marketing_data.csv')
-										credit_card_df.info()
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.preprocessing import StandardScaler
+from sklearn.cluster import KMeans
+from sklearn.decomposition import PCA
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import confusion_matrix, accuracy_score
 
-										credit_card_df.describe() (Table 1)
+# Load the data
+credit_card_df = pd.read_csv('/content/4.+Marketing_data.csv')
+credit_card_df.info()
 
-										- Mean balance is $1564
-										- Balance frequency is frequently updated on average ~0.9, Purchases average is $1000, one off purchase average is ~$600
-										- Average purchases frequency is around 0.5, Average ONEOFF_PURCHASES_FREQUENCY, PURCHASES_INSTALLMENTS_FREQUENCY, and CASH_ADVANCE_FREQUENCY are generally low
-										- Average credit limit ~ 4500, Percent of full payment is 15%, Average tenure is 11 years
-										
-										# Check for missing data (Table 2)
-										credit_card_df.isnull().sum()
+# Display descriptive statistics (Table 1)
+credit_card_df.describe()
 
-										# Replace the missing elements with mean of the 'MINIMUM_PAYMENT'
-										credit_card_df.MINIMUM_PAYMENTS.fillna(credit_card_df.MINIMUM_PAYMENTS.mean(), inplace=True)
+# Comments from analysis:
+# - Mean balance is $1564
+# - Balance frequency is frequently updated on average ~0.9, Purchases average is $1000, one off purchase average is ~$600
+# - Average purchases frequency is around 0.5, Average ONEOFF_PURCHASES_FREQUENCY, PURCHASES_INSTALLMENTS_FREQUENCY, and CASH_ADVANCE_FREQUENCY are generally low
+# - Average credit limit ~ 4500, Percent of full payment is 15%, Average tenure is 11 years
 
-										# Replace the missing elements with mean of the 'CREDIT_LIMIT'
-										credit_card_df.CREDIT_LIMIT.fillna(credit_card_df.CREDIT_LIMIT.mean(), inplace=True)
+# Check for missing data (Table 2)
+credit_card_df.isnull().sum()
 
-										# Plot to check for missing data (Figure 1)
-										sns.heatmap(credit_card_df.isnull(), yticklabels = False, cbar = False, cmap='Reds')
-										
-										# Check for duplicate entries
-										credit_card_df.duplicated().sum()
+# Replace the missing elements with mean of the 'MINIMUM_PAYMENT'
+credit_card_df.MINIMUM_PAYMENTS.fillna(credit_card_df.MINIMUM_PAYMENTS.mean(), inplace=True)
 
-										# Remove Customer ID
-										credit_card_df.drop('CUST_ID', axis=1, inplace=True)
+# Replace the missing elements with mean of the 'CREDIT_LIMIT'
+credit_card_df.CREDIT_LIMIT.fillna(credit_card_df.CREDIT_LIMIT.mean(), inplace=True)
 
-										# Define function to create subplots of distplots with KDE for all columns.
+# Plot to check for missing data (Figure 1)
+sns.heatmap(credit_card_df.isnull(), yticklabels=False, cbar=False, cmap='Reds')
 
-										def dist_plots(dataframe):
-										fig, ax = plt.subplots(nrows=7, ncols=2, figsize=(15,30))
-										index = 0
-										for row in range(7):
-											for col in range(2):
-											sns.distplot(dataframe.iloc[:, index], ax=ax[row][col], kde_kws={'color':'blue', 'lw':3, 'label':'KDE'}, hist_kws= {'histtype':'step', 'lw':3, 'color':'green'})
-											index += 1
-										plt.tight_layout()
-										plt.show()
+# Check for duplicate entries
+credit_card_df.duplicated().sum()
 
-										# Visualise distplots (Figure 2)
-										dist_plots(credit_card_df)
-										
-										- 'Balance_Frequency' for most customers is updated frequently ~1, For 'PURCHASES_FREQUENCY', there are two distinct group of customers
-										- For 'ONEOFF_PURCHASES_FREQUENCY' and 'PURCHASES_INSTALLMENT_FREQUENCY' most users don't do one off puchases or installment purchases frequently, Very small number of customers pay their balance in full 'PRC_FULL_PAYMENT'~0
-										- Mean of balance is $1500, Credit limit average is around $4500, Most customers are ~11 years tenure
-										
-										# Heatmap to visaulise correlations (Figure 3)
-										correlations = credit_card_df.corr()
-										plt.figure(figsize=(20,20))
-										sns.heatmap(correlations, annot=True)
+# Remove Customer ID
+credit_card_df.drop('CUST_ID', axis=1, inplace=True)
 
-										- 'PURCHASES' have high correlation between one-off purchases, 'installment purchases, purchase transactions, credit limit and payments.
-										- Strong Positive Correlation between 'PURCHASES_FREQUENCY' and 'PURCHASES_INSTALLMENT_FREQUENCY'
+# Define function to create subplots of distplots with KDE for all columns
+def dist_plots(dataframe):
+    fig, ax = plt.subplots(nrows=7, ncols=2, figsize=(15, 30))
+    index = 0
+    for row in range(7):
+        for col in range(2):
+            if index < dataframe.shape[1]:  # Added safety check
+                sns.distplot(dataframe.iloc[:, index], ax=ax[row][col], 
+                           kde_kws={'color': 'blue', 'lw': 3, 'label': 'KDE'}, 
+                           hist_kws={'histtype': 'step', 'lw': 3, 'color': 'green'})
+                index += 1
+    plt.tight_layout()
+    plt.show()
 
-										# Training Model on the Training set
-										from sklearn.tree import DecisionTreeClassifier
-										classifier = DecisionTreeClassifier(criterion = 'entropy', random_state = 0)
-										classifier.fit(X_train, y_train)
+# Visualise distplots (Figure 2)
+dist_plots(credit_card_df)
 
-										# Evaluating using confusion matrix
-										from sklearn.metrics import confusion_matrix, accuracy_score
-										y_pred = classifier.predict(X_test)
-										cm = confusion_matrix(y_test, y_pred)
-										print(cm)
-										accuracy_score(y_test, y_pred)
+# Analysis comments:
+# - 'Balance_Frequency' for most customers is updated frequently ~1, For 'PURCHASES_FREQUENCY', there are two distinct group of customers
+# - For 'ONEOFF_PURCHASES_FREQUENCY' and 'PURCHASES_INSTALLMENT_FREQUENCY' most users don't do one off purchases or installment purchases frequently, Very small number of customers pay their balance in full 'PRC_FULL_PAYMENT'~0
+# - Mean of balance is $1500, Credit limit average is around $4500, Most customers are ~11 years tenure
 
-										# Use Elbow Method to find optimal No of clusters (Figure 4)
-										credit_card_df.head()
+# Heatmap to visualise correlations (Figure 3)
+correlations = credit_card_df.corr()
+plt.figure(figsize=(20, 20))
+sns.heatmap(correlations, annot=True)
 
-										# Apply Feature scaling
-										scaler = StandardScaler()
-										credit_card_df_scaled = scaler.fit_transform(credit_card_df)
+# Analysis comments:
+# - 'PURCHASES' have high correlation between one-off purchases, 'installment purchases, purchase transactions, credit limit and payments.
+# - Strong Positive Correlation between 'PURCHASES_FREQUENCY' and 'PURCHASES_INSTALLMENT_FREQUENCY'
 
-										credit_card_df_scaled
+# Note: The following section appears to be for classification, but X_train, X_test, y_train, y_test are not defined
+# You may need to add train_test_split and define your features and target variable
 
-										# Apply Elbow Method
-										wcss = []
-										for i in range(1, 20):
-											kmeans = KMeans(n_clusters = i, init = 'k-means++', random_state = 42)
-											kmeans.fit(credit_card_df_scaled)
-											wcss.append(kmeans.inertia_)
-										plt.plot(range(1, 20), wcss, 'bx-')
-										plt.title('The Elbow Method')
-										plt.xlabel('Number of clusters')
-										plt.ylabel('Score (WCSS)')
-										plt.show();
+# Training Model on the Training set
+# classifier = DecisionTreeClassifier(criterion='entropy', random_state=0)
+# classifier.fit(X_train, y_train)
 
-										# Train data using K-Means method 
+# Evaluating using confusion matrix
+# y_pred = classifier.predict(X_test)
+# cm = confusion_matrix(y_test, y_pred)
+# print(cm)
+# accuracy_score(y_test, y_pred)
 
-										- We can observe that, 4th cluster seems to be forming the elbow of the curve. However, the values does not reduce linearly until 8th cluster. Let's choose the number of clusters to be 7.
+# Display first few rows
+credit_card_df.head()
 
-										# Assuming 'kmeans' is your fitted KMeans model
-										kmeans = KMeans(n_clusters=7, init= 'k-means++',random_state=42)
-										kmeans.fit(credit_card_df_scaled)
+# Apply Feature scaling
+scaler = StandardScaler()
+credit_card_df_scaled = scaler.fit_transform(credit_card_df)
 
-										# Use Principal Compenent Analysis to reduce dimensionality
-										pca = PCA(n_components=2)
-										principalComp = pca.fit_transform(credit_card_df_scaled )
-										principalComp
+# Display scaled data
+print(credit_card_df_scaled)
 
-										# Create a dataframe with the two components
-										pca_df = pd.DataFrame(data=principalComp, columns=['PCA1', 'PCA2'])
-										pca_df
+# Use Elbow Method to find optimal number of clusters (Figure 4)
+wcss = []
+for i in range(1, 20):
+    kmeans = KMeans(n_clusters=i, init='k-means++', random_state=42)
+    kmeans.fit(credit_card_df_scaled)
+    wcss.append(kmeans.inertia_)
 
-										# Concatenate the clusters labels to the dataframe (Table 3)
-										pca_df = pd.concat([pca_df, pd.DataFrame({'cluster': labels})], axis=1)
-										pca_df.head()
+plt.plot(range(1, 20), wcss, 'bx-')
+plt.title('The Elbow Method')
+plt.xlabel('Number of clusters')
+plt.ylabel('Score (WCSS)')
+plt.show()
 
-										# Visualise Clusters (Figure 5)
-										plt.figure(figsize=(10, 10))
-										ax = sns.scatterplot(x='PCA1', y='PCA2', hue='cluster', data=pca_df, palette='tab10')
-										plt.title('Clusters identified by PCA')
-										plt.show()
+# Analysis comment:
+# We can observe that, 4th cluster seems to be forming the elbow of the curve. However, the values does not reduce linearly until 8th cluster. Let's choose the number of clusters to be 7.
+
+# Train data using K-Means method with 7 clusters
+kmeans = KMeans(n_clusters=7, init='k-means++', random_state=42)
+kmeans.fit(credit_card_df_scaled)
+labels = kmeans.labels_
+
+# Use Principal Component Analysis to reduce dimensionality
+pca = PCA(n_components=2)
+principalComp = pca.fit_transform(credit_card_df_scaled)
+print(principalComp)
+
+# Create a dataframe with the two components
+pca_df = pd.DataFrame(data=principalComp, columns=['PCA1', 'PCA2'])
+print(pca_df)
+
+# Concatenate the clusters labels to the dataframe (Table 3)
+pca_df = pd.concat([pca_df, pd.DataFrame({'cluster': labels})], axis=1)
+pca_df.head()
+
+# Visualise Clusters (Figure 5)
+plt.figure(figsize=(10, 10))
+ax = sns.scatterplot(x='PCA1', y='PCA2', hue='cluster', data=pca_df, palette='tab10')
+plt.title('Clusters identified by PCA')
+plt.show()
 										</code></pre>
 
 										
@@ -1863,176 +1922,167 @@
 										<!-- Code Snippet -->
 
 										<pre><code class="language-python"># Importing the libraries
-										import pandas as pd
-										import plotly.express as px
-										from copy import copy
-										from scipy import stats
-										import matplotlib.pyplot as plt
-										import numpy as np
-										import plotly.figure_factory as ff
-										from sklearn.linear_model import LinearRegression
-										from sklearn.svm import SVR
-										from sklearn.model_selection import train_test_split
-										from sklearn.metrics import r2_score
+import pandas as pd
+import plotly.express as px
+from copy import copy
+from scipy import stats
+import matplotlib.pyplot as plt
+import numpy as np
+import plotly.figure_factory as ff
+from sklearn.linear_model import LinearRegression
+from sklearn.svm import SVR
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import r2_score
+from sklearn.preprocessing import MinMaxScaler
+from sklearn.linear_model import Ridge
+from sklearn.model_selection import cross_val_score
 
-										# Get stock prices dataframe info
-										stock_price_df.info()
+# Get stock prices dataframe info
+stock_price_df.info()
 
-										# Get stock volume dataframe info
-										stock_vol_df.info()
+# Get stock volume dataframe info
+stock_vol_df.info()
 
-										stock_vol_df.describe()
+stock_vol_df.describe()
 
-										# Function to normalize stock prices based on their initial price (Figure 1)
-										def normalize(df):
-										x = df.copy()
-										for i in x.columns[1:]:
-											x[i] = x[i]/x[i][0]
-										return x
+# Function to normalize stock prices based on their initial price (Figure 1)
+def normalize(df):
+    x = df.copy()
+    for i in x.columns[1:]:
+        x[i] = x[i] / x[i][0]
+    return x
 
-										# Function to plot interactive plots using Plotly Express (Figure 2)
-										def interactive_plot(df, title):
-										fig = px.line(title = title)
-										for i in df.columns[1:]:
-											fig.add_scatter(x = df['Date'], y = df[i], name = i)
-										fig.show()
+# Function to plot interactive plots using Plotly Express (Figure 2)
+def interactive_plot(df, title):
+    fig = px.line(title=title)
+    for i in df.columns[1:]:
+        fig.add_scatter(x=df['Date'], y=df[i], name=i)
+    fig.show()
 
-										# Interactive chart for stocks Prices data (Figure 1)
-										interactive_plot(stock_price_df, 'Stock Prices')
+# Interactive chart for stocks Prices data (Figure 1)
+interactive_plot(stock_price_df, 'Stock Prices')
 
-										# Normalised chart for stocks Prices data (Figure 2)
-										interactive_plot(normalize(stock_price_df), 'Normalized Prices')
+# Normalised chart for stocks Prices data (Figure 2)
+interactive_plot(normalize(stock_price_df), 'Normalized Prices')
 
-										# Interactive chart for stocks Volume data (Figure 3)
-										interactive_plot(stock_vol_df, 'Stocks Volume')
+# Interactive chart for stocks Volume data (Figure 3)
+interactive_plot(stock_vol_df, 'Stocks Volume')
 
-										# Normalised chart for stocks volume data (Figure 4)
-										interactive_plot(normalize(stock_vol_df), 'Normalized Volume')
+# Normalised chart for stocks volume data (Figure 4)
+interactive_plot(normalize(stock_vol_df), 'Normalized Volume')
 
-										# Prepare Data before training Regression model
+# Prepare Data before training Regression model
 
-										# Function to concatenate the date, stock price, and volume in one dataframe
-										def individual_stock(price_df, vol_df, name):
-											return pd.DataFrame({'Date': price_df['Date'], 'Close': price_df[name], 'Volume': vol_df[name]})
+# Function to concatenate the date, stock price, and volume in one dataframe
+def individual_stock(price_df, vol_df, name):
+    return pd.DataFrame({
+        'Date': price_df['Date'], 
+        'Close': price_df[name], 
+        'Volume': vol_df[name]
+    })
 
-										# Function to return the output (target) data ML Model [Target stock price today will be tomorrow's price]
+# Function to return the output (target) data ML Model [Target stock price today will be tomorrow's price]
+def trading_window(data):
+    n = 1  # 1 day window
+    
+    # Create a column containing the prices for the next 1 days
+    data['Target'] = data[['Close']].shift(-n)
+    
+    return data
 
-										def trading_window(data):
+# Test concatenation function using individual stock
+price_volume_df = individual_stock(stock_price_df, stock_vol_df, 'AAPL')
+print(price_volume_df)
 
-										n = 1 #1 day window
+# Test trading window function using concatenated df (Table 1)
+price_volume_target_df = trading_window(price_volume_df)
+print(price_volume_target_df)
 
-										# Create a column containing the prices for the next 1 days
-										data['Target'] = data[['Close']].shift(-n)
+# Apply Feature Scaling to data
+sc = MinMaxScaler(feature_range=(0, 1))
+price_volume_target_scaled_df = sc.fit_transform(price_volume_target_df.drop(columns=['Date']))
 
-										return data
+# Creating Feature and Target
+X = price_volume_target_scaled_df[:, :2]
+y = price_volume_target_scaled_df[:, 2:]
 
-										# Test concatenation function using individual stock
-										price_volume_df = individual_stock(stock_price_df, stock_vol_df, 'AAPL')
-										price_volume_df
+# Converting dataframe to arrays
+X = np.asarray(X)
+y = np.asarray(y)
+print("X shape:", X.shape, "y shape:", y.shape)
 
-										# Function to return the output (target) data ML Model [Target stock price today will be tomorrow's price]
-										
-										def trading_window(data):
+# Splitting the data this way, since order is important in time-series
+split = int(0.80 * len(X))
+X_train = X[:split]
+y_train = y[:split]
+X_test = X[split:]
+y_test = y[split:]
 
-										n = 1 #1 day window
+# Define a data plotting function (Figure 5)
+def show_plot(data, title):
+    plt.figure(figsize=(13, 5))
+    plt.plot(data, linewidth=3)
+    plt.title(title)
+    plt.grid()
+    plt.legend(['Feature 1', 'Feature 2'])
+    plt.show()
 
-										# Create a column containing the prices for the next 1 days
-										data['Target'] = data[['Close']].shift(-n)
+show_plot(X_train, 'Training Data for AAPL stock')
+show_plot(X_test, 'Testing Data for AAPL stock')
 
-										return data
+# Build & Train Ridge Regression model
+# This model was chosen to get a generalised trend for data (avoids over fitting) - expected low testing accuracy expected. 
+# Note that Ridge regression performs linear least squares with L2 regularization.
 
-										# Test concatenation function using individual stock
-										price_volume_df = individual_stock(stock_price_df, stock_vol_df, 'AAPL')
-										price_volume_df
+regression_model = Ridge()
+regression_model.fit(X_train, y_train)
 
-										# Test trading window function using concatenated df (Table 1)
-										price_volume_target_df = trading_window(price_volume_df)
-										price_volume_target_df
+# Test the model and calculate its accuracy
+ridge_accuracy = regression_model.score(X_test, y_test)
+print("Ridge Regression Score: ", ridge_accuracy)
 
-										# Apply Feature Scaling to data
-										from sklearn.preprocessing import MinMaxScaler
-										sc = MinMaxScaler(feature_range = (0, 1))
-										price_volume_target_scaled_df = sc.fit_transform(price_volume_target_df.drop(columns = ['Date']))
+# Make predictions
+predicted_prices = regression_model.predict(X_test)
 
-										# Creating Feature and Target
-										X = price_volume_target_scaled_df[:,:2]
-										y = price_volume_target_scaled_df[:,2:]
+# K-Fold Cross validation Score
+accuracies = cross_val_score(estimator=regression_model, X=X_train, y=y_train, cv=10)
+print("Accuracy: {:.2f} %".format(accuracies.mean() * 100))
+print("Standard Deviation: {:.2f} %".format(accuracies.std() * 100))
 
-										# Converting dataframe to arrays
-										X = np.asarray(X)
-										y = np.asarray(y)
-										X.shape, y.shape
+# Example output comment:
+# Accuracy: 86.27%
+# Standard Deviation: 11.01 %
 
-										# Spliting the data this way, since order is important in time-series
-										split = int(0.80 * len(X))
-										X_train = X[:split]
-										y_train = y[:split]
-										X_test = X[split:]
-										y_test = y[split:]
+# Append the predicted values into a list
+predicted = []
+for i in predicted_prices:
+    predicted.append(i[0])
 
-										# Define a data plotting function (Figue 5)
-										def show_plot(data, title):
-										plt.figure(figsize = (13, 5))
-										plt.plot(data, linewidth = 3)
-										plt.title(title)
-										plt.grid()
-										plt.legend(['X_train', 'X_test'])
+# Append the close values to the list (using actual test data)
+close = []
+for i in range(len(X_test)):
+    close.append(price_volume_target_scaled_df[split + i][0])  # Close prices from test set
 
-										show_plot(X_train, 'Training Data for AAPL stock')
-										show_plot(X_test, 'Testing Data for AAPL stock')
+# Create a dataframe based on the dates in the individual stock data
+df_predicted = price_volume_target_df[['Date']].iloc[split:split + len(predicted)].copy()
 
-										# Build & Train Ridge Regression model
-										- This model was chosen to get a generalised trend for data (avoids over fitting) - expected low testing accuracy expected. Note that Ridge regression performs linear least squares with L2 regularization.
+# Function to add the close and predicted values to the dataframe
+def add_predicted_and_close(df, close, predicted):
+    df['Close'] = close
+    df['Prediction'] = predicted
+    return df
 
-										from sklearn.linear_model import Ridge
-										regression_model = Ridge()
-										regression_model.fit(X_train, y_train)
+# Apply the function (Table 2)
+df_predicted = add_predicted_and_close(df_predicted, close, predicted)
+print(df_predicted)
 
-										# Test the model and calculate its accuracy
-										ridge_accuracy = regression_model.score(X_test, y_test)
-										print("Ridge Regression Score: ", ridge_accuracy)
+# Define interactive plot (Figure 6 & 7)
+def interactive_plot_predictions(df, title):
+    fig = px.line(df, title=title, x='Date', y=['Close', 'Prediction'])
+    fig.show()
 
-										# K-Fold Cross validation Score
-										from sklearn.model_selection import cross_val_score
-										accuracies = cross_val_score(estimator = regression_model, X = X_train, y = y_train, cv = 10)
-										print("Accuracy: {:.2f} %".format(accuracies.mean()*100))
-										print("Standard Deviation: {:.2f} %".format(accuracies.std()*100))
-
-										Accuracy: 86.27%
-										Standard Deviation: 11.01 %
-
-										# Append the predicted values into a list
-										predicted = []
-										for i in predicted_prices:
-										predicted.append(i[0])
-
-										# Append the close values to the list
-										close = []
-										for i in price_volume_target_scaled_df:
-											close.append(i[0])
-
-										# Create a dataframe based on the dates in the individual stock data
-										df_predicted = price_volume_target_df[['Date']]
-										df_predicted
-
-										# Function to add the close and predicted values to the dataframe
-										def add_predicted_and_close(df, close, predicted):
-										df_predicted['Close'] = close
-										df_predicted['Prediction'] = predicted
-										return df_predicted
-
-										add_predicted_and_close(df_predicted, close, predicted) (Table 2)
-
-										# Define interactive plot (Figure 6 & 7)
-
-										def interactive_plot(df, title):
-										fig = px.line(df, title = title, x='Date', y=['Close', 'Prediction'])
-
-										fig.show()
-
-										# Plot the results
-										interactive_plot(df_predicted, "Original Vs. Prediction (alpha=1)")
-
+# Plot the results
+interactive_plot_predictions(df_predicted, "Original Vs. Prediction (alpha=1)")
 
 										</code></pre>
 
@@ -2165,151 +2215,189 @@
 										<!-- Code Snippet -->
 
 										<pre><code class="language-python"># Importing the libraries
-										import pandas as pd
-										import plotly.express as px
-										from copy import copy
-										from scipy import stats
-										import matplotlib.pyplot as plt
-										import numpy as np
-										import plotly.figure_factory as ff
-										from sklearn.linear_model import LinearRegression
-										from sklearn.svm import SVR
-										from sklearn.model_selection import train_test_split
-										from sklearn.metrics import r2_score
-										from tensorflow import keras
+import pandas as pd
+import plotly.express as px
+from copy import copy
+from scipy import stats
+import matplotlib.pyplot as plt
+import numpy as np
+import plotly.figure_factory as ff
+from sklearn.linear_model import LinearRegression
+from sklearn.svm import SVR
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import r2_score
+from sklearn.preprocessing import MinMaxScaler
+from sklearn.model_selection import KFold
+from tensorflow import keras
 
-										# Prepare Data for training
+# Prepare Data for training
 
-										# Function to concatenate the date, stock price, and volume in one dataframe
-										def individual_stock(price_df, vol_df, name):
-											return pd.DataFrame({'Date': price_df['Date'], 'Close': price_df[name], 'Volume': vol_df[name]})
+# Function to concatenate the date, stock price, and volume in one dataframe
+def individual_stock(price_df, vol_df, name):
+    return pd.DataFrame({
+        'Date': price_df['Date'], 
+        'Close': price_df[name], 
+        'Volume': vol_df[name]
+    })
 
-										# Function to return the output (target) data ML Model [Target stock price today will be tomorrow's price]
+# Function to return the output (target) data ML Model [Target stock price today will be tomorrow's price]
+def trading_window(data):
+    n = 1  # 1 day window
+    
+    # Create a column containing the prices for the next 1 days
+    data['Target'] = data[['Close']].shift(-n)
+    
+    return data
 
-										def trading_window(data):
+# Test concatenation function using individual stock (Table 1)
+price_volume_df = individual_stock(stock_price_df, stock_vol_df, 'TSLA')
+print(price_volume_df)
 
-										n = 1 #1 day window
+# Train An LSTM Time Series Model
 
-										# Create a column containing the prices for the next 1 days
-										data['Target'] = data[['Close']].shift(-n)
+# Use the close and volume data as training data (Input)
+training_data = price_volume_df.iloc[:, 1:3].values
+print("Training data shape:", training_data.shape)
 
-										return data
+# Apply feature scaling the data
+sc = MinMaxScaler(feature_range=(0, 1))
+training_set_scaled = sc.fit_transform(training_data)
 
-										# Test concatenation function using individual stock (Table 1)
-										price_volume_df = individual_stock(stock_price_df, stock_vol_df, 'TSLA')
-										price_volume_df
+# Create the training and testing data, training data contains present day and previous day values
+X = []
+y = []
+for i in range(1, len(price_volume_df)):
+    X.append(training_set_scaled[i-1:i, 0])
+    y.append(training_set_scaled[i, 0])
 
-										# Train An LSTM Time Series Model
+# Convert the data into array format
+X = np.asarray(X)
+y = np.asarray(y)
 
-										# Use the close and volume data as training data (Input)
-										training_data = price_volume_df.iloc[:, 1:3].values
-										training_data
+# Split the data
+split = int(0.75 * len(X))
+X_train = X[:split]
+y_train = y[:split]
+X_test = X[split:]
+y_test = y[split:]
 
-										# Apply feature scaling the data
-										from sklearn.preprocessing import MinMaxScaler
-										sc = MinMaxScaler(feature_range = (0, 1))
-										training_set_scaled = sc.fit_transform(training_data)
+# Reshape the 1D arrays to 3D arrays to feed in the model
+X_train = np.reshape(X_train, (X_train.shape[0], X_train.shape[1], 1))
+X_test = np.reshape(X_test, (X_test.shape[0], X_test.shape[1], 1))
+print("X_train shape:", X_train.shape, "X_test shape:", X_test.shape)
 
-										# Create the training and testing data, training data contains present day and previous day values
-										X = []
-										y = []
-										for i in range(1, len(price_volume_df)):
-											X.append(training_set_scaled [i-1:i, 0])
-											y.append(training_set_scaled [i, 0])
+# Create the LSTM model
+inputs = keras.layers.Input(shape=(X_train.shape[1], X_train.shape[2]))
+x = keras.layers.LSTM(150, return_sequences=True)(inputs)
+x = keras.layers.Dropout(0.3)(x)
 
-										# Convert the data into array format
-										X = np.asarray(X)
-										y = np.asarray(y)
+x = keras.layers.LSTM(150, return_sequences=True)(x)
+x = keras.layers.Dropout(0.3)(x)
 
-										# Split the data
-										split = int(0.75 * len(X))
-										X_train = X[:split]
-										y_train = y[:split]
-										X_test = X[split:]
-										y_test = y[split:]
+x = keras.layers.LSTM(150)(x)
+outputs = keras.layers.Dense(1, activation='linear')(x)
 
-										# Reshape the 1D arrays to 3D arrays to feed in the model
-										X_train = np.reshape(X_train, (X_train.shape[0], X_train.shape[1], 1))
-										X_test = np.reshape(X_test, (X_test.shape[0], X_test.shape[1], 1))
-										X_train.shape, X_test.shape
+model = keras.Model(inputs=inputs, outputs=outputs)
+model.compile(optimizer='adam', loss="mse")
+model.summary()
 
-										# Create the LSTM model (Table 1)
-										inputs = keras.layers.Input(shape=(X_train.shape[1], X_train.shape[2]))
-										x = keras.layers.LSTM(150, return_sequences= True)(inputs)
-										x = keras.layers.Dropout(0.3)(x)
+# Train the model
+history = model.fit(
+    X_train, y_train,
+    epochs=20,
+    batch_size=32,
+    validation_split=0.2
+)
 
-										x = keras.layers.LSTM(150, return_sequences=True)(x)
-										x = keras.layers.Dropout(0.3)(x)
+# Make predictions on test data
+test_predicted = model.predict(X_test)
 
-										x = keras.layers.LSTM(150)(x)
-										outputs = keras.layers.Dense(1, activation='linear')(x)
+# K folds cross validation for model
+# Define the number of folds
+k = 5
+kf = KFold(n_splits=k, shuffle=True, random_state=42)
 
-										model = keras.Model(inputs=inputs, outputs=outputs)
-										model.compile(optimizer='adam', loss="mse")
-										model.summary()
+# Initialize a list to store the validation loss for each fold
+fold_losses = []
 
-										# Train the model
-										history = model.fit(
-											X_train, y_train,
-											epochs = 20,
-											batch_size = 32,
-											validation_split = 0.2)
+# Create a fresh model for cross-validation
+def create_lstm_model(input_shape):
+    inputs = keras.layers.Input(shape=input_shape)
+    x = keras.layers.LSTM(150, return_sequences=True)(inputs)
+    x = keras.layers.Dropout(0.3)(x)
+    
+    x = keras.layers.LSTM(150, return_sequences=True)(x)
+    x = keras.layers.Dropout(0.3)(x)
+    
+    x = keras.layers.LSTM(150)(x)
+    outputs = keras.layers.Dense(1, activation='linear')(x)
+    
+    model = keras.Model(inputs=inputs, outputs=outputs)
+    model.compile(optimizer='adam', loss="mse")
+    return model
 
-										# K folds cross validation for model
+# Perform k-fold cross validation
+for fold, (train_index, val_index) in enumerate(kf.split(X)):
+    print(f"Training fold {fold + 1}/{k}")
+    
+    X_train_fold, X_val_fold = X[train_index], X[val_index]
+    y_train_fold, y_val_fold = y[train_index], y[val_index]
+    
+    # Reshape data for LSTM
+    X_train_fold = np.reshape(X_train_fold, (X_train_fold.shape[0], X_train_fold.shape[1], 1))
+    X_val_fold = np.reshape(X_val_fold, (X_val_fold.shape[0], X_val_fold.shape[1], 1))
+    
+    # Create a new model for this fold
+    fold_model = create_lstm_model((X_train_fold.shape[1], X_train_fold.shape[2]))
+    
+    # Train the model on the training fold
+    history = fold_model.fit(
+        X_train_fold, y_train_fold,
+        epochs=20,
+        batch_size=32,
+        validation_data=(X_val_fold, y_val_fold),
+        verbose=0  # Reduce output for cleaner logs
+    )
+    
+    # Evaluate the model on the validation fold and store the loss
+    val_loss = fold_model.evaluate(X_val_fold, y_val_fold, verbose=0)
+    fold_losses.append(val_loss)
+    print(f"Fold {fold + 1} validation loss: {val_loss}")
 
-										from sklearn.model_selection import KFold
+# Calculate the average validation loss across all folds
+average_val_loss = np.mean(fold_losses)
+print("Average Validation Loss:", average_val_loss)
+print("Standard deviation of validation losses:", np.std(fold_losses))
 
-										# Define the number of folds
-										k = 5
-										kf = KFold(n_splits=k, shuffle=True)
+# Get the Closing price data for visualization
+close = []
+for i in training_set_scaled:
+    close.append(i[0])
 
-										# Initialize a list to store the validation loss for each fold
-										fold_losses = []
+# Create dataframe for the dates, predicted prices and closing price
+df_predicted = price_volume_df[1:][['Date']].copy()
 
-										for train_index, val_index in kf.split(X):
-										X_train_fold, X_val_fold = X[train_index], X[val_index]
-										y_train_fold, y_val_fold = y[train_index], y[val_index]
+# Ensure we have the right number of predictions
+if len(test_predicted) < len(df_predicted):
+    # If we have fewer predictions, take the last part of the dataframe
+    df_predicted = df_predicted.tail(len(test_predicted)).copy()
+    df_predicted['Predictions'] = test_predicted.flatten()
+    df_predicted['Close'] = close[-len(test_predicted):]
+else:
+    # If we have enough predictions, take the corresponding part
+    df_predicted['Predictions'] = test_predicted[:len(df_predicted)].flatten()
+    df_predicted['Close'] = close[1:len(df_predicted)+1]
 
-										# Reshape data for LSTM
-										X_train_fold = np.reshape(X_train_fold, (X_train_fold.shape[0], X_train_fold.shape[1], 1))
-										X_val_fold = np.reshape(X_val_fold, (X_val_fold.shape[0], X_val_fold.shape[1], 1))
+print("Prediction dataframe:")
+print(df_predicted.head())
 
-										# Train the model on the training fold
-										history = model.fit(
-											X_train_fold, y_train_fold,
-											epochs=20,
-											batch_size=32,
-											validation_data=(X_val_fold, y_val_fold)	)
+# Define interactive plot
+def interactive_plot(df, title):
+    fig = px.line(df, title=title, x='Date', y=['Close', 'Predictions'])
+    fig.show()
 
-										# Evaluate the model on the validation fold and store the loss
-										val_loss = model.evaluate(X_val_fold, y_val_fold)
-										fold_losses.append(val_loss)
-
-										# Calculate the average validation loss across all folds
-										average_val_loss = np.mean(fold_losses)
-										print("Average Validation Loss:", average_val_loss)
-
-										# Get the Closing price data
-										close = []
-										for i in training_set_scaled:
-										close.append(i[0])
-
-										# Create dataframe for the dates, predicted prices and closing price
-										df_predicted = price_volume_df[1:][['Date']]
-										df_predicted['Predictions'] = test_predicted
-										df_predicted['Close'] = close[1:]
-										df_predicted
-
-										# Define interactive plot
-
-										def interactive_plot(df, title):
-										fig = px.line(df, title = title, x='Date', y=['Close', 'Predictions'])
-
-										fig.show()
-
-										# Plot the results (Figure 1 & 2)
-										interactive_plot(df_predicted, "Original Vs. Prediction (TSLA)")
-
+# Plot the results (Figure 1 & 2)
+interactive_plot(df_predicted, "Original Vs. Prediction (TSLA)")
 										</code></pre>
 
 										
@@ -2406,69 +2494,93 @@
 										<!-- Code Snippet -->
 
 										<pre><code class="language-python"># Importing the libraries
-										import numpy as np
-										import pandas as pd
-										import tensorflow as tf
+import numpy as np
+import pandas as pd
+import tensorflow as tf
+from sklearn.preprocessing import LabelEncoder, StandardScaler, OneHotEncoder
+from sklearn.compose import ColumnTransformer
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import confusion_matrix, accuracy_score
 
-										# Import dataset
-										dataset = pd.read_csv('Churn_Modelling.csv')
-										X = dataset.iloc[:, 3:-1].values
-										y = dataset.iloc[:, -1].values
+# Import dataset
+dataset = pd.read_csv('Churn_Modelling.csv')
+X = dataset.iloc[:, 3:-1].values
+y = dataset.iloc[:, -1].values
 
-										print(X) (Table 1)
-										print(y) (Table 2)
+print("Features (X):") # Table 1
+print(X)
+print("\nTarget variable (y):") # Table 2
+print(y)
 
-										# Encoding categorical data (encoding gender column) (Table 3)
-										from sklearn.preprocessing import LabelEncoder
-										le = LabelEncoder()
-										X[:, 2] = le.fit_transform(X[:, 2])
+# Encoding categorical data (encoding gender column) (Table 3)
+le = LabelEncoder()
+X[:, 2] = le.fit_transform(X[:, 2])
 
-										print(X)
+print("\nAfter Label Encoding Gender:") # Table 3
+print(X)
 
-										# Encoding categorical data (One Hot encoding geography column) (Table 4)
-										from sklearn.compose import ColumnTransformer
-										from sklearn.preprocessing import OneHotEncoder
-										ct = ColumnTransformer(transformers=[('encoder', OneHotEncoder(), [1])], remainder='passthrough')
-										X = np.array(ct.fit_transform(X))
+# Encoding categorical data (One Hot encoding geography column) (Table 4)
+ct = ColumnTransformer(transformers=[('encoder', OneHotEncoder(), [1])], remainder='passthrough')
+X = np.array(ct.fit_transform(X))
 
-										print(X)
+print("\nAfter One-Hot Encoding Geography:") # Table 4
+print(X)
 
-										# Splitting the dataset into Training and test set
-										from sklearn.model_selection import train_test_split
-										X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state = 0)
+# Splitting the dataset into Training and test set
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
 
-										# Feature Scaling
-										from sklearn.preprocessing import StandardScaler
-										sc = StandardScaler()
-										X_train = sc.fit_transform(X_train)
-										X_test = sc.transform(X_test)
+# Feature Scaling
+sc = StandardScaler()
+X_train = sc.fit_transform(X_train)
+X_test = sc.transform(X_test)
 
-										# Building ANN
-										ann = tf.keras.models.Sequential()
-										ann.add(tf.keras.layers.Dense(units=6, activation='relu'))
-										ann.add(tf.keras.layers.Dense(units=6, activation='relu'))
-										ann.add(tf.keras.layers.Dense(units=1, activation='sigmoid'))
+# Building ANN
+ann = tf.keras.models.Sequential()
+ann.add(tf.keras.layers.Dense(units=6, activation='relu'))
+ann.add(tf.keras.layers.Dense(units=6, activation='relu'))
+ann.add(tf.keras.layers.Dense(units=1, activation='sigmoid'))
 
-										# Compiling the ANN
-										ann.compile(optimizer = 'adam', loss = 'binary_crossentropy', metrics = ['accuracy'])
+# Compiling the ANN
+ann.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
 
-										# Training ANN (Table 5)
-										ann.fit(X_train, y_train, batch_size = 32, epochs = 100)
+# Training ANN (Table 5)
+history = ann.fit(X_train, y_train, batch_size=32, epochs=100)
 
-										# Predicting results of a single observation
-										print(ann.predict(sc.transform([[1, 0, 0, 600, 1, 40, 3, 60000, 2, 1, 1, 50000]])) > 0.5)
+# Display training results
+print("\nTraining completed. Final accuracy:", history.history['accuracy'][-1])
 
-										# Predicting Test set results (Table 6)
-										y_pred = ann.predict(X_test)
-										y_pred = (y_pred > 0.5)
-										print(np.concatenate((y_pred.reshape(len(y_pred),1), y_test.reshape(len(y_test),1)),1))
+# Predicting results of a single observation
+# Note: The input should match the preprocessing (one-hot encoded geography + other features)
+sample_prediction = ann.predict(sc.transform([[1, 0, 0, 600, 1, 40, 3, 60000, 2, 1, 1, 50000]]))
+print("\nSingle prediction probability:", sample_prediction[0][0])
+print("Single prediction (>0.5):", sample_prediction > 0.5)
 
-										# Making the Confusion Matrix (Table 7)
+# Predicting Test set results (Table 6)
+y_pred = ann.predict(X_test)
+y_pred_binary = (y_pred > 0.5)
 
-										from sklearn.metrics import confusion_matrix, accuracy_score
-										cm = confusion_matrix(y_test, y_pred)
-										print(cm)
-										accuracy_score(y_test, y_pred)
+print("\nPredictions vs Actual (first 20 samples):") # Table 6
+comparison = np.concatenate((y_pred_binary.reshape(len(y_pred_binary), 1), 
+                           y_test.reshape(len(y_test), 1)), 1)
+print("Predicted | Actual")
+print(comparison[:20])
+
+# Making the Confusion Matrix (Table 7)
+cm = confusion_matrix(y_test, y_pred_binary)
+accuracy = accuracy_score(y_test, y_pred_binary)
+
+print("\nConfusion Matrix:") # Table 7
+print(cm)
+print(f"\nAccuracy Score: {accuracy:.4f}")
+
+# Additional metrics for better evaluation
+from sklearn.metrics import classification_report
+print("\nClassification Report:")
+print(classification_report(y_test, y_pred_binary))
+
+# Model summary
+print("\nModel Architecture:")
+ann.summary()
 
 										</code></pre>
 
@@ -2586,372 +2698,281 @@
 										<!-- Code Snippet -->
 
 										<pre><code class="language-python"># Importing the libraries
-										import torch
-										from torch import nn
-
-										# Import torchvision
-										import torchvision
-
-										# Import matplotlib for visualization
-										import matplotlib.pyplot as plt
-
-										# Setup device Agnostic Code
-										device = "cuda" if torch.cuda.is_available() else "cpu"
-										print(f"Using Device: {device}")
-
-										# Setup training data
-										from torchvision import datasets
-										from torchvision.transforms import ToTensor
-										train_data = datasets.FashionMNIST(
-											root="data", # where to download data to?
-											train=True, # get training data
-											download=True, # download data if it doesn't exist on disk
-											transform=torchvision.transforms.ToTensor(), # images come as PIL format, we want to turn into Torch tensors
-											target_transform=None # you can transform labels as well
-										)
-
-										# Setup testing data
-										test_data = datasets.FashionMNIST(
-											root="data",
-											train=False, # get test data
-											download=True,
-											transform=torchvision.transforms.ToTensor(),
-											target_transform=None
-										)
-
-										# Explore Data
-										len(train_data), len(test_data)
-
-										# See first training sample
-										image, label = train_data[0]
-										print(label), print(image)
-
-										# See classes of data
-										class_names = train_data.classes
-										class_names
-
-										# Labels and their corresponding index
-										class_to_idx = train_data.class_to_idx
-										class_to_idx
-
-										# Check shape of our Image
-										image.shape , label
-										print(f"Image shape: {image.shape} -> [colour_channels, height, width]")
-										print(f"Image label: {class_names[label]}")
-
-										# Visualise data (Figure A)
-										import matplotlib.pyplot as plt
-										image, label = train_data[0]
-										print(f"Image shape: {image.shape}")
-										plt.imshow(image.squeeze()) # image shape is [1, 28, 28] (colour channels, height, width) matplotlib doesn't recognise so squeeze function is used to remove 1 dimension
-										plt.title(label);
-
-										# Observe image in grayscale (Figure B)
-										plt.imshow(image.squeeze(), cmap="gray")
-										plt.title(class_names[label]);
-										plt.axis(False); #remove axes
-
-										# Plot more images (Figure C)
-										torch.manual_seed(42)
-										fig = plt.figure(figsize=(9, 9))
-										rows, cols = 4, 4
-										for i in range(1, rows * cols + 1):
-											random_idx = torch.randint(0, len(train_data), size=[1]).item()
-											img, label = train_data[random_idx]
-											fig.add_subplot(rows, cols, i)
-											plt.imshow(img.squeeze(), cmap="gray")
-											plt.title(class_names[label])
-											plt.axis(False);
-
-										# Prepare Dataloader
-										from torch.utils.data import DataLoader
-
-										# Setup the batch size hyperparameter
-										BATCH_SIZE = 32
-
-										# Turn datasets into iterables (batches)
-										train_dataloader = DataLoader(train_data, # dataset to turn into iterable
-																	batch_size=BATCH_SIZE, # how many samples per batch?
-																	shuffle=True) # shuffle data so model doesn't evaluate order
-
-
-										test_dataloader = DataLoader(test_data,
-																	batch_size=BATCH_SIZE,
-																	shuffle=False) # don't necessarily have to shuffle the testing data
-										train_dataloader, test_dataloader
-
-										# Check out created dataloader
-										print(f"Dataloaders: {train_dataloader, test_dataloader}")
-										print(f"Length of train dataloader: {len(train_dataloader)} batches of {BATCH_SIZE}")
-										print(f"Length of test dataloader: {len(test_dataloader)} batches of {BATCH_SIZE}")
-
-										# Check what's inside the training dataloader
-										train_features_batch, train_labels_batch = next(iter(train_dataloader))
-										train_features_batch.shape, train_labels_batch.shape# Check what's inside the training dataloader
-										train_features_batch, train_labels_batch = next(iter(train_dataloader))
-										train_features_batch.shape, train_labels_batch.shape
-
-										# Create a convolutional neural network
-										class ImageModelV2(nn.Module):
-											"""
-											Model architecture copying TinyVGG from:
-											https://poloclub.github.io/cnn-explainer/
-											"""
-											def __init__(self,
-														input_shape: int,
-														hidden_units: int,
-														output_shape: int):
-											super().__init__()
-											self.conv_block_1 = nn.Sequential(
-												nn.Conv2d(in_channels=input_shape,
-															out_channels=hidden_units,
-															kernel_size=3, # how big is the square that's going over the image?
-															stride=1, # default
-															padding=1),# options = "valid" (no padding) or "same" (output has same shape as input) or int for specific number
-												nn.ReLU(),
-												nn.Conv2d(in_channels=hidden_units,
-															out_channels=hidden_units,
-															kernel_size=3,
-															stride=1,
-															padding=1),
-												nn.ReLU(),
-												nn.MaxPool2d(kernel_size=2,
-																stride=2) # default stride value is same as kernel_size
-											)
-											self.conv_block_2 = nn.Sequential(
-												nn.Conv2d(in_channels=hidden_units,
-															out_channels=hidden_units,
-															stride=1,
-															kernel_size=3,
-															padding=1),
-												nn.ReLU(),
-												nn.Conv2d(in_channels=hidden_units,
-															out_channels=hidden_units,
-															stride=1,
-															kernel_size=3,
-															padding=1),
-												nn.ReLU(),
-												nn.MaxPool2d(kernel_size=2)
-											)
-
-											# Dynamically calculate flattened feature size
-
-											with torch.no_grad():
-												dummy_input = torch.randn(1, input_shape, 28, 28)  # adjust size as needed
-												x = self.conv_block_1(dummy_input)
-												x = self.conv_block_2(x)
-												self.flattened_size = x.view(1, -1).shape[1]
-
-
-
-											self.classifier = nn.Sequential(
-												nn.Flatten(),
-												# Where did this in_features shape come from?
-												# It's because each layer of our network compresses and changes the shape of our input data.
-												nn.Linear(in_features=self.flattened_size,
-															out_features=output_shape)
-											)
-
-											def forward(self, x):
-												x = self.conv_block_1(x)
-												x = self.conv_block_2(x)
-												#print(f"Flatten input shape: {x.shape}")
-												x = self.classifier(x)
-												return x
-
-										# Create instance of the model_2
-
-										torch.manual_seed(42)
-										model_2 = ImageModelV2(input_shape=1,
-															hidden_units=10,
-															output_shape=len(class_names)).to(device)
-
-										next(model_1.parameters()).device # keep model on CPU to begin with
-
-										# Create loss function, optimizer and evaluation
-										# Calculate accuracy
-										def accuracy_function(y_true, y_pred):
-										correct = torch.eq(y_true, y_pred).sum().item()
-										acc = (correct / len(y_pred)) * 100
-										return acc
-
-										# Setup loss function and optimizer
-										loss_fn = nn.CrossEntropyLoss() # this is also called "criterion"/"cost function" in some places
-										optimizer = torch.optim.SGD(params=model_2.parameters(),
-																	lr=0.1)
-
-
-										#Training & Testing CNN Model
-										torch.manual_seed(42)
-										#torch.cuda.manual_seed(42)
-
-										# Measure time
-										from timeit import default_timer as timer
-										train_time_start_model_2 = timer()
-
-										# Train and test model (Figure 1)
-										epochs = 3
-										for epoch in tqdm(range(epochs)):
-											print(f"Epoch: {epoch}\n---------")
-											train_step(model=model_2,
-													data_loader=train_dataloader,      loss_fn=loss_fn,
-													optimizer=optimizer,
-													accuracy_fn=accuracy_function,
-													device=device
-											)
-											test_step(model=model_2,
-													data_loader=test_dataloader,
-													loss_fn=loss_fn,
-													accuracy_fn=accuracy_function,
-													device=device
-											)
-
-										train_time_end_model_2 = timer()
-										total_train_time_model_2 = print_train_time(start=train_time_start_model_2,
-																				end=train_time_end_model_2,
-																				device=device)
-
-										# Get model_2 results
-										model_2_results = eval_model(
-											model=model_2,
-											data_loader=test_dataloader,
-											loss_fn=loss_fn,
-											accuracy_fn=accuracy_function
-										)
-										model_2_results
-
-										# Create dataframe to view results of Models 
-										import pandas as pd
-										compare_results = pd.DataFrame([model_0_results,
-																		model_1_results, model_2_results])
-										compare_results
-
-										# Add training times to results comparison (Table 1)
-										compare_results["training_time"] = [total_train_time_model_0,
-																			total_train_time_model_1,
-																			total_train_time_model_2]
-										compare_results
-
-										# Visualise Model Results (Figure 2)
-										compare_results.set_index("model_name")["model_acc"].plot(kind="barh")
-										plt.xlabel("Accuracy(%)")
-										plt.ylabel("Model Name")
-										plt.title("Model Accuracy Comparison");
-
-										# Make and Evaluate Random Predictions
-										def make_predictions(model: torch.nn.Module, data: list, device: torch.device = device):
-											pred_probs = []
-											model.eval()
-											with torch.inference_mode():
-												for sample in data:
-													# Prepare sample
-													sample = torch.unsqueeze(sample, dim=0).to(device) # Add a batch dimension and send sample to device
-
-													# Forward pass (model outputs raw logits)
-													pred_logit = model(sample)
-
-													# Get prediction probability (logit -> prediction probability)
-													pred_prob = torch.softmax(pred_logit.squeeze(), dim=0) # note: perform softmax on the "logits" dimension, not "batch" dimension (in this case we have a batch size of 1, so can perform on dim=0)
-
-													# Get pred_prob off GPU for further calculations
-													pred_probs.append(pred_prob.cpu())
-
-											# Stack the pred_probs to turn list into a tensor
-											return torch.stack(pred_probs)
-
-										import random
-										random.seed(51)
-
-										test_samples = []
-										test_labels = []
-
-										for sample, label in random.sample(list(test_data), k=9):
-										test_samples.append(sample)
-										test_labels.append(label)
-
-										# View first sample shape
-										test_samples[0].shape
-
-										# Make Predictions
-										pred_probs = make_predictions(model=model_2,
-																	data=test_samples)
-										pred_probs
-
-										# Convert prediction probabilities to labels
-										pred_classes = pred_probs.argmax(dim=1)
-										pred_classes
-
-										test_labels
-
-										# Plot predictions (Figure 2)
-										plt.figure(figsize=(9, 9))
-										nrows = 3
-										ncols = 3
-										for i, sample in enumerate(test_samples):
-										# Create a subplot
-										plt.subplot(nrows, ncols, i+1)
-
-										# Plot the target image
-										plt.imshow(sample.squeeze(), cmap="gray")
-
-										# Find the prediction label (in text form, e.g. "Sandal")
-										pred_label = class_names[pred_classes[i]]
-
-										# Get the truth label (in text form, e.g. "T-shirt")
-										truth_label = class_names[test_labels[i]]
-
-										# Create the title text of the plot
-										title_text = f"Pred: {pred_label} | Truth: {truth_label}"
-
-										# Check for equality and change title colour accordingly
-										if pred_label == truth_label:
-											plt.title(title_text, fontsize=10, c="g") # green text if correct
-										else:
-											plt.title(title_text, fontsize=10, c="r") # red text if wrong
-										plt.axis(False);
-
-
-										# Making Confusion Matrix (Figure 3)
-										# Import tqdm for progress bar
-										from tqdm.auto import tqdm
-
-										# 1. Make predictions with trained model
-										y_preds = []
-										model_2.eval()
-										with torch.inference_mode():
-										for X, y in tqdm(test_dataloader, desc="Making predictions"):
-											# Send data and targets to target device
-											X, y = X.to(device), y.to(device)
-											# Do the forward pass
-											y_logit = model_2(X)
-											# Turn predictions from logits -> prediction probabilities -> predictions labels
-											y_pred = torch.softmax(y_logit, dim=1).argmax(dim=1) # note: perform softmax on the "logits" dimension, not "batch" dimension (in this case we have a batch size of 32, so can perform on dim=1)
-											# Put predictions on CPU for evaluation
-											y_preds.append(y_pred.cpu())
-
-										# Concatenate list of predictions into a tensor
-										y_pred_tensor = torch.cat(y_preds)
-										y_pred_tensor
-
-										!pip install -q torchmetrics -U mlxtend #-U is for upgrade
-										import torchmetrics, mlxtend
-										print(f"mlxtend version: {mlxtend.__version__}")
-
-										from torchmetrics import ConfusionMatrix
-										from mlxtend.plotting import plot_confusion_matrix
-
-										# 2. Setup confusion matrix instance and compare predictions to targets
-										confmat = ConfusionMatrix(num_classes=len(class_names), task='multiclass')
-										confmat_tensor = confmat(preds=y_pred_tensor,
-																target=test_data.targets)
-
-										# 3. Plot the confusion matrix
-										fig, ax = plot_confusion_matrix(
-											conf_mat=confmat_tensor.numpy(), # matplotlib likes working with NumPy
-											class_names=class_names, # turn the row and column labels into class names
-											figsize=(10, 7)
-										);
-
+import torch
+from torch import nn
+
+# Import torchvision
+import torchvision
+
+# Import matplotlib for visualization
+import matplotlib.pyplot as plt
+
+# Setup device Agnostic Code
+device = "cuda" if torch.cuda.is_available() else "cpu"
+print(f"Using Device: {device}")
+
+# Setup training data
+from torchvision import datasets
+from torchvision.transforms import ToTensor
+
+train_data = datasets.FashionMNIST(
+    root="data",
+    train=True,
+    download=True,
+    transform=ToTensor(),
+    target_transform=None
+)
+
+# Setup testing data
+test_data = datasets.FashionMNIST(
+    root="data",
+    train=False,
+    download=True,
+    transform=ToTensor(),
+    target_transform=None
+)
+
+# Explore Data
+len(train_data), len(test_data)
+
+# See first training sample
+image, label = train_data[0]
+print(label)
+print(image)
+
+# See classes of data
+class_names = train_data.classes
+class_names
+
+# Labels and their corresponding index
+class_to_idx = train_data.class_to_idx
+class_to_idx
+
+# Check shape of our Image
+image.shape, label
+print(f"Image shape: {image.shape} -> [colour_channels, height, width]")
+print(f"Image label: {class_names[label]}")
+
+# Visualise data (Figure A)
+image, label = train_data[0]
+print(f"Image shape: {image.shape}")
+plt.imshow(image.squeeze())
+plt.title(label)
+
+# Observe image in grayscale (Figure B)
+plt.imshow(image.squeeze(), cmap="gray")
+plt.title(class_names[label])
+plt.axis(False)
+
+# Plot more images (Figure C)
+torch.manual_seed(42)
+fig = plt.figure(figsize=(9, 9))
+rows, cols = 4, 4
+for i in range(1, rows * cols + 1):
+    random_idx = torch.randint(0, len(train_data), size=[1]).item()
+    img, label = train_data[random_idx]
+    fig.add_subplot(rows, cols, i)
+    plt.imshow(img.squeeze(), cmap="gray")
+    plt.title(class_names[label])
+    plt.axis(False)
+
+# Prepare Dataloader
+from torch.utils.data import DataLoader
+
+# Setup the batch size hyperparameter
+BATCH_SIZE = 32
+
+# Turn datasets into iterables (batches)
+train_dataloader = DataLoader(train_data, batch_size=BATCH_SIZE, shuffle=True)
+test_dataloader = DataLoader(test_data, batch_size=BATCH_SIZE, shuffle=False)
+
+# Check out created dataloader
+print(f"Dataloaders: {train_dataloader, test_dataloader}")
+print(f"Length of train dataloader: {len(train_dataloader)} batches of {BATCH_SIZE}")
+print(f"Length of test dataloader: {len(test_dataloader)} batches of {BATCH_SIZE}")
+
+# Check what's inside the training dataloader
+train_features_batch, train_labels_batch = next(iter(train_dataloader))
+train_features_batch.shape, train_labels_batch.shape
+
+# Create a convolutional neural network
+class ImageModelV2(nn.Module):
+    """
+    Model architecture copying TinyVGG from:
+    https://poloclub.github.io/cnn-explainer/
+    """
+    def __init__(self, input_shape: int, hidden_units: int, output_shape: int):
+        super().__init__()
+        self.conv_block_1 = nn.Sequential(
+            nn.Conv2d(in_channels=input_shape, out_channels=hidden_units, kernel_size=3, stride=1, padding=1),
+            nn.ReLU(),
+            nn.Conv2d(in_channels=hidden_units, out_channels=hidden_units, kernel_size=3, stride=1, padding=1),
+            nn.ReLU(),
+            nn.MaxPool2d(kernel_size=2, stride=2)
+        )
+        self.conv_block_2 = nn.Sequential(
+            nn.Conv2d(in_channels=hidden_units, out_channels=hidden_units, kernel_size=3, stride=1, padding=1),
+            nn.ReLU(),
+            nn.Conv2d(in_channels=hidden_units, out_channels=hidden_units, kernel_size=3, stride=1, padding=1),
+            nn.ReLU(),
+            nn.MaxPool2d(kernel_size=2)
+        )
+
+        # Dynamically calculate flattened feature size
+        with torch.no_grad():
+            dummy_input = torch.randn(1, input_shape, 28, 28)
+            x = self.conv_block_1(dummy_input)
+            x = self.conv_block_2(x)
+            self.flattened_size = x.view(1, -1).shape[1]
+
+        self.classifier = nn.Sequential(
+            nn.Flatten(),
+            nn.Linear(in_features=self.flattened_size, out_features=output_shape)
+        )
+
+    def forward(self, x):
+        x = self.conv_block_1(x)
+        x = self.conv_block_2(x)
+        x = self.classifier(x)
+        return x
+
+# Create instance of the model_2
+torch.manual_seed(42)
+model_2 = ImageModelV2(input_shape=1, hidden_units=10, output_shape=len(class_names)).to(device)
+
+# Create loss function, optimizer and evaluation
+def accuracy_function(y_true, y_pred):
+    correct = torch.eq(y_true, y_pred).sum().item()
+    acc = (correct / len(y_pred)) * 100
+    return acc
+
+loss_fn = nn.CrossEntropyLoss()
+optimizer = torch.optim.SGD(params=model_2.parameters(), lr=0.1)
+
+# Training & Testing CNN Model
+from timeit import default_timer as timer
+train_time_start_model_2 = timer()
+
+# Train and test model (Figure 1)
+from tqdm.auto import tqdm
+
+epochs = 3
+for epoch in tqdm(range(epochs)):
+    print(f"Epoch: {epoch}\n---------")
+    train_step(model=model_2,
+               data_loader=train_dataloader,
+               loss_fn=loss_fn,
+               optimizer=optimizer,
+               accuracy_fn=accuracy_function,
+               device=device)
+
+    test_step(model=model_2,
+              data_loader=test_dataloader,
+              loss_fn=loss_fn,
+              accuracy_fn=accuracy_function,
+              device=device)
+
+train_time_end_model_2 = timer()
+total_train_time_model_2 = print_train_time(start=train_time_start_model_2,
+                                            end=train_time_end_model_2,
+                                            device=device)
+
+# Get model_2 results
+model_2_results = eval_model(
+    model=model_2,
+    data_loader=test_dataloader,
+    loss_fn=loss_fn,
+    accuracy_fn=accuracy_function
+)
+
+# Create dataframe to view results of Models
+import pandas as pd
+
+compare_results = pd.DataFrame([
+    model_0_results,
+    model_1_results,
+    model_2_results
+])
+
+compare_results["training_time"] = [
+    total_train_time_model_0,
+    total_train_time_model_1,
+    total_train_time_model_2
+]
+
+# Visualise Model Results (Figure 2)
+compare_results.set_index("model_name")["model_acc"].plot(kind="barh")
+plt.xlabel("Accuracy(%)")
+plt.ylabel("Model Name")
+plt.title("Model Accuracy Comparison")
+
+# Make and Evaluate Random Predictions
+def make_predictions(model: torch.nn.Module, data: list, device: torch.device = device):
+    pred_probs = []
+    model.eval()
+    with torch.inference_mode():
+        for sample in data:
+            sample = torch.unsqueeze(sample, dim=0).to(device)
+            pred_logit = model(sample)
+            pred_prob = torch.softmax(pred_logit.squeeze(), dim=0)
+            pred_probs.append(pred_prob.cpu())
+    return torch.stack(pred_probs)
+
+import random
+random.seed(51)
+test_samples = []
+test_labels = []
+
+for sample, label in random.sample(list(test_data), k=9):
+    test_samples.append(sample)
+    test_labels.append(label)
+
+# Make Predictions
+pred_probs = make_predictions(model=model_2, data=test_samples)
+pred_classes = pred_probs.argmax(dim=1)
+
+# Plot predictions (Figure 2)
+plt.figure(figsize=(9, 9))
+nrows, ncols = 3, 3
+for i, sample in enumerate(test_samples):
+    plt.subplot(nrows, ncols, i + 1)
+    plt.imshow(sample.squeeze(), cmap="gray")
+    pred_label = class_names[pred_classes[i]]
+    truth_label = class_names[test_labels[i]]
+    title_text = f"Pred: {pred_label} | Truth: {truth_label}"
+    plt.title(title_text, fontsize=10, c="g" if pred_label == truth_label else "r")
+    plt.axis(False)
+
+# Making Confusion Matrix (Figure 3)
+y_preds = []
+model_2.eval()
+with torch.inference_mode():
+    for X, y in tqdm(test_dataloader, desc="Making predictions"):
+        X, y = X.to(device), y.to(device)
+        y_logit = model_2(X)
+        y_pred = torch.softmax(y_logit, dim=1).argmax(dim=1)
+        y_preds.append(y_pred.cpu())
+
+y_pred_tensor = torch.cat(y_preds)
+
+# pip install dependencies
+!pip install -q torchmetrics -U mlxtend
+
+import torchmetrics
+import mlxtend
+print(f"mlxtend version: {mlxtend.__version__}")
+
+from torchmetrics import ConfusionMatrix
+from mlxtend.plotting import plot_confusion_matrix
+
+confmat = ConfusionMatrix(num_classes=len(class_names), task='multiclass')
+confmat_tensor = confmat(preds=y_pred_tensor, target=test_data.targets)
+
+fig, ax = plot_confusion_matrix(
+    conf_mat=confmat_tensor.numpy(),
+    class_names=class_names,
+    figsize=(10, 7)
+)
 										</code></pre>
 
 										

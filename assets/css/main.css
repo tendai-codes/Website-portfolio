@@ -2175,6 +2175,7 @@ article[id^="project-"] p a[href="#projects"]:hover {
     border-bottom: 1px solid #ffffff;
 }
 
+
 /* GitHub button styling */
 .github-button {
     display: inline-block;

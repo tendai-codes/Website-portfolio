@@ -685,7 +685,14 @@ plt.show()
 									<figcaption><strong>Figure 7</strong></figcaption>
 								</figure>
 							</div>
-
+							
+							<h4>🌟 <strong>Key Insights:</strong></h4>
+							<ul>
+								<li>Stock movements are highly correlated across companies, indicating that broader market forces often drive price trends rather than company-specific factors.</li>
+								<li>Daily returns fluctuate far more than overall price trends suggest, revealing short-term volatility that long-term averages tend to conceal.</li>
+								<li>Volatility patterns differ by stock, with some showing consistently wider swings in daily returns — signalling higher risk and potential reward compared to more stable peers.</li>
+							
+							</ul>
 							<h4>🧗🏾 <strong>Challenge Faced:</strong></h4>
 							<p>
 								The daily returns calculation initially produced incorrect values for the first row of each stock. After debugging, the issue was that there's no previous day to calculate a return from for the first entry. This was solved by explicitly setting the first day's return to 0 using <code>df_daily_return[i][0] = 0</code> after the loop calculation, ensuring accurate percentage calculations for all subsequent days.
@@ -697,7 +704,7 @@ plt.show()
 				</article>
 
 
-				<article id="Portfolio Optimization & Risk Analysis">
+				<article id="project-portfolio-optimization-risk-analysis">
 						<h2 class="major">Portfolio Optimization & Risk Analysis</h2>
 						
 							<p>
@@ -1921,14 +1928,14 @@ plt.show()
 								</figure>
 							</div>
 
-							<h4>🌟 <strong>Key Insights:</strong></h4> #fill
+							<h4>🌟 <strong>Key Insights:</strong></h4>
 							<ul>
 								<li>High income earners tend to be low spenders and Low income earners tend to be high spenders</li>
 								<li>Customer spending behaviour is strongly differentiated by frequency of purchases and reliance on cash advances. Some customer groups showed heavy instalment purchases but minimal one-off spending, revealing clear segmentation potential for tailored credit card offers.</li>
 							
 							</ul>
 
-							<h4>🧗🏾 <strong>Challenge Faced:</strong></h4> #fill
+							<h4>🧗🏾 <strong>Challenge Faced:</strong></h4>
 							<p>
 								Initial visualisations of K-Means clusters were ambiguous due to the high dimensionality of features. Reducing dimensions with PCA made it easier to see meaningful separation, but it required balancing between retaining variance and simplifying complexity. I resolved this by examining explained variance ratios and adjusting the number of components accordingly.
 							</p>

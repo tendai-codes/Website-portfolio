@@ -265,7 +265,7 @@ input, select, textarea {
 		font-family: "Courier New", monospace;
 		font-size: 0.9rem;
 		margin: 0 0.25rem;
-		padding: 0.25rem 0.65rem;
+	
 	}
 
 	pre {
@@ -278,7 +278,6 @@ input, select, textarea {
 		pre code {
 			display: block;
 			line-height: 1.75;
-			padding: 1rem 1.5rem;
 			overflow-x: auto;
 		}
 
@@ -1694,7 +1693,6 @@ input, select, textarea {
 
 pre, pre code {
   background: #222;
-  padding: 0.5rem;
   border-radius: 6px;
   white-space: pre-wrap;
   word-wrap: break-word;
@@ -1934,4 +1932,448 @@ pre, pre code {
 
 body.modal-open {
   overflow: hidden;
+}
+/* ===================================================================
+   PROJECT SCROLLING ENHANCEMENTS
+   Add these styles to the end of your main.css file
+   =================================================================== */
+
+/* Make the projects article scrollable */
+#projects {
+    max-height: 90vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
+/* Ensure proper spacing when scrolling to project items */
+.project-item {
+    scroll-margin-top: 100px; /* Offset for headers/navigation */
+    padding: 2rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.project-item:last-child {
+    border-bottom: none;
+}
+
+/* Smooth scrolling for all article containers */
+#main article {
+    scroll-behavior: smooth;
+}
+
+/* Highlight animation when scrolling to a project */
+@keyframes projectHighlight {
+    0%, 100% { 
+        background-color: transparent; 
+    }
+    50% { 
+        background-color: rgba(255, 255, 255, 0.05); 
+    }
+}
+
+.project-item.highlighted {
+    animation: projectHighlight 2s ease-in-out;
+}
+
+/* GitHub button styling */
+.github-button {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background-color: transparent;
+    border: 1px solid #ffffff;
+    color: #ffffff !important;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2rem;
+    transition: all 0.3s ease;
+    margin-top: 1rem;
+}
+
+.github-button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid #ffffff;
+}
+
+/* Scrollbar styling for projects article (optional, for better UX) */
+#projects::-webkit-scrollbar {
+    width: 8px;
+}
+
+#projects::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+}
+
+#projects::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+}
+
+#projects::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* Responsive adjustments for project scrolling */
+@media screen and (max-width: 980px) {
+    #projects {
+        max-height: 85vh;
+    }
+    
+    .project-item {
+        scroll-margin-top: 80px;
+    }
+}
+
+@media screen and (max-width: 736px) {
+    #projects {
+        max-height: 80vh;
+    }
+    
+    .project-item {
+        scroll-margin-top: 60px;
+        padding: 1.5rem 0;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    #projects {
+        max-height: 75vh;
+    }
+    
+    .project-item {
+        scroll-margin-top: 50px;
+        padding: 1rem 0;
+    }
+}
+
+//* ===================================================================
+   INDIVIDUAL PROJECT PAGES STYLING
+   Replace the project scrolling CSS with these styles
+   =================================================================== */
+
+/* Remove scrolling restrictions - each project is now its own article */
+#projects {
+    max-height: none;
+    overflow-y: visible;
+    overflow-x: visible;
+}
+
+/* Style the projects index page */
+#projects h3.major {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+#projects ul {
+    margin-bottom: 2rem;
+}
+
+#projects ul li {
+    margin-bottom: 0.5rem;
+}
+
+#projects ul li a {
+    display: inline-block;
+    padding: 0.25rem 0;
+    transition: all 0.2s ease;
+}
+
+#projects ul li a:hover {
+    padding-left: 0.5rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+//* ===================================================================
+   INDIVIDUAL PROJECT PAGES STYLING
+   Add these styles to the END of your main.css file
+   (after all the existing custom styles for gallery modal, etc.)
+   =================================================================== */
+
+/* Remove any scrolling restrictions from projects index */
+#projects {
+    max-height: none;
+    overflow-y: visible;
+    overflow-x: visible;
+}
+
+/* Style the projects index page (table of contents) */
+#projects h3.major {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    color: #ffffff;
+}
+
+#projects ul {
+    margin-bottom: 2rem;
+    padding-left: 1.5em;
+}
+
+#projects ul li {
+    margin-bottom: 0.75rem;
+    line-height: 1.6;
+}
+
+#projects ul li a {
+    display: inline-block;
+    padding: 0.25rem 0;
+    transition: all 0.2s ease;
+    border-bottom: dotted 1px rgba(255, 255, 255, 0.35);
+}
+
+#projects ul li a:hover {
+    padding-left: 0.5rem;
+    color: rgba(255, 255, 255, 0.8);
+    border-bottom-color: rgba(255, 255, 255, 0.65);
+}
+
+/* Individual project article styling */
+/* Projects inherit base article styles automatically via article[id^="project-"] selector below */
+
+article[id^="project-"] h2.major {
+    margin-bottom: 1.5rem;
+}
+
+article[id^="project-"] h3 {
+    color: #ffffff;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2rem;
+}
+
+article[id^="project-"] h3:first-of-type {
+    margin-top: 1rem;
+}
+
+article[id^="project-"] h4 {
+    color: rgba(255, 255, 255, 0.9);
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+    font-size: 0.85rem;
+}
+
+/* Back to projects link styling */
+article[id^="project-"] p a[href="#projects"] {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    background-color: transparent;
+    color: #ffffff;
+}
+
+article[id^="project-"] p a[href="#projects"]:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: #ffffff;
+    border-bottom: 1px solid #ffffff;
+}
+
+/* GitHub button styling */
+.github-button {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background-color: transparent;
+    border: 1px solid #ffffff;
+    color: #ffffff !important;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2rem;
+    transition: all 0.3s ease;
+    margin-top: 1rem;
+}
+
+.github-button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid #ffffff;
+}
+
+/* Image gallery in projects */
+.image-gallery {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin: 1.5rem 0;
+    max-width: 100%;
+}
+
+.image-gallery figure {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.image-gallery img {
+    width: 100%;
+    height: auto;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.image-gallery img:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.image-gallery figcaption {
+    text-align: center;
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.6);
+    margin-top: 0.5rem;
+    font-style: italic;
+    line-height: 1.4;
+}
+
+.image-gallery figcaption strong {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* Code blocks in project pages */
+article[id^="project-"] pre {
+    margin: 1.5rem 0;
+    max-width: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+article[id^="project-"] pre code {
+    font-size: 0.85rem;
+    line-height: 1.6;
+    display: block;
+    padding: 1rem;
+    border: none !important;
+}
+
+/* Remove highlight.js borders */
+pre code.hljs {
+    border: none !important;
+    box-shadow: none !important;
+}
+
+/* Lists in project pages */
+article[id^="project-"] ul {
+    margin-bottom: 1.5rem;
+    padding-left: 1.5em;
+}
+
+article[id^="project-"] ul li {
+    margin-bottom: 0.75rem;
+    line-height: 1.6;
+}
+
+article[id^="project-"] ul li code {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+    font-size: 0.9em;
+}
+
+/* Paragraphs in project pages */
+article[id^="project-"] p {
+    line-height: 1.75;
+    margin-bottom: 1.5rem;
+}
+
+article[id^="project-"] p code {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+    font-size: 0.9em;
+}
+
+/* Strong/bold text in projects */
+article[id^="project-"] strong {
+    color: rgba(255, 255, 255, 0.95);
+    font-weight: 600;
+}
+
+/* Emphasis/italic text */
+article[id^="project-"] em {
+    color: rgba(255, 255, 255, 0.85);
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 980px) {
+    #projects h3.major {
+        font-size: 0.9rem;
+    }
+    
+    article[id^="project-"] h3 {
+        font-size: 0.9rem;
+    }
+}
+
+@media screen and (max-width: 736px) {
+    .image-gallery {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+    
+    article[id^="project-"] h3 {
+        font-size: 0.85rem;
+        margin-top: 1.5rem;
+    }
+    
+    article[id^="project-"] h4 {
+        font-size: 0.75rem;
+    }
+    
+    article[id^="project-"] pre code {
+        font-size: 0.75rem;
+        padding: 0.75rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .github-button {
+        display: block;
+        width: 100%;
+        text-align: center;
+        font-size: 0.7rem;
+    }
+    
+    article[id^="project-"] p a[href="#projects"] {
+        display: block;
+        width: 100%;
+        text-align: center;
+    }
+    
+    .image-gallery figcaption {
+        font-size: 0.7rem;
+    }
+}
+
+/* Prevent any content from overflowing the article container */
+#main article {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+/* Fix all headings from overflowing */
+#main article h1,
+#main article h2,
+#main article h3,
+#main article h4,
+#main article h5,
+#main article h6 {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+    max-width: 100%;
 }

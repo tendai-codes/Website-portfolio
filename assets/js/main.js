@@ -278,17 +278,24 @@
 
 			};
 
-		// Articles.
+			// Articles.
 			$main_articles.each(function() {
-
 				var $this = $(this);
 
 				// Close.
-					$('<div class="close">Close</div>')
-						.appendTo($this)
-						.on('click', function() {
+				$('<div class="close">Close</div>')
+					.appendTo($this)
+					.on('click', function() {
+						// Check if we're on a project page
+						var articleId = $this.attr('id');
+						if (articleId && articleId.startsWith('project-')) {
+							// Go back to projects index
+							location.hash = '#projects';
+						} else {
+							// For other articles, go to main page
 							location.hash = '';
-						});
+						}
+					});
 
 				// Prevent clicks from inside article from bubbling.
 					$this.on('click', function(event) {
@@ -326,36 +333,27 @@
 			});
 
 			$window.on('hashchange', function(event) {
-
-				// Empty hash?
-					if (location.hash == ''
-					||	location.hash == '#') {
-
-						// Prevent default.
-							event.preventDefault();
-							event.stopPropagation();
-
-						// Hide.
-							$main._hide();
-
+				// Prevent hiding article if gallery is active
+				if ((location.hash === '' || location.hash === '#')) {
+					if (!window.galleryOpen) {
+						event.preventDefault();
+						event.stopPropagation();
+						$main._hide();
+					} else {
+						// Gallery is open - don't hide
+						event.preventDefault();
+						event.stopPropagation();
 					}
-
-				// Otherwise, check for a matching article.
-					else if ($main_articles.filter(location.hash).length > 0) {
-
-						// Prevent default.
-							event.preventDefault();
-							event.stopPropagation();
-
-						// Show article.
-							$main._show(location.hash.substr(1));
-
-					}
-
+				}
+				// Show the correct article if the hash matches one
+				else if ($main_articles.filter(location.hash).length > 0) {
+					event.preventDefault();
+					event.stopPropagation();
+					$main._show(location.hash.substr(1));
+				}
 			});
 
 		// Scroll restoration.
-		// This prevents the page from scrolling back to the top on a hashchange.
 			if ('scrollRestoration' in history)
 				history.scrollRestoration = 'manual';
 			else {

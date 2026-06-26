@@ -1,30 +1,46 @@
-Dimension by HTML5 UP
-html5up.net | @ajlkn
-Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+# Tendai N Sibanda — Data Science Portfolio
+
+This repository contains my personal data science portfolio website. It showcases projects across R, Python, machine learning, deep learning, and applied mathematics.
+
+The site is built with static HTML, CSS, and JavaScript. Project write-ups are stored as separate HTML fragments under `project-content/` and loaded dynamically when selected, keeping the homepage lighter and easier to navigate.
+
+## Key Features
+
+* Static portfolio website with no build step required
+* Dynamic project loading using JavaScript
+* Project content organised by category
+* Original images preserved with lazy loading
+* Applied Mathematics section added for modelling-focused projects
+* Designed for deployment on Netlify
+
+## Project Areas
+
+* **Applied Mathematics:** World Bank macroeconomic downturn prediction and graph cross-correction simulation
+* **Machine Learning:** classification, regression, clustering, and model comparison projects
+* **Deep Learning:** LSTM, ANN, and image classification projects
+* **Python and R:** data analysis, financial modelling, and exploratory workflows
+
+## Run Locally
+
+Use a local server so dynamic project loading works correctly:
+
+```bash
+python3 -m http.server 8080
+```
+
+Then open:
+
+```text
+http://localhost:8080
+```
 
 
-This is Dimension, a fun little one-pager with modal-ized (is that a word?) "pages"
-and a cool depth effect (click on a menu item to see what I mean). Simple, fully
-responsive, and kitted out with all the usual pre-styled elements you'd expect.
-Hope you dig it :)
+```text
+Build command: leave blank
+Publish directory: .
+```
 
-Demo images* courtesy of Unsplash, a radtastic collection of CC0 (public domain) images
-you can use for pretty much whatever.
+## Credits
 
-(* = not included)
-
-AJ
-aj@lkn.io | @ajlkn
-
-
-Credits:
-
-	Demo Images:
-		Unsplash (unsplash.com)
-
-	Icons:
-		Font Awesome (fontawesome.io)
-
-	Other:
-		jQuery (jquery.com)
-		Responsive Tools (github.com/ajlkn/responsive-tools)
+Template based on **Dimension by HTML5 UP**.
+Custom content, project structure, and modifications by Tendai N Sibanda.

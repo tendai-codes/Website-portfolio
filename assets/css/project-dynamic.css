@@ -1,0 +1,96 @@
+.project-loading-note,
+.project-viewer-toolbar {
+  opacity: 0.8;
+  font-size: 0.95rem;
+}
+
+#project-viewer-content .project-item,
+#project-viewer-content .project-detail,
+#project-viewer-content section {
+  margin-bottom: 2rem;
+}
+
+#project-viewer-content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
+
+#project-viewer-content figure {
+  margin: 2rem 0;
+}
+
+#project-viewer-content figcaption {
+  font-size: 0.9rem;
+  opacity: 0.8;
+  margin-top: 0.6rem;
+}
+
+#project-viewer-content pre {
+  overflow-x: auto;
+  border-radius: 4px;
+}
+
+.applied-math-note {
+  border-left: 3px solid rgba(255,255,255,0.45);
+  padding: 0.85rem 1rem;
+  margin: 1.25rem 0 1.75rem;
+  background: rgba(255,255,255,0.05);
+}
+
+.concept-visual svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.github-button,
+.project-back-link {
+  display: inline-block;
+  margin: 0.35rem 0.5rem 0.35rem 0;
+}
+
+
+.reasoning-chain {
+  border-left: 3px solid rgba(116,220,190,0.85);
+  padding: 1rem 1.2rem;
+  margin: 1.5rem 0 2rem;
+  background: rgba(255,255,255,0.055);
+  border-radius: 0 14px 14px 0;
+}
+
+.project-table-wrap {
+  overflow-x: auto;
+  margin: 1.25rem 0 2rem;
+  border: 1px solid rgba(255,255,255,0.22);
+  border-radius: 14px;
+}
+
+.project-stage-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 680px;
+  background: rgba(255,255,255,0.025);
+}
+
+.project-stage-table th,
+.project-stage-table td {
+  padding: 0.9rem 1rem;
+  border-bottom: 1px solid rgba(255,255,255,0.14);
+  text-align: left;
+  vertical-align: top;
+}
+
+.project-stage-table th {
+  font-weight: 700;
+  color: #ffffff;
+  background: rgba(255,255,255,0.06);
+}
+
+.project-stage-table tr:last-child td {
+  border-bottom: 0;
+}
+
+.macro-risk-visual svg {
+  max-width: 100%;
+}

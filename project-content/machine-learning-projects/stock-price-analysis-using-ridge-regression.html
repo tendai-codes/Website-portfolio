@@ -1,0 +1,241 @@
+
+<h2 class="major">Stock Price Analysis using Ridge Regression</h2>
+<p>
+								This project focused on predicting future stock prices using historical data and Ridge Regression, comparing its performance to other models. I used Python and integrated both traditional machine learning and visualisation libraries to explore the data and build predictive models. Achieved an R-squared score of 98%, with a k-fold cross-validation score of 86%.
+							</p>
+<h4>💻 <strong>Tech Stack:</strong></h4>
+<ul>
+<li><strong>Python</strong> for machine learning model development and comparison</li>
+<li><strong>Scikit-learn</strong> for rideg regression model and evaluation and evaluation metrics</li>
+<li><strong>Pandas</strong> for dataset loading and initial data exploration</li>
+<li><strong>Matplotlib</strong> for data visualisationsand model performance analysis</li>
+<li><strong>NumPy</strong> for numerical operations and grid generation</li>
+<li><strong>Matplotlib</strong> for static visualisations</li>
+<li><strong>Plotly</strong> for interactive charts and dashboards</li>
+<li><strong>TensorFlow/Keras</strong> for for experimenting with neural models</li>
+</ul>
+<h4>🧪 <strong>Data Pipeline:</strong></h4>
+<ul>
+<li><strong>Load &amp; inspect data:</strong> Loaded historical stock price and volume data from CSV files. Visualised trends in stock prices and volumes using line and distribution plots. </li>
+<li><strong>Preprocessing:</strong> Cleaned and aligned datasets by timestampse. Normalised features and created lag-based features for time series modelling.</li>
+<li><strong>Model Development:</strong> Applied Ridge Regression to reduce overfitting from correlated features. Split dataset into training and testing sets using <code>train_test_split().</code></li>
+<li><strong>Performance comparison:</strong> Evaluated models using <code>r2_score</code>.</li>
+<li><strong>Visualisation:</strong> Plotted predicted vs actual stock prices to interpret model behaviour.</li>
+</ul>
+<h4>📊 <strong>Code Snippets &amp; Visualisations:</strong></h4>
+<!-- Code Snippet -->
+<pre><code class="language-python"># Importing the libraries
+import pandas as pd
+import plotly.express as px
+from copy import copy
+from scipy import stats
+import matplotlib.pyplot as plt
+import numpy as np
+import plotly.figure_factory as ff
+from sklearn.linear_model import LinearRegression
+from sklearn.svm import SVR
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import r2_score
+from sklearn.preprocessing import MinMaxScaler
+from sklearn.linear_model import Ridge
+from sklearn.model_selection import cross_val_score
+
+# Get stock prices dataframe info
+stock_price_df.info()
+
+# Get stock volume dataframe info
+stock_vol_df.info()
+
+stock_vol_df.describe()
+
+# Function to normalize stock prices based on their initial price (Figure 1)
+def normalize(df):
+    x = df.copy()
+    for i in x.columns[1:]:
+        x[i] = x[i] / x[i][0]
+    return x
+
+# Function to plot interactive plots using Plotly Express (Figure 2)
+def interactive_plot(df, title):
+    fig = px.line(title=title)
+    for i in df.columns[1:]:
+        fig.add_scatter(x=df['Date'], y=df[i], name=i)
+    fig.show()
+
+# Interactive chart for stocks Prices data (Figure 1)
+interactive_plot(stock_price_df, 'Stock Prices')
+
+# Normalised chart for stocks Prices data (Figure 2)
+interactive_plot(normalize(stock_price_df), 'Normalized Prices')
+
+# Interactive chart for stocks Volume data (Figure 3)
+interactive_plot(stock_vol_df, 'Stocks Volume')
+
+# Normalised chart for stocks volume data (Figure 4)
+interactive_plot(normalize(stock_vol_df), 'Normalized Volume')
+
+# Prepare Data before training Regression model
+
+# Function to concatenate the date, stock price, and volume in one dataframe
+def individual_stock(price_df, vol_df, name):
+    return pd.DataFrame({
+        'Date': price_df['Date'], 
+        'Close': price_df[name], 
+        'Volume': vol_df[name]
+    })
+
+# Function to return the output (target) data ML Model [Target stock price today will be tomorrow's price]
+def trading_window(data):
+    n = 1  # 1 day window
+    
+    # Create a column containing the prices for the next 1 days
+    data['Target'] = data[['Close']].shift(-n)
+    
+    return data
+
+# Test concatenation function using individual stock
+price_volume_df = individual_stock(stock_price_df, stock_vol_df, 'AAPL')
+print(price_volume_df)
+
+# Test trading window function using concatenated df (Table 1)
+price_volume_target_df = trading_window(price_volume_df)
+print(price_volume_target_df)
+
+# Apply Feature Scaling to data
+sc = MinMaxScaler(feature_range=(0, 1))
+price_volume_target_scaled_df = sc.fit_transform(price_volume_target_df.drop(columns=['Date']))
+
+# Creating Feature and Target
+X = price_volume_target_scaled_df[:, :2]
+y = price_volume_target_scaled_df[:, 2:]
+
+# Converting dataframe to arrays
+X = np.asarray(X)
+y = np.asarray(y)
+print("X shape:", X.shape, "y shape:", y.shape)
+
+# Splitting the data this way, since order is important in time-series
+split = int(0.80 * len(X))
+X_train = X[:split]
+y_train = y[:split]
+X_test = X[split:]
+y_test = y[split:]
+
+# Define a data plotting function (Figure 5)
+def show_plot(data, title):
+    plt.figure(figsize=(13, 5))
+    plt.plot(data, linewidth=3)
+    plt.title(title)
+    plt.grid()
+    plt.legend(['Feature 1', 'Feature 2'])
+    plt.show()
+
+show_plot(X_train, 'Training Data for AAPL stock')
+show_plot(X_test, 'Testing Data for AAPL stock')
+
+# Build &amp; Train Ridge Regression model
+# This model was chosen to get a generalised trend for data (avoids over fitting) - expected low testing accuracy expected. 
+# Note that Ridge regression performs linear least squares with L2 regularization.
+
+regression_model = Ridge()
+regression_model.fit(X_train, y_train)
+
+# Test the model and calculate its accuracy
+ridge_accuracy = regression_model.score(X_test, y_test)
+print("Ridge Regression Score: ", ridge_accuracy)
+
+# Make predictions
+predicted_prices = regression_model.predict(X_test)
+
+# K-Fold Cross validation Score
+accuracies = cross_val_score(estimator=regression_model, X=X_train, y=y_train, cv=10)
+print("Accuracy: {:.2f} %".format(accuracies.mean() * 100))
+print("Standard Deviation: {:.2f} %".format(accuracies.std() * 100))
+
+# Example output comment:
+# Accuracy: 86.27%
+# Standard Deviation: 11.01 %
+
+# Append the predicted values into a list
+predicted = []
+for i in predicted_prices:
+    predicted.append(i[0])
+
+# Append the close values to the list (using actual test data)
+close = []
+for i in range(len(X_test)):
+    close.append(price_volume_target_scaled_df[split + i][0])  # Close prices from test set
+
+# Create a dataframe based on the dates in the individual stock data
+df_predicted = price_volume_target_df[['Date']].iloc[split:split + len(predicted)].copy()
+
+# Function to add the close and predicted values to the dataframe
+def add_predicted_and_close(df, close, predicted):
+    df['Close'] = close
+    df['Prediction'] = predicted
+    return df
+
+# Apply the function (Table 2)
+df_predicted = add_predicted_and_close(df_predicted, close, predicted)
+print(df_predicted)
+
+# Define interactive plot (Figure 6 &amp; 7)
+def interactive_plot_predictions(df, title):
+    fig = px.line(df, title=title, x='Date', y=['Close', 'Prediction'])
+    fig.show()
+
+# Plot the results
+interactive_plot_predictions(df_predicted, "Original Vs. Prediction (alpha=1)")
+
+						</code></pre>
+<!-- Visualisations -->
+<div class="image-gallery">
+<figure>
+<img alt="Stock price visualization" class="gallery-trigger" data-caption="Stock Prices" data-gallery="ridge-regression" decoding="async" height="808" loading="lazy" src="images/Ridge_stock price.png" width="1220"/>
+<figcaption><strong>Figure 1</strong> Stock Prices</figcaption>
+</figure>
+<figure>
+<img alt="Normalized stock price visualization" class="gallery-trigger" data-caption="Stock Prices - Normalised" data-gallery="ridge-regression" decoding="async" height="808" loading="lazy" src="images/Ridge_stock price_norm.png" width="1220"/>
+<figcaption><strong>Figure 2</strong> Stock Prices - Normalised</figcaption>
+</figure>
+<figure>
+<img alt="Stock trading volume visualization" class="gallery-trigger" data-caption="Stock Volumes" data-gallery="ridge-regression" decoding="async" height="808" loading="lazy" src="images/Ridge_stock vol.png" width="1220"/>
+<figcaption><strong>Figure 3</strong> Stock Volumes</figcaption>
+</figure>
+<figure>
+<img alt="Normalized stock trading volume visualization" class="gallery-trigger" data-caption="Stock Volumes - Normalised" data-gallery="ridge-regression" decoding="async" height="808" loading="lazy" src="images/Ridge_stock vol_norm.png" width="1220"/>
+<figcaption><strong>Figure 4</strong> Stock Volumes - Normalised</figcaption>
+</figure>
+<figure>
+<img alt="Price and volume data table" class="gallery-trigger" data-caption="Price Volume Data" data-gallery="ridge-regression" decoding="async" height="1086" loading="lazy" src="images/Ridge_table 1.png" width="1166"/>
+<figcaption><strong>Table 1</strong> Price Volume Data</figcaption>
+</figure>
+<figure>
+<img alt="Training and test data comparison" class="gallery-trigger" data-caption="Training &amp; Test Data" data-gallery="ridge-regression" decoding="async" height="451" loading="lazy" src="images/Ridge_Figure 5.png" width="1059"/>
+<figcaption><strong>Figure 5</strong> Training &amp; Test Data</figcaption>
+</figure>
+<figure>
+<img alt="Closing and predicted values table" class="gallery-trigger" data-caption="Closing &amp; Predicted Values" data-gallery="ridge-regression" decoding="async" height="904" loading="lazy" src="images/Ridge_table 2.png" width="778"/>
+<figcaption><strong>Table 2</strong> Closing &amp; Predicted Values</figcaption>
+</figure>
+<figure>
+<img alt="Random Forest model results" class="gallery-trigger" data-caption="Random Forest Analysis" data-gallery="ridge-regression" decoding="async" height="854" loading="lazy" src="images/Ridge_Figure 6.png" width="1220"/>
+<figcaption><strong>Figure 6</strong> Random Forest Analysis</figcaption>
+</figure>
+<figure>
+<img alt="Decision Tree model results" class="gallery-trigger" data-caption="Decision Tree Analysis" data-gallery="ridge-regression" decoding="async" height="854" loading="lazy" src="images/Ridge_Figure 7.png" width="1220"/>
+<figcaption><strong>Figure 7</strong> Decision Tree Analysis</figcaption>
+</figure>
+</div>
+<h4>🌟 <strong>Key Insights:</strong></h4>
+<ul>
+<li>Ridge Regression outperformed Linear Regression in terms of stability and generalisation, especially when features had multicollinearity. The regularisation strength helped in handling noisy financial indicators. </li>
+</ul>
+<h4>🧗🏾 <strong>Challenge Faced:</strong></h4>
+<p>
+								Feature engineering for time series prediction was a significant challenge. Initially, using raw historical prices didn’t yield strong predictive accuracy. After adding lagged variables and scaling features, the model performance improved. It required careful experimentation to balance information richness and model simplicity.
+							</p>
+<p><a class="github-button" href="https://github.com/tendai-codes/Machine-learning/tree/main/stock-price-prediction-ridge-regression" target="_blank">View on GitHub</a></p>
+<p style="margin-top: 2rem;">
+<a class="project-back-link" href="#projects" style="border-bottom: solid 1px #ffffff;">← Back to Projects</a>
+</p>

@@ -1,0 +1,132 @@
+
+<h2 class="major">Graph Cross-Correction Simulation</h2>
+
+<p>
+	This project is a staged numerical modelling study that explores molecular cross-correction in multinucleated muscle fibres. It asks whether a small number of corrected nuclei can produce enough local signal to rescue neighbouring nuclei through spatial transport.
+</p>
+
+<div class="applied-math-note">
+	<strong>Core idea:</strong> represent nuclei as graph nodes, corrected nuclei as source nodes, local exchange as graph diffusion, and rescue as a threshold or cumulative-exposure outcome.
+</div>
+
+<h3>Biological motivation</h3>
+<p>
+	The project is inspired by U7 snRNA-mediated cross-correction in Duchenne muscular dystrophy. It does not claim to reproduce experimental data. It builds a simplified computational model to test whether local signal transport could plausibly amplify rescue beyond corrected nuclei.
+</p>
+
+<h3>The modelling idea</h3>
+<p>
+	Nuclei are represented as graph nodes. Corrected nuclei act as signal sources. Local exchange is approximated using graph diffusion. Rescue is treated as a threshold response to transported signal.
+</p>
+
+<div class="reasoning-chain">
+	<strong>Reasoning chain:</strong> biological observation → source nodes → graph structure → Laplacian diffusion → rescue threshold → sensitivity testing.
+</div>
+
+<h3>How the project evolves</h3>
+<div class="project-table-wrap">
+	<table class="project-stage-table">
+		<thead>
+			<tr>
+				<th>Part</th>
+				<th>Model change</th>
+				<th>Purpose</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>1</td>
+				<td>Naive line simulation</td>
+				<td>Turn the biological idea into executable logic</td>
+			</tr>
+			<tr>
+				<td>2</td>
+				<td>Graph Laplacian diffusion</td>
+				<td>Replace manual averaging with a formal transport operator</td>
+			</tr>
+			<tr>
+				<td>3</td>
+				<td>Geometry-based spatial graph</td>
+				<td>Make connectivity depend on proximity</td>
+			</tr>
+			<tr>
+				<td>4</td>
+				<td>Parameter sensitivity</td>
+				<td>Test diffusion, decay, source fraction, and threshold assumptions</td>
+			</tr>
+			<tr>
+				<td>5</td>
+				<td>Cumulative exposure rescue</td>
+				<td>Model sustained signal accumulation rather than instant rescue</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+<h3>💻 <strong>Tech Stack:</strong></h3>
+<ul>
+	<li><strong>Python</strong> for numerical simulation and experiment control</li>
+	<li><strong>NumPy</strong> for vectorised state updates and adjacency/Laplacian calculations</li>
+	<li><strong>Matplotlib</strong> for signal, rescue, and spatial-graph visualisation</li>
+	<li><strong>Jupyter Notebook</strong> for staged model development and explanation</li>
+</ul>
+
+<h3>📊 <strong>Code Snippets &amp; Visualisations:</strong></h3>
+<pre><code class="language-python" data-trim=""># Graph Laplacian diffusion update
+# u: signal at each nucleus
+# L: graph Laplacian, q: source production
+# alpha: diffusion strength, beta: decay, dt: step size
+
+for t in range(num_steps):
+    diffusion = -alpha * (L @ u)
+    decay = -beta * u
+    source = q
+    u = u + dt * (diffusion + decay + source)
+
+    exposure = exposure + u * dt
+    rescued = exposure >= rescue_threshold
+</code></pre>
+
+<div class="concept-visual">
+	<figure>
+		<svg aria-label="Graph diffusion and rescue threshold visualisation" role="img" viewBox="0 0 760 360" xmlns="http://www.w3.org/2000/svg">
+			<rect fill="rgba(255,255,255,0.04)" height="360" rx="20" width="760"></rect>
+			<g fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="3">
+				<path d="M110 180 L210 105 L330 150 L455 88 L590 185 L440 265 L285 235 L110 180"></path>
+				<path d="M210 105 L285 235 M330 150 L440 265 M330 150 L590 185 M455 88 L590 185"></path>
+			</g>
+			<g stroke="rgba(255,255,255,0.7)" stroke-width="2">
+				<circle cx="110" cy="180" fill="rgba(116,220,190,0.8)" r="21"></circle>
+				<circle cx="210" cy="105" fill="rgba(216,181,109,0.8)" r="17"></circle>
+				<circle cx="330" cy="150" fill="rgba(116,220,190,0.8)" r="17"></circle>
+				<circle cx="455" cy="88" fill="rgba(255,255,255,0.18)" r="15"></circle>
+				<circle cx="590" cy="185" fill="rgba(255,255,255,0.18)" r="15"></circle>
+				<circle cx="440" cy="265" fill="rgba(216,181,109,0.8)" r="17"></circle>
+				<circle cx="285" cy="235" fill="rgba(255,255,255,0.18)" r="15"></circle>
+			</g>
+			<g fill="white" font-family="Arial, sans-serif">
+				<text font-size="19" x="44" y="52">Corrected source nodes → graph diffusion → rescue threshold</text>
+				<text font-size="14" opacity="0.8" x="44" y="315">Green: corrected/source · Gold: rescued/exposed · Grey: below threshold</text>
+			</g>
+		</svg>
+		<figcaption><strong>Conceptual visualisation:</strong> Corrected nuclei produce signal; neighbouring nuclei receive transported signal through graph connectivity.</figcaption>
+	</figure>
+</div>
+
+<h3>Key result</h3>
+<p>
+	The project shows that rescue depends not only on how many nuclei are corrected, but also where they sit in the spatial network, how strongly signal diffuses, how quickly it decays, and whether rescue requires immediate or cumulative exposure.
+</p>
+
+<h3>Limitations</h3>
+<p>
+	This is a proof-of-concept simulator, not a calibrated biological model. It simplifies fibre geometry, signal chemistry, stochastic expression, and tissue-level variation. Its value lies in clarifying assumptions and making the biological hypothesis computationally testable.
+</p>
+
+<h3>What this demonstrates</h3>
+<p>
+	This project shows cross-domain reasoning: a biological idea becomes a graph model; the graph model becomes a simulation; the simulation becomes a structured way to ask what conditions make local rescue plausible.
+</p>
+
+<p><a class="github-button" href="https://github.com/tendai-codes/graph-cross-correction-sim" target="_blank" rel="noopener">View on GitHub</a></p>
+<p style="margin-top: 2rem;"><a class="project-back-link" href="#projects" style="border-bottom: solid 1px #ffffff;">← Back to Projects</a></p>

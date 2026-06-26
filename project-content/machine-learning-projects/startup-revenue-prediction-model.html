@@ -1,0 +1,70 @@
+
+<h2 class="major">Startup Revenue Prediction Model </h2>
+<p>
+								This project built a multiple linear regression model to predict startup profitability based on their R&amp;D spending, administration costs, marketing expenditure, and location. I implemented a complete machine learning pipeline using scikit-learn to analyze which factors most strongly influence startup success and revenue generation.
+
+							</p>
+<h4>💻 <strong>Tech Stack:</strong></h4>
+<ul>
+<li><strong>Python</strong> for machine learning model development</li>
+<li><strong>Scikit-learn</strong> for preprocessing, model training, and evaluation</li>
+<li><strong>Pandas</strong> for dataset loading and initial data exploration</li>
+<li><strong>Matplotlib</strong> for data visualisations</li>
+<li><strong>NumPy</strong> for numerical array operations and precision control</li>
+</ul>
+<h4>🧪 <strong>Data Pipeline:</strong></h4>
+<ul>
+<li><strong>Data import &amp; separation:</strong> Loaded the 50 Startups dataset using <code>pd.read_csv()</code> and strategically separated features (X) from the target variable (y) using <code>.iloc[:, -1]</code> for all columns except the last, and <code>.iloc[:, -1]</code> for the dependent variable (profit). </li>
+<li><strong>Categorical Encoding:</strong> Applied One-Hot Encoding using <code>ColumnTransformer</code> and <code>OneHotEncoder()</code> to convert the categorical 'State' variable (column index [3]) into numerical dummy variables, while keeping other numerical features intact using <code>remainder='passthrough'</code>. </li>
+<li><strong>Data transformation, model training &amp; prediction:</strong> Used <code>np.array(ct.fit_transform(X))</code> to convert the transformed data back into a NumPy array format suitable for machine learning algorithms. Implemented <code>train_test_split()</code> with an 80-20 split <code>(test_size=0.2)</code> and fixed random state <code>(random_state=0)</code> to ensure reproducible results and proper model validation. Instantiated and trained a <code>LinearRegression()</code> model using <code>.fit(X_train, y_train)</code> to learn the relationships between startup characteristics and profitability. Generated predictions on the test set using <code>regressor.predict(X_test)</code> to evaluate model performance on unseen data.</li>
+<li><strong>Results Visualisation:</strong> Used <code>np.set_printoptions(precision=2)</code> for clean output formatting and <code>np.concatenate()</code> with <code>reshape()</code> to create side-by-side comparison of predicted vs. actual values for easy performance assessment.</li>
+</ul>
+<h4>📊 <strong>Code Snippets &amp; Visualisations:</strong></h4>
+<!-- Code Snippet -->
+<pre><code class="language-python"># Encoding categorical data 
+from sklearn.compose import ColumnTransformer
+from sklearn.preprocessing import OneHotEncoder
+
+# OneHotEncoder(), [3] - the 3 is the column you want to encode
+ct = ColumnTransformer(transformers=[('encoder', OneHotEncoder(), [3])], remainder='passthrough')
+X = np.array(ct.fit_transform(X))
+
+# Splitting Train and Test set
+from sklearn.model_selection import train_test_split
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state = 0)
+
+from sklearn.linear_model import LinearRegression
+regressor = LinearRegression()
+regressor.fit(X_train, y_train)
+
+# Predicting Results
+y_pred = regressor.predict(X_test)
+np.set_printoptions(precision=2)
+print(np.concatenate((y_pred.reshape(len(y_pred),1), y_test.reshape(len(y_test),1)),1))
+
+# Evaluating the Model Performance
+from sklearn.metrics import r2_score
+r2_score(y_test, y_pred)
+						</code></pre>
+<!-- Visualisations -->
+<div class="image-gallery">
+<figure>
+<img alt="Figure 1: startup" class="gallery-trigger" data-caption="Figure 1: startup" data-gallery="startup" decoding="async" height="380" loading="lazy" src="images/startup_table1.png" width="1372"/>
+<figcaption><strong>Figure 1</strong> Model Evaluation</figcaption>
+</figure>
+</div>
+<h4>🌟 <strong>Key Insights:</strong></h4>
+<ul>
+<li>The model successfully learned to predict startup profitability based on spending patterns across R&amp;D, administration, and marketing</li>
+<li>One-hot encoding effectively handled the categorical state variable, allowing the model to capture location-based effects on startup success</li>
+<li>The side-by-side prediction comparison revealed the model's accuracy in forecasting startup revenue</li>
+<li>Multiple linear regression proved effective for understanding the linear relationships between various business expenditures and profitability</li>
+</ul>
+<h4>🧗🏾 <strong>Challenge Faced:</strong></h4>
+<p>
+								The array reshaping and concatenation for results display presented a significant hurdle because the predicted and actual values were 1D arrays that couldn't be directly concatenated horizontally. The error occurred when trying to use <code>np.concatenate()</code> without proper dimensionality. This was solved by using <code>reshape(len(y_pred),1)</code> to convert both arrays into column vectors (2D arrays with one column), then applying horizontal concatenation with the parameter 1 to stack them side-by-side. This approach created a clean comparison matrix showing predicted values next to actual values, making model performance evaluation much more intuitive.
+							</p>
+<p><a class="github-button" href="https://github.com/tendai-codes/Machine-learning/tree/main/startup-profit-prediction" target="_blank">View on GitHub</a></p>
+<p style="margin-top: 2rem;">
+<a class="project-back-link" href="#projects" style="border-bottom: solid 1px #ffffff;">← Back to Projects</a>
+</p>

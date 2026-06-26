@@ -1,0 +1,174 @@
+
+<h2 class="major">Customer Purchase Prediction – Model Comparison &amp; Optimization</h2>
+<p>
+								This project involved comparing multiple classification algorithms to predict whether users would purchase a product based on their age and estimated salary from social network advertisement data. I tested various models including Logistic Regression, SVM, Kernel SVM, Naive Bayes, K-NN, Random Forest, and Decision Tree. The Decision Tree classifier yielded the best results, which is why I've included its implementation in my portfolio.
+							</p>
+<h4>💻 <strong>Tech Stack:</strong></h4>
+<ul>
+<li><strong>Python</strong> for machine learning model development and comparison</li>
+<li><strong>Scikit-learn</strong> for machine learning model implementation and evaluation</li>
+<li><strong>Pandas</strong> for dataset loading and initial data exploration</li>
+<li><strong>Matplotlib</strong> for creating decision boundary visualizations and scatter plots</li>
+<li><strong>NumPy</strong> for numerical operations and grid generation</li>
+</ul>
+<h4>🧪 <strong>Data Pipeline:</strong></h4>
+<ul>
+<li><strong>Model Comparison &amp; selection:</strong> Tested multiple classification algorithms (Logistic Regression, SVM, Kernel SVM, Naive Bayes, K-NN, Random Forest, and Decision Tree) to identify the best-performing model for this dataset. </li>
+<li><strong>Data Import &amp; Preparation:</strong> Loaded the Social Network Ads dataset using pandas and separated features (age, salary) from the target variable (purchase decision). </li>
+<li><strong>Data Splitting: </strong> Used <code>train_test_split()</code> to divide the dataset into 75% training and 25% testing sets with a fixed random state for reproducibility.</li>
+<li><strong>Feature scaling: </strong> Applied <code>StandardScaler</code> to normalize both age and salary features, ensuring equal contribution to the model since salary values are much larger than age values.</li>
+<li><strong>Model Training: </strong> Implemented and trained seven different classifiers on the scaled training data: <code>LogisticRegression</code>, <code>SVC (linear and RBF kernel)</code>, <code>GaussianNB</code>, <code>KNeighborsClassifier</code>, <code>RandomForestClassifier</code>, and <code>DecisionTreeClassifier</code> with entropy criterion.</li>
+<li><strong>Model Evaluation: </strong> Generated predictions on the test set and created a confusion matrix to assess classification performance and calculate accuracy score..</li>
+<li><strong>Decision Boundary Visualization feature engineering: </strong> Created contour plots showing decision boundaries for both training and test sets, with red and green regions representing different classification zones.</li>
+</ul>
+<h4>📊 <strong>Code Snippets &amp; Visualisations:</strong></h4>
+<!-- Code Snippet -->
+<pre><code class="language-python"># Importing Libraries	
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+
+# Importing Dataset
+dataset = pd.read_csv('Social_Network_Ads.csv')
+X = dataset.iloc[:, :-1].values
+y = dataset.iloc[:, -1].values
+
+# Splitting dataset into Training &amp; Test set
+from sklearn.model_selection import train_test_split
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.25, random_state = 0)
+
+print(X_train), print(X_test)
+print(y_train), print(y_test)
+
+# Feature Scaling
+from sklearn.preprocessing import StandardScaler
+sc = StandardScaler()
+X_train = sc.fit_transform(X_train)
+X_test = sc.transform(X_test)
+
+print(X_train), print(X_test)
+
+# Training Decision tree classification Model
+from sklearn.tree import DecisionTreeClassifier
+classifier = DecisionTreeClassifier(criterion = 'entropy', random_state = 0)
+classifier.fit(X_train, y_train)
+
+# Predicting Test Results
+y_pred = classifier.predict(X_test)
+print(np.concatenate((y_pred.reshape(len(y_pred),1), y_test.reshape(len(y_test),1)),1))
+
+# Making Confusion Matrix 
+from sklearn.metrics import confusion_matrix, accuracy_score
+cm = confusion_matrix(y_test, y_pred)
+print(cm)
+accuracy_score(y_test, y_pred)
+
+# Visualising Training set results 
+from matplotlib.colors import ListedColormap
+X_set, y_set = sc.inverse_transform(X_train), y_train
+X1, X2 = np.meshgrid(np.arange(start = X_set[:, 0].min() - 10, stop = X_set[:, 0].max() + 10, step = 0.25),
+                     np.arange(start = X_set[:, 1].min() - 1000, stop = X_set[:, 1].max() + 1000, step = 0.25))
+plt.contourf(X1, X2, classifier.predict(sc.transform(np.array([X1.ravel(), X2.ravel()]).T)).reshape(X1.shape),
+             alpha = 0.75, cmap = ListedColormap(('red', 'green')))
+plt.xlim(X1.min(), X1.max())
+plt.ylim(X2.min(), X2.max())
+for i, j in enumerate(np.unique(y_set)):
+    plt.scatter(X_set[y_set == j, 0], X_set[y_set == j, 1], c = ListedColormap(('red', 'green'))(i), label = j)
+plt.title('Decision Tree Classification (Training set)')
+plt.xlabel('Age')
+plt.ylabel('Estimated Salary')
+plt.legend()
+plt.show()
+
+# Visualising Test set results 
+from matplotlib.colors import ListedColormap
+X_set, y_set = sc.inverse_transform(X_test), y_test
+X1, X2 = np.meshgrid(np.arange(start = X_set[:, 0].min() - 10, stop = X_set[:, 0].max() + 10, step = 0.25),
+                     np.arange(start = X_set[:, 1].min() - 1000, stop = X_set[:, 1].max() + 1000, step = 0.25))
+plt.contourf(X1, X2, classifier.predict(sc.transform(np.array([X1.ravel(), X2.ravel()]).T)).reshape(X1.shape),
+             alpha = 0.75, cmap = ListedColormap(('red', 'green')))
+plt.xlim(X1.min(), X1.max())
+plt.ylim(X2.min(), X2.max())
+for i, j in enumerate(np.unique(y_set)):
+    plt.scatter(X_set[y_set == j, 0], X_set[y_set == j, 1], c = ListedColormap(('red', 'green'))(i), label = j)
+plt.title('Decision Tree Classification (Test set)')
+plt.xlabel('Age')
+plt.ylabel('Estimated Salary')
+plt.legend()
+plt.show()
+									
+						</code></pre>
+<!-- Visualisations -->
+<div class="image-gallery">
+<figure>
+<img alt="Logistic Regression visualization" class="gallery-trigger" data-caption="Logistic Regression Model" data-gallery="salary-network" decoding="async" height="790" loading="lazy" src="images/Salary_logR.png" width="1164"/>
+<figcaption><strong>Figure 1</strong> Logistic Regression</figcaption>
+</figure>
+<figure>
+<img alt="Logistic Regression performance metrics" class="gallery-trigger" data-caption="Logistic Regression Results" data-gallery="salary-network" decoding="async" height="570" loading="lazy" src="images/salary_logRT.png" width="1480"/>
+<figcaption><strong>Table 1</strong> Logistic Regression Metrics</figcaption>
+</figure>
+<figure>
+<img alt="Support Vector Machine visualization" class="gallery-trigger" data-caption="SVM Model" data-gallery="salary-network" decoding="async" height="774" loading="lazy" src="images/Salary_svm.png" width="1140"/>
+<figcaption><strong>Figure 2</strong> Support Vector Machine</figcaption>
+</figure>
+<figure>
+<img alt="SVM performance metrics" class="gallery-trigger" data-caption="SVM Results" data-gallery="salary-network" decoding="async" height="570" loading="lazy" src="images/salary_svmT.png" width="1480"/>
+<figcaption><strong>Table 2</strong> SVM Metrics</figcaption>
+</figure>
+<figure>
+<img alt="Kernel SVM visualization" class="gallery-trigger" data-caption="Kernel SVM Model" data-gallery="salary-network" decoding="async" height="854" loading="lazy" src="images/Salary_kernsvm.png" width="1262"/>
+<figcaption><strong>Figure 3</strong> Kernel SVM</figcaption>
+</figure>
+<figure>
+<img alt="Kernel SVM performance metrics" class="gallery-trigger" data-caption="Kernel SVM Results" data-gallery="salary-network" decoding="async" height="570" loading="lazy" src="images/salary_kernsvmT.png" width="1480"/>
+<figcaption><strong>Table 3</strong> Kernel SVM Metrics</figcaption>
+</figure>
+<figure>
+<img alt="Naive Bayes visualization" class="gallery-trigger" data-caption="Naive Bayes Model" data-gallery="salary-network" decoding="async" height="776" loading="lazy" src="images/Salary_naive.png" width="1156"/>
+<figcaption><strong>Figure 4</strong> Naive Bayes</figcaption>
+</figure>
+<figure>
+<img alt="Naive Bayes performance metrics" class="gallery-trigger" data-caption="Naive Bayes Results" data-gallery="salary-network" decoding="async" height="570" loading="lazy" src="images/salary_naiveT.png" width="1480"/>
+<figcaption><strong>Table 4</strong> Naive Bayes Metrics</figcaption>
+</figure>
+<figure>
+<img alt="K-Nearest Neighbors visualization" class="gallery-trigger" data-caption="KNN Model" data-gallery="salary-network" decoding="async" height="714" loading="lazy" src="images/Salary_knn.png" width="1058"/>
+<figcaption><strong>Figure 5</strong> K-Nearest Neighbors</figcaption>
+</figure>
+<figure>
+<img alt="KNN performance metrics" class="gallery-trigger" data-caption="KNN Results" data-gallery="salary-network" decoding="async" height="570" loading="lazy" src="images/salary_knnT.png" width="1480"/>
+<figcaption><strong>Table 5</strong> KNN Metrics</figcaption>
+</figure>
+<figure>
+<img alt="Random Forest visualization" class="gallery-trigger" data-caption="Random Forest Model" data-gallery="salary-network" decoding="async" height="690" loading="lazy" src="images/Salary_random.png" width="1012"/>
+<figcaption><strong>Figure 6</strong> Random Forest</figcaption>
+</figure>
+<figure>
+<img alt="Random Forest performance metrics" class="gallery-trigger" data-caption="Random Forest Results" data-gallery="salary-network" decoding="async" height="570" loading="lazy" src="images/salary_randomT.png" width="1480"/>
+<figcaption><strong>Table 6</strong> Random Forest Metrics</figcaption>
+</figure>
+<figure>
+<img alt="Decision Tree visualization" class="gallery-trigger" data-caption="Decision Tree Model" data-gallery="salary-network" decoding="async" height="908" loading="lazy" src="images/Salary_dectree.png" width="1340"/>
+<figcaption><strong>Figure 7</strong> Decision Tree</figcaption>
+</figure>
+<figure>
+<img alt="Decision Tree performance metrics" class="gallery-trigger" data-caption="Decision Tree Results" data-gallery="salary-network" decoding="async" height="570" loading="lazy" src="images/salary_dectreeT.png" width="1480"/>
+<figcaption><strong>Table 7</strong> Decision Tree Metrics</figcaption>
+</figure>
+</div>
+<h4>🌟 <strong>Key Insights:</strong></h4>
+<ul>
+<li>Decision Tree outperformed six other classification models including Logistic Regression, SVM variants, Naive Bayes, K-NN, and Random Forest, demonstrating superior accuracy for this specific age-salary prediction task</li>
+<li>Feature scaling significantly improved model performance across all algorithms by preventing salary values from dominating the decision-making process due to their larger magnitude compared to age values</li>
+<li>Visual analysis revealed clear classification patterns where younger, lower-salary individuals and older, higher-salary individuals showed different purchasing behaviors, with the winning Decision Tree model capturing these complex relationships most effectively</li>
+</ul>
+<h4>🧗🏾 <strong>Challenge Faced:</strong></h4>
+<p>
+								
+								At first, the visualisations were hard to understand because the data had been scaled. The age and salary values didn’t look realistic in the plots. I solved this by converting the data back to its original scale before plotting. This made the decision areas easier to read and relate to real-life values.
+							</p>
+<p><a class="github-button" href="https://github.com/tendai-codes/Machine-learning" target="_blank">View on GitHub</a></p>
+<p style="margin-top: 2rem;">
+<a class="project-back-link" href="#projects" style="border-bottom: solid 1px #ffffff;">← Back to Projects</a>
+</p>

@@ -1,0 +1,118 @@
+
+<h2 class="major">Financial Statement Analysis</h2>
+<p>
+								This project analysed five years of company financial data (2018–2022), including Balance Sheet, Income Statement, and Cash Flow Statement. I used Python and pandas to calculate key financial ratios, identify operational trends, and visualise multi-year performance.
+							</p>
+<h3>💻 <strong>Tech Stack:</strong></h3>
+<ul>
+<li><strong>R</strong> for data manipulation and analysis</li>
+<li><strong>Pandas</strong> for computations</li>
+<li><strong>Matplotlib</strong> for plotting financial visualisations</li>
+</ul>
+<h3>🧪 <strong>Data Pipeline:</strong></h3>
+<ul>
+<li><strong>Load &amp; inspect data:</strong> Imported multi-statement CSV into pandas. Extracted relevant sections for Balance Sheet, Income Statement, and Cash Flow Statement using <code>loc[]</code>. </li>
+<li><strong>Trend Analysis:</strong> Plotted major components (e.g. assets, equity) using <code>.plot()</code> to visualise financial stability over time. </li>
+<li><strong>Ratio Calculations:</strong> Computed solvency and profitability ratios: Return on Equity (ROE), Return on Assets (ROA), Debt-to-Equity. Built <code>DataFrame</code> to summarise and visualise using grouped bar plots.</li>
+<li><strong>Custom Metrics:</strong> Created Operating Cash Flow to Total Debt ratio from cash flow and balance sheet sections to assess short-term liquidity strength.</li>
+</ul>
+<h3>📊 <strong>Code Snippets &amp; Visualisations:</strong></h3>
+<!-- Code Snippet -->
+<pre><code class="language-r"># Load required libraries for visualizations
+library(ggplot2)
+library(tidyverse)
+
+# Data
+revenue &lt;- c(14574.49, 7606.46, 8611.41, 9175.41, 8058.65, 8105.44, 
+             11496.28, 9766.09, 10305.32, 14379.96, 10713.97, 15433.50)
+
+expenses &lt;- c(12051.82, 5695.07, 12319.20, 12089.72, 8658.57, 840.20, 
+              3285.73, 5821.12, 6976.93, 16618.61, 10054.37, 3803.96)
+
+# Calculate Profit As The Difference Between Revenue And Expenses
+profit &lt;- revenue - expenses
+profit
+
+# Calculate Tax As 30% Of Profit And Round To 2 Decimal Places
+tax &lt;- round(0.30 * profit, 2)
+tax
+
+# Calculate Profit Remaining After Tax Is Deducted
+profit.after.tax &lt;- profit - tax
+profit.after.tax
+
+# Visualize Profit After Tax
+# Create a data frame for visualization
+data &lt;- data.frame(
+    Month = 1:12,
+    Profit_After_Tax = profit.after.tax
+)
+
+# Create the bar chart using ggplot2 (Figure 1)
+ggplot(data, aes(x = factor(Month), y = Profit_After_Tax)) +
+    geom_bar(stat = "identity", fill = "steelblue") +
+    labs(title = "Monthly Profit After Tax", x = "Month", y = "Profit After Tax") +
+    theme_minimal()
+
+# Calculate The Profit Margin As Profit After Tax Over Revenue
+profit.margin &lt;- round(profit.after.tax / revenue, 2) * 100
+profit.margin
+
+# Visualize Profit Margin
+# Create a data frame for visualization
+data &lt;- data.frame(
+    Month = 1:12,
+    Profit_Margin = profit.margin
+)
+
+# Create the bar chart using ggplot2 (Figure 2)
+ggplot(data, aes(x = factor(Month), y = Profit_Margin)) +
+    geom_bar(stat = "identity", fill = "orange") +
+    labs(title = "Monthly Profit Margin (%)", x = "Month", y = "Profit Margin (%)") +
+    theme_minimal()
+
+# Calculate The Mean Profit After Tax For The 12 Months
+mean_pat &lt;- mean(profit.after.tax)
+mean_pat
+
+# Find The Months With Above-Mean Profit After Tax
+good.months &lt;- profit.after.tax &gt; mean_pat
+good.months
+
+# Bad Months Are The Opposite Of Good Months
+bad.months &lt;- !good.months
+bad.months
+
+# The Best Month Is The Month With The Highest Profit After Tax
+best.month &lt;- profit.after.tax == max(profit.after.tax)
+best.month
+
+# The Worst Month Is The Month With The Lowest Profit After Tax
+worst.month &lt;- profit.after.tax == min(profit.after.tax)
+worst.month
+
+						</code></pre>
+<!-- Visualisations -->
+<div class="image-gallery">
+<figure>
+<img alt="Figure 1: Profit After Tax" class="gallery-trigger" data-caption="Figure 1: Profit After Tax" data-gallery="finance-state" decoding="async" height="840" loading="lazy" src="images/Financial_statement_b.png" width="840"/>
+<figcaption><strong>Figure 1</strong> Profit After Tax</figcaption>
+</figure>
+<figure>
+<img alt="Figure 2: Profit Margin" class="gallery-trigger" data-caption="Figure 2: Profit Margin" data-gallery="finance-state" decoding="async" height="840" loading="lazy" src="images/Financial_statement_O.png" width="840"/>
+<figcaption><strong>Figure 2</strong> Profit Margin</figcaption>
+</figure>
+</div>
+<h3>🌟 <strong>Key Insights:</strong></h3>
+<p>
+								The company showed stable asset growth and rising equity, but the Debt-to-Equity ratio increased post-2020, signalling higher leverage risk.
+								Operating cash flow was consistently positive, suggesting sufficient liquidity to meet short-term obligations — a green flag for operational health.
+							</p>
+<h3>🧗🏾 <strong>Challenge Faced:</strong></h3>
+<p>
+								Initially, aligning the financial statements by year was inconsistent due to mixed string/index formats across categories. I overcame this by explicitly extracting year-based columns and standardising label references. This made ratio computations and cross-statement comparisons reliable and reproducible.
+							</p>
+<p><a class="github-button" href="https://github.com/tendai-codes/Data-Analysis" target="_blank">View on GitHub</a></p>
+<p style="margin-top: 2rem;">
+<a class="project-back-link" href="#projects" style="border-bottom: solid 1px #ffffff;">← Back to Projects</a>
+</p>

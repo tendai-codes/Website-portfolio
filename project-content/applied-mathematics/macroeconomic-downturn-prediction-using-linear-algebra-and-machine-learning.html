@@ -1,0 +1,422 @@
+
+<h2 class="major">Macroeconomic Downturn Prediction using Linear Algebra and Machine Learning</h2>
+<p>
+		This project builds a country-year macroeconomic panel from World Bank indicators and uses linear algebra, Rust-based feature engineering, Python modelling, and a Streamlit dashboard to estimate next-year economic downturn risk.
+	</p>
+<div class="applied-math-note">
+<strong>Core idea:</strong> represent each country-year as a vector in macroeconomic feature space, then add temporal structure through lag features, annual changes, and three-year trend slopes.
+	</div>
+<h3>💻 <strong>Tech Stack:</strong></h3>
+<ul>
+<li><strong>Rust</strong> for deterministic CSV ingestion, validation, lag features, annual changes, and trend feature generation, chosen as an efficiency and scalability precaution for larger panel-processing workloads</li>
+<li><strong>Python</strong> for machine-learning data processing, exploratory analysis, PCA, similarity analysis, model training, and dashboard integration</li>
+<li><strong>Scikit-learn</strong> for supervised downturn-risk classification</li>
+<li><strong>Streamlit</strong> for scenario testing and multi-country comparison</li>
+</ul>
+<h3>🧪 <strong>Data Pipeline:</strong></h3>
+<ul>
+<li><strong>Panel construction:</strong> Country-year observations are built from macroeconomic indicators including GDP growth, inflation, unemployment, life expectancy, and population growth.</li>
+<li><strong>Vector representation:</strong> Each observation is treated as a feature vector <code>x ∈ Rⁿ</code>, allowing countries to be compared geometrically.</li>
+<li><strong>Temporal feature engineering:</strong> Rust creates lag, annual-change, and three-year least-squares trend features efficiently before exporting the engineered panel for Python-based machine-learning processing.</li>
+<li><strong>Model training:</strong> Python consumes the engineered dataset and trains a classifier to estimate downturn probability in the following year.</li>
+<li><strong>Dashboard layer:</strong> The dashboard supports country selection, scenario simulation, similar-country comparison, and time-series diagnostics.</li>
+</ul>
+<h3>📊 <strong>Code Snippets &amp; Visualisations:</strong></h3>
+<pre><code class="language-python" data-trim=""># Country-year macroeconomic feature vector
+features = [
+    "gdp_growth",
+    "inflation",
+    "unemployment",
+    "life_expectancy",
+    "population_growth",
+    "gdp_growth_lag_1",
+    "unemployment_delta_1",
+    "gdp_growth_trend_3y",
+]
+
+X = panel[features]
+y = panel["downturn_next_year"]
+
+model.fit(X_train, y_train)
+downturn_probability = model.predict_proba(current_country_vector)[0, 1]
+</code></pre>
+
+<div class="concept-visual macro-risk-visual">
+	<style>
+		.macro-risk-visual,
+		.macro-risk-visual * {
+			box-sizing: border-box;
+		}
+
+		.macro-risk-visual {
+			width: 100%;
+			max-width: 100%;
+			margin: 2rem 0;
+			overflow: hidden;
+		}
+
+		.macro-model-vertical {
+			width: 100%;
+			max-width: 100%;
+			padding: 2rem;
+			border-radius: 1.25rem;
+			background: rgba(255, 255, 255, 0.045);
+			border: 1px solid rgba(255, 255, 255, 0.12);
+			overflow: hidden;
+		}
+
+		.macro-model-vertical h3 {
+			margin: 0 0 0.45rem;
+			text-align: center;
+		}
+
+		.macro-model-intro {
+			max-width: 48rem;
+			margin: 0 auto 2rem;
+			text-align: center;
+			color: rgba(255, 255, 255, 0.72);
+		}
+
+		.macro-step {
+			display: grid;
+			grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+			gap: 1.6rem;
+			align-items: center;
+			width: 100%;
+			max-width: 100%;
+			margin: 1.25rem 0;
+		}
+
+		.macro-card {
+			min-width: 0;
+			width: 100%;
+			padding: 1.25rem;
+			border-radius: 1rem;
+			background: rgba(255, 255, 255, 0.06);
+			border: 1px solid rgba(255, 255, 255, 0.18);
+			box-shadow: 0 18px 45px rgba(0, 0, 0, 0.16);
+			overflow: hidden;
+		}
+
+		.macro-card h4,
+		.macro-description h4 {
+			margin: 0 0 1rem;
+			font-size: 1rem;
+			line-height: 1.35;
+			letter-spacing: 0.04em;
+			text-align: center;
+			text-transform: uppercase;
+		}
+
+		.macro-description {
+			min-width: 0;
+			width: 100%;
+			max-width: 100%;
+			padding: 0.4rem 0 0.4rem 1.15rem;
+			border-left: 3px solid rgba(116, 220, 190, 0.9);
+			background: transparent;
+			border-radius: 0;
+			overflow-wrap: break-word;
+			word-break: normal;
+		}
+
+		.macro-description p {
+			margin: 0;
+			color: rgba(255, 255, 255, 0.76);
+			line-height: 1.6;
+		}
+
+		.macro-down-arrow {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			height: 2.8rem;
+			color: rgba(255, 255, 255, 0.65);
+			font-size: 2rem;
+			line-height: 1;
+		}
+
+		.panel-table {
+			display: grid;
+			gap: 0.55rem;
+		}
+
+		.panel-row,
+		.panel-header {
+			display: grid;
+			grid-template-columns: minmax(3.2rem, 0.75fr) minmax(3.2rem, 0.65fr) minmax(8rem, 1.35fr);
+			gap: 0.55rem;
+			align-items: center;
+		}
+
+		.panel-header {
+			color: rgba(255, 255, 255, 0.66);
+			font-size: 0.76rem;
+			font-weight: 700;
+			text-transform: uppercase;
+			letter-spacing: 0.05em;
+		}
+
+		.panel-row {
+			padding: 0.62rem 0.7rem;
+			border-radius: 0.55rem;
+			background: rgba(255, 255, 255, 0.08);
+			border: 1px solid rgba(255, 255, 255, 0.12);
+			font-weight: 700;
+		}
+
+		.vector-cell {
+			font-size: 0.82rem;
+			white-space: nowrap;
+		}
+
+		.feature-space-card h4 {
+			margin-bottom: 2rem;
+		}
+
+		.feature-plot {
+			position: relative;
+			height: 230px;
+			margin: 2.3rem 1rem 2rem 0.25rem;
+			border-left: 2px solid rgba(255, 255, 255, 0.42);
+			border-bottom: 2px solid rgba(255, 255, 255, 0.42);
+		}
+
+		.feature-plot::before {
+			content: "level axis";
+			position: absolute;
+			top: -1.55rem;
+			left: 0;
+			color: rgba(255, 255, 255, 0.6);
+			font-size: 0.78rem;
+		}
+
+		.feature-plot::after {
+			content: "trend axis";
+			position: absolute;
+			right: 0;
+			bottom: -1.75rem;
+			color: rgba(255, 255, 255, 0.6);
+			font-size: 0.78rem;
+		}
+
+		.trend-line {
+			position: absolute;
+			left: 14%;
+			bottom: 26%;
+			width: 70%;
+			border-top: 2px dashed rgba(255, 255, 255, 0.48);
+			transform: rotate(-31deg);
+			transform-origin: left center;
+		}
+
+		.point {
+			position: absolute;
+			width: 0.78rem;
+			height: 0.78rem;
+			border-radius: 50%;
+			transform: translate(-50%, 50%);
+			box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.08);
+		}
+
+		.point.low { background: rgba(116, 220, 190, 0.9); }
+		.point.mid { background: rgba(216, 181, 109, 0.95); }
+		.point.high { background: rgba(232, 113, 113, 0.92); }
+
+		.risk-card {
+			text-align: center;
+		}
+
+		.risk-meter {
+			position: relative;
+			width: min(100%, 260px);
+			height: 1.35rem;
+			margin: 1.35rem auto 0.65rem;
+			border-radius: 999px;
+			background: linear-gradient(90deg, rgba(116, 220, 190, 0.95), rgba(216, 181, 109, 0.95), rgba(232, 113, 113, 0.95));
+		}
+
+		.risk-marker {
+			position: absolute;
+			left: 68%;
+			top: -0.45rem;
+			width: 2px;
+			height: 2.3rem;
+			background: #ffffff;
+		}
+
+		.risk-labels {
+			display: flex;
+			justify-content: space-between;
+			width: min(100%, 260px);
+			margin: 0 auto 1rem;
+			font-size: 0.85rem;
+			color: rgba(255, 255, 255, 0.68);
+		}
+
+		.risk-value {
+			font-size: 2.6rem;
+			font-weight: 800;
+			margin: 0.35rem 0 0.2rem;
+		}
+
+		.scenario-pill {
+			display: inline-block;
+			max-width: 100%;
+			margin-top: 1rem;
+			padding: 0.6rem 0.9rem;
+			border-radius: 999px;
+			background: rgba(255, 255, 255, 0.08);
+			border: 1px solid rgba(255, 255, 255, 0.18);
+			font-weight: 700;
+		}
+
+		@media screen and (max-width: 920px) {
+			.macro-step {
+				grid-template-columns: 1fr;
+				gap: 1rem;
+			}
+
+			.macro-description {
+				padding: 0.95rem 0 0 0;
+				border-left: 0;
+				border-top: 3px solid rgba(116, 220, 190, 0.9);
+			}
+		}
+
+		@media screen and (max-width: 560px) {
+			.macro-model-vertical {
+				padding: 1.15rem;
+			}
+
+			.panel-row,
+			.panel-header {
+				grid-template-columns: 1fr 0.9fr;
+			}
+
+			.panel-header span:nth-child(3),
+			.panel-row .vector-cell {
+				grid-column: 1 / -1;
+			}
+
+			.vector-cell {
+				white-space: normal;
+			}
+		}
+	</style>
+
+	<figure class="macro-model-vertical">
+		<h3>From macro indicators to downturn-risk interpretation</h3>
+		<p class="macro-model-intro">
+			The modelling path is easier to read as three vertical transformations: raw country-year rows, engineered movement in feature space, and an interpretable risk output.
+		</p>
+
+		<section class="macro-step" aria-label="Country-year panel step">
+			<div class="macro-card">
+				<h4>1. Country-year panel</h4>
+				<div class="panel-table">
+					<div class="panel-header">
+						<span>country</span>
+						<span>year</span>
+						<span>x ∈ Rⁿ</span>
+					</div>
+					<div class="panel-row">
+						<span>ZAF</span>
+						<span>2018</span>
+						<span class="vector-cell">[gdp, π, u, ...]</span>
+					</div>
+					<div class="panel-row">
+						<span>BRA</span>
+						<span>2019</span>
+						<span class="vector-cell">[gdp, π, u, ...]</span>
+					</div>
+					<div class="panel-row">
+						<span>IND</span>
+						<span>2020</span>
+						<span class="vector-cell">[gdp, π, u, ...]</span>
+					</div>
+					<div class="panel-row">
+						<span>KEN</span>
+						<span>2021</span>
+						<span class="vector-cell">[gdp, π, u, ...]</span>
+					</div>
+				</div>
+			</div>
+
+			<div class="macro-description">
+				<h4>Raw indicators become comparable observations</h4>
+				<p>
+					World Bank indicators are aligned into a country-year panel. Each row becomes a macroeconomic profile that can be treated as a vector rather than as isolated columns.
+				</p>
+			</div>
+		</section>
+
+		<div class="macro-down-arrow" aria-hidden="true">↓</div>
+
+		<section class="macro-step" aria-label="Feature-space view step">
+			<div class="macro-card feature-space-card">
+				<h4>2. Feature-space view</h4>
+				<div class="feature-plot">
+					<span class="trend-line"></span>
+					<span class="point low" style="left: 18%; bottom: 22%;"></span>
+					<span class="point low" style="left: 31%; bottom: 34%;"></span>
+					<span class="point low" style="left: 45%; bottom: 43%;"></span>
+					<span class="point low" style="left: 58%; bottom: 52%;"></span>
+					<span class="point mid" style="left: 55%; bottom: 25%;"></span>
+					<span class="point mid" style="left: 69%; bottom: 39%;"></span>
+					<span class="point mid" style="left: 80%; bottom: 57%;"></span>
+					<span class="point high" style="left: 75%; bottom: 72%;"></span>
+					<span class="point high" style="left: 90%; bottom: 82%;"></span>
+				</div>
+			</div>
+
+			<div class="macro-description">
+				<h4>Rust prepares the panel for scale</h4>
+				<p>
+					Rust is used for the deterministic feature pipeline because it gives efficiency and scalability headroom if the panel grows across more countries, years, indicators, or repeated experiments. It creates lag features, annual changes, and three-year trend slopes before the data moves into Python.
+				</p>
+			</div>
+		</section>
+
+		<div class="macro-down-arrow" aria-hidden="true">↓</div>
+
+		<section class="macro-step" aria-label="Risk output step">
+			<div class="macro-card risk-card">
+				<h4>3. Risk output</h4>
+				<p>Classifier + dashboard</p>
+				<div class="risk-meter">
+					<span class="risk-marker"></span>
+				</div>
+				<div class="risk-labels">
+					<span>low</span>
+					<span>risk</span>
+				</div>
+				<div class="risk-value">0.68</div>
+				<p>downturn probability</p>
+				<span class="scenario-pill">scenario testing</span>
+			</div>
+
+			<div class="macro-description">
+				<h4>Python handles ML interpretation</h4>
+				<p>
+					Python is used for the machine-learning processing layer: exploratory analysis, PCA, similarity analysis, model training, probability estimation, and Streamlit dashboard integration. The output is not only a class label, but an interpretable downturn-risk score that can be tested through scenarios.
+				</p>
+			</div>
+		</section>
+	</figure>
+</div>
+<h3>🌟 <strong>Key Insights:</strong></h3>
+<ul>
+<li>The strongest modelling move is shifting from static economic indicators to a feature-space representation with temporal movement.</li>
+<li>Lag, annual-change, and trend features make downturn risk easier to reason about than raw levels alone.</li>
+<li>The Rust/Python split keeps deterministic feature engineering separate from modelling and dashboard experimentation.</li>
+</ul>
+<h3>🧗🏾 <strong>Challenge Faced:</strong></h3>
+<p>
+		The central challenge was turning broad macroeconomic indicators into a reproducible modelling pipeline without overclaiming forecasting precision. The solution was to frame the project as a representation and classification experiment rather than a policy-grade economic forecast.
+	</p>
+<p>
+<a class="github-button" href="https://github.com/tendai-codes/worldbank_unemployment_linear_algebra_project" target="_blank">View on GitHub</a>
+<a class="github-button" href="https://macroeconomic-risk.streamlit.app/" target="_blank">Open Live App</a>
+</p>
+<p style="margin-top: 2rem;"><a class="project-back-link" href="#projects" style="border-bottom: solid 1px #ffffff;">← Back to Projects</a></p>

@@ -1,0 +1,129 @@
+
+<h2 class="major">Portfolio Optimization &amp; Risk Analysis</h2>
+<p>
+								This project built a comprehensive portfolio management system that simulates random asset allocation across major stocks and calculates key financial metrics including returns, volatility, and risk-adjusted performance. I developed a complete portfolio analytics framework using Python to evaluate investment strategies and portfolio performance over time.
+							</p>
+<h4>💻 <strong>Tech Stack:</strong></h4>
+<ul>
+<li><strong>Python</strong> for financial calculations and portfolio modeling</li>
+<li><strong>Pandas</strong> for time series data manipulation and financial computations</li>
+<li><strong>NumPy</strong> for random weight generation and mathematical operations</li>
+<li><strong>Plotly &amp; SciPy</strong> for interactive portfolio performance visualisation, statistical analysis and risk metrics </li>
+</ul>
+<h4>🧪 <strong>Data Pipeline:</strong></h4>
+<ul>
+<li><strong>Data Preparation:</strong> Loaded and sorted stock data chronologically using <code>sort_values()</code> by Date to ensure proper time series analysis for portfolio calculations. </li>
+<li><strong>Random Portfolio Generation:</strong> Used <code>np.random.seed()</code> and <code>np.random.seed(9)</code> to create randomized asset allocation weights, then normalized them using <code>weights / np.sum(weights)</code> to ensure they sum to 100%. </li>
+<li><strong>Portfolio Normalisation:</strong> Applied a custom normalize() function to standardize all stock prices to their initial values, creating a baseline for relative performance comparison across different price ranges.</li>
+<li><strong>Portfolio function development:</strong> Built a reusable <code>portfolio_allocation()</code> function that encapsulates the entire workflow for testing different weight combinations and portfolio strategies.</li>
+<li><strong>Risk metrics calculation:</strong> Computed cumulative return, standard deviation (volatility), average daily return, and Sharpe ratio (assessesment of the risk-adjusted returns of an investment) using <code>np.sqrt(252)</code> for annualization.</li>
+</ul>
+<h4>📊 <strong>Code Snippets &amp; Visualisations:</strong></h4>
+<!-- Code Snippet -->
+<pre><code class="language-python" data-trim="">np.random.seed()
+
+# Create random weights for the stocks
+weights = np.array(np.random.random(9))
+
+# Random Asset Allocation &amp; Calculate Portfolio Daily Return
+weights = weights / np.sum(weights)
+print(weights)
+
+# Define Normalization function
+def normalize(df):
+    x = df.copy()
+    for i in x.columns[1:]:
+        x[i] = x[i] / x[i][0]
+    return x
+
+# Enumerate returns the value and a counter as well
+for counter, stock in enumerate(df_portfolio.columns[1:]):
+    df_portfolio[stock] = df_portfolio[stock] * weights[counter]
+    df_portfolio[stock] = df_portfolio[stock] * 1000000
+
+# Calculate the portfolio daily return
+df_portfolio['portfolio daily % return'] = 0.0000
+
+for i in range(1, len(stocks_df)):
+    # Calculate the percentage of change from the previous day
+    df_portfolio['portfolio daily % return'][i] = (
+        (df_portfolio['portfolio daily worth/$'][i] - df_portfolio['portfolio daily worth/$'][i - 1])
+        / df_portfolio['portfolio daily worth/$'][i - 1]
+    ) * 100
+
+# Create a function for stock portfolio allocation
+# Assume $1000000 is total amount for portfolio
+def portfolio_allocation(df, weights):
+    df_portfolio = df.copy()
+
+    # Normalize the stock values
+    df_portfolio = normalize(df_portfolio)
+
+    for counter, stock in enumerate(df_portfolio.columns[1:]):
+        df_portfolio[stock] = df_portfolio[stock] * weights[counter]
+        df_portfolio[stock] = df_portfolio[stock] * 1000000
+
+    df_portfolio['portfolio daily worth in $'] = df_portfolio[df_portfolio.columns[1:]].sum(axis=1)
+
+    df_portfolio['portfolio daily % return'] = 0.0000
+
+    for i in range(1, len(stocks_df)):
+        # Calculate the percentage of change from the previous day
+        df_portfolio['portfolio daily % return'][i] = (
+            (df_portfolio['portfolio daily worth in $'][i] - df_portfolio['portfolio daily worth in $'][i - 1])
+            / df_portfolio['portfolio daily worth in $'][i - 1]
+        ) * 100
+
+    # Set the value of first row to zero, as previous value is not available
+    df_portfolio['portfolio daily % return'][0] = 0
+    return df_portfolio
+
+# Plot the portfolio daily return (Figure 1)
+fig = px.line(
+    x=df_portfolio.Date,
+    y=df_portfolio['portfolio daily % return'],
+    title='Portfolio Daily % Return',
+    labels={"x": "Date", "y": "Daily Percentage Return"}
+)
+fig.show()
+
+# Cumulative return of the portfolio
+cumulative_return = (
+    (df_portfolio['portfolio daily worth/$'][-1:] - df_portfolio['portfolio daily worth/$'][0])
+    / df_portfolio['portfolio daily worth/$'][0]
+) * 100
+print('Cumulative return of the portfolio is {} %'.format(cumulative_return.values[0]))
+
+# Calculate the average daily return
+print('Average daily return of the portfolio is {} %'.format(df_portfolio['portfolio daily % return'].mean()))
+
+# Portfolio Sharpe ratio
+sharpe_ratio = (
+    df_portfolio['portfolio daily % return'].mean()
+    / df_portfolio['portfolio daily % return'].std()
+    * np.sqrt(252)
+)
+print('Sharpe ratio of the portfolio is {}'.format(sharpe_ratio))
+						</code></pre>
+<!-- Visualisations -->
+<div class="image-gallery">
+<figure>
+<img alt="Figure 1: Portfolio Daily Returns (%)" class="gallery-trigger" data-caption="Figure 1: Portfolio Daily Returns (%)" data-gallery="portfolio-assets" decoding="async" height="922" loading="lazy" src="images/portfoliodaily.png" width="1096"/>
+<figcaption><strong>Figure 1</strong> Portfolio Daily Returns (%)</figcaption>
+</figure>
+</div>
+<h4>🌟 <strong>Key Insights:</strong></h4>
+<ul>
+<li>Random portfolio allocation provides baseline performance benchmarks for comparing against optimized strategies, revealing how diversification across 9 stocks performs under equal-weight and random-weight scenarioss</li>
+<li>Daily return volatility patterns indicate portfolio risk characteristics with higher volatility periods corresponding to market stress, while Sharpe ratio quantifies whether returns adequately compensate for risk takeno</li>
+<li>Normalization to Day 1 baseline enables fair comparison across stocks with different price levels, allowing proper weight allocation based on percentage changes rather than absolute dollar amounts</li>
+<li>Cumulative returns demonstrated the compound effect of daily performance over the investment period</li>
+</ul>
+<h4>🧗🏾 <strong>Challenge Faced:</strong></h4>
+<p>
+								I initially encountered an indexing error when calculating portfolio daily returns because I was trying to access the previous day's value for the first row, which doesn't exist. The calculation <code>df_portfolio['portfolio daily % return'][i-1]</code> failed on the first iteration. I solved this by explicitly setting the first day's return to 0 using <code>df_portfolio['portfolio daily % return'][0] = 0</code> after the loop, and ensuring the loop started from index 1 rather than 0. This approach properly handled the edge case while maintaining accurate percentage calculations for all subsequent trading days.
+							</p>
+<p><a class="github-button" href="https://github.com/tendai-codes/Data-Analysis/tree/main/portfolio-assets-allocation-statistical-data-analysis" target="_blank">View on GitHub</a></p>
+<p style="margin-top: 2rem;">
+<a class="project-back-link" href="#projects" style="border-bottom: solid 1px #ffffff;">← Back to Projects</a>
+</p>

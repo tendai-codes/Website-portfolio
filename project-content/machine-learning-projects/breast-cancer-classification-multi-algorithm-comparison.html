@@ -1,0 +1,108 @@
+
+<h2 class="major">Breast Cancer Classification: Multi-Algorithm Comparison</h2>
+<p>
+								This project implemented and compared six different machine learning classification algorithms to predict breast cancer diagnosis (malignant vs benign) based on cellular characteristics. I built a comprehensive medical classification pipeline using multiple algorithms to identify the most effective approach for cancer detection and diagnosis support.
+							</p>
+<h4>💻 <strong>Tech Stack:</strong></h4>
+<ul>
+<li><strong>Python</strong> for machine learning model development and comparison</li>
+<li><strong>Scikit-learn</strong> for multiple classification algorithms, preprocessing, and evaluation metrics</li>
+<li><strong>Pandas</strong> for dataset loading and initial data exploration</li>
+<li><strong>Matplotlib</strong> for data visualisationsand model performance analysis</li>
+<li><strong>NumPy</strong> for numerical operations and grid generation</li>
+</ul>
+<h4>🧪 <strong>Data Pipeline:</strong></h4>
+<ul>
+<li><strong>Load &amp; inspect data:</strong> Loaded breast cancer dataset using <code>pd.read_csv()</code> and separated cellular features (X) from diagnosis labels (y) using <code>iloc[:, :-1]</code> and <code>iloc[:, -1]</code> respectively, ensuring proper handling of medical diagnostic data. </li>
+<li><strong>Train-test stratification:</strong> Applied <code>train_test_split()</code> with 75-25 split (<code>test_size=0.25</code>) and fixed random state for reproducible medical model evaluation, crucial for healthcare applications. </li>
+<li><strong>Feature standardization:</strong> Implemented <code>StandardScaler()</code> using <code>fit_transform()</code> on training data and <code>transform()</code> on test data to normalize cellular measurements across different scales without data leakage.</li>
+<li><strong>Logistic Regression: </strong> Built a <code>LogisticRegression(random_state=0)</code> model as the statistical baseline for binary medical classification, providing interpretable probability outputs for clinical decision-making.</li>
+<li><strong>Support Vector Machine (Linear):</strong> Implemented <code>SVC(kernel='linear')</code> to find optimal linear decision boundaries for separating malignant from benign cases using maximum margin principles.</li>
+<li><strong>Decision Tree Classification: </strong> Applied <code>DecisionTreeClassifier(criterion='entropy')</code> to create interpretable rule-based diagnostic pathways that clinicians can follow and understand.</li>
+<li><strong>K-Nearest Neighbors:</strong> Used <code>KNeighborsClassifier(n_neighbors=5, metric='minkowski', p=2)</code> to classify cases based on similarity to neighboring data points, leveraging local patterns in cellular characteristics.</li>
+<li><strong>Support Vector Machine (RBF):</strong> Implemented <code>SVC(kernel='rbf')</code> with radial basis function kernel to capture complex non-linear relationships in cellular feature space.</li>
+<li><strong>Naive Bayes: </strong> Applied <code>GaussianNB()</code> assuming feature independence to provide probabilistic classification based on Bayesian statistics, suitable for medical diagnostic scenarios.</li>
+<li><strong>Performance evaluation: </strong> Generated predictions using <code>classifier.predict(X_test)</code> and evaluated each model using <code>confusion_matrix()</code> and <code>accuracy_score()</code> to assess diagnostic accuracy and error patterns.</li>
+<li><strong>Medical model validation: </strong> Created confusion matrices to analyze true positives, false positives, true negatives, and false negatives - critical metrics for medical diagnostic applications where false negatives (missed cancers) are particularly concerning..</li>
+</ul>
+<h4>📊 <strong>Code Snippets &amp; Visualisations:</strong></h4>
+<!-- Code Snippet -->
+<pre><code class="language-python"># Importing the libraries
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+
+# Importing the dataset
+dataset = pd.read_csv('Breast cancer data.csv')
+X = dataset.iloc[:, :-1].values
+y = dataset.iloc[:, -1].values
+
+# Splitting the dataset into the Training set and Test set
+from sklearn.model_selection import train_test_split
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.25, random_state = 0)
+
+# Feature Scaling
+from sklearn.preprocessing import StandardScaler
+sc = StandardScaler()
+X_train = sc.fit_transform(X_train)
+X_test = sc.transform(X_test)
+
+# Training Model on the Training set
+from sklearn.tree import DecisionTreeClassifier
+classifier = DecisionTreeClassifier(criterion = 'entropy', random_state = 0)
+classifier.fit(X_train, y_train)
+
+# Evaluating using confusion matrix
+from sklearn.metrics import confusion_matrix, accuracy_score
+y_pred = classifier.predict(X_test)
+cm = confusion_matrix(y_test, y_pred)
+print(cm)
+accuracy_score(y_test, y_pred)
+
+						</code></pre>
+<!-- Visualisations -->
+<div class="image-gallery">
+<figure>
+<img alt="Logistic Regression visualization for breast cancer classification" class="gallery-trigger" data-caption="Logistic Regression Model - Breast Cancer" data-gallery="breast-cancer" decoding="async" height="230" loading="lazy" src="images/Breast_logR.png" width="632"/>
+<figcaption><strong>Figure 1</strong> Logistic Regression</figcaption>
+</figure>
+<figure>
+<img alt="Support Vector Machine visualization for breast cancer classification" class="gallery-trigger" data-caption="SVM Model - Breast Cancer" data-gallery="breast-cancer" decoding="async" height="226" loading="lazy" src="images/Breast_svm.png" width="632"/>
+<figcaption><strong>Figure 2</strong> SVM</figcaption>
+</figure>
+<figure>
+<img alt="Kernel SVM visualization for breast cancer classification" class="gallery-trigger" data-caption="Kernel SVM Model - Breast Cancer" data-gallery="breast-cancer" decoding="async" height="230" loading="lazy" src="images/Breast_ksvm.png" width="632"/>
+<figcaption><strong>Figure 3</strong> Kernel SVM</figcaption>
+</figure>
+<figure>
+<img alt="K-Nearest Neighbors visualization for breast cancer classification" class="gallery-trigger" data-caption="K-Nearest Neighbors Model - Breast Cancer" data-gallery="breast-cancer" decoding="async" height="226" loading="lazy" src="images/Breast_knn.png" width="632"/>
+<figcaption><strong>Figure 4</strong> K-Nearest Neighbor</figcaption>
+</figure>
+<figure>
+<img alt="Naïve Bayes visualization for breast cancer classification" class="gallery-trigger" data-caption="Naïve Bayes Model - Breast Cancer" data-gallery="breast-cancer" decoding="async" height="230" loading="lazy" src="images/Breast_naive.png" width="632"/>
+<figcaption><strong>Figure 5</strong> Naïve Bayes</figcaption>
+</figure>
+<figure>
+<img alt="Random Forest visualization for breast cancer classification" class="gallery-trigger" data-caption="Random Forest Model - Breast Cancer" data-gallery="breast-cancer" decoding="async" height="230" loading="lazy" src="images/Breast_randfor.png" width="632"/>
+<figcaption><strong>Figure 6</strong> Random Forest</figcaption>
+</figure>
+<figure>
+<img alt="Decision Tree visualization for breast cancer classification" class="gallery-trigger" data-caption="Decision Tree Model - Breast Cancer" data-gallery="breast-cancer" decoding="async" height="260" loading="lazy" src="images/Breast_decision.png" width="788"/>
+<figcaption><strong>Figure 7</strong> Decision Tree</figcaption>
+</figure>
+</div>
+<h4>🌟 <strong>Key Insights:</strong></h4>
+<ul>
+<li>Multiple algorithms provided different approaches to cancer classification, each with unique strengths for medical diagnosis</li>
+<li>Feature standardization proved crucial for distance-based algorithms (SVM, KNN) due to varying scales of cellular measurements</li>
+<li>Confusion matrix analysis revealed the trade-offs between sensitivity (detecting cancer) and specificity (avoiding false alarms)</li>
+<li>Model comparison enabled selection of the most reliable algorithm for medical diagnostic support</li>
+</ul>
+<h4>🧗🏾 <strong>Challenge Faced:</strong></h4>
+<p>
+								Working with medical diagnostic data presented a critical class imbalance consideration that required careful attention to evaluation metrics beyond simple accuracy. While accuracy score provides an overall performance measure, it can be misleading in medical contexts where false negatives (missing actual cancer cases) have far more severe consequences than false positives (flagging benign cases as suspicious). The challenge was ensuring that model evaluation properly weighted the clinical importance of sensitivity (recall) versus specificity, as a model with 95% accuracy might still miss 20% of actual cancer cases if the dataset is imbalanced. This was addressed by implementing confusion matrix analysis to examine true positives, false positives, true negatives, and false negatives separately, enabling assessment of each model's ability to minimize the most clinically dangerous errors while maintaining overall diagnostic reliability.
+							</p>
+<p><a class="github-button" href="https://github.com/tendai-codes/Machine-learning/tree/main/breast-cancer-prognosis" target="_blank">View on GitHub</a></p>
+<p style="margin-top: 2rem;">
+<a class="project-back-link" href="#projects" style="border-bottom: solid 1px #ffffff;">← Back to Projects</a>
+</p>

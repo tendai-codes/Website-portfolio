@@ -72,7 +72,10 @@
     }
 
     if (elements.title) {
-      elements.title.textContent = projectTitle || 'Project Details';
+      // Project fragments already contain their own <h2 class="major"> title.
+      // Hide the wrapper title to avoid duplicate project headings.
+      elements.title.textContent = '';
+      elements.title.style.display = 'none';
     }
 
     elements.content.innerHTML = '<p>Loading project…</p>';
@@ -91,6 +94,11 @@
       showViewerArticle();
     } catch (error) {
       console.error(error);
+      if (elements.title) {
+        elements.title.textContent = projectTitle || 'Project Details';
+        elements.title.style.display = '';
+      }
+
       elements.content.innerHTML = [
         '<p><strong>Project could not be loaded dynamically.</strong></p>',
         '<p>This usually happens when the site is opened directly from the file system instead of through a local server or Netlify.</p>',

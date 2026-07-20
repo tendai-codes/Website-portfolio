@@ -1,23 +1,25 @@
 
 <h2 class="major">Graph Cross-Correction Simulation</h2>
 
+<h3>Project motivation</h3>
 <p>
-	This project is a staged numerical modelling study that explores molecular cross-correction in multinucleated muscle fibres. It asks whether a small number of corrected nuclei can produce enough local signal to rescue neighbouring nuclei through spatial transport.
+	This project is a computational extension of my master's thesis research. It uses simulation and graph-based modelling to test whether a biological hypothesis around molecular cross-correction is plausible under simplified conditions. <b>The central question is:</b> if only a subset of nuclei in a multinucleated muscle fibre are corrected, could locally transported signal accumulate enough to rescue neighbouring nuclei? The model treats this as a structured numerical experiment in signal production, diffusion, decay, and rescue thresholds.
 </p>
 
 <div class="applied-math-note">
-	<strong>Core idea:</strong> represent nuclei as graph nodes, corrected nuclei as source nodes, local exchange as graph diffusion, and rescue as a threshold or cumulative-exposure outcome.
+	<strong>Core Modelling idea:</strong> In the model, <b>signal</b> represents the corrective influence produced by genetically-corrected nuclei. Biologically, this is motivated by the translocation of genetically-corrected nuclei via the U7 snRNA which can then mediate the cross-correction of diseased, neighbouring nuclei. It treats this corrective effect as a scalar quantity that can be produced, transported across local graph connections, decay over time and accumulate toward a rescue threshold. Nuclei are represented as graph nodes. Corrected nuclei act as signal sources. The local exchange is approximated using graph diffusion and genetic correction (Rescue) is treated as a threshold response to transported signal.
 </div>
 
-<h3>Biological motivation</h3>
-<p>
-	The project is inspired by U7 snRNA-mediated cross-correction in Duchenne muscular dystrophy. It does not claim to reproduce experimental data. It builds a simplified computational model to test whether local signal transport could plausibly amplify rescue beyond corrected nuclei.
-</p>
+<div class="publication-note"> 
+	<h3>Related publication</h3> 
+	<p> 
+		This simulation is conceptually linked to the co-authored publication: 
+		<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11018779/" target="_blank" rel="noopener"> Cell-mediated exon skipping normalizes dystrophin expression and muscle function in a new mouse model of Duchenne Muscular Dystrophy 
 
-<h3>The modelling idea</h3>
-<p>
-	Nuclei are represented as graph nodes. Corrected nuclei act as signal sources. Local exchange is approximated using graph diffusion. Rescue is treated as a threshold response to transported signal.
-</p>
+		</a>. 
+		The paper investigates U7 snRNA-mediated exon skipping and cross-correction in multinucleated muscle fibres, providing the biological motivation for this modelling exercise. 
+	</p> 
+</div>
 
 <div class="reasoning-chain">
 	<strong>Reasoning chain:</strong> biological observation → source nodes → graph structure → Laplacian diffusion → rescue threshold → sensitivity testing.
@@ -125,7 +127,7 @@ for t in range(num_steps):
 
 <h3>What this demonstrates</h3>
 <p>
-	This project shows cross-domain reasoning: a biological idea becomes a graph model; the graph model becomes a simulation; the simulation becomes a structured way to ask what conditions make local rescue plausible.
+	This project shows cross-domain reasoning: a thesis-driven biological hypothesis becomes a graph model; the graph model becomes a simulation; and the simulation becomes a structured way to ask what conditions make local rescue plausible before moving toward more experimentally grounded modelling.
 </p>
 
 <p><a class="github-button" href="https://github.com/tendai-codes/graph-cross-correction-sim" target="_blank" rel="noopener">View on GitHub</a></p>

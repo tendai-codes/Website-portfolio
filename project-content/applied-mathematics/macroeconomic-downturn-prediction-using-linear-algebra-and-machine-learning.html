@@ -16,13 +16,13 @@
 <h3>🧪 <strong>Data Pipeline:</strong></h3>
 <ul>
 <li><strong>Panel construction:</strong> Country-year observations are built from macroeconomic indicators including GDP growth, inflation, unemployment, life expectancy, and population growth.</li>
-<li><strong>Vector representation:</strong> Each observation is treated as a feature vector <code>x ∈ Rⁿ</code>, allowing countries to be compared geometrically.</li>
+<li><strong>Vector representation:</strong> Each observation becomes a named macroeconomic profile <code>x_country,year</code>, containing indicators such as GDP growth, inflation, unemployment, population growth, and life expectancy.</li>
 <li><strong>Temporal feature engineering:</strong> Rust creates lag, annual-change, and three-year least-squares trend features efficiently before exporting the engineered panel for Python-based machine-learning processing.</li>
 <li><strong>Model training:</strong> Python consumes the engineered dataset and trains a classifier to estimate downturn probability in the following year.</li>
 <li><strong>Dashboard layer:</strong> The dashboard supports country selection, scenario simulation, similar-country comparison, and time-series diagnostics.</li>
 </ul>
 <h3>📊 <strong>Code Snippets &amp; Visualisations:</strong></h3>
-<pre><code class="language-python" data-trim=""># Country-year macroeconomic feature vector
+<pre><code class="language-python" data-trim=""># Country-year macroeconomic profile
 features = [
     "gdp_growth",
     "inflation",
@@ -78,13 +78,8 @@ downturn_probability = model.predict_proba(current_country_vector)[0, 1]
 		}
 
 		.macro-step {
-			display: grid;
-			grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
-			gap: 1.6rem;
-			align-items: center;
-			width: 100%;
-			max-width: 100%;
-			margin: 1.25rem 0;
+			display: block;
+			margin: 1.75rem 0;
 		}
 
 		.macro-card {
@@ -100,30 +95,29 @@ downturn_probability = model.predict_proba(current_country_vector)[0, 1]
 
 		.macro-card h4,
 		.macro-description h4 {
-			margin: 0 0 1rem;
-			font-size: 1rem;
-			line-height: 1.35;
-			letter-spacing: 0.04em;
-			text-align: center;
+			margin: 0 0 0.7rem;
+			text-align: left;
+			font-size: 0.95rem;
+			letter-spacing: 0.05em;
 			text-transform: uppercase;
 		}
 
 		.macro-description {
-			min-width: 0;
-			width: 100%;
-			max-width: 100%;
-			padding: 0.4rem 0 0.4rem 1.15rem;
-			border-left: 3px solid rgba(116, 220, 190, 0.9);
-			background: transparent;
-			border-radius: 0;
-			overflow-wrap: break-word;
-			word-break: normal;
+			margin-top: 1rem;
+			padding: 1.15rem 1.25rem;
+			border-left: 0;
+			border-top: 3px solid rgba(116, 220, 190, 0.9);
+			background: rgba(255, 255, 255, 0.035);
+			border-radius: 0 0 0.9rem 0.9rem;
+			overflow: visible;
 		}
 
 		.macro-description p {
 			margin: 0;
 			color: rgba(255, 255, 255, 0.76);
-			line-height: 1.6;
+			line-height: 1.65;
+			max-width: none;
+			text-align: left;
 		}
 
 		.macro-down-arrow {
@@ -139,17 +133,10 @@ downturn_probability = model.predict_proba(current_country_vector)[0, 1]
 		.panel-table {
 			display: grid;
 			gap: 0.55rem;
+			width: 100%;
+			overflow-x: auto;
 		}
-
-		.panel-row,
-		.panel-header {
-			display: grid;
-			grid-template-columns: minmax(3.2rem, 0.75fr) minmax(3.2rem, 0.65fr) minmax(8rem, 1.35fr);
-			gap: 0.55rem;
-			align-items: center;
-		}
-
-		.panel-header {
+.panel-header {
 			color: rgba(255, 255, 255, 0.66);
 			font-size: 0.76rem;
 			font-weight: 700;
@@ -164,10 +151,19 @@ downturn_probability = model.predict_proba(current_country_vector)[0, 1]
 			border: 1px solid rgba(255, 255, 255, 0.12);
 			font-weight: 700;
 		}
+.vector-cell sub {
+			font-size: 0.72em;
+			letter-spacing: 0.01em;
+		}
 
-		.vector-cell {
-			font-size: 0.82rem;
-			white-space: nowrap;
+		.macro-vector-legend {
+			margin: 0.9rem 0 0;
+			padding: 0.8rem 0.9rem;
+			border-radius: 0.65rem;
+			background: rgba(255, 255, 255, 0.055);
+			color: rgba(255, 255, 255, 0.78);
+			font-size: 0.86rem;
+			line-height: 1.55;
 		}
 
 		.feature-space-card h4 {
@@ -288,10 +284,34 @@ downturn_probability = model.predict_proba(current_country_vector)[0, 1]
 			.macro-model-vertical {
 				padding: 1.15rem;
 			}
+.panel-header span:nth-child(3),
+			.panel-row .vector-cell {
+				grid-column: 1 / -1;
+			}
+.macro-vector-legend {
+				font-size: 0.8rem;
+			}
+		}
+	
+		.panel-row,
+		.panel-header {
+			display: grid;
+			grid-template-columns: minmax(4rem, 0.65fr) minmax(4rem, 0.55fr) minmax(18rem, 2.2fr);
+			gap: 1rem;
+			align-items: center;
+		}
 
+		.vector-cell {
+			font-size: 0.82rem;
+			line-height: 1.45;
+			white-space: normal;
+			word-break: normal;
+		}
+
+		@media screen and (max-width: 760px) {
 			.panel-row,
 			.panel-header {
-				grid-template-columns: 1fr 0.9fr;
+				grid-template-columns: 1fr 1fr;
 			}
 
 			.panel-header span:nth-child(3),
@@ -300,15 +320,16 @@ downturn_probability = model.predict_proba(current_country_vector)[0, 1]
 			}
 
 			.vector-cell {
-				white-space: normal;
+				font-size: 0.8rem;
 			}
 		}
+
 	</style>
 
 	<figure class="macro-model-vertical">
 		<h3>From macro indicators to downturn-risk interpretation</h3>
 		<p class="macro-model-intro">
-			The modelling path is easier to read as three vertical transformations: raw country-year rows, engineered movement in feature space, and an interpretable risk output.
+			The modelling path is shown as three full-width transformations: raw country-year rows, engineered movement in feature space, and an interpretable risk output.
 		</p>
 
 		<section class="macro-step" aria-label="Country-year panel step">
@@ -316,29 +337,33 @@ downturn_probability = model.predict_proba(current_country_vector)[0, 1]
 				<h4>1. Country-year panel</h4>
 				<div class="panel-table">
 					<div class="panel-header">
-						<span>country</span>
-						<span>year</span>
-						<span>x ∈ Rⁿ</span>
+						<span>Country</span>
+						<span>Year</span>
+						<span>Macro profile</span>
 					</div>
+
 					<div class="panel-row">
 						<span>ZAF</span>
 						<span>2018</span>
-						<span class="vector-cell">[gdp, π, u, ...]</span>
+						<span class="vector-cell">[GDP growth, inflation, unemployment, ...]</span>
 					</div>
+
 					<div class="panel-row">
 						<span>BRA</span>
 						<span>2019</span>
-						<span class="vector-cell">[gdp, π, u, ...]</span>
+						<span class="vector-cell">[GDP growth, inflation, unemployment, ...]</span>
 					</div>
+
 					<div class="panel-row">
 						<span>IND</span>
 						<span>2020</span>
-						<span class="vector-cell">[gdp, π, u, ...]</span>
+						<span class="vector-cell">[GDP growth, inflation, unemployment, ...]</span>
 					</div>
+
 					<div class="panel-row">
 						<span>KEN</span>
 						<span>2021</span>
-						<span class="vector-cell">[gdp, π, u, ...]</span>
+						<span class="vector-cell">[GDP growth, inflation, unemployment, ...]</span>
 					</div>
 				</div>
 			</div>
@@ -346,8 +371,7 @@ downturn_probability = model.predict_proba(current_country_vector)[0, 1]
 			<div class="macro-description">
 				<h4>Raw indicators become comparable observations</h4>
 				<p>
-					World Bank indicators are aligned into a country-year panel. Each row becomes a macroeconomic profile that can be treated as a vector rather than as isolated columns.
-				</p>
+					World Bank indicators are aligned into a country-year panel. Each row becomes a macroeconomic profile made from interpretable variables such as GDP growth, inflation, unemployment, population growth, and life expectancy.</p>
 			</div>
 		</section>
 

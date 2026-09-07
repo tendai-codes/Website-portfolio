@@ -1,220 +1,113 @@
 ---
 title: "Bank Customer Segmentation"
-description: "Analyzed bank customer data to segment customers using K-Means Clustering, with dimensionality reduction achieved through PCA. This approach resulted in 7 well-defined customer segments based on key financial behaviors, optimizing the bank's ability to…"
+description: "I used K-Means clustering and PCA to turn high-dimensional credit-card behaviour into an interpretable customer-segmentation exercise."
 category: "Machine Learning"
 technologies: ["Python", "K-Means", "PCA", "scikit-learn"]
 featured: false
 visual: "grid"
 github: "https://github.com/tendai-codes/Machine-learning/tree/main/bank-customers-segmentation"
+question: "Can high-dimensional credit-card behaviour be reduced into useful customer groups without losing the structure that makes those groups meaningful?"
+focus: ["Unsupervised learning", "Feature scaling", "PCA visualisation"]
+outcome: "A seven-cluster K-Means solution explored in two-dimensional PCA space."
+keyChallenge: "Initial visualisations of K-Means clusters were ambiguous due to the high dimensionality of features. Reducing dimensions with PCA made it easier to see meaningful separation, but it required balancing between retaining variance and simplifying complexity. I resolved this by examining explained variance ratios and adjusting the number of components accordingly."
 ---
+## The problem
 
+Analyzed bank customer data to segment customers using K-Means Clustering, with dimensionality reduction achieved through PCA. This approach resulted in 7 well-defined customer segments based on key financial behaviors, optimizing the bank's ability to market tailored products and services to their customers.
 
+<div class="case-question">
+  <span class="case-note-label">Question</span>
+  <p>Can high-dimensional credit-card behaviour be reduced into useful customer groups without losing the structure that makes those groups meaningful?</p>
+</div>
 
-<h3>📽️ <strong> Bank Customer Segmentation </strong></h3>
-<p>
-								Analyzed bank customer data to segment customers using K-Means Clustering, with dimensionality reduction achieved through PCA. This approach resulted in 7 well-defined customer segments based on key financial behaviors, optimizing the bank's ability to market tailored products and services to their customers.
-							</p>
-<h4>💻 <strong>Tech Stack:</strong></h4>
-<ul>
-<li><strong>Python</strong> for machine learning model development and comparison</li>
-<li><strong>Scikit-learn</strong> for Clustering (KMeans) and PCA</li>
-<li><strong>Pandas</strong> for data manipulation</li>
-<li><strong>Seaborn</strong> for for data visualisation</li>
-<li><strong>Matplotlib</strong> for data visualisation and model performance analysis</li>
-</ul>
-<h4>🧪 <strong>Data Pipeline:</strong></h4>
-<ul>
-<li><strong>Load &amp; inspect data:</strong> Loaded the dataset using <code>pd.read_csv()</code>, checked for nulls and reviewed data types using <code>.info()</code> and <code>.describe()</code>. </li>
-<li><strong>Exploratory Analysis:</strong> Removed customer ID column. Handled missing values, especially in <code>MINIMUM_PAYMENTS</code> and <code>CREDIT_LIMIT</code>. Used pair plots and distribution plots to understand feature distributions and detect outliers. </li>
-<li><strong>Feature selection &amp; scaling:</strong> Selected numerical columns (like Age, Income, Spending Score) and scaled them using <code>StandardScaler</code> for optimal clustering.</li>
-<li><strong>Clustering wiht KMeans:</strong> Applied the Elbow Method to determine the optimal number of clusters and used <code>KMeans</code> to group customers.</li>
-<li><strong>Visualisation:</strong> Plotted clusters using PCA components. Created scatter plots with cluster labels to visualise customer groupings based on income and spending behaviour.</li>
-</ul>
-<h4>📊 <strong>Code Snippets &amp; Visualisations:</strong></h4>
-<!-- Code Snippet -->
+## Approach
+
+Rather than presenting the project as a notebook dump, this case study focuses on the decisions that shaped the analysis.
+
+1. Load & inspect data: Loaded the dataset using pd.read_csv() , checked for nulls and reviewed data types using .info() and .describe() .
+2. Exploratory Analysis: Removed customer ID column. Handled missing values, especially in MINIMUM_PAYMENTS and CREDIT_LIMIT . Used pair plots and distribution plots to understand feature distributions and detect outliers.
+3. Feature selection & scaling: Selected numerical columns (like Age, Income, Spending Score) and scaled them using StandardScaler for optimal clustering.
+4. Clustering with K-Means: Applied the Elbow Method to determine the optimal number of clusters and used KMeans to group customers.
+5. Visualisation: Plotted clusters using PCA components. Created scatter plots with cluster labels to visualise customer groupings based on income and spending behaviour.
+
+## Key implementation decision
+
+### Scale first, cluster second, visualise last
+
+K-Means is distance-based, so the raw financial features needed to be put on a comparable scale before clustering. PCA was then used as a visualisation layer rather than as a substitute for the clustering step.
 
 ```python
-# Importing the libraries
-import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
-from sklearn.preprocessing import StandardScaler
-from sklearn.cluster import KMeans
-from sklearn.decomposition import PCA
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.metrics import confusion_matrix, accuracy_score
-
-# Load the data
-credit_card_df = pd.read_csv('/content/4.+Marketing_data.csv')
-credit_card_df.info()
-
-# Display descriptive statistics (Table 1)
-credit_card_df.describe()
-
-# Comments from analysis:
-# - Mean balance is $1564
-# - Balance frequency is frequently updated on average ~0.9, Purchases average is $1000, one off purchase average is ~$600
-# - Average purchases frequency is around 0.5, Average ONEOFF_PURCHASES_FREQUENCY, PURCHASES_INSTALLMENTS_FREQUENCY, and CASH_ADVANCE_FREQUENCY are generally low
-# - Average credit limit ~ 4500, Percent of full payment is 15%, Average tenure is 11 years
-
-# Check for missing data (Table 2)
-credit_card_df.isnull().sum()
-
-# Replace the missing elements with mean of the 'MINIMUM_PAYMENT'
-credit_card_df.MINIMUM_PAYMENTS.fillna(credit_card_df.MINIMUM_PAYMENTS.mean(), inplace=True)
-
-# Replace the missing elements with mean of the 'CREDIT_LIMIT'
-credit_card_df.CREDIT_LIMIT.fillna(credit_card_df.CREDIT_LIMIT.mean(), inplace=True)
-
-# Plot to check for missing data (Figure 1)
-sns.heatmap(credit_card_df.isnull(), yticklabels=False, cbar=False, cmap='Reds')
-
-# Check for duplicate entries
-credit_card_df.duplicated().sum()
-
-# Remove Customer ID
-credit_card_df.drop('CUST_ID', axis=1, inplace=True)
-
-# Define function to create subplots of distplots with KDE for all columns
-def dist_plots(dataframe):
-    fig, ax = plt.subplots(nrows=7, ncols=2, figsize=(15, 30))
-    index = 0
-    for row in range(7):
-        for col in range(2):
-            if index &lt; dataframe.shape[1]:  # Added safety check
-                sns.distplot(dataframe.iloc[:, index], ax=ax[row][col], 
-                           kde_kws={'color': 'blue', 'lw': 3, 'label': 'KDE'}, 
-                           hist_kws={'histtype': 'step', 'lw': 3, 'color': 'green'})
-                index += 1
-    plt.tight_layout()
-    plt.show()
-
-# Visualise distplots (Figure 2)
-dist_plots(credit_card_df)
-
-# Analysis comments:
-# - 'Balance_Frequency' for most customers is updated frequently ~1, For 'PURCHASES_FREQUENCY', there are two distinct group of customers
-# - For 'ONEOFF_PURCHASES_FREQUENCY' and 'PURCHASES_INSTALLMENT_FREQUENCY' most users don't do one off purchases or installment purchases frequently, Very small number of customers pay their balance in full 'PRC_FULL_PAYMENT'~0
-# - Mean of balance is $1500, Credit limit average is around $4500, Most customers are ~11 years tenure
-
-# Heatmap to visualise correlations (Figure 3)
-correlations = credit_card_df.corr()
-plt.figure(figsize=(20, 20))
-sns.heatmap(correlations, annot=True)
-
-# Analysis comments:
-# - 'PURCHASES' have high correlation between one-off purchases, 'installment purchases, purchase transactions, credit limit and payments.
-# - Strong Positive Correlation between 'PURCHASES_FREQUENCY' and 'PURCHASES_INSTALLMENT_FREQUENCY'
-
-# Note: The following section appears to be for classification, but X_train, X_test, y_train, y_test are not defined
-# You may need to add train_test_split and define your features and target variable
-
-# Training Model on the Training set
-# classifier = DecisionTreeClassifier(criterion='entropy', random_state=0)
-# classifier.fit(X_train, y_train)
-
-# Evaluating using confusion matrix
-# y_pred = classifier.predict(X_test)
-# cm = confusion_matrix(y_test, y_pred)
-# print(cm)
-# accuracy_score(y_test, y_pred)
-
-# Display first few rows
-credit_card_df.head()
-
-# Apply Feature scaling
 scaler = StandardScaler()
 credit_card_df_scaled = scaler.fit_transform(credit_card_df)
 
-# Display scaled data
-print(credit_card_df_scaled)
-
-# Use Elbow Method to find optimal number of clusters (Figure 4)
-wcss = []
-for i in range(1, 20):
-    kmeans = KMeans(n_clusters=i, init='k-means++', random_state=42)
-    kmeans.fit(credit_card_df_scaled)
-    wcss.append(kmeans.inertia_)
-
-plt.plot(range(1, 20), wcss, 'bx-')
-plt.title('The Elbow Method')
-plt.xlabel('Number of clusters')
-plt.ylabel('Score (WCSS)')
-plt.show()
-
-# Analysis comment:
-# We can observe that, 4th cluster seems to be forming the elbow of the curve. However, the values does not reduce linearly until 8th cluster. Let's choose the number of clusters to be 7.
-
-# Train data using K-Means method with 7 clusters
-kmeans = KMeans(n_clusters=7, init='k-means++', random_state=42)
+kmeans = KMeans(n_clusters=7, init="k-means++", random_state=42)
 kmeans.fit(credit_card_df_scaled)
 labels = kmeans.labels_
 
-# Use Principal Component Analysis to reduce dimensionality
 pca = PCA(n_components=2)
 principalComp = pca.fit_transform(credit_card_df_scaled)
-print(principalComp)
-
-# Create a dataframe with the two components
-pca_df = pd.DataFrame(data=principalComp, columns=['PCA1', 'PCA2'])
-print(pca_df)
-
-# Concatenate the clusters labels to the dataframe (Table 3)
-pca_df = pd.concat([pca_df, pd.DataFrame({'cluster': labels})], axis=1)
-pca_df.head()
-
-# Visualise Clusters (Figure 5)
-plt.figure(figsize=(10, 10))
-ax = sns.scatterplot(x='PCA1', y='PCA2', hue='cluster', data=pca_df, palette='tab10')
-plt.title('Clusters identified by PCA')
-plt.show()
 ```
 
-<!-- Visualisations -->
+<div class="case-comment">
+  <span class="case-note-label">Why this matters</span>
+  <p>The original dataset contains many behavioural variables on different numerical scales. The useful question was not only whether clusters could be generated, but whether their separation could be inspected and interpreted after dimensionality reduction.</p>
+</div>
+
+## Results & evidence
+
+The figures below are the project evidence I would show first. The full implementation remains available through the GitHub link at the top of the page.
+
 <div class="image-gallery">
 <figure>
-<img alt="Data frame showing bank customer characteristics" class="gallery-trigger" data-caption="Customer Data Overview" data-gallery="bank-customer" decoding="async" height="410" loading="lazy" width="2558" src="/images/thumbs/Bank%20Customer_df-900.webp" srcset="/images/thumbs/Bank%20Customer_df-480.webp 480w, /images/thumbs/Bank%20Customer_df-900.webp 900w" sizes="(max-width: 640px) calc(100vw - 60px), (min-width: 1181px) 30vw, 46vw" data-full="/images/Bank%20Customer_df.png">
+<img alt="Data frame showing bank customer characteristics" class="gallery-trigger" data-caption="Customer Data Overview" data-full="/images/Bank%20Customer_df.png" data-gallery="bank-customer" decoding="async" height="410" loading="lazy" sizes="(max-width: 640px) calc(100vw - 60px), (min-width: 1181px) 30vw, 46vw" src="/images/thumbs/Bank%20Customer_df-900.webp" srcset="/images/thumbs/Bank%20Customer_df-480.webp 480w, /images/thumbs/Bank%20Customer_df-900.webp 900w" width="2558"/>
 <figcaption><strong>Table 1</strong> Customer Data Frame</figcaption>
 </figure>
 <figure>
-<img alt="Table showing missing data patterns in customer records" class="gallery-trigger" data-caption="Missing Data Analysis" data-gallery="bank-customer" decoding="async" height="922" loading="lazy" width="620" src="/images/thumbs/Bank%20Customer_miss-900.webp" srcset="/images/thumbs/Bank%20Customer_miss-480.webp 480w, /images/thumbs/Bank%20Customer_miss-900.webp 900w" sizes="(max-width: 640px) calc(100vw - 60px), (min-width: 1181px) 30vw, 46vw" data-full="/images/Bank%20Customer_miss.png">
+<img alt="Table showing missing data patterns in customer records" class="gallery-trigger" data-caption="Missing Data Analysis" data-full="/images/Bank%20Customer_miss.png" data-gallery="bank-customer" decoding="async" height="922" loading="lazy" sizes="(max-width: 640px) calc(100vw - 60px), (min-width: 1181px) 30vw, 46vw" src="/images/thumbs/Bank%20Customer_miss-900.webp" srcset="/images/thumbs/Bank%20Customer_miss-480.webp 480w, /images/thumbs/Bank%20Customer_miss-900.webp 900w" width="620"/>
 <figcaption><strong>Table 2</strong> Missing Data Analysis</figcaption>
 </figure>
 <figure>
-<img alt="Visual confirmation of complete data after cleaning" class="gallery-trigger" data-caption="Data Completeness Verification" data-gallery="bank-customer" decoding="async" height="1190" loading="lazy" width="1028" src="/images/thumbs/Bank%20Customer_check%20missing-900.webp" srcset="/images/thumbs/Bank%20Customer_check%20missing-480.webp 480w, /images/thumbs/Bank%20Customer_check%20missing-900.webp 900w" sizes="(max-width: 640px) calc(100vw - 60px), (min-width: 1181px) 30vw, 46vw" data-full="/images/Bank%20Customer_check%20missing.png">
+<img alt="Visual confirmation of complete data after cleaning" class="gallery-trigger" data-caption="Data Completeness Verification" data-full="/images/Bank%20Customer_check%20missing.png" data-gallery="bank-customer" decoding="async" height="1190" loading="lazy" sizes="(max-width: 640px) calc(100vw - 60px), (min-width: 1181px) 30vw, 46vw" src="/images/thumbs/Bank%20Customer_check%20missing-900.webp" srcset="/images/thumbs/Bank%20Customer_check%20missing-480.webp 480w, /images/thumbs/Bank%20Customer_check%20missing-900.webp 900w" width="1028"/>
 <figcaption><strong>Figure 1</strong> Data Completeness Verification</figcaption>
 </figure>
 <figure>
-<img alt="Distribution plots of customer attributes" class="gallery-trigger" data-caption="Feature Distribution Analysis" data-gallery="bank-customer" decoding="async" height="2990" loading="lazy" width="1488" src="/images/thumbs/Bank%20Customer_distplots-900.webp" srcset="/images/thumbs/Bank%20Customer_distplots-480.webp 480w, /images/thumbs/Bank%20Customer_distplots-900.webp 900w" sizes="(max-width: 640px) calc(100vw - 60px), (min-width: 1181px) 30vw, 46vw" data-full="/images/Bank%20Customer_distplots.png">
+<img alt="Distribution plots of customer attributes" class="gallery-trigger" data-caption="Feature Distribution Analysis" data-full="/images/Bank%20Customer_distplots.png" data-gallery="bank-customer" decoding="async" height="2990" loading="lazy" sizes="(max-width: 640px) calc(100vw - 60px), (min-width: 1181px) 30vw, 46vw" src="/images/thumbs/Bank%20Customer_distplots-900.webp" srcset="/images/thumbs/Bank%20Customer_distplots-480.webp 480w, /images/thumbs/Bank%20Customer_distplots-900.webp 900w" width="1488"/>
 <figcaption><strong>Figure 2</strong> Feature Distribution Analysis</figcaption>
 </figure>
 <figure>
-<img alt="Heatmap showing correlations between features" class="gallery-trigger" data-caption="Feature Correlation Heatmap" data-gallery="bank-customer" decoding="async" height="1860" loading="lazy" width="1752" src="/images/thumbs/Bank%20Customer_heat-900.webp" srcset="/images/thumbs/Bank%20Customer_heat-480.webp 480w, /images/thumbs/Bank%20Customer_heat-900.webp 900w" sizes="(max-width: 640px) calc(100vw - 60px), (min-width: 1181px) 30vw, 46vw" data-full="/images/Bank%20Customer_heat.png">
+<img alt="Heatmap showing correlations between features" class="gallery-trigger" data-caption="Feature Correlation Heatmap" data-full="/images/Bank%20Customer_heat.png" data-gallery="bank-customer" decoding="async" height="1860" loading="lazy" sizes="(max-width: 640px) calc(100vw - 60px), (min-width: 1181px) 30vw, 46vw" src="/images/thumbs/Bank%20Customer_heat-900.webp" srcset="/images/thumbs/Bank%20Customer_heat-480.webp 480w, /images/thumbs/Bank%20Customer_heat-900.webp 900w" width="1752"/>
 <figcaption><strong>Figure 3</strong> Feature Correlation Heatmap</figcaption>
 </figure>
 <figure>
-<img alt="Elbow method plot for optimal cluster determination" class="gallery-trigger" data-caption="Optimal Cluster Determination" data-gallery="bank-customer" decoding="async" height="888" loading="lazy" width="1184" src="/images/thumbs/Bank%20Customer_elbow-900.webp" srcset="/images/thumbs/Bank%20Customer_elbow-480.webp 480w, /images/thumbs/Bank%20Customer_elbow-900.webp 900w" sizes="(max-width: 640px) calc(100vw - 60px), (min-width: 1181px) 30vw, 46vw" data-full="/images/Bank%20Customer_elbow.png">
+<img alt="Elbow method plot for optimal cluster determination" class="gallery-trigger" data-caption="Optimal Cluster Determination" data-full="/images/Bank%20Customer_elbow.png" data-gallery="bank-customer" decoding="async" height="888" loading="lazy" sizes="(max-width: 640px) calc(100vw - 60px), (min-width: 1181px) 30vw, 46vw" src="/images/thumbs/Bank%20Customer_elbow-900.webp" srcset="/images/thumbs/Bank%20Customer_elbow-480.webp 480w, /images/thumbs/Bank%20Customer_elbow-900.webp 900w" width="1184"/>
 <figcaption><strong>Figure 4</strong> Optimal Cluster Determination</figcaption>
 </figure>
 <figure>
-<img alt="Principal Component Analysis results table" class="gallery-trigger" data-caption="PCA Component Analysis" data-gallery="bank-customer" decoding="async" height="668" loading="lazy" width="1158" src="/images/thumbs/Bank%20Customer_table%203-900.webp" srcset="/images/thumbs/Bank%20Customer_table%203-480.webp 480w, /images/thumbs/Bank%20Customer_table%203-900.webp 900w" sizes="(max-width: 640px) calc(100vw - 60px), (min-width: 1181px) 30vw, 46vw" data-full="/images/Bank%20Customer_table%203.png">
+<img alt="Principal Component Analysis results table" class="gallery-trigger" data-caption="PCA Component Analysis" data-full="/images/Bank%20Customer_table%203.png" data-gallery="bank-customer" decoding="async" height="668" loading="lazy" sizes="(max-width: 640px) calc(100vw - 60px), (min-width: 1181px) 30vw, 46vw" src="/images/thumbs/Bank%20Customer_table%203-900.webp" srcset="/images/thumbs/Bank%20Customer_table%203-480.webp 480w, /images/thumbs/Bank%20Customer_table%203-900.webp 900w" width="1158"/>
 <figcaption><strong>Table 3</strong> PCA Component Analysis</figcaption>
 </figure>
 <figure>
-<img alt="Visualization of bank customer clusters" class="gallery-trigger" data-caption="Customer Cluster Visualization" data-gallery="bank-customer" decoding="async" height="855" loading="lazy" width="841" src="/images/thumbs/bank%20customers%20clusters-900.webp" srcset="/images/thumbs/bank%20customers%20clusters-480.webp 480w, /images/thumbs/bank%20customers%20clusters-900.webp 900w" sizes="(max-width: 640px) calc(100vw - 60px), (min-width: 1181px) 30vw, 46vw" data-full="/images/bank%20customers%20clusters.png">
+<img alt="Visualization of bank customer clusters" class="gallery-trigger" data-caption="Customer Cluster Visualization" data-full="/images/bank%20customers%20clusters.png" data-gallery="bank-customer" decoding="async" height="855" loading="lazy" sizes="(max-width: 640px) calc(100vw - 60px), (min-width: 1181px) 30vw, 46vw" src="/images/thumbs/bank%20customers%20clusters-900.webp" srcset="/images/thumbs/bank%20customers%20clusters-480.webp 480w, /images/thumbs/bank%20customers%20clusters-900.webp 900w" width="841"/>
 <figcaption><strong>Figure 5</strong> Customer Cluster Visualization</figcaption>
 </figure>
 </div>
-<h4>🌟 <strong>Key Insights:</strong></h4>
-<ul>
-<li>High income earners tend to be low spenders and Low income earners tend to be high spenders</li>
-<li>Customer spending behaviour is strongly differentiated by frequency of purchases and reliance on cash advances. Some customer groups showed heavy instalment purchases but minimal one-off spending, revealing clear segmentation potential for tailored credit card offers.</li>
-</ul>
-<h4>🧗🏾 <strong>Challenge Faced:</strong></h4>
-<p>
-								Initial visualisations of K-Means clusters were ambiguous due to the high dimensionality of features. Reducing dimensions with PCA made it easier to see meaningful separation, but it required balancing between retaining variance and simplifying complexity. I resolved this by examining explained variance ratios and adjusting the number of components accordingly.
-							</p>
 
+## What challenged me
 
+Initial visualisations of K-Means clusters were ambiguous due to the high dimensionality of features. Reducing dimensions with PCA made it easier to see meaningful separation, but it required balancing between retaining variance and simplifying complexity. I resolved this by examining explained variance ratios and adjusting the number of components accordingly.
 
+## What I learned
+
+- Distance-based clustering is sensitive to feature scale, so standardisation belongs in the core method rather than as a cosmetic preprocessing step.
+- PCA made the cluster structure easier to inspect, but visual separation should not be confused with proof that the chosen number of clusters is optimal.
+- The useful output of segmentation is the behavioural profile of each group, not just the cluster label itself.
+
+## What I would improve next
+
+- Validate cluster stability across different values of k and random seeds.
+- Profile each cluster with summary statistics before attaching marketing interpretations.
+- Compare PCA with another projection method while keeping K-Means evaluation separate from the visualisation.
+
+<div class="case-end-note">
+  <strong>Full implementation:</strong> use the GitHub link in the project header for the complete notebook/code rather than expanding the case study into a full source listing.
+</div>

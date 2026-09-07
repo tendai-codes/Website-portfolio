@@ -1,168 +1,114 @@
 ---
 title: "Customer Churn Prediction with ANN (Classification)"
-description: "This project developed a binary classification model to predict bank customer churn using an Artificial Neural Network (ANN). I built a deep learning solution to identify customers likely to leave the bank based on their demographic and account…"
+description: "A bank-customer churn classifier built with an ANN after encoding mixed categorical and numerical features into one training pipeline."
 category: "Deep Learning"
 technologies: ["Python", "TensorFlow", "scikit-learn", "ANN"]
 featured: false
 visual: "grid"
 github: "https://github.com/tendai-codes/DeepLearning/tree/main/artificial_neural_network-bank%20customer%20churn"
+question: "Can a small feed-forward neural network learn churn patterns from a mixture of demographic and account variables?"
+focus: ["Neural networks", "Categorical encoding", "Binary classification"]
+outcome: "An ANN churn-classification pipeline with encoded features, scaling and confusion-matrix evaluation."
+keyChallenge: "The main challenge was handling mixed categorical and numerical data types efficiently. Initially, I struggled with applying different encoding methods to different columns simultaneously. After experimenting with various approaches, I discovered ColumnTransformer, which allowed me to apply One-Hot Encoding to geography while preserving other numerical features, streamlining the preprocessing pipeline significantly."
 ---
+## The problem
 
+This project developed a binary classification model to predict bank customer churn using an Artificial Neural Network (ANN). I built a deep learning solution to identify customers likely to leave the bank based on their demographic and account information, enabling proactive retention strategies.
 
+<div class="case-question">
+  <span class="case-note-label">Question</span>
+  <p>Can a small feed-forward neural network learn churn patterns from a mixture of demographic and account variables?</p>
+</div>
 
-<p>
-								This project developed a binary classification model to predict bank customer churn using an Artificial Neural Network (ANN). I built a deep learning solution to identify customers likely to leave the bank based on their demographic and account information, enabling proactive retention strategies.
-							</p>
-<h4>💻 <strong>Tech Stack:</strong></h4>
-<ul>
-<li><strong>Python</strong> for machine learning model development and comparison</li>
-<li><strong>Scikit-learn</strong> for preprocessing, encoding, scaling, and evaluation metrics</li>
-<li><strong>Pandas</strong> for dataset loading and initial data exploration</li>
-<li><strong>NumPy</strong> for numerical operations and grid generation</li>
-<li><strong>TensorFlow/Keras</strong> for building and training the neural network</li>
-</ul>
-<h4>🧪 <strong>Data Pipeline:</strong></h4>
-<ul>
-<li><strong>Load &amp; inspect data:</strong> Loaded customer banking dataset with demographic and account features, selected relevant features <code>(columns [:, 3:-1])</code> as input variables and extracted churn status as target binary variable<code>loc[]</code>. </li>
-<li><strong>Data preprocessing Analysis:</strong> Applied <code>Label Encoding</code> to convert Gender column to numerical format, Implemented <code>One-Hot Encoding</code> for Geography column to handle multiple categories and used <code>ColumnTransformer</code> to apply different encodings to specific columns</li>
-<li><strong>Model Architecture:</strong> Built <code>Sequential</code> ANN with three layers: two hidden layers (6 units each, <code>ReLU activation</code>) and output layer (1 unit, <code>sigmoid activation</code>), compiled with <code>Adam optimizer</code> and <code>binary crossentropy</code> loss for binary classification and trained for 100 epochs with batch size of 32</li>
-<li><strong>Model Evaluation:</strong> Generated predictions on test set with 0.5 probability threshold, created confusion matrix to analyze true/false positives and negatives and calculated accuracy score for overall model performance assessment</li>
-</ul>
-<h4>📊 <strong>Code Snippets &amp; Visualisations:</strong></h4>
-<!-- Code Snippet -->
+## Approach
+
+Rather than presenting the project as a notebook dump, this case study focuses on the decisions that shaped the analysis.
+
+1. Load & inspect data: Loaded customer banking dataset with demographic and account features, selected relevant features (columns [:, 3:-1]) as input variables and extracted churn status as target binary variable loc[] .
+2. Data preprocessing Analysis: Applied Label Encoding to convert Gender column to numerical format, Implemented One-Hot Encoding for Geography column to handle multiple categories and used ColumnTransformer to apply different encodings to specific columns
+3. Model Architecture: Built Sequential ANN with three layers: two hidden layers (6 units each, ReLU activation ) and output layer (1 unit, sigmoid activation ), compiled with Adam optimizer and binary crossentropy loss for binary classification and trained for 100 epochs with batch size of 32
+4. Model Evaluation: Generated predictions on test set with 0.5 probability threshold, created confusion matrix to analyze true/false positives and negatives and calculated accuracy score for overall model performance assessment
+
+## Key implementation decision
+
+### Make heterogeneous tabular data model-ready before tuning the network
+
+The hardest part was not the neural-network syntax; it was constructing a consistent numerical feature matrix. Label encoding, one-hot encoding and standardisation were separated so each variable type was handled deliberately.
 
 ```python
-# Importing the libraries
-import numpy as np
-import pandas as pd
-import tensorflow as tf
-from sklearn.preprocessing import LabelEncoder, StandardScaler, OneHotEncoder
-from sklearn.compose import ColumnTransformer
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import confusion_matrix, accuracy_score
-
-# Import dataset
-dataset = pd.read_csv('Churn_Modelling.csv')
-X = dataset.iloc[:, 3:-1].values
-y = dataset.iloc[:, -1].values
-
-print("Features (X):") # Table 1
-print(X)
-print("\nTarget variable (y):") # Table 2
-print(y)
-
-# Encoding categorical data (encoding gender column) (Table 3)
-le = LabelEncoder()
-X[:, 2] = le.fit_transform(X[:, 2])
-
-print("\nAfter Label Encoding Gender:") # Table 3
-print(X)
-
-# Encoding categorical data (One Hot encoding geography column) (Table 4)
-ct = ColumnTransformer(transformers=[('encoder', OneHotEncoder(), [1])], remainder='passthrough')
+ct = ColumnTransformer(
+    transformers=[("encoder", OneHotEncoder(), [1])],
+    remainder="passthrough"
+)
 X = np.array(ct.fit_transform(X))
 
-print("\nAfter One-Hot Encoding Geography:") # Table 4
-print(X)
-
-# Splitting the dataset into Training and test set
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
-
-# Feature Scaling
 sc = StandardScaler()
 X_train = sc.fit_transform(X_train)
 X_test = sc.transform(X_test)
 
-# Building ANN
-ann = tf.keras.models.Sequential()
-ann.add(tf.keras.layers.Dense(units=6, activation='relu'))
-ann.add(tf.keras.layers.Dense(units=6, activation='relu'))
-ann.add(tf.keras.layers.Dense(units=1, activation='sigmoid'))
-
-# Compiling the ANN
-ann.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
-
-# Training ANN (Table 5)
-history = ann.fit(X_train, y_train, batch_size=32, epochs=100)
-
-# Display training results
-print("\nTraining completed. Final accuracy:", history.history['accuracy'][-1])
-
-# Predicting results of a single observation
-# Note: The input should match the preprocessing (one-hot encoded geography + other features)
-sample_prediction = ann.predict(sc.transform([[1, 0, 0, 600, 1, 40, 3, 60000, 2, 1, 1, 50000]]))
-print("\nSingle prediction probability:", sample_prediction[0][0])
-print("Single prediction (&gt;0.5):", sample_prediction &gt; 0.5)
-
-# Predicting Test set results (Table 6)
-y_pred = ann.predict(X_test)
-y_pred_binary = (y_pred &gt; 0.5)
-
-print("\nPredictions vs Actual (first 20 samples):") # Table 6
-comparison = np.concatenate((y_pred_binary.reshape(len(y_pred_binary), 1), 
-                           y_test.reshape(len(y_test), 1)), 1)
-print("Predicted | Actual")
-print(comparison[:20])
-
-# Making the Confusion Matrix (Table 7)
-cm = confusion_matrix(y_test, y_pred_binary)
-accuracy = accuracy_score(y_test, y_pred_binary)
-
-print("\nConfusion Matrix:") # Table 7
-print(cm)
-print(f"\nAccuracy Score: {accuracy:.4f}")
-
-# Additional metrics for better evaluation
-from sklearn.metrics import classification_report
-print("\nClassification Report:")
-print(classification_report(y_test, y_pred_binary))
-
-# Model summary
-print("\nModel Architecture:")
-ann.summary()
+ann = tf.keras.models.Sequential([
+    tf.keras.layers.Dense(6, activation="relu"),
+    tf.keras.layers.Dense(6, activation="relu"),
+    tf.keras.layers.Dense(1, activation="sigmoid"),
+])
 ```
 
-<!-- Visualisations -->
+<div class="case-comment">
+  <span class="case-note-label">Why this matters</span>
+  <p>Churn data mixes categories such as geography with financial measurements on very different scales. The project became an exercise in building a clean preprocessing path before asking the network to learn anything useful.</p>
+</div>
+
+## Results & evidence
+
+The figures below are the project evidence I would show first. The full implementation remains available through the GitHub link at the top of the page.
+
 <div class="image-gallery">
 <figure>
-<img alt="Table 1: Variable X" class="gallery-trigger" data-caption="Table 1: Variable X" data-gallery="ANNClass" decoding="async" height="678" loading="lazy" width="1242" src="/images/thumbs/ANNClass_table%201-900.webp" srcset="/images/thumbs/ANNClass_table%201-480.webp 480w, /images/thumbs/ANNClass_table%201-900.webp 900w" sizes="(max-width: 640px) calc(100vw - 60px), (min-width: 1181px) 30vw, 46vw" data-full="/images/ANNClass_table%201.png">
+<img alt="Table 1: Variable X" class="gallery-trigger" data-caption="Table 1: Variable X" data-full="/images/ANNClass_table%201.png" data-gallery="ANNClass" decoding="async" height="678" loading="lazy" sizes="(max-width: 640px) calc(100vw - 60px), (min-width: 1181px) 30vw, 46vw" src="/images/thumbs/ANNClass_table%201-900.webp" srcset="/images/thumbs/ANNClass_table%201-480.webp 480w, /images/thumbs/ANNClass_table%201-900.webp 900w" width="1242"/>
 <figcaption><strong>Table 1</strong> Variable X</figcaption>
 </figure>
 <figure>
-<img alt="Table 2: Variable y" class="gallery-trigger" data-caption="Table 2: Variable y" data-gallery="ANNClass" decoding="async" height="390" loading="lazy" width="1240" src="/images/thumbs/ANNClass_table%202-900.webp" srcset="/images/thumbs/ANNClass_table%202-480.webp 480w, /images/thumbs/ANNClass_table%202-900.webp 900w" sizes="(max-width: 640px) calc(100vw - 60px), (min-width: 1181px) 30vw, 46vw" data-full="/images/ANNClass_table%202.png">
+<img alt="Table 2: Variable y" class="gallery-trigger" data-caption="Table 2: Variable y" data-full="/images/ANNClass_table%202.png" data-gallery="ANNClass" decoding="async" height="390" loading="lazy" sizes="(max-width: 640px) calc(100vw - 60px), (min-width: 1181px) 30vw, 46vw" src="/images/thumbs/ANNClass_table%202-900.webp" srcset="/images/thumbs/ANNClass_table%202-480.webp 480w, /images/thumbs/ANNClass_table%202-900.webp 900w" width="1240"/>
 <figcaption><strong>Table 2</strong> Variable y</figcaption>
 </figure>
 <figure>
-<img alt="Table 3: Encoding Gender" class="gallery-trigger" data-caption="Table 3: Encoding Gender" data-gallery="ANNClass" decoding="async" height="678" loading="lazy" width="1242" src="/images/thumbs/ANNClass_table%203-900.webp" srcset="/images/thumbs/ANNClass_table%203-480.webp 480w, /images/thumbs/ANNClass_table%203-900.webp 900w" sizes="(max-width: 640px) calc(100vw - 60px), (min-width: 1181px) 30vw, 46vw" data-full="/images/ANNClass_table%203.png">
+<img alt="Table 3: Encoding Gender" class="gallery-trigger" data-caption="Table 3: Encoding Gender" data-full="/images/ANNClass_table%203.png" data-gallery="ANNClass" decoding="async" height="678" loading="lazy" sizes="(max-width: 640px) calc(100vw - 60px), (min-width: 1181px) 30vw, 46vw" src="/images/thumbs/ANNClass_table%203-900.webp" srcset="/images/thumbs/ANNClass_table%203-480.webp 480w, /images/thumbs/ANNClass_table%203-900.webp 900w" width="1242"/>
 <figcaption><strong>Table 3</strong> Encoding Gender</figcaption>
 </figure>
 <figure>
-<img alt="Table 4: Encoding Country" class="gallery-trigger" data-caption="Table 4: Encoding Country" data-gallery="ANNClass" decoding="async" height="678" loading="lazy" width="1242" src="/images/thumbs/ANNClass_table%204-900.webp" srcset="/images/thumbs/ANNClass_table%204-480.webp 480w, /images/thumbs/ANNClass_table%204-900.webp 900w" sizes="(max-width: 640px) calc(100vw - 60px), (min-width: 1181px) 30vw, 46vw" data-full="/images/ANNClass_table%204.png">
+<img alt="Table 4: Encoding Country" class="gallery-trigger" data-caption="Table 4: Encoding Country" data-full="/images/ANNClass_table%204.png" data-gallery="ANNClass" decoding="async" height="678" loading="lazy" sizes="(max-width: 640px) calc(100vw - 60px), (min-width: 1181px) 30vw, 46vw" src="/images/thumbs/ANNClass_table%204-900.webp" srcset="/images/thumbs/ANNClass_table%204-480.webp 480w, /images/thumbs/ANNClass_table%204-900.webp 900w" width="1242"/>
 <figcaption><strong>Table 4</strong> Encoding Country</figcaption>
 </figure>
 <figure>
-<img alt="Table 5: Training the ANN" class="gallery-trigger" data-caption="Table 5: Training the ANN" data-gallery="ANNClass" decoding="async" height="1210" loading="lazy" width="1360" src="/images/thumbs/ANNClass_table%205-900.webp" srcset="/images/thumbs/ANNClass_table%205-480.webp 480w, /images/thumbs/ANNClass_table%205-900.webp 900w" sizes="(max-width: 640px) calc(100vw - 60px), (min-width: 1181px) 30vw, 46vw" data-full="/images/ANNClass_table%205.png">
+<img alt="Table 5: Training the ANN" class="gallery-trigger" data-caption="Table 5: Training the ANN" data-full="/images/ANNClass_table%205.png" data-gallery="ANNClass" decoding="async" height="1210" loading="lazy" sizes="(max-width: 640px) calc(100vw - 60px), (min-width: 1181px) 30vw, 46vw" src="/images/thumbs/ANNClass_table%205-900.webp" srcset="/images/thumbs/ANNClass_table%205-480.webp 480w, /images/thumbs/ANNClass_table%205-900.webp 900w" width="1360"/>
 <figcaption><strong>Table 5</strong> Training the ANN</figcaption>
 </figure>
 <figure>
-<img alt="Table 6: Predicting Test Set Results" class="gallery-trigger" data-caption="Table 6: Predicting Test Set Results" data-gallery="ANNClass" decoding="async" height="694" loading="lazy" width="2026" src="/images/thumbs/ANNClass_table%206-900.webp" srcset="/images/thumbs/ANNClass_table%206-480.webp 480w, /images/thumbs/ANNClass_table%206-900.webp 900w" sizes="(max-width: 640px) calc(100vw - 60px), (min-width: 1181px) 30vw, 46vw" data-full="/images/ANNClass_table%206.png">
+<img alt="Table 6: Predicting Test Set Results" class="gallery-trigger" data-caption="Table 6: Predicting Test Set Results" data-full="/images/ANNClass_table%206.png" data-gallery="ANNClass" decoding="async" height="694" loading="lazy" sizes="(max-width: 640px) calc(100vw - 60px), (min-width: 1181px) 30vw, 46vw" src="/images/thumbs/ANNClass_table%206-900.webp" srcset="/images/thumbs/ANNClass_table%206-480.webp 480w, /images/thumbs/ANNClass_table%206-900.webp 900w" width="2026"/>
 <figcaption><strong>Table 6</strong> Predicting Test Set Results</figcaption>
 </figure>
 <figure>
-<img alt="Table 7: Confusion Matrix" class="gallery-trigger" data-caption="Table 7: Confusion Matrix" data-gallery="ANNClass" decoding="async" height="604" loading="lazy" width="1496" src="/images/thumbs/ANNClass_table%207-900.webp" srcset="/images/thumbs/ANNClass_table%207-480.webp 480w, /images/thumbs/ANNClass_table%207-900.webp 900w" sizes="(max-width: 640px) calc(100vw - 60px), (min-width: 1181px) 30vw, 46vw" data-full="/images/ANNClass_table%207.png">
+<img alt="Table 7: Confusion Matrix" class="gallery-trigger" data-caption="Table 7: Confusion Matrix" data-full="/images/ANNClass_table%207.png" data-gallery="ANNClass" decoding="async" height="604" loading="lazy" sizes="(max-width: 640px) calc(100vw - 60px), (min-width: 1181px) 30vw, 46vw" src="/images/thumbs/ANNClass_table%207-900.webp" srcset="/images/thumbs/ANNClass_table%207-480.webp 480w, /images/thumbs/ANNClass_table%207-900.webp 900w" width="1496"/>
 <figcaption><strong>Table 7</strong> Confusion Matrix</figcaption>
 </figure>
 </div>
-<h4>🌟 <strong>Key Insights:</strong></h4>
-<ul>
-<li>Neural networks effectively capture non-linear relationships between customer demographics and churn behavior, outperforming traditional linear models for this complex classification task</li>
-<li>Feature engineering with proper encoding techniques significantly improved model performance, particularly the one-hot encoding of geography which revealed location-based churn patterns</li>
-<li>Confusion matrix analysis revealed the trade-offs between sensitivity (detecting cancer) and specificity (avoiding false alarms)</li>
-<li>Standardization was crucial for ANN convergence, as the varied scales of financial features (account balance, salary) required normalization to prevent training instability</li>
-</ul>
-<h4>🧗🏾 <strong>Challenge Faced:</strong></h4>
-<p>
-								The main challenge was handling mixed categorical and numerical data types efficiently. Initially, I struggled with applying different encoding methods to different columns simultaneously. After experimenting with various approaches, I discovered ColumnTransformer, which allowed me to apply One-Hot Encoding to geography while preserving other numerical features, streamlining the preprocessing pipeline significantly.
-							</p>
 
+## What challenged me
 
+The main challenge was handling mixed categorical and numerical data types efficiently. Initially, I struggled with applying different encoding methods to different columns simultaneously. After experimenting with various approaches, I discovered ColumnTransformer, which allowed me to apply One-Hot Encoding to geography while preserving other numerical features, streamlining the preprocessing pipeline significantly.
+
+## What I learned
+
+- The preprocessing pipeline was as important as the ANN architecture because the raw data mixed categories and continuous financial variables.
+- Standardisation helped make the optimisation problem better behaved for the neural network.
+- Churn evaluation should focus on how well likely churners are identified, not only on aggregate accuracy.
+
+## What I would improve next
+
+- Compare the ANN with simpler tabular baselines such as logistic regression and tree ensembles.
+- Use precision, recall and class-specific error analysis to assess how well likely churners are detected.
+- Move preprocessing into a reusable pipeline so training and single-customer inference cannot drift apart.
+
+<div class="case-end-note">
+  <strong>Full implementation:</strong> use the GitHub link in the project header for the complete notebook/code rather than expanding the case study into a full source listing.
+</div>

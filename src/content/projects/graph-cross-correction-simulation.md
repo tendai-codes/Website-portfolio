@@ -1,99 +1,66 @@
 ---
 title: "Graph Cross-Correction Simulation"
-description: "This project is a computational extension of my master's thesis research. It uses simulation and graph-based modelling to test whether a biological hypothesis around molecular cross-correction is plausible under simplified conditions. The central question…"
+description: "A graph-based proof-of-concept simulation that translates a biological cross-correction hypothesis into diffusion, decay, exposure and rescue-threshold dynamics."
 category: "Research & Modelling"
 technologies: ["Python", "NumPy", "Matplotlib", "Graph modelling"]
 featured: true
 visual: "network"
 github: "https://github.com/tendai-codes/graph-cross-correction-sim"
 publication: "https://pmc.ncbi.nlm.nih.gov/articles/PMC11018779/"
+question: "If only a subset of nuclei are corrected, can locally transported corrective signal plausibly accumulate enough to rescue neighbouring nuclei under simplified assumptions?"
+focus: ["Biological modelling", "Graph diffusion", "Simulation"]
+outcome: "A staged simulator that turns the biological hypothesis into a graph-diffusion experiment and sensitivity-testing framework."
+keyChallenge: ""
 ---
+## The problem
 
+This project is a computational extension of my master's thesis research. It uses simulation and graph-based modelling to test whether a biological hypothesis around molecular cross-correction is plausible under simplified conditions. The central question is: if only a subset of nuclei in a multinucleated muscle fibre are corrected, could locally transported signal accumulate enough to rescue neighbouring nuclei? The model treats this as a structured numerical experiment in signal production, diffusion, decay, and rescue thresholds.
 
+<div class="case-question">
+  <span class="case-note-label">Question</span>
+  <p>If only a subset of nuclei are corrected, can locally transported corrective signal plausibly accumulate enough to rescue neighbouring nuclei under simplified assumptions?</p>
+</div>
 
-<h3>Project motivation</h3>
-<p>
-	This project is a computational extension of my master's thesis research. It uses simulation and graph-based modelling to test whether a biological hypothesis around molecular cross-correction is plausible under simplified conditions. <b>The central question is:</b> if only a subset of nuclei in a multinucleated muscle fibre are corrected, could locally transported signal accumulate enough to rescue neighbouring nuclei? The model treats this as a structured numerical experiment in signal production, diffusion, decay, and rescue thresholds.
-</p>
-<div class="applied-math-note">
-<strong>Core Modelling idea:</strong> In the model, <b>signal</b> represents the corrective influence produced by genetically-corrected nuclei. Biologically, this is motivated by the translocation of genetically-corrected nuclei via the U7 snRNA which can then mediate the cross-correction of diseased, neighbouring nuclei. It treats this corrective effect as a scalar quantity that can be produced, transported across local graph connections, decay over time and accumulate toward a rescue threshold. Nuclei are represented as graph nodes. Corrected nuclei act as signal sources. The local exchange is approximated using graph diffusion and genetic correction (Rescue) is treated as a threshold response to transported signal.
+<div class="case-note case-note-publication">
+  <span class="case-note-label">Research context</span>
+  <p>This simulation is conceptually linked to the co-authored publication <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11018779/" target="_blank" rel="noopener noreferrer"><em>Cell-mediated exon skipping normalizes dystrophin expression and muscle function in a new mouse model of Duchenne Muscular Dystrophy</em></a>. The publication provides the biological motivation; the simulator is a separate proof-of-concept modelling exercise.</p>
 </div>
-<div class="publication-note">
-<h3>Related publication</h3>
-<p> 
-		This simulation is conceptually linked to the co-authored publication: 
-		<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11018779/" rel="noopener noreferrer" target="_blank"> Cell-mediated exon skipping normalizes dystrophin expression and muscle function in a new mouse model of Duchenne Muscular Dystrophy 
 
-		</a>. 
-		The paper investigates U7 snRNA-mediated exon skipping and cross-correction in multinucleated muscle fibres, providing the biological motivation for this modelling exercise. 
-	</p>
-</div>
-<div class="reasoning-chain">
-<strong>Reasoning chain:</strong> biological observation → source nodes → graph structure → Laplacian diffusion → rescue threshold → sensitivity testing.
-</div>
-<h3>How the project evolves</h3>
-<div class="project-table-wrap">
-<table class="project-stage-table">
-<thead>
-<tr>
-<th>Part</th>
-<th>Model change</th>
-<th>Purpose</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>Naive line simulation</td>
-<td>Turn the biological idea into executable logic</td>
-</tr>
-<tr>
-<td>2</td>
-<td>Graph Laplacian diffusion</td>
-<td>Replace manual averaging with a formal transport operator</td>
-</tr>
-<tr>
-<td>3</td>
-<td>Geometry-based spatial graph</td>
-<td>Make connectivity depend on proximity</td>
-</tr>
-<tr>
-<td>4</td>
-<td>Parameter sensitivity</td>
-<td>Test diffusion, decay, source fraction, and threshold assumptions</td>
-</tr>
-<tr>
-<td>5</td>
-<td>Cumulative exposure rescue</td>
-<td>Model sustained signal accumulation rather than instant rescue</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h3>💻 <strong>Tech Stack:</strong></h3>
-<ul>
-<li><strong>Python</strong> for numerical simulation and experiment control</li>
-<li><strong>NumPy</strong> for vectorised state updates and adjacency/Laplacian calculations</li>
-<li><strong>Matplotlib</strong> for signal, rescue, and spatial-graph visualisation</li>
-<li><strong>Jupyter Notebook</strong> for staged model development and explanation</li>
-</ul>
-<h3>📊 <strong>Code Snippets &amp; Visualisations:</strong></h3>
+## Approach
+
+Rather than presenting the project as a notebook dump, this case study focuses on the decisions that shaped the analysis.
+
+1. Start with a naive line simulation to make the biological idea executable.
+2. Replace manual local averaging with graph-Laplacian diffusion.
+3. Introduce geometry-based connectivity so transport depends on proximity.
+4. Vary source fraction, diffusion, decay and rescue threshold assumptions.
+5. Track cumulative exposure so rescue can depend on sustained signal rather than an instantaneous value.
+
+## Key implementation decision
+
+### Represent local transport with the graph Laplacian
+
+The graph makes spatial neighbourhoods explicit, while the Laplacian provides a compact operator for local signal exchange. Rescue is then defined separately as a threshold on accumulated exposure.
 
 ```python
-# Graph Laplacian diffusion update
-# u: signal at each nucleus
-# L: graph Laplacian, q: source production
-# alpha: diffusion strength, beta: decay, dt: step size
-
 for t in range(num_steps):
     diffusion = -alpha * (L @ u)
     decay = -beta * u
     source = q
-    u = u + dt * (diffusion + decay + source)
 
+    u = u + dt * (diffusion + decay + source)
     exposure = exposure + u * dt
     rescued = exposure >= rescue_threshold
 ```
+
+<div class="case-comment">
+  <span class="case-note-label">Why this matters</span>
+  <p>The value of the project is not that it proves a biological mechanism. It forces a qualitative thesis hypothesis into explicit computational assumptions that can be inspected, varied and eventually calibrated against experimental evidence.</p>
+</div>
+
+## Results & evidence
+
+The figures below are the project evidence I would show first. The full implementation remains available through the GitHub link at the top of the page.
 
 <div class="concept-visual">
 <figure>
@@ -120,18 +87,23 @@ for t in range(num_steps):
 <figcaption><strong>Conceptual visualisation:</strong> Corrected nuclei produce signal; neighbouring nuclei receive transported signal through graph connectivity.</figcaption>
 </figure>
 </div>
-<h3>Key result</h3>
-<p>
-	The project shows that rescue depends not only on how many nuclei are corrected, but also where they sit in the spatial network, how strongly signal diffuses, how quickly it decays, and whether rescue requires immediate or cumulative exposure.
-</p>
-<h3>Limitations</h3>
-<p>
-	This is a proof-of-concept simulator, not a calibrated biological model. It simplifies fibre geometry, signal chemistry, stochastic expression, and tissue-level variation. Its value lies in clarifying assumptions and making the biological hypothesis computationally testable.
-</p>
-<h3>What this demonstrates</h3>
-<p>
-	This project shows cross-domain reasoning: a thesis-driven biological hypothesis becomes a graph model; the graph model becomes a simulation; and the simulation becomes a structured way to ask what conditions make local rescue plausible before moving toward more experimentally grounded modelling.
-</p>
 
+## What challenged me
 
+The original project did not record a separate challenge note.
 
+## What I learned
+
+- A biological hypothesis becomes easier to challenge once every source, transport, decay and rescue assumption is explicit in code.
+- Spatial placement matters alongside the fraction of corrected nuclei because transport occurs through the graph structure.
+- The simulator is useful for sensitivity reasoning, but it is not a calibrated biological prediction.
+
+## What I would improve next
+
+- Calibrate diffusion, decay and rescue parameters against experimentally grounded measurements when suitable data become available.
+- Replace simplified geometry with spatial structures closer to real multinucleated fibres.
+- Introduce stochastic expression and uncertainty so sensitivity results are not tied only to deterministic parameter choices.
+
+<div class="case-end-note">
+  <strong>Full implementation:</strong> use the GitHub link in the project header for the complete notebook/code rather than expanding the case study into a full source listing.
+</div>

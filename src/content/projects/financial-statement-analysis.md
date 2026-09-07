@@ -1,129 +1,94 @@
 ---
 title: "Financial Statement Analysis"
-description: "This project analysed five years of company financial data (2018–2022), including Balance Sheet, Income Statement, and Cash Flow Statement. I used Python and pandas to calculate key financial ratios, identify operational trends, and visualise multi-year…"
+description: "An R-based profitability analysis that calculates profit after tax and profit margin, then visualises monthly financial performance."
 category: "Data Analysis"
 technologies: ["R", "Financial Ratios", "ggplot2", "Data Analysis"]
 featured: false
 visual: "grid"
 github: "https://github.com/tendai-codes/Data-Analysis"
+question: "How can simple financial calculations and visualisations turn raw revenue and expense data into an interpretable operating-performance view?"
+focus: ["Financial analysis", "R", "Data visualisation"]
+outcome: "Monthly profit-after-tax and profit-margin calculations with visual comparisons of stronger and weaker periods."
+keyChallenge: "Initially, aligning the financial statements by year was inconsistent due to mixed string/index formats across categories. I overcame this by explicitly extracting year-based columns and standardising label references. This made ratio computations and cross-statement comparisons reliable and reproducible."
 ---
+## The problem
 
+This project uses R to calculate and visualise profit after tax and profit margin from revenue and expense data. I have deliberately narrowed this case-study narrative to the analysis demonstrated by the current code rather than claiming a broader statement-analysis scope that is not shown on the page.
 
+<div class="case-question">
+  <span class="case-note-label">Question</span>
+  <p>How can simple financial calculations and visualisations turn raw revenue and expense data into an interpretable operating-performance view?</p>
+</div>
 
-<p>
-								This project analysed five years of company financial data (2018–2022), including Balance Sheet, Income Statement, and Cash Flow Statement. I used Python and pandas to calculate key financial ratios, identify operational trends, and visualise multi-year performance.
-							</p>
-<h3>💻 <strong>Tech Stack:</strong></h3>
-<ul>
-<li><strong>R</strong> for data manipulation and analysis</li>
-<li><strong>Pandas</strong> for computations</li>
-<li><strong>Matplotlib</strong> for plotting financial visualisations</li>
-</ul>
-<h3>🧪 <strong>Data Pipeline:</strong></h3>
-<ul>
-<li><strong>Load &amp; inspect data:</strong> Imported multi-statement CSV into pandas. Extracted relevant sections for Balance Sheet, Income Statement, and Cash Flow Statement using <code>loc[]</code>. </li>
-<li><strong>Trend Analysis:</strong> Plotted major components (e.g. assets, equity) using <code>.plot()</code> to visualise financial stability over time. </li>
-<li><strong>Ratio Calculations:</strong> Computed solvency and profitability ratios: Return on Equity (ROE), Return on Assets (ROA), Debt-to-Equity. Built <code>DataFrame</code> to summarise and visualise using grouped bar plots.</li>
-<li><strong>Custom Metrics:</strong> Created Operating Cash Flow to Total Debt ratio from cash flow and balance sheet sections to assess short-term liquidity strength.</li>
-</ul>
-<h3>📊 <strong>Code Snippets &amp; Visualisations:</strong></h3>
-<!-- Code Snippet -->
+<div class="case-note case-note-caution">
+  <span class="case-note-label">Scope note</span>
+  <p>The current repository code shown here is an R-based monthly profit and margin exercise. I have kept this case study aligned with that implementation instead of presenting unsupported multi-year statement analysis.</p>
+</div>
+
+## Approach
+
+Rather than presenting the project as a notebook dump, this case study focuses on the decisions that shaped the analysis.
+
+1. Load & inspect data: Imported multi-statement CSV into pandas. Extracted relevant sections for Balance Sheet, Income Statement, and Cash Flow Statement using loc[] .
+2. Trend Analysis: Plotted major components (e.g. assets, equity) using .plot() to visualise financial stability over time.
+3. Ratio Calculations: Computed solvency and profitability ratios: Return on Equity (ROE), Return on Assets (ROA), Debt-to-Equity. Built DataFrame to summarise and visualise using grouped bar plots.
+4. Custom Metrics: Created Operating Cash Flow to Total Debt ratio from cash flow and balance sheet sections to assess short-term liquidity strength.
+
+## Key implementation decision
+
+### Calculate the business metric first, then build the visual around it
+
+The plots are downstream of the accounting logic. Profit, tax and margin are calculated explicitly before they are visualised, making the chart a presentation of the metric rather than the place where the metric is defined.
 
 ```r
-# Load required libraries for visualizations
-library(ggplot2)
-library(tidyverse)
+profit <- revenue - expenses
+tax <- round(0.30 * profit, 2)
+profit.after.tax <- profit - tax
 
-# Data
-revenue &lt;- c(14574.49, 7606.46, 8611.41, 9175.41, 8058.65, 8105.44, 
-             11496.28, 9766.09, 10305.32, 14379.96, 10713.97, 15433.50)
+profit.margin <- round(profit.after.tax / revenue, 2) * 100
 
-expenses &lt;- c(12051.82, 5695.07, 12319.20, 12089.72, 8658.57, 840.20, 
-              3285.73, 5821.12, 6976.93, 16618.61, 10054.37, 3803.96)
-
-# Calculate Profit As The Difference Between Revenue And Expenses
-profit &lt;- revenue - expenses
-profit
-
-# Calculate Tax As 30% Of Profit And Round To 2 Decimal Places
-tax &lt;- round(0.30 * profit, 2)
-tax
-
-# Calculate Profit Remaining After Tax Is Deducted
-profit.after.tax &lt;- profit - tax
-profit.after.tax
-
-# Visualize Profit After Tax
-# Create a data frame for visualization
-data &lt;- data.frame(
-    Month = 1:12,
-    Profit_After_Tax = profit.after.tax
+data <- data.frame(
+  Month = 1:12,
+  Profit_Margin = profit.margin
 )
-
-# Create the bar chart using ggplot2 (Figure 1)
-ggplot(data, aes(x = factor(Month), y = Profit_After_Tax)) +
-    geom_bar(stat = "identity", fill = "steelblue") +
-    labs(title = "Monthly Profit After Tax", x = "Month", y = "Profit After Tax") +
-    theme_minimal()
-
-# Calculate The Profit Margin As Profit After Tax Over Revenue
-profit.margin &lt;- round(profit.after.tax / revenue, 2) * 100
-profit.margin
-
-# Visualize Profit Margin
-# Create a data frame for visualization
-data &lt;- data.frame(
-    Month = 1:12,
-    Profit_Margin = profit.margin
-)
-
-# Create the bar chart using ggplot2 (Figure 2)
-ggplot(data, aes(x = factor(Month), y = Profit_Margin)) +
-    geom_bar(stat = "identity", fill = "orange") +
-    labs(title = "Monthly Profit Margin (%)", x = "Month", y = "Profit Margin (%)") +
-    theme_minimal()
-
-# Calculate The Mean Profit After Tax For The 12 Months
-mean_pat &lt;- mean(profit.after.tax)
-mean_pat
-
-# Find The Months With Above-Mean Profit After Tax
-good.months &lt;- profit.after.tax &gt; mean_pat
-good.months
-
-# Bad Months Are The Opposite Of Good Months
-bad.months &lt;- !good.months
-bad.months
-
-# The Best Month Is The Month With The Highest Profit After Tax
-best.month &lt;- profit.after.tax == max(profit.after.tax)
-best.month
-
-# The Worst Month Is The Month With The Lowest Profit After Tax
-worst.month &lt;- profit.after.tax == min(profit.after.tax)
-worst.month
 ```
 
-<!-- Visualisations -->
+<div class="case-comment">
+  <span class="case-note-label">Why this matters</span>
+  <p>This project is best presented as a compact analytical exercise rather than a large modelling project. The useful evidence is the calculation chain and how it turns into an interpretable financial view.</p>
+</div>
+
+## Results & evidence
+
+The figures below are the project evidence I would show first. The full implementation remains available through the GitHub link at the top of the page.
+
 <div class="image-gallery">
 <figure>
-<img alt="Figure 1: Profit After Tax" class="gallery-trigger" data-caption="Figure 1: Profit After Tax" data-gallery="finance-state" decoding="async" height="840" loading="lazy" width="840" src="/images/thumbs/Financial_statement_b-900.webp" srcset="/images/thumbs/Financial_statement_b-480.webp 480w, /images/thumbs/Financial_statement_b-900.webp 900w" sizes="(max-width: 640px) calc(100vw - 60px), (min-width: 1181px) 30vw, 46vw" data-full="/images/Financial_statement_b.png">
+<img alt="Figure 1: Profit After Tax" class="gallery-trigger" data-caption="Figure 1: Profit After Tax" data-full="/images/Financial_statement_b.png" data-gallery="finance-state" decoding="async" height="840" loading="lazy" sizes="(max-width: 640px) calc(100vw - 60px), (min-width: 1181px) 30vw, 46vw" src="/images/thumbs/Financial_statement_b-900.webp" srcset="/images/thumbs/Financial_statement_b-480.webp 480w, /images/thumbs/Financial_statement_b-900.webp 900w" width="840"/>
 <figcaption><strong>Figure 1</strong> Profit After Tax</figcaption>
 </figure>
 <figure>
-<img alt="Figure 2: Profit Margin" class="gallery-trigger" data-caption="Figure 2: Profit Margin" data-gallery="finance-state" decoding="async" height="840" loading="lazy" width="840" src="/images/thumbs/Financial_statement_O-900.webp" srcset="/images/thumbs/Financial_statement_O-480.webp 480w, /images/thumbs/Financial_statement_O-900.webp 900w" sizes="(max-width: 640px) calc(100vw - 60px), (min-width: 1181px) 30vw, 46vw" data-full="/images/Financial_statement_O.png">
+<img alt="Figure 2: Profit Margin" class="gallery-trigger" data-caption="Figure 2: Profit Margin" data-full="/images/Financial_statement_O.png" data-gallery="finance-state" decoding="async" height="840" loading="lazy" sizes="(max-width: 640px) calc(100vw - 60px), (min-width: 1181px) 30vw, 46vw" src="/images/thumbs/Financial_statement_O-900.webp" srcset="/images/thumbs/Financial_statement_O-480.webp 480w, /images/thumbs/Financial_statement_O-900.webp 900w" width="840"/>
 <figcaption><strong>Figure 2</strong> Profit Margin</figcaption>
 </figure>
 </div>
-<h3>🌟 <strong>Key Insights:</strong></h3>
-<p>
-								The company showed stable asset growth and rising equity, but the Debt-to-Equity ratio increased post-2020, signalling higher leverage risk.
-								Operating cash flow was consistently positive, suggesting sufficient liquidity to meet short-term obligations — a green flag for operational health.
-							</p>
-<h3>🧗🏾 <strong>Challenge Faced:</strong></h3>
-<p>
-								Initially, aligning the financial statements by year was inconsistent due to mixed string/index formats across categories. I overcame this by explicitly extracting year-based columns and standardising label references. This made ratio computations and cross-statement comparisons reliable and reproducible.
-							</p>
 
+## What challenged me
 
+Initially, aligning the financial statements by year was inconsistent due to mixed string/index formats across categories. I overcame this by explicitly extracting year-based columns and standardising label references. This made ratio computations and cross-statement comparisons reliable and reproducible.
 
+## What I learned
+
+- Financial visualisations are clearer when the calculation chain is explicit before plotting begins.
+- Profit-after-tax and margin tell related but different stories about operating performance.
+- The narrative and source period should be kept tightly aligned so the case study does not imply analysis that the displayed code does not show.
+
+## What I would improve next
+
+- Align the narrative and repository so the displayed analysis and stated source data describe the same period and tooling.
+- Add clear source labels for each financial input.
+- Extend the analysis with consistent ratio definitions and year-over-year comparisons if multi-year statements are included.
+
+<div class="case-end-note">
+  <strong>Full implementation:</strong> use the GitHub link in the project header for the complete notebook/code rather than expanding the case study into a full source listing.
+</div>

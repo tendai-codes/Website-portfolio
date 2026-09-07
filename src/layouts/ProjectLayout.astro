@@ -1,31 +1,135 @@
 ---
 import BaseLayout from './BaseLayout.astro';
-const { project } = Astro.props;
+import '../styles/project-case-study.css';
+
+const { project, relatedWriting = [] } = Astro.props;
+const focus = project.data.focus ?? [];
 ---
-<BaseLayout title={`${project.data.title} — Tendai Sibanda`} description={project.data.description}>
-  <article class="case-study">
+
+<BaseLayout
+  title={`${project.data.title} — Tendai Sibanda`}
+  description={project.data.description}
+>
+  <article class="case-study case-study-editorial">
     <header class="case-hero">
-      <div class="back-row"><a href="/projects/" data-project-back>
-  ← Back to Projects
-</a>
-<span>{project.data.category}</span></div>
-      <p class="section-label">Case Study</p>
+      <div class="back-row">
+        <a href="/projects/" data-project-back>← Back to Projects</a>
+        <span>{project.data.category}</span>
+      </div>
+
+      <p class="section-label">Technical case study</p>
       <h1>{project.data.title}</h1>
       <p class="hero-copy">{project.data.description}</p>
-      <div class="tag-row large">{project.data.technologies.map((t:string)=><span>{t}</span>)}</div>
+
+      <div class="tag-row large">
+        {project.data.technologies.map((technology: string) => (
+          <span>{technology}</span>
+        ))}
+      </div>
+
       <div class="project-actions">
-        {project.data.github && <a class="button primary" href={project.data.github} target="_blank" rel="noopener">GitHub ↗</a>}
-        {project.data.live && <a class="button" href={project.data.live} target="_blank" rel="noopener">Live project ↗</a>}
-        {project.data.publication && <a class="button" href={project.data.publication} target="_blank" rel="noopener">Publication ↗</a>}
+        {project.data.github && (
+          <a
+            class="button primary"
+            href={project.data.github}
+            target="_blank"
+            rel="noopener"
+          >
+            GitHub ↗
+          </a>
+        )}
+        {project.data.live && (
+          <a
+            class="button"
+            href={project.data.live}
+            target="_blank"
+            rel="noopener"
+          >
+            Live project ↗
+          </a>
+        )}
+        {project.data.publication && (
+          <a
+            class="button"
+            href={project.data.publication}
+            target="_blank"
+            rel="noopener"
+          >
+            Publication ↗
+          </a>
+        )}
       </div>
     </header>
+
+    {(project.data.question || project.data.outcome || focus.length > 0) && (
+      <section class="case-summary" aria-label="Case study summary">
+        {project.data.question && (
+          <div class="case-summary-item case-summary-question">
+            <span>Question</span>
+            <strong>{project.data.question}</strong>
+          </div>
+        )}
+
+        {focus.length > 0 && (
+          <div class="case-summary-item">
+            <span>Focus</span>
+            <strong>{focus.join(' · ')}</strong>
+          </div>
+        )}
+
+        {project.data.outcome && (
+          <div class="case-summary-item">
+            <span>Outcome</span>
+            <strong>{project.data.outcome}</strong>
+          </div>
+        )}
+      </section>
+    )}
+
     <div class="case-grid">
       <aside class="case-aside">
-        <span>Project type</span><strong>{project.data.category}</strong>
-        <span>Primary tools</span><strong>{project.data.technologies.slice(0,3).join(' · ')}</strong>
+        <div class="case-aside-block">
+          <span>Project type</span>
+          <strong>{project.data.category}</strong>
+        </div>
+
+        <div class="case-aside-block">
+          <span>Primary tools</span>
+          <strong>{project.data.technologies.slice(0, 4).join(' · ')}</strong>
+        </div>
+
+        {project.data.keyChallenge && (
+          <div class="case-aside-block case-aside-challenge">
+            <span>Key challenge</span>
+            <p>{project.data.keyChallenge}</p>
+          </div>
+        )}
+
         <a class="copy-link" href="#" data-copy-link>Copy page link</a>
       </aside>
-      <div class="prose project-prose"><slot /></div>
+
+      <div class="prose project-prose case-study-prose">
+        <slot />
+      </div>
     </div>
+
+    {relatedWriting.length > 0 && (
+      <section class="case-related-writing">
+        <p class="section-label">Related writing</p>
+        <h2>Notes that go deeper into the thinking.</h2>
+        <div class="case-related-grid">
+          {relatedWriting.map((post: any) => (
+            <article>
+              <span>{post.data.category}</span>
+              <h3>{post.data.title}</h3>
+              <p>{post.data.description}</p>
+              <a href={`/writing/${post.id.replace(/\.md$/, '')}/`}>
+                Read note →
+              </a>
+            </article>
+          ))}
+        </div>
+      </section>
+    )}
   </article>
 </BaseLayout>

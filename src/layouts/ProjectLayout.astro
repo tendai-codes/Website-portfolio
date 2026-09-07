@@ -1,0 +1,31 @@
+---
+import BaseLayout from './BaseLayout.astro';
+const { project } = Astro.props;
+---
+<BaseLayout title={`${project.data.title} — Tendai Sibanda`} description={project.data.description}>
+  <article class="case-study">
+    <header class="case-hero">
+      <div class="back-row"><a href="/projects/" data-project-back>
+  ← Back to Projects
+</a>
+<span>{project.data.category}</span></div>
+      <p class="section-label">Case Study</p>
+      <h1>{project.data.title}</h1>
+      <p class="hero-copy">{project.data.description}</p>
+      <div class="tag-row large">{project.data.technologies.map((t:string)=><span>{t}</span>)}</div>
+      <div class="project-actions">
+        {project.data.github && <a class="button primary" href={project.data.github} target="_blank" rel="noopener">GitHub ↗</a>}
+        {project.data.live && <a class="button" href={project.data.live} target="_blank" rel="noopener">Live project ↗</a>}
+        {project.data.publication && <a class="button" href={project.data.publication} target="_blank" rel="noopener">Publication ↗</a>}
+      </div>
+    </header>
+    <div class="case-grid">
+      <aside class="case-aside">
+        <span>Project type</span><strong>{project.data.category}</strong>
+        <span>Primary tools</span><strong>{project.data.technologies.slice(0,3).join(' · ')}</strong>
+        <a class="copy-link" href="#" data-copy-link>Copy page link</a>
+      </aside>
+      <div class="prose project-prose"><slot /></div>
+    </div>
+  </article>
+</BaseLayout>

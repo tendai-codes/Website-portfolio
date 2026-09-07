@@ -1,0 +1,23 @@
+---
+import { NAV, SITE } from '../config';
+import ThemeToggle from './ThemeToggle.astro';
+const path = Astro.url.pathname;
+---
+<header class="site-header">
+  <a class="brand" href="/" aria-label={`${SITE.name} home`}>
+    <span class="brand-mark">TS</span><span class="brand-name">Tendai Sibanda</span>
+  </a>
+  <nav class="desktop-nav" aria-label="Primary navigation">
+    {NAV.map(item => <a class:list={['nav-link', { active: path.startsWith(item.href) }]} href={item.href}>{item.label}</a>)}
+  </nav>
+  <div class="header-actions">
+    <a class="icon-link" href={SITE.github} target="_blank" rel="noopener" aria-label="GitHub">GH</a>
+    <ThemeToggle />
+    <button class="menu-toggle" data-menu-toggle aria-label="Open menu"><span></span><span></span></button>
+  </div>
+  <nav class="mobile-nav" data-mobile-nav aria-label="Mobile navigation">
+    {NAV.map(item => <a href={item.href}>{item.label}</a>)}
+    <a href={SITE.github} target="_blank" rel="noopener">GitHub ↗</a>
+    <a href={SITE.linkedIn} target="_blank" rel="noopener">LinkedIn ↗</a>
+  </nav>
+</header>

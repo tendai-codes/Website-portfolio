@@ -1,0 +1,14 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+const posts=(await getCollection('blog')).filter(p=>!p.data.draft).sort((a,b)=>b.data.date.valueOf()-a.data.date.valueOf());
+const cats=['All',...new Set(posts.map(p=>p.data.category))];
+---
+<BaseLayout title="Writing — Tendai Sibanda" description="Technical notes on bioinformatics, data science, machine learning, research and computational genomics.">
+  <section class="page-hero section-pad"><p class="section-label">Writing</p><h1>A working notebook for <em>ideas worth keeping.</em></h1><p class="hero-copy">Longer notes behind the projects: what I learned, how I approached a problem, what a paper changed in my thinking, and where the limitations sit.</p></section>
+  <section class="section-pad page-listing">
+    <div class="filter-row" data-filter-group data-target=".article-card">{cats.map(c=><button class:list={['filter-chip',{active:c==='All'}]} data-filter={c}>{c}</button>)}</div>
+    <div class="article-grid-cards writing-grid">{posts.map((p,i)=><ArticleCard post={p} index={i} />)}</div>
+  </section>
+</BaseLayout>

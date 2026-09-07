@@ -1,0 +1,14 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+const projects=(await getCollection('projects')).sort((a,b)=>Number(b.data.featured)-Number(a.data.featured));
+const cats=['All',...new Set(projects.map(p=>p.data.category))];
+---
+<BaseLayout title="Projects — Tendai Sibanda" description="Projects across bioinformatics, modelling, machine learning, deep learning and data analysis.">
+  <section class="page-hero section-pad"><p class="section-label">Projects</p><h1>Work that shows the <em>method</em>, not just the output.</h1><p class="hero-copy">A growing archive of computational experiments, data analyses and machine-learning projects. Stronger work stays prominent; earlier work remains available as evidence of progression.</p></section>
+  <section class="section-pad page-listing">
+    <div class="filter-row" data-filter-group data-target=".project-card">{cats.map(c=><button class:list={['filter-chip',{active:c==='All'}]} data-filter={c}>{c}</button>)}</div>
+    <div class="project-grid all-projects">{projects.map((p,i)=><ProjectCard project={p} index={i} />)}</div>
+  </section>
+</BaseLayout>

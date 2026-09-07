@@ -1,0 +1,15 @@
+---
+import { SITE } from '../config';
+---
+<footer class="site-footer">
+  <div>
+    <p class="footer-kicker">Open to thoughtful conversations.</p>
+    <p class="footer-title">Bioinformatics, computational biology, data science and research.</p>
+  </div>
+  <div class="footer-links">
+    <a href="/contact/">Contact</a>
+    <a href={SITE.linkedIn} target="_blank" rel="noopener">LinkedIn ↗</a>
+    <a href={SITE.github} target="_blank" rel="noopener">GitHub ↗</a>
+  </div>
+  <div class="footer-bottom"><span>© {new Date().getFullYear()} Tendai Sibanda</span><span>Built to stay light.</span></div>
+</footer>

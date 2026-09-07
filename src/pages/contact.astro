@@ -1,0 +1,17 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE } from '../config';
+---
+<BaseLayout title="Contact — Tendai Sibanda" description="Contact Tendai Sibanda about bioinformatics, computational biology, research, data science and collaboration.">
+  <section class="contact-page section-pad">
+    <div class="contact-copy reveal"><p class="section-label">Contact</p><h1>Let’s talk about <em>interesting problems.</em></h1><p class="hero-copy">I’m interested in conversations around bioinformatics, computational biology, genomics, pharmaceutical data science, research and data/AI consulting.</p><div class="contact-links"><a href={SITE.linkedIn} target="_blank" rel="noopener"><span>LinkedIn</span><strong>/in/tendai-sibanda ↗</strong></a><a href={SITE.github} target="_blank" rel="noopener"><span>GitHub</span><strong>@tendai-codes ↗</strong></a></div></div>
+    <form class="contact-form reveal" method="POST" action={SITE.formspree}>
+      <input type="hidden" name="_subject" value="New contact from tendaisibanda.dev" />
+      <label>Name<input name="name" autocomplete="name" required /></label>
+      <label>Email<input name="email" type="email" autocomplete="email" required /></label>
+      <label>Message<textarea name="message" rows="7" required></textarea></label>
+      <button class="button primary" type="submit">Send message</button>
+      <p class="form-note">The form is handled by Formspree; no account or tracking wall is added here.</p>
+    </form>
+  </section>
+</BaseLayout>

@@ -1,0 +1,25 @@
+---
+import BaseLayout from './BaseLayout.astro';
+const { post, related } = Astro.props;
+const date = post.data.date.toLocaleDateString('en-GB',{day:'2-digit',month:'long',year:'numeric'});
+---
+<BaseLayout article title={`${post.data.title} — Tendai Sibanda`} description={post.data.description}>
+  <div class="reading-progress" data-reading-progress></div>
+  <article class="blog-post">
+    <header class="article-hero">
+      <div class="back-row"><a href="/writing/">← Writing</a><span>{post.data.category}</span></div>
+      <p class="section-label">{post.data.category}</p>
+      <h1>{post.data.title}</h1>
+      <p class="hero-copy">{post.data.description}</p>
+      <div class="article-byline"><span>{date}</span><span>Technical note</span><button class="copy-link" data-copy-link>Copy link</button></div>
+    </header>
+    <div class="article-grid">
+      <aside class="article-aside">
+        <p>Topics</p>
+        <div class="tag-row vertical">{post.data.tags.map((t:string)=><span>{t}</span>)}</div>
+      </aside>
+      <div class="prose article-prose"><slot /></div>
+    </div>
+    {related && <section class="related-card"><p class="section-label">Related project</p><h2>{related.data.title}</h2><p>{related.data.description}</p><a class="button" href={`/projects/${related.id.replace(/\.md$/,'')}/`}>View case study →</a></section>}
+  </article>
+</BaseLayout>

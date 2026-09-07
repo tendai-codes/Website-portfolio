@@ -1,0 +1,87 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE } from '../config';
+import { ClientRouter } from 'astro:transitions';
+import 'katex/dist/katex.min.css';
+import '../styles/global.css';
+const { title = SITE.title, description = SITE.description, image = '/social/og-default.png', article = false } = Astro.props;
+const canonical = new URL(Astro.url.pathname, SITE.url);
+const ogImage = new URL(image, SITE.url);
+---
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="light dark" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonical} />
+  <meta property="og:type" content={article ? 'article' : 'website'} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:image" content={ogImage} />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="theme-color" content="#0d120f" />
+  <link rel="alternate" type="application/rss+xml" title="Tendai Sibanda — Writing" href="/rss.xml" />
+  <ClientRouter />
+
+  <script is:inline>
+  (() => {
+    const getTheme = () => {
+      try {
+        return localStorage.getItem('theme') || 'dark';
+      } catch (_) {
+        return 'dark';
+      }
+    };
+
+    const applyTheme = (theme, target = document.documentElement) => {
+      target.dataset.theme = theme;
+    };
+
+    /*
+     * Initial page load.
+     */
+    applyTheme(getTheme());
+
+    /*
+     * Astro is about to replace the current document with the next page.
+     *
+     * Apply the currently selected theme to the incoming document BEFORE
+     * Astro performs the swap. This prevents dark → light flashes and
+     * prevents navigation from resetting the theme.
+     */
+    document.addEventListener('astro:before-swap', (event) => {
+      const currentTheme =
+        document.documentElement.dataset.theme ||
+        getTheme();
+
+      if (event.newDocument?.documentElement) {
+        applyTheme(
+          currentTheme,
+          event.newDocument.documentElement
+        );
+      }
+    });
+
+    /*
+     * Defensive fallback after navigation.
+     */
+    document.addEventListener('astro:page-load', () => {
+      applyTheme(getTheme());
+    });
+  })();
+  </script>
+</head>
+<body>
+  <div class="page-shell">
+    <Header />
+    <main id="main-content"><slot /></main>
+    <Footer />
+  </div>
+  <script src="/scripts/site.js" defer></script>
+</body>
+</html>

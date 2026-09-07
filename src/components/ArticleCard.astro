@@ -1,0 +1,12 @@
+---
+const { post, index = 0 } = Astro.props;
+const slug = post.id.replace(/\.md$/, '');
+const date = post.data.date.toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'});
+---
+<article class="article-card reveal" style={`--delay:${Math.min(index,6)*50}ms`} data-category={post.data.category}>
+  <div class="article-meta"><span>{post.data.category}</span><span>{date}</span></div>
+  <h3><a href={`/writing/${slug}/`}>{post.data.title}</a></h3>
+  <p>{post.data.description}</p>
+  <div class="tag-row">{post.data.tags.slice(0,3).map((t:string) => <span>{t}</span>)}</div>
+  <a class="text-link" href={`/writing/${slug}/`}>Read note <span>↗</span></a>
+</article>

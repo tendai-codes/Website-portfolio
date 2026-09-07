@@ -1,0 +1,52 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import ArticleCard from '../components/ArticleCard.astro';
+const projects = await getCollection('projects');
+const featured = projects.filter(p=>p.data.featured).slice(0,4);
+const posts = (await getCollection('blog')).filter(p=>!p.data.draft).sort((a,b)=>b.data.date.valueOf()-a.data.date.valueOf()).slice(0,3);
+---
+<BaseLayout>
+  <section class="home-hero section-pad">
+    <div class="hero-main reveal">
+      <p class="section-label">MSc Bioinformatics & Computational Genomics</p>
+      <h1>Biology meets <em>computation.</em></h1>
+      <p class="hero-copy">I work across biological data, statistics and machine learning — building reproducible analyses and models that turn complex questions into structured evidence.</p>
+      <div class="hero-actions"><a class="button primary" href="/projects/">Explore projects</a><a class="button" href="/writing/">Read writing</a></div>
+    </div>
+    <div class="hero-orbit reveal" aria-hidden="true">
+      <div class="orbit-ring ring-a"></div><div class="orbit-ring ring-b"></div><div class="orbit-ring ring-c"></div>
+      <span class="orbit-node n1">GEN</span><span class="orbit-node n2">ML</span><span class="orbit-node n3">STAT</span><span class="orbit-node n4">DATA</span>
+      <div class="orbit-core">TS</div>
+    </div>
+    <div class="hero-strip reveal"><span>Genomics</span><span>Statistical modelling</span><span>Machine learning</span><span>Reproducible computing</span></div>
+  </section>
+
+  <section class="section-pad selected-work">
+    <div class="section-head reveal"><div><p class="section-label">Selected work</p><h2>Projects with a reasoning trail.</h2></div><a class="text-link" href="/projects/">View all projects <span>↗</span></a></div>
+    <div class="project-grid">{featured.map((p,i)=><ProjectCard project={p} index={i} />)}</div>
+  </section>
+
+  <section class="research-band section-pad">
+    <div class="research-copy reveal"><p class="section-label">Research signal</p><h2>From biological hypothesis to computational experiment.</h2><p>My current direction brings together molecular-biology research experience and computational modelling. A graph-based cross-correction simulation extends earlier work around U7 snRNA-mediated exon skipping into a structured numerical experiment.</p><div class="hero-actions"><a class="button primary" href="/projects/graph-cross-correction-simulation/">View modelling project</a><a class="button" href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11018779/" target="_blank" rel="noopener">Related publication ↗</a></div></div>
+    <div class="mini-network reveal" aria-hidden="true"><svg viewBox="0 0 520 320"><g class="edges"><path d="M68 160L150 82L250 128L348 62L452 154L338 252L220 228L68 160"/><path d="M150 82L220 228M250 128L338 252M250 128L452 154M348 62L452 154"/></g><g class="nodes"><circle cx="68" cy="160" r="18"/><circle cx="150" cy="82" r="13"/><circle cx="250" cy="128" r="15"/><circle cx="348" cy="62" r="12"/><circle cx="452" cy="154" r="16"/><circle cx="338" cy="252" r="14"/><circle cx="220" cy="228" r="12"/></g></svg><span>source → diffusion → threshold</span></div>
+  </section>
+
+  <section class="section-pad explore-section">
+    <div class="section-head reveal"><div><p class="section-label">Currently exploring</p><h2>The MSc as a growing body of work.</h2></div></div>
+    <div class="explore-grid">
+      <article class="explore-card reveal"><span>01</span><h3>Statistical genomics</h3><p>Building stronger foundations for inference in high-dimensional biological data.</p></article>
+      <article class="explore-card reveal"><span>02</span><h3>Computational biology</h3><p>Translating biological questions into explicit, testable computational representations.</p></article>
+      <article class="explore-card reveal"><span>03</span><h3>Machine learning</h3><p>Focusing on evaluation, dimensionality reduction and models that earn their complexity.</p></article>
+      <article class="explore-card reveal"><span>04</span><h3>Reproducibility</h3><p>Using Git, Unix and structured pipelines so analyses can be followed and repeated.</p></article>
+    </div>
+  </section>
+
+  <section class="section-pad writing-home">
+    <div class="section-head reveal"><div><p class="section-label">Latest writing</p><h2>Notes from projects, papers and the MSc.</h2></div><a class="text-link" href="/writing/">Browse writing <span>↗</span></a></div>
+    <div class="article-grid-cards">{posts.map((p,i)=><ArticleCard post={p} index={i} />)}</div>
+  </section>
+
+  <section class="contact-cta section-pad reveal"><p class="section-label">Contact</p><h2>Working on a problem where biology, data and computation overlap?</h2><div class="hero-actions"><a class="button primary" href="/contact/">Get in touch</a><a class="button" href="/about/">More about me</a></div></section>
+</BaseLayout>
